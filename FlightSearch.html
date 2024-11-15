@@ -3,14 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>חיפוש טיסה</title>
+    <title>הזמנת טיסה</title>
     <link rel="stylesheet" href="Styles.css">
+    <style>
+        .filter-container {
+            margin-bottom: 20px;
+        }
+
+        .filter-container div {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .filter-container label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .filter-container select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .book-button {
+            padding: 5px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .book-button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+
+    <div class="form-header">
+        חיפוש טיסה
+    </div>
+
     <div class="header-container">
         <h1>OnoAir</h1>
     </div>
-    <h2>Book a Flight</h2>
-    
+
+    <div class="form-container">
+        <h2>Book a flight</h2>
+
+        <div class="filter-container">
+            <p style="font-size: 32px; font-weight: bold;">Filter by:</p>
+
+            <div>
+                <label for="originFilter">Origin:</label>
+                <select id="originFilter">
+                    <option value="">Select Origin</option>
+                    <option value="Tel Aviv">Tel Aviv</option>
+                    <option value="Larnaca">Larnaca</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="destinationFilter">Destination:</label>
+                <select id="destinationFilter">
+                    <option value="">Select Destination</option>
+                    <option value="Krakow">Krakow</option>
+                    <option value="Zurich">Zurich</option>
+                </select>
+            </div>
+        </div>
+
+        <table id="flightsTable">
+            <thead>
+                <tr>
+                    <th>Flight No.</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                    <th>Seats Available</th>
+                    <th>Book</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>W61283</td>
+                    <td>Tel Aviv</td>
+                    <td>Krakow</td>
+                    <td>14:00</td>
+                    <td>20:00</td>
+                    <td>150</td>
+                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Krakow', '14:00', '20:00')">Book</button></td>
+                </tr>
+                <tr>
+                    <td>LX8396</td>
+                    <td>Larnaca</td>
+                    <td>Zurich</td>
+                    <td>09:00</td>
+                    <td>11:00</td>
+                    <td>120</td>
+                    <td><button class="book-button" onclick="redirectToBookAFlight('Larnaca', 'Zurich', '09:00', '11:00')">Book</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function redirectToBookAFlight(origin, destination, departureTime, arrivalTime) {
+            // יצירת URL עם פרמטרים origin, destination, departureTime ו-arrivalTime
+            const url = `BookAFlight.html?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&departureTime=${encodeURIComponent(departureTime)}&arrivalTime=${encodeURIComponent(arrivalTime)}`;
+            window.location.href = url;
+        }
+    </script>
 </body>
 </html>

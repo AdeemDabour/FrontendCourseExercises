@@ -5,198 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הזמנת טיסה</title>
     <link rel="stylesheet" href="Styles.css">
+
     <style>
-        /* סגנון למלבן הקטן עם הטקסט "חיפוש טיסה" */
-        .form-header {
-            width: 300px; /* רוחב המלבן */
-            padding: 10px; /* ריווח פנימי */
-            margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-            text-align: center; /* ממרכז את הטקסט */
-            background-color: #f4f4f4; /* צבע רקע בהיר */
-            border: 2px solid #333; /* מסגרת סביב המלבן */
-            border-radius: 5px; /* פינות מעוגלות */
-            font-size: 20px; /* גודל גופן */
-            font-weight: bold; /* טקסט מודגש */
-        }
-
-        /* סגנון למסגרת סביב כל הטופס */
-        .form-container {
-            margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-            text-align: center; /* ממרכז את הטקסט */
-            padding: 20px; /* ריווח פנימי */
-            border: 2px solid #333; /* מסגרת סביב הטופס */
-            border-radius: 10px; /* פינות מעוגלות */
-            background-color: #f4f4f4; /* צבע רקע */
-        }
-
-        /* סגנון לכותרת Book a flight - הגדלה והדגשה */
-        .form-container h2 {
-            font-size: 48px; /* גודל גופן גדול יותר */
-            font-weight: bold; /* טקסט מודגש */
-            margin-bottom: 20px; /* ריווח מתחת לכותרת */
-        }
-
-        /* סגנון לשדות הקלט עבור פילטר */
-        .filter-container {
-            margin-bottom: 20px;
-        }
-
-        /* מיקוד האלמנטים באותה שורה */
-        .filter-container div {
-            margin-bottom: 10px; /* ריווח בין השורות */
-            display: block; /* הצגת האלמנטים אחד מתחת לשני */
-        }
-
-        .filter-container label {
-            font-size: 18px; /* גודל גופן גדול יותר */
-            margin-right: 10px;
-        }
-
-        .filter-container select {
-            padding: 10px;
-            font-size: 16px;
+        .info-box {
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #333;
             border-radius: 5px;
-            width: 250px; /* רוחב קבוע לשדות */
-        }
-
-        /* ריווח בין ה-Selectים של Origin ו-Destination */
-        .filter-container select#destinationFilter {
-            margin-top: 20px; /* ריווח בין ה-Select של ה-Origin ל-Destination */
-        }
-
-        /* סגנון לטבלה */
-        table {
-            width: 90%; /* רוחב הטבלה תופס את כל רוחב הדף */
-            margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-            border-collapse: collapse; /* הסרת רווחים בין התאים */
-            border: 2px solid #333; /* מסגרת סביב הטבלה */
-            border-radius: 5px;
-        }
-
-        th, td {
-            padding: 10px; /* ריווח פנימי בתאים */
-            border: 1px solid #333; /* מסגרת סביב התאים */
-            text-align: center; /* ממרכז את הטקסט בתוך התאים */
-        }
-
-        th {
-            background-color: #f4f4f4; /* צבע רקע לכותרת */
-            font-weight: bold; /* טקסט מודגש לכותרת */
-        }
-
-        /* סגנון לכפתור "Book" */
-        .book-button {
-            padding: 5px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .book-button:hover {
-            background-color: #45a049;
+            background-color: #f4f4f4;
+            text-align: left;
         }
     </style>
 </head>
 <body>
 
-    <!-- כותרת קטנה מלמעלה עם המסגרת -->
     <div class="form-header">
-        חיפוש טיסה
+        הזמנת טיסה
     </div>
-
     <div class="header-container">
         <h1>OnoAir</h1>
     </div>
 
-    <div class="form-container">
+    <div class="form-containerL">
         <h2>Book a flight</h2>
 
-        <!-- פילטרים -->
-        <div class="filter-container">
-            <p style="font-size: 32px; font-weight: bold;">Filter by:</p>
-
-            <div>
-                <label for="originFilter">Origin:</label>
-                <select id="originFilter">
-                    <option value="">Select Origin</option>
-                    <option value="Tel Aviv">Tel Aviv</option>
-                    <option value="Larnaca">Larnaca</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="destinationFilter">Destination:</label>
-                <select id="destinationFilter">
-                    <option value="">Select Destination</option>
-                    <option value="Krakow">Krakow</option>
-                    <option value="Zurich">Zurich</option>
-                </select>
-            </div>
+        <!-- Display selected flight details -->
+        <div class="info-box">
+            <strong>Origin:</strong> <span id="originDisplay"></span>
+            <strong>Boarding Time:</strong> <span id="boardingTimeDisplay"></span> </br>
+            <strong>Destination:</strong> <span id="destinationDisplay"></span>
+            <strong>Landing Time:</strong> <span id="landingTimeDisplay"></span>
         </div>
 
-        <!-- טבלה עם פרטי הטיסות -->
-        <table id="flightsTable">
-            <thead>
-                <tr>
-                    <th>Flight No.</th>
-                    <th>Origin</th>
-                    <th>Destination</th>
-                    <th>Departure Time</th>
-                    <th>Arrival Time</th>
-                    <th>Seats Available</th>
-                    <th>Book</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>W61283</td>
-                    <td>Tel Aviv</td>
-                    <td>Krakow</td>
-                    <td>14:00</td>
-                    <td>20:00</td>
-                    <td>150</td>
-                    <td><button class="book-button">Book</button></td>
-                </tr>
-                <tr>
-                    <td>LX8396</td>
-                    <td>Larnaca</td>
-                    <td>Zurich</td>
-                    <td>09:00</td>
-                    <td>11:00</td>
-                    <td>120</td>
-                    <td><button class="book-button">Book</button></td>
-                </tr>
-                <!-- ניתן להוסיף עוד שורות עם נתוני טיסות -->
-            </tbody>
-        </table>
+        <!-- Other input fields if needed -->
+
+        <button id="saveButton">Save</button>
     </div>
 
     <script>
-        // פונקציה לפילטר טיסות
-        function filterFlights() {
-            const origin = document.getElementById("originFilter").value;
-            const destination = document.getElementById("destinationFilter").value;
-
-            const rows = document.querySelectorAll("#flightsTable tbody tr");
-
-            rows.forEach(row => {
-                const rowOrigin = row.cells[1].textContent;
-                const rowDestination = row.cells[2].textContent;
-
-                if ((origin === "" || rowOrigin === origin) && (destination === "" || rowDestination === destination)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
         }
 
-        // הוספת מאזיני אירועים לשדות הפילטר
-        document.getElementById("originFilter").addEventListener("change", filterFlights);
-        document.getElementById("destinationFilter").addEventListener("change", filterFlights);
+        // Get parameters for origin, destination, boardingTime, and landingTime
+        const origin = getQueryParam("origin");
+        const destination = getQueryParam("destination");
+        const boardingTime = getQueryParam("departureTime");
+        const landingTime = getQueryParam("arrivalTime");
+
+        // Display the values in the page
+        document.getElementById("originDisplay").innerText = origin || "Not selected";
+        document.getElementById("boardingTimeDisplay").innerText = boardingTime || "Not selected";
+        document.getElementById("destinationDisplay").innerText = destination || "Not selected";
+        document.getElementById("landingTimeDisplay").innerText = landingTime || "Not selected";
     </script>
+
 </body>
 </html>
