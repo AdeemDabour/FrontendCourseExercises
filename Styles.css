@@ -1,0 +1,35 @@
+.header-container {
+    border: 3px solid #333; /* מסגרת אפורה מסביב */
+    padding: 20px; /* ריווח פנימי */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    border-radius: 10px; /* פינות מעוגלות */
+    background-color: #f4f4f4; /* צבע רקע */
+}
+.header-container h1 {
+    margin: 0; /* מסיר ריווח אוטומטי סביב הכותרת */
+    font-size: 48px; /* גודל גופן לכותרת */
+    font-weight: bold; /* טקסט מודגש */
+    color: #333; /* צבע טקסט */
+}
+
+
+/* סגנון למסגרת מסביב לכל הקישורים */
+.links-container {
+    border: 3px solid #333; /* מסגרת אפורה מסביב */
+    padding: 50px; /* ריווח פנימי */
+    border-radius: 10px; /* פינות מעוגלות */
+    background-color: #f4f4f4; /* צבע רקע */
+}
+
+/* סגנון לקישורים */
+.links-container a {
+    display: block; /* כל קישור על שורה נפרדת */
+    margin-bottom: 10px; /* ריווח בין הקישורים */
+    color: #333; /* צבע טקסט */
+    font-size: 60px; /* גודל גופן */
+    font-weight: bold; /* טקסט מודגש */
+    text-align: center; /* ממרכז את הקישור */
+}
+.links-container a:hover {
+    color: #007BFF; /* צבע משתנה כשמצביעים על הקישור */
+}
