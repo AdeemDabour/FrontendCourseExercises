@@ -5,13 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>טופס הוספת טיסה</title>
     <link rel="stylesheet" href="Styles.css">
+    <style>
+        /* סגנון למלבן הקטן עם הטקסט "טופס הוספת טיסה" */
+        .form-header {
+            width: 250px; /* רוחב המלבן */
+            padding: 10px; /* ריווח פנימי */
+            margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+            text-align: center; /* ממרכז את הטקסט */
+            background-color: #f4f4f4; /* צבע רקע בהיר */
+            border: 2px solid #333; /* מסגרת סביב המלבן */
+            border-radius: 5px; /* פינות מעוגלות */
+            font-size: 20px; /* גודל גופן */
+        }
+
+        /* סגנון למסגרת סביב כל הטופס */
+        .form-container {
+            border: 3px solid #333; /* מסגרת סביב הטופס */
+            padding: 20px; /* ריווח פנימי */
+            margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+            border-radius: 10px; /* פינות מעוגלות */
+            background-color: #f4f4f4; /* צבע רקע */
+        }
+
+        /* סגנון לשדות הקלט */
+        .input-container {
+            display: flex; /* מיקוד האלמנטים באותה שורה */
+            margin: 10px 0; /* ריווח בין השדות */
+            align-items: center; /* מיישר את התוכן באופן אנכי */
+        }
+
+        .input-container label {
+            width: 150px; /* קובע את רוחב התווית */
+            margin-right: 20px; /* ריווח בין התווית לשדה הקלט */
+            font-size: 18px;
+        }
+
+        .input-container input {
+            width: 300px; /* רוחב שדה הקלט קטן יותר */
+            padding: 10px; /* ריווח פנימי */
+            border: 2px solid #333; /* מסגרת סביב שדה הקלט */
+            border-radius: 5px; /* פינות מעוגלות */
+            font-size: 16px; /* גודל גופן */
+        }
+
+        /* סגנון לכפתור שמירה */
+        #saveButton {
+            margin-top: 20px;
+            padding: 10px 100px;
+            font-size: 48px;
+            background-color: #4CAF50; /* צבע רקע */
+            color: white; /* צבע טקסט */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block; /* מציב את הכפתור כבלוק */
+            margin-left: auto; /* ממרכז את הכפתור */
+            margin-right: auto; /* ממרכז את הכפתור */
+        }
+
+        #saveButton:hover {
+            background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
+        }
+    </style>
 </head>
 <body>
+    <!-- כותרת קטנה מלמעלה עם המסגרת -->
+    <div class="form-header">
+        טופס הוספת טיסה
+    </div>
+
     <div class="header-container">
         <h1>OnoAir</h1>
     </div>
-    <h2>New Flight</h2>
-    <button id="saveButton">Save</button>
+
+    <div class="form-container">
+        <h2>New Flight</h2>
+
+        <!-- טופס הוספת טיסה -->
+        <form>
+            <div class="input-container">
+                <label for="flightNo">Flight No.:</label>
+                <input type="text" id="flightNo" name="flightNo" placeholder="Enter Flight Number">
+            </div>
+
+            <div class="input-container">
+                <label for="origin">Origin:</label>
+                <input type="text" id="origin" name="origin" placeholder="Enter Origin">
+            </div>
+
+            <div class="input-container">
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" placeholder="Enter Destination">
+            </div>
+
+            <!-- שדות תאריך ושעה -->
+            <div class="input-container">
+                <label for="boardingDate">Boarding date:</label>
+                <input type="date" id="boardingDate" name="boardingDate">
+            </div>
+
+            <div class="input-container">
+                <label for="boardingTime">Boarding time:</label>
+                <input type="time" id="boardingTime" name="boardingTime">
+            </div>
+
+            <div class="input-container">
+                <label for="arrivalDate">Arrival date:</label>
+                <input type="date" id="arrivalDate" name="arrivalDate">
+            </div>
+
+            <div class="input-container">
+                <label for="arrivalTime">Arrival time:</label>
+                <input type="time" id="arrivalTime" name="arrivalTime">
+            </div>
+
+            <div class="input-container">
+                <label for="seats">No. of seats:</label>
+                <input type="number" id="seats" name="seats" placeholder="Enter number of seats">
+            </div>
+
+            <button type="submit" id="saveButton">Save</button>
+        </form>
+    </div>
 
 </body>
 </html>
