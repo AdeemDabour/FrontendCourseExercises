@@ -41,7 +41,17 @@
     margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
     border-radius: 10px; /* פינות מעוגלות */
     background-color: #f4f4f4; /* צבע רקע */
+    text-align: center;
 }
+/* סגנון למסגרת סביב כל הטופס */
+.form-containerL {
+    border: 3px solid #333; /* מסגרת סביב הטופס */
+    padding: 20px; /* ריווח פנימי */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    border-radius: 10px; /* פינות מעוגלות */
+    background-color: #f4f4f4; /* צבע רקע */
+}
+
 /* סגנון למלבן הקטן עם הטקסט "טופס הוספת טיסה" */
 .form-header {
     width: 250px; /* רוחב המלבן */
@@ -121,22 +131,23 @@ th {
 }
 
 /* סגנון לכפתור Add Flight */
-#addFlightButton {
+#addButton {
     margin-top: 20px;
     padding: 10px 100px;
     font-size: 28px;
     background-color: #4CAF50; /* צבע רקע */
     color: white; /* צבע טקסט */
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     display: block; /* מציב את הכפתור כבלוק */
     margin-left: auto; /* ממרכז את הכפתור */
     margin-right: auto; /* ממרכז את הכפתור */
     border: 2px solid #333; /* מסגרת סביב הכפתור */
-    text-decoration: none;
-    outline: none;
+    text-decoration: none; /* מסיר קו תחתון */
+    text-align: center; /* ממרכז את הטקסט בכפתור */
 }
 
-#addFlightButton:hover {
+#addButton:hover {
     background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
 }

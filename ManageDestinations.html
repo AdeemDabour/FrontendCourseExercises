@@ -13,8 +13,43 @@
     <div class="header-container">
         <h1>OnoAir</h1>
     </div>
-    <h2>Manage Destinations</h2>
-    <a href="AddDestination.html">Add Destination</a>
+    <div class="form-container">
+        <h2>Manage Destinations</h2>
+
+        <!-- טבלה עם פרטי הטיסות -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Airport Name</th>
+                    <th>Airport Website</th>
+                    <th>Destination code</th>
+                    <th>Image url</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tel Aviv</td>
+                    <td>Ben Gurion Airport</td>
+                    <td>https://www.iaa.gov.il/en/</td>
+                    <td>Null</td>
+                    <td>No Image</td>
+                </tr>
+                <tr>
+                    <td>New York</td>
+                    <td>john F. Kennedy International Airport</td>
+                    <td>https://www.jfkairport.com/</td>
+                    <td>Null</td>
+                    <td>No Image</td>
+                </tr>
+                <!-- ניתן להוסיף עוד שורות עם נתוני טיסות -->
+            </tbody>
+        </table>
+
+        <!-- כפתור להוספת יעד -->
+        <a href="AddDestination.html" id="addButton">Add Destination</a>
+         </a>
+    </div>
     
 </body>
 </html>
