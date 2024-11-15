@@ -92,3 +92,51 @@
 #saveButton:hover {
     background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
 }
+/* סגנון לכותרת Manage Flights - הגדלה והדגשה */
+.form-container h2 {
+    font-size: 68px; /* גודל גופן גדול יותר */
+    font-weight: bold; /* טקסט מודגש */
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+/* סגנון לטבלה */
+table {
+    width: 90%; /* רוחב הטבלה תופס את כל רוחב הדף */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    border-collapse: collapse; /* הסרת רווחים בין התאים */
+    border: 2px solid #333; /* מסגרת סביב הטבלה */
+    border-radius: 5px;
+}
+
+th, td {
+    padding: 10px; /* ריווח פנימי בתאים */
+    border: 1px solid #333; /* מסגרת סביב התאים */
+    text-align: center; /* ממרכז את הטקסט בתוך התאים */
+}
+
+th {
+    background-color: #f4f4f4; /* צבע רקע לכותרת */
+    font-weight: bold; /* טקסט מודגש לכותרת */
+}
+
+/* סגנון לכפתור Add Flight */
+#addFlightButton {
+    margin-top: 20px;
+    padding: 10px 100px;
+    font-size: 28px;
+    background-color: #4CAF50; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* מציב את הכפתור כבלוק */
+    margin-left: auto; /* ממרכז את הכפתור */
+    margin-right: auto; /* ממרכז את הכפתור */
+    border: 2px solid #333; /* מסגרת סביב הכפתור */
+    text-decoration: none;
+    outline: none;
+}
+
+#addFlightButton:hover {
+    background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
+}
