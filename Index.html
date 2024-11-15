@@ -4,12 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מסך ראשי</title>
+    <style>
+        /* סגנון למסגרת מסביב לכל הקישורים */
+        .links-container {
+            border: 3px solid #333; /* מסגרת אפורה מסביב */
+            padding: 50px; /* ריווח פנימי */
+            width: 1540px; /* רוחב המסגרת */
+            margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+            border-radius: 10px; /* פינות מעוגלות */
+            background-color: #f4f4f4; /* צבע רקע */
+        }
+
+        /* סגנון לכותרת */
+        .header-container {
+            border: 3px solid #333; /* מסגרת אפורה מסביב */
+            padding: 20px; /* ריווח פנימי */
+            width: 1600px; /* רוחב המסגרת */
+            margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+            border-radius: 10px; /* פינות מעוגלות */
+            background-color: #f4f4f4; /* צבע רקע */
+        }
+
+        /* סגנון לכותרת */
+        .header-container h1 {
+            margin: 0; /* מסיר ריווח אוטומטי סביב הכותרת */
+            font-size: 48px; /* גודל גופן לכותרת */
+            font-weight: bold; /* טקסט מודגש */
+            color: #333; /* צבע טקסט */
+        }
+
+        /* סגנון לקישורים */
+        .links-container a {
+            display: block; /* כל קישור על שורה נפרדת */
+            margin-bottom: 10px; /* ריווח בין הקישורים */
+            color: #333; /* צבע טקסט */
+            font-size: 60px; /* גודל גופן */
+            font-weight: bold; /* טקסט מודגש */
+            text-align: center; /* ממרכז את הקישור */
+        }
+
+        .links-container a:hover {
+            color: #007BFF; /* צבע משתנה כשמצביעים על הקישור */
+        }
+    </style>
 </head>
 <body>
-    <h1>OnoAir</h1>
-    <a href="ManageFlights.html"> Admin - Manage Flights </a> <br/>
-    <a href="ManageDestinations.html"> Admin - Manage Destinations </a> <br/>
-    <a href="BookAFlight.html"> User - Book A Flight </a> <br/>
-    <a href="ManageBookings.html"> User - Manage Bookings </a> <br/>
+
+    <!-- אלמנט שמכיל את הכותרת עם המסגרת -->
+    <div class="header-container">
+        <h1>OnoAir</h1>
+    </div>
+
+    <!-- אלמנט שמכיל את כל הקישורים -->
+    <div class="links-container">
+        <a href="ManageFlights.html"> Admin - Manage Flights </a>
+        <a href="ManageDestinations.html"> Admin - Manage Destinations </a>
+        <a href="BookAFlight.html"> User - Book a Flight </a>
+        <a href="ManageBookings.html"> User - Manage Bookings </a>
+    </div>
+
 </body>
 </html>
+
