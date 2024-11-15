@@ -7,12 +7,44 @@
     <link rel="stylesheet" href="Styles.css">
 </head>
 <body>
+    <div class="form-header">
+        הוספת יעד טיסה 
+    </div>
     <div class="header-container">
         <h1>OnoAir</h1>
     </div>
-    <h2>New Destination</h2>
-    <button id="saveButton">Save</button>
+    <div class="form-container">
+        <h2>New Destination</h2>
 
-    
+        <!-- טופס הוספת יעד -->
+        <form>
+            <div class="input-container">
+                <label for="Destination code">Destination code:</label>
+                <input type="text" id="Destination code" name="Destination code" placeholder="Enter Destination code">
+            </div>
+
+            <div class="input-container">
+                <label for="Destination name">Destination name:</label>
+                <input type="text" id="Destination name" name="Destination name" placeholder="Enter Destination name">
+            </div>
+
+            <div class="input-container">
+                <label for="Airport name">Airport name:</label>
+                <input type="text" id="Airport name" name="Airport name" placeholder="Enter Airport name">
+            </div>
+
+            <div class="input-container">
+                <label for="Airport url">Airport url:</label>
+                <input type="text" id="Airport url" name="Airport url" placeholder="Enter Airport url">
+            </div>
+
+            <div class="input-container">
+                <label for="Image url">Image url:</label>
+                <input type="text" id="Image url" name="Image url" placeholder="Enter Image url">
+            </div>
+
+            <button type="submit" id="saveButton">Save</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -33,3 +33,110 @@
 .links-container a:hover {
     color: #007BFF; /* צבע משתנה כשמצביעים על הקישור */
 }
+
+/* סגנון למסגרת סביב כל הטופס */
+.form-container {
+    border: 3px solid #333; /* מסגרת סביב הטופס */
+    padding: 20px; /* ריווח פנימי */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    border-radius: 10px; /* פינות מעוגלות */
+    background-color: #f4f4f4; /* צבע רקע */
+}
+/* סגנון למלבן הקטן עם הטקסט "טופס הוספת טיסה" */
+.form-header {
+    width: 250px; /* רוחב המלבן */
+    padding: 10px; /* ריווח פנימי */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    text-align: center; /* ממרכז את הטקסט */
+    background-color: #f4f4f4; /* צבע רקע בהיר */
+    border: 2px solid #333; /* מסגרת סביב המלבן */
+    border-radius: 5px; /* פינות מעוגלות */
+    font-size: 20px; /* גודל גופן */
+}
+/* סגנון לשדות הקלט */
+.input-container {
+    display: flex; /* מיקוד האלמנטים באותה שורה */
+    margin: 10px 0; /* ריווח בין השדות */
+    align-items: center; /* מיישר את התוכן באופן אנכי */
+}
+
+.input-container label {
+    width: 150px; /* קובע את רוחב התווית */
+    margin-right: 20px; /* ריווח בין התווית לשדה הקלט */
+    font-size: 18px;
+}
+
+.input-container input {
+    width: 300px; /* רוחב שדה הקלט קטן יותר */
+    padding: 10px; /* ריווח פנימי */
+    border: 2px solid #333; /* מסגרת סביב שדה הקלט */
+    border-radius: 5px; /* פינות מעוגלות */
+    font-size: 16px; /* גודל גופן */
+}
+
+/* סגנון לכפתור שמירה */
+#saveButton {
+    margin-top: 20px;
+    padding: 10px 100px;
+    font-size: 48px;
+    background-color: #4CAF50; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* מציב את הכפתור כבלוק */
+    margin-left: auto; /* ממרכז את הכפתור */
+    margin-right: auto; /* ממרכז את הכפתור */
+}
+
+#saveButton:hover {
+    background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
+}
+/* סגנון לכותרת Manage Flights - הגדלה והדגשה */
+.form-container h2 {
+    font-size: 68px; /* גודל גופן גדול יותר */
+    font-weight: bold; /* טקסט מודגש */
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+/* סגנון לטבלה */
+table {
+    width: 90%; /* רוחב הטבלה תופס את כל רוחב הדף */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    border-collapse: collapse; /* הסרת רווחים בין התאים */
+    border: 2px solid #333; /* מסגרת סביב הטבלה */
+    border-radius: 5px;
+}
+
+th, td {
+    padding: 10px; /* ריווח פנימי בתאים */
+    border: 1px solid #333; /* מסגרת סביב התאים */
+    text-align: center; /* ממרכז את הטקסט בתוך התאים */
+}
+
+th {
+    background-color: #f4f4f4; /* צבע רקע לכותרת */
+    font-weight: bold; /* טקסט מודגש לכותרת */
+}
+
+/* סגנון לכפתור Add Flight */
+#addFlightButton {
+    margin-top: 20px;
+    padding: 10px 100px;
+    font-size: 28px;
+    background-color: #4CAF50; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* מציב את הכפתור כבלוק */
+    margin-left: auto; /* ממרכז את הכפתור */
+    margin-right: auto; /* ממרכז את הכפתור */
+    border: 2px solid #333; /* מסגרת סביב הכפתור */
+    text-decoration: none;
+    outline: none;
+}
+
+#addFlightButton:hover {
+    background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
+}
