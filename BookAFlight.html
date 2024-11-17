@@ -53,6 +53,10 @@
         .passenger-container {
             margin-bottom: 15px;
         }
+
+        .passenger-container .input-container {
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -73,10 +77,10 @@
             <div><strong>Destination:</strong> <span id="destinationDisplay"></span> <strong>Landing:</strong> <span id="landingDateTimeDisplay"></span></div>
         </div>
 
-        <!-- No of passengers input -->
+        <!-- No of passengers input, initialized to 1 -->
         <div class="input-container">
             <label for="passengerCount">No of passengers:</label>
-            <input type="number" id="passengerCount" name="passengerCount" min="1" required>
+            <input type="number" id="passengerCount" name="passengerCount" value="1" min="1" required>
         </div>
 
         <!-- Container for passenger information -->
@@ -112,8 +116,7 @@
         document.getElementById("landingDateTimeDisplay").innerText = landingDateTime;
 
         // Function to create passenger fields dynamically
-        document.getElementById("passengerCount").addEventListener("input", function() {
-            const passengerCount = parseInt(this.value);
+        function createPassengerFields(passengerCount) {
             const passengerFieldsContainer = document.getElementById("passengerFields");
             passengerFieldsContainer.innerHTML = ''; // Clear previous inputs
 
@@ -121,10 +124,15 @@
             const passenger1Div = document.createElement("div");
             passenger1Div.classList.add("passenger-container");
             passenger1Div.innerHTML = `
-                <label for="passengerName1">Passenger 1 Name:</label>
-                <input type="text" id="passengerName1" name="passengerName1" required>
-                <label for="passportId1">Passport ID:</label>
-                <input type="text" id="passportId1" name="passportId1" required>
+                <strong>Passenger 1</strong>
+                <div class="input-container">
+                    <label for="passengerName1">Name:</label>
+                    <input type="text" id="passengerName1" name="passengerName1" required>
+                </div>
+                <div class="input-container">
+                    <label for="passportId1">Passport ID:</label>
+                    <input type="text" id="passportId1" name="passportId1" required>
+                </div>
             `;
             passengerFieldsContainer.appendChild(passenger1Div);
 
@@ -133,15 +141,30 @@
                 const passengerDiv = document.createElement("div");
                 passengerDiv.classList.add("passenger-container");
 
-                // Passenger name and passport ID input fields
+                // Create passenger label and fields for name and passport ID
                 passengerDiv.innerHTML = `
-                    <label for="passengerName${i}">Passenger ${i} Name:</label>
-                    <input type="text" id="passengerName${i}" name="passengerName${i}" required>
-                    <label for="passportId${i}">Passport ID:</label>
-                    <input type="text" id="passportId${i}" name="passportId${i}" required>
+                    <strong>Passenger ${i}</strong>
+                    <div class="input-container">
+                        <label for="passengerName${i}">Name:</label>
+                        <input type="text" id="passengerName${i}" name="passengerName${i}" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="passportId${i}">Passport ID:</label>
+                        <input type="text" id="passportId${i}" name="passportId${i}" required>
+                    </div>
                 `;
-
                 passengerFieldsContainer.appendChild(passengerDiv);
+            }
+        }
+
+        // Initialize with 1 passenger by default
+        createPassengerFields(1);
+
+        // Add event listener to dynamically update fields when number of passengers changes
+        document.getElementById("passengerCount").addEventListener("input", function() {
+            const passengerCount = parseInt(this.value);
+            if (passengerCount >= 1) {
+                createPassengerFields(passengerCount);
             }
         });
     </script>
