@@ -81,17 +81,17 @@
                 <label for="originFilter">Origin:</label>
                 <select id="originFilter">
                     <option value="">Select Origin</option>
+                    <option value="Krakow">Krakow</option>
+                    <option value="Zurich">Zurich</option>
+                    <option value="Larnaca">Larnaca</option>
                     <option value="Tel Aviv">Tel Aviv</option>
                     <option value="New York">New York</option>
-                    <option value="London">London</option>
                     <option value="Paris">Paris</option>
                     <option value="Tokyo">Tokyo</option>
                     <option value="Dubai">Dubai</option>
                     <option value="Rome">Rome</option>
                     <option value="Los Angeles">Los Angeles</option>
                     <option value="Berlin">Berlin</option>
-                    <option value="Madrid">Madrid</option>
-                    <option value="Sydney">Sydney</option>
                 </select>
             </div>
 
@@ -99,17 +99,17 @@
                 <label for="destinationFilter">Destination:</label>
                 <select id="destinationFilter">
                     <option value="">Select Destination</option>
+                    <option value="Krakow">Krakow</option>
+                    <option value="Zurich">Zurich</option>
+                    <option value="Larnaca">Larnaca</option>
                     <option value="Tel Aviv">Tel Aviv</option>
                     <option value="New York">New York</option>
-                    <option value="London">London</option>
                     <option value="Paris">Paris</option>
                     <option value="Tokyo">Tokyo</option>
                     <option value="Dubai">Dubai</option>
                     <option value="Rome">Rome</option>
                     <option value="Los Angeles">Los Angeles</option>
                     <option value="Berlin">Berlin</option>
-                    <option value="Madrid">Madrid</option>
-                    <option value="Sydney">Sydney</option>
                 </select>
             </div>
         </div>
@@ -129,124 +129,38 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- טיסות המגיעות מהמנהל (התפריט למעלה) -->
-                <tr>
-                    <td>W61283</td>
-                    <td>Tel Aviv</td>
-                    <td>Sydney</td>
-                    <td>01/12/2024</td>
-                    <td>14:00</td>
-                    <td>01/12/2024</td>
-                    <td>20:00</td>
-                    <td>150</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Sydney', '01/12/2024', '14:00', '01/12/2024', '20:00')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>LX8396</td>
-                    <td>Tel Aviv</td>
-                    <td>Dubai</td>
-                    <td>02/12/2024</td>
-                    <td>09:00</td>
-                    <td>02/12/2024</td>
-                    <td>11:00</td>
-                    <td>120</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Dubai', '02/12/2024', '09:00', '02/12/2024', '11:00')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>AA120</td>
-                    <td>Tel Aviv</td>
-                    <td>London</td>
-                    <td>05/12/2024</td>
-                    <td>16:00</td>
-                    <td>05/12/2024</td>
-                    <td>20:30</td>
-                    <td>180</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'London', '05/12/2024', '16:00', '05/12/2024', '20:30')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>AF2050</td>
-                    <td>Paris</td>
-                    <td>Tel Aviv</td>
-                    <td>06/12/2024</td>
-                    <td>10:00</td>
-                    <td>06/12/2024</td>
-                    <td>16:00</td>
-                    <td>200</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Paris', 'Tel Aviv', '06/12/2024', '10:00', '06/12/2024', '16:00')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>EK203</td>
-                    <td>Dubai</td>
-                    <td>Tel Aviv</td>
-                    <td>07/12/2024</td>
-                    <td>18:00</td>
-                    <td>07/12/2024</td>
-                    <td>22:30</td>
-                    <td>250</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Dubai', 'Tel Aviv', '07/12/2024', '18:00', '07/12/2024', '22:30')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>AZ6789</td>
-                    <td>Rome</td>
-                    <td>New York</td>
-                    <td>10/12/2024</td>
-                    <td>12:00</td>
-                    <td>10/12/2024</td>
-                    <td>16:00</td>
-                    <td>300</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Rome', 'New York', '10/12/2024', '12:00', '10/12/2024', '16:00')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>UA992</td>
-                    <td>Los Angeles</td>
-                    <td>Tokyo</td>
-                    <td>12/12/2024</td>
-                    <td>11:00</td>
-                    <td>12/12/2024</td>
-                    <td>18:00</td>
-                    <td>280</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Los Angeles', 'Tokyo', '12/12/2024', '11:00', '12/12/2024', '18:00')">Book</button></td>
-                </tr>
-                <!-- טיסות חדשות -->
-                <tr>
-                    <td>AF2099</td>
-                    <td>Tel Aviv</td>
-                    <td>Paris</td>
-                    <td>20/12/2024</td>
-                    <td>15:00</td>
-                    <td>20/12/2024</td>
-                    <td>19:30</td>
-                    <td>180</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Paris', '20/12/2024', '15:00', '20/12/2024', '19:30')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>EK455</td>
-                    <td>Los Angeles</td>
-                    <td>Dubai</td>
-                    <td>22/12/2024</td>
-                    <td>10:00</td>
-                    <td>22/12/2024</td>
-                    <td>18:00</td>
-                    <td>250</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Los Angeles', 'Dubai', '22/12/2024', '10:00', '22/12/2024', '18:00')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>LH402</td>
-                    <td>Tel Aviv</td>
-                    <td>Berlin</td>
-                    <td>24/12/2024</td>
-                    <td>10:00</td>
-                    <td>24/12/2024</td>
-                    <td>14:30</td>
-                    <td>220</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Berlin', '24/12/2024', '10:00', '24/12/2024', '14:30')">Book</button></td>
-                </tr>
+                <!-- הטיסות יטענו פה מתוך localStorage -->
             </tbody>
         </table>
     </div>
 
     <script>
-        // Filter functionality
+        // טוען את הטיסות מ-localStorage
+        const flights = JSON.parse(localStorage.getItem('flights'));
+
+        if (flights) {
+            const tableBody = document.querySelector("#flightsTable tbody");
+            
+            flights.forEach(flight => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${flight.flightNo}</td>
+                    <td>${flight.origin}</td>
+                    <td>${flight.destination}</td>
+                    <td>${flight.boardingDate}</td>
+                    <td>${flight.boardingTime}</td>
+                    <td>${flight.arrivalDate}</td>
+                    <td>${flight.arrivalTime}</td>
+                    <td>${flight.seats}</td>
+                    <td><button class="book-button" onclick="redirectToBookAFlight('${flight.origin}', '${flight.destination}', '${flight.boardingDate}', '${flight.boardingTime}', '${flight.arrivalDate}', '${flight.arrivalTime}')">Book</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            alert("No flights data found in localStorage.");
+        }
+
+        // פונקציית סינון טיסות
         function filterFlights() {
             const originFilter = document.getElementById("originFilter").value;
             const destinationFilter = document.getElementById("destinationFilter").value;
@@ -256,7 +170,7 @@
                 const origin = row.cells[1].innerText;
                 const destination = row.cells[2].innerText;
 
-                // Show row if it matches the selected filters, otherwise hide it
+                // הצגת שורה אם היא מתאימה לסינון
                 if ((originFilter === "" || origin === originFilter) && (destinationFilter === "" || destination === destinationFilter)) {
                     row.style.display = "";
                 } else {
@@ -265,12 +179,12 @@
             });
         }
 
-        // Add event listeners to the select inputs for filtering
+        // הוספת מאזינים לשדות הסינון
         document.getElementById("originFilter").addEventListener("change", filterFlights);
         document.getElementById("destinationFilter").addEventListener("change", filterFlights);
 
+        // פונקציה להפניית המשתמש להזמנת טיסה
         function redirectToBookAFlight(origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime) {
-            // Creating the URL with parameters
             const url = `BookAFlight.html?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&boardingDate=${encodeURIComponent(boardingDate)}&boardingTime=${encodeURIComponent(boardingTime)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}`;
             window.location.href = url;
         }
