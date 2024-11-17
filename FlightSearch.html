@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הזמנת טיסה</title>
+    <title>חיפוש טיסה</title>
     <link rel="stylesheet" href="Styles.css">
     <style>
         .filter-container {
@@ -129,6 +129,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- טיסות המגיעות מהמנהל (התפריט למעלה) -->
                 <tr>
                     <td>W61283</td>
                     <td>Tel Aviv</td>
@@ -138,7 +139,7 @@
                     <td>01/12/2024</td>
                     <td>20:00</td>
                     <td>150</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Krakow', '01/12/2024', '14:00', '01/12/2024', '20:00')">Book</button></td>
+                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Sydney', '01/12/2024', '14:00', '01/12/2024', '20:00')">Book</button></td>
                 </tr>
                 <tr>
                     <td>LX8396</td>
@@ -149,7 +150,7 @@
                     <td>02/12/2024</td>
                     <td>11:00</td>
                     <td>120</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Larnaca', 'Zurich', '02/12/2024', '09:00', '02/12/2024', '11:00')">Book</button></td>
+                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Dubai', '02/12/2024', '09:00', '02/12/2024', '11:00')">Book</button></td>
                 </tr>
                 <tr>
                     <td>AA120</td>
@@ -206,7 +207,7 @@
                     <td>280</td>
                     <td><button class="book-button" onclick="redirectToBookAFlight('Los Angeles', 'Tokyo', '12/12/2024', '11:00', '12/12/2024', '18:00')">Book</button></td>
                 </tr>
-                <!-- New Flight 1: Paris -->
+                <!-- טיסות חדשות -->
                 <tr>
                     <td>AF2099</td>
                     <td>Tel Aviv</td>
@@ -218,7 +219,6 @@
                     <td>180</td>
                     <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Paris', '20/12/2024', '15:00', '20/12/2024', '19:30')">Book</button></td>
                 </tr>
-                <!-- New Flight 2: Dubai -->
                 <tr>
                     <td>EK455</td>
                     <td>Los Angeles</td>
@@ -239,8 +239,8 @@
                     <td>24/12/2024</td>
                     <td>14:30</td>
                     <td>220</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Berlin', '20/12/2024', '10:00', '20/12/2024', '14:30')">Book</button></td>
-                </tr>                
+                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Berlin', '24/12/2024', '10:00', '24/12/2024', '14:30')">Book</button></td>
+                </tr>
             </tbody>
         </table>
     </div>
