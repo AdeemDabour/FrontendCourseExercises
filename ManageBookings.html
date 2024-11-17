@@ -5,11 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ההזמנות שלי</title>
     <link rel="stylesheet" href="Styles.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            flex-direction: column; /* Stack the booking details vertically */
+        }
+
+        .image-container {
+            margin-right: 20px;
+            flex-shrink: 0; /* Prevents the image container from shrinking */
+        }
+
+        .image-container img {
+            width: 150px;
+            height: 150px; /* Making image square */
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        .details-container {
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 5px;
+            width: 500px; /* Increased the width */
+            text-align: left;
+            font-size: 24px; /* Increased font size */
+            margin-bottom: 20px; /* Adds space between the two booking boxes */
+            display: flex;
+            flex-direction: column; /* Arrange items vertically */
+        }
+
+
+        /* Align the image and details horizontally */
+        .booking-item {
+            display: flex;
+            margin-bottom: 30px; /* Adds space between booking items */
+        }
+
+    </style>
 </head>
 <body>
+
     <div class="header-container">
         <h1>OnoAir</h1>
     </div>
-    <h2>My Bookings</h2>
+
+    <div class="form-container">
+        <h2>My Bookings</h2>
+
+        <div class="container">
+            <!-- First Booking: Destination Image and Details -->
+            <div class="booking-item">
+                <div class="image-container">
+                    <img src="destination-image.jpg" alt="Destination Image">
+                </div>
+                <div class="details-container">
+                    <!-- Row 1: Origin and Boarding -->
+                    <div class="row">
+                        <label class="origin">Origin:</label>
+                        <span>Tel Aviv</span>
+                        <label>Boarding:</label>
+                        <span>16/7/2025 20:00</span>
+                    </div>
+
+                    <!-- Row 2: Destination and Landing -->
+                    <div class="row">
+                        <label>Destination:</label>
+                        <span>Krakow</span>
+                        <label>Landing:</label>
+                        <span>17/7/2025 1:00</span>
+                    </div>
+
+                    <!-- Row 3: No. of passengers -->
+                    <div class="row">
+                        <label>No. of passengers:</label>
+                        <span class="passenger">5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Booking: Another set of details -->
+            <div class="booking-item">
+                <div class="image-container">
+                    <img src="destination-image.jpg" alt="Destination Image">
+                </div>
+                <div class="details-container">
+                    <!-- Row 1: Origin and Boarding -->
+                    <div class="row">
+                        <label class="origin">Origin:</label>
+                        <span>Krakow</span>
+                        <label>Boarding:</label>
+                        <span>20/5/2024 20:00</span>
+                    </div>
+
+                    <!-- Row 2: Destination and Landing -->
+                    <div class="row">
+                        <label>Destination:</label>
+                        <span>Larnaca</span>
+                        <label>Landing:</label>
+                        <span>21/5/2024 2:00</span>
+                    </div>
+
+                    <!-- Row 3: No. of passengers -->
+                    <div class="row">
+                        <label>No. of passengers:</label>
+                        <span class="passenger">6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </body>
 </html>
