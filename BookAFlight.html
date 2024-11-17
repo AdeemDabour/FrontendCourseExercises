@@ -15,6 +15,44 @@
             background-color: #f4f4f4;
             text-align: left;
         }
+
+        .input-container {
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .input-container label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .input-container input {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        #saveButton {
+            padding: 10px 50px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        #saveButton:hover {
+            background-color: #45a049;
+        }
+
+        .passenger-container {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -31,16 +69,20 @@
 
         <!-- Display selected flight details -->
         <div class="info-box">
-            <strong>Origin:</strong> <span id="originDisplay"></span> </br>
-            <strong>Boarding Date:</strong> <span id="boardingDateDisplay"></span> </br>
-            <strong>Boarding Time:</strong> <span id="boardingTimeDisplay"></span> </br>
-            <strong>Destination:</strong> <span id="destinationDisplay"></span> </br>
-            <strong>Arrival Date:</strong> <span id="arrivalDateDisplay"></span> </br>
-            <strong>Arrival Time:</strong> <span id="arrivalTimeDisplay"></span>
+            <div><strong>Origin:</strong> <span id="originDisplay"></span> <strong>Boarding:</strong> <span id="boardingDateTimeDisplay"></span></div>
+            <div><strong>Destination:</strong> <span id="destinationDisplay"></span> <strong>Landing:</strong> <span id="landingDateTimeDisplay"></span></div>
         </div>
 
-        <!-- Other input fields if needed -->
+        <!-- No of passengers input -->
+        <div class="input-container">
+            <label for="passengerCount">No of passengers:</label>
+            <input type="number" id="passengerCount" name="passengerCount" min="1" required>
+        </div>
 
+        <!-- Container for passenger information -->
+        <div id="passengerFields"></div>
+
+        <!-- Save button -->
         <button id="saveButton">Save</button>
     </div>
 
@@ -55,17 +97,53 @@
         const origin = getQueryParam("origin");
         const destination = getQueryParam("destination");
         const boardingDate = getQueryParam("boardingDate");
-        const boardingTime = getQueryParam("departureTime");
+        const boardingTime = getQueryParam("boardingTime");
         const arrivalDate = getQueryParam("arrivalDate");
         const arrivalTime = getQueryParam("arrivalTime");
 
+        // Format the dates and times for display
+        const boardingDateTime = `${boardingDate || "Not selected"} ${boardingTime || "Not selected"}`;
+        const landingDateTime = `${arrivalDate || "Not selected"} ${arrivalTime || "Not selected"}`;
+
         // Display the values in the page
         document.getElementById("originDisplay").innerText = origin || "Not selected";
-        document.getElementById("boardingDateDisplay").innerText = boardingDate || "Not selected";
-        document.getElementById("boardingTimeDisplay").innerText = boardingTime || "Not selected";
+        document.getElementById("boardingDateTimeDisplay").innerText = boardingDateTime;
         document.getElementById("destinationDisplay").innerText = destination || "Not selected";
-        document.getElementById("arrivalDateDisplay").innerText = arrivalDate || "Not selected";
-        document.getElementById("arrivalTimeDisplay").innerText = arrivalTime || "Not selected";
+        document.getElementById("landingDateTimeDisplay").innerText = landingDateTime;
+
+        // Function to create passenger fields dynamically
+        document.getElementById("passengerCount").addEventListener("input", function() {
+            const passengerCount = parseInt(this.value);
+            const passengerFieldsContainer = document.getElementById("passengerFields");
+            passengerFieldsContainer.innerHTML = ''; // Clear previous inputs
+
+            // Always show Passenger 1
+            const passenger1Div = document.createElement("div");
+            passenger1Div.classList.add("passenger-container");
+            passenger1Div.innerHTML = `
+                <label for="passengerName1">Passenger 1 Name:</label>
+                <input type="text" id="passengerName1" name="passengerName1" required>
+                <label for="passportId1">Passport ID:</label>
+                <input type="text" id="passportId1" name="passportId1" required>
+            `;
+            passengerFieldsContainer.appendChild(passenger1Div);
+
+            // Create fields for each additional passenger
+            for (let i = 2; i <= passengerCount; i++) {
+                const passengerDiv = document.createElement("div");
+                passengerDiv.classList.add("passenger-container");
+
+                // Passenger name and passport ID input fields
+                passengerDiv.innerHTML = `
+                    <label for="passengerName${i}">Passenger ${i} Name:</label>
+                    <input type="text" id="passengerName${i}" name="passengerName${i}" required>
+                    <label for="passportId${i}">Passport ID:</label>
+                    <input type="text" id="passportId${i}" name="passportId${i}" required>
+                `;
+
+                passengerFieldsContainer.appendChild(passengerDiv);
+            }
+        });
     </script>
 
 </body>

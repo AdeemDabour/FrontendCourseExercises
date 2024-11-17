@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,169 +6,169 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הזמנת טיסה</title>
     <link rel="stylesheet" href="Styles.css">
+
     <style>
-        .filter-container {
-            margin-bottom: 20px;
+        .info-box {
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #333;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            text-align: left;
         }
 
-        .filter-container div {
-            margin-bottom: 10px;
-            display: block;
+        .input-container {
+            margin: 10px 0;
+            text-align: left;
         }
 
-        .filter-container label {
+        .input-container label {
             font-size: 18px;
             margin-right: 10px;
         }
 
-        .filter-container select {
-            padding: 10px;
+        .input-container input {
+            padding: 8px;
             font-size: 16px;
-            border-radius: 5px;
-            width: 250px;
-        }
-
-        table {
-            width: 90%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            border: 2px solid #333;
+            width: 100%;
+            margin-bottom: 10px;
             border-radius: 5px;
         }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #333;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-
-        .book-button {
-            padding: 5px 20px;
-            font-size: 16px;
+        #saveButton {
+            padding: 10px 50px;
+            font-size: 18px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            display: block;
+            margin: 20px auto;
         }
 
-        .book-button:hover {
+        #saveButton:hover {
             background-color: #45a049;
+        }
+
+        .passenger-container {
+            margin-bottom: 15px;
+        }
+
+        .passenger-container .input-container {
+            margin-left: 20px;
         }
     </style>
 </head>
 <body>
 
     <div class="form-header">
-        חיפוש טיסה
+        הזמנת טיסה
     </div>
-
     <div class="header-container">
         <h1>OnoAir</h1>
     </div>
 
-    <div class="form-container">
+    <div class="form-containerL">
         <h2>Book a flight</h2>
 
-        <div class="filter-container">
-            <p style="font-size: 32px; font-weight: bold;">Filter by:</p>
-
-            <div>
-                <label for="originFilter">Origin:</label>
-                <select id="originFilter">
-                    <option value="">Select Origin</option>
-                    <option value="Tel Aviv">Tel Aviv</option>
-                    <option value="Larnaca">Larnaca</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="destinationFilter">Destination:</label>
-                <select id="destinationFilter">
-                    <option value="">Select Destination</option>
-                    <option value="Krakow">Krakow</option>
-                    <option value="Zurich">Zurich</option>
-                </select>
-            </div>
+        <!-- Display selected flight details -->
+        <div class="info-box">
+            <div><strong>Origin:</strong> <span id="originDisplay"></span> <strong>Boarding:</strong> <span id="boardingDateTimeDisplay"></span></div>
+            <div><strong>Destination:</strong> <span id="destinationDisplay"></span> <strong>Landing:</strong> <span id="landingDateTimeDisplay"></span></div>
         </div>
 
-        <table id="flightsTable">
-            <thead>
-                <tr>
-                    <th>Flight No.</th>
-                    <th>Origin</th>
-                    <th>Destination</th>
-                    <th>Boarding Date</th>
-                    <th>Boarding Time</th>
-                    <th>Arrival Date</th>
-                    <th>Arrival Time</th>
-                    <th>No. of Seats</th>
-                    <th>Book</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>W61283</td>
-                    <td>Tel Aviv</td>
-                    <td>Krakow</td>
-                    <td>01/12/2024</td>
-                    <td>14:00</td>
-                    <td>01/12/2024</td>
-                    <td>20:00</td>
-                    <td>150</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Tel Aviv', 'Krakow', '01/12/2024', '14:00', '01/12/2024', '20:00')">Book</button></td>
-                </tr>
-                <tr>
-                    <td>LX8396</td>
-                    <td>Larnaca</td>
-                    <td>Zurich</td>
-                    <td>02/12/2024</td>
-                    <td>09:00</td>
-                    <td>02/12/2024</td>
-                    <td>11:00</td>
-                    <td>120</td>
-                    <td><button class="book-button" onclick="redirectToBookAFlight('Larnaca', 'Zurich', '02/12/2024', '09:00', '02/12/2024', '11:00')">Book</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- No of passengers input, initialized to 1 -->
+        <div class="input-container">
+            <label for="passengerCount">No of passengers:</label>
+            <input type="number" id="passengerCount" name="passengerCount" value="1" min="1" required>
+        </div>
+
+        <!-- Container for passenger information -->
+        <div id="passengerFields"></div>
+
+        <!-- Save button -->
+        <button id="saveButton">Save</button>
     </div>
 
     <script>
-        // Filter functionality
-        function filterFlights() {
-            const originFilter = document.getElementById("originFilter").value;
-            const destinationFilter = document.getElementById("destinationFilter").value;
-
-            const rows = document.querySelectorAll("#flightsTable tbody tr");
-            rows.forEach(row => {
-                const origin = row.cells[1].innerText;
-                const destination = row.cells[2].innerText;
-
-                // Show row if it matches the selected filters, otherwise hide it
-                if ((originFilter === "" || origin === originFilter) && (destinationFilter === "" || destination === destinationFilter)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            });
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
         }
 
-        // Add event listeners to the select inputs for filtering
-        document.getElementById("originFilter").addEventListener("change", filterFlights);
-        document.getElementById("destinationFilter").addEventListener("change", filterFlights);
+        // Get parameters for origin, destination, boardingDate, boardingTime, arrivalDate, and arrivalTime
+        const origin = getQueryParam("origin");
+        const destination = getQueryParam("destination");
+        const boardingDate = getQueryParam("boardingDate");
+        const boardingTime = getQueryParam("boardingTime");
+        const arrivalDate = getQueryParam("arrivalDate");
+        const arrivalTime = getQueryParam("arrivalTime");
 
-        function redirectToBookAFlight(origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime) {
-            // Creating the URL with parameters
-            const url = `BookAFlight.html?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&boardingDate=${encodeURIComponent(boardingDate)}&boardingTime=${encodeURIComponent(boardingTime)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}`;
-            window.location.href = url;
+        // Format the dates and times for display
+        const boardingDateTime = `${boardingDate || "Not selected"} ${boardingTime || "Not selected"}`;
+        const landingDateTime = `${arrivalDate || "Not selected"} ${arrivalTime || "Not selected"}`;
+
+        // Display the values in the page
+        document.getElementById("originDisplay").innerText = origin || "Not selected";
+        document.getElementById("boardingDateTimeDisplay").innerText = boardingDateTime;
+        document.getElementById("destinationDisplay").innerText = destination || "Not selected";
+        document.getElementById("landingDateTimeDisplay").innerText = landingDateTime;
+
+        // Function to create passenger fields dynamically
+        function createPassengerFields(passengerCount) {
+            const passengerFieldsContainer = document.getElementById("passengerFields");
+            passengerFieldsContainer.innerHTML = ''; // Clear previous inputs
+
+            // Always show Passenger 1
+            const passenger1Div = document.createElement("div");
+            passenger1Div.classList.add("passenger-container");
+            passenger1Div.innerHTML = `
+                <strong>Passenger 1</strong>
+                <div class="input-container">
+                    <label for="passengerName1">Name:</label>
+                    <input type="text" id="passengerName1" name="passengerName1" required>
+                </div>
+                <div class="input-container">
+                    <label for="passportId1">Passport ID:</label>
+                    <input type="text" id="passportId1" name="passportId1" required>
+                </div>
+            `;
+            passengerFieldsContainer.appendChild(passenger1Div);
+
+            // Create fields for each additional passenger
+            for (let i = 2; i <= passengerCount; i++) {
+                const passengerDiv = document.createElement("div");
+                passengerDiv.classList.add("passenger-container");
+
+                // Create passenger label and fields for name and passport ID
+                passengerDiv.innerHTML = `
+                    <strong>Passenger ${i}</strong>
+                    <div class="input-container">
+                        <label for="passengerName${i}">Name:</label>
+                        <input type="text" id="passengerName${i}" name="passengerName${i}" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="passportId${i}">Passport ID:</label>
+                        <input type="text" id="passportId${i}" name="passportId${i}" required>
+                    </div>
+                `;
+                passengerFieldsContainer.appendChild(passengerDiv);
+            }
         }
+
+        // Initialize with 1 passenger by default
+        createPassengerFields(1);
+
+        // Add event listener to dynamically update fields when number of passengers changes
+        document.getElementById("passengerCount").addEventListener("input", function() {
+            const passengerCount = parseInt(this.value);
+            if (passengerCount >= 1) {
+                createPassengerFields(passengerCount);
+            }
+        });
     </script>
+
 </body>
 </html>
-
-
