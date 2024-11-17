@@ -5,13 +5,17 @@
     border-radius: 10px; /* פינות מעוגלות */
     background-color: #f4f4f4; /* צבע רקע */
 }
-.header-container h1 {
+.header-container a {
     margin: 0; /* מסיר ריווח אוטומטי סביב הכותרת */
     font-size: 48px; /* גודל גופן לכותרת */
     font-weight: bold; /* טקסט מודגש */
     color: #333; /* צבע טקסט */
+    display: block; /* כל קישור על שורה נפרדת */
+    text-decoration: none; /* מסיר קו תחתון */
 }
-
+.header-container a:hover {
+    color: #007BFF; /* צבע משתנה כשמצביעים על הקישור */
+}
 
 /* סגנון למסגרת מסביב לכל הקישורים */
 .links-container {
