@@ -31,10 +31,12 @@
 
         <!-- Display selected flight details -->
         <div class="info-box">
-            <strong>Origin:</strong> <span id="originDisplay"></span>
+            <strong>Origin:</strong> <span id="originDisplay"></span> </br>
+            <strong>Boarding Date:</strong> <span id="boardingDateDisplay"></span> </br>
             <strong>Boarding Time:</strong> <span id="boardingTimeDisplay"></span> </br>
-            <strong>Destination:</strong> <span id="destinationDisplay"></span>
-            <strong>Landing Time:</strong> <span id="landingTimeDisplay"></span>
+            <strong>Destination:</strong> <span id="destinationDisplay"></span> </br>
+            <strong>Arrival Date:</strong> <span id="arrivalDateDisplay"></span> </br>
+            <strong>Arrival Time:</strong> <span id="arrivalTimeDisplay"></span>
         </div>
 
         <!-- Other input fields if needed -->
@@ -49,17 +51,21 @@
             return urlParams.get(param);
         }
 
-        // Get parameters for origin, destination, boardingTime, and landingTime
+        // Get parameters for origin, destination, boardingDate, boardingTime, arrivalDate, and arrivalTime
         const origin = getQueryParam("origin");
         const destination = getQueryParam("destination");
+        const boardingDate = getQueryParam("boardingDate");
         const boardingTime = getQueryParam("departureTime");
-        const landingTime = getQueryParam("arrivalTime");
+        const arrivalDate = getQueryParam("arrivalDate");
+        const arrivalTime = getQueryParam("arrivalTime");
 
         // Display the values in the page
         document.getElementById("originDisplay").innerText = origin || "Not selected";
+        document.getElementById("boardingDateDisplay").innerText = boardingDate || "Not selected";
         document.getElementById("boardingTimeDisplay").innerText = boardingTime || "Not selected";
         document.getElementById("destinationDisplay").innerText = destination || "Not selected";
-        document.getElementById("landingTimeDisplay").innerText = landingTime || "Not selected";
+        document.getElementById("arrivalDateDisplay").innerText = arrivalDate || "Not selected";
+        document.getElementById("arrivalTimeDisplay").innerText = arrivalTime || "Not selected";
     </script>
 
 </body>
