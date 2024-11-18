@@ -38,14 +38,14 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>W61283</td>
-                    <td>Tel Aviv</td>
+                    <td>EK455</td>
                     <td>Krakow</td>
-                    <td>01/12/2024</td>
-                    <td>14:00</td>
-                    <td>01/12/2024</td>
+                    <td>Larnaca</td>
+                    <td>20/05/2024</td>
                     <td>20:00</td>
-                    <td>150</td>
+                    <td>21/05/2024</td>
+                    <td>02:00</td>
+                    <td>250</td>
                 </tr>
                 <tr>
                     <td>LX8396</td>
@@ -119,16 +119,6 @@
                     <td>180</td>
                 </tr>
                 <tr>
-                    <td>EK455</td>
-                    <td>Los Angeles</td>
-                    <td>Dubai</td>
-                    <td>22/12/2024</td>
-                    <td>10:00</td>
-                    <td>22/12/2024</td>
-                    <td>18:00</td>
-                    <td>250</td>
-                </tr>
-                <tr>
                     <td>LH402</td>
                     <td>Tel Aviv</td>
                     <td>Berlin</td>
@@ -137,6 +127,16 @@
                     <td>24/12/2024</td>
                     <td>14:30</td>
                     <td>220</td>
+                </tr>
+                <tr>
+                    <td>W61283</td>
+                    <td>Tel Aviv</td>
+                    <td>Krakow</td>
+                    <td>16/07/2025</td>
+                    <td>20:00</td>
+                    <td>27/07/2025</td>
+                    <td>01:00</td>
+                    <td>150</td>
                 </tr>
             </tbody>
         </table>
@@ -147,7 +147,7 @@
 
     <script>
         const flights = [
-            { flightNo: 'W61283', origin: 'Tel Aviv', destination: 'Krakow', boardingDate: '01/12/2024', boardingTime: '14:00', arrivalDate: '01/12/2024', arrivalTime: '20:00', seats: 150 },
+            { flightNo: 'EK455', origin: 'Krakow', destination: 'Larnaca', boardingDate: '20/05/2024', boardingTime: '20:00', arrivalDate: '21/05/2024', arrivalTime: '02:00', seats: 250 },
             { flightNo: 'LX8396', origin: 'Larnaca', destination: 'Zurich', boardingDate: '02/12/2024', boardingTime: '09:00', arrivalDate: '02/12/2024', arrivalTime: '11:00', seats: 120 },
             { flightNo: 'AA120', origin: 'Tel Aviv', destination: 'London', boardingDate: '05/12/2024', boardingTime: '16:00', arrivalDate: '05/12/2024', arrivalTime: '20:30', seats: 180 },
             { flightNo: 'AF2050', origin: 'Paris', destination: 'Tel Aviv', boardingDate: '06/12/2024', boardingTime: '10:00', arrivalDate: '06/12/2024', arrivalTime: '16:00', seats: 200 },
@@ -155,16 +155,13 @@
             { flightNo: 'AZ6789', origin: 'Rome', destination: 'New York', boardingDate: '10/12/2024', boardingTime: '12:00', arrivalDate: '10/12/2024', arrivalTime: '16:00', seats: 300 },
             { flightNo: 'UA992', origin: 'Los Angeles', destination: 'Tokyo', boardingDate: '12/12/2024', boardingTime: '11:00', arrivalDate: '12/12/2024', arrivalTime: '18:00', seats: 280 },
             { flightNo: 'AF2099', origin: 'Tel Aviv', destination: 'Paris', boardingDate: '20/12/2024', boardingTime: '15:00', arrivalDate: '20/12/2024', arrivalTime: '19:30', seats: 180 },
-            { flightNo: 'EK455', origin: 'Los Angeles', destination: 'Dubai', boardingDate: '22/12/2024', boardingTime: '10:00', arrivalDate: '22/12/2024', arrivalTime: '18:00', seats: 250 },
-            { flightNo: 'LH402', origin: 'Tel Aviv', destination: 'Berlin', boardingDate: '24/12/2024', boardingTime: '10:00', arrivalDate: '24/12/2024', arrivalTime: '14:30', seats: 220 }
+            { flightNo: 'LH402', origin: 'Tel Aviv', destination: 'Berlin', boardingDate: '24/12/2024', boardingTime: '10:00', arrivalDate: '24/12/2024', arrivalTime: '14:30', seats: 220 },
+            { flightNo: 'W61283', origin: 'Tel Aviv', destination: 'Krakow', boardingDate: '16/07/2025', boardingTime: '20:00', arrivalDate: '17/07/2025', arrivalTime: '01:00', seats: 150 }
         ];
-    
+
         // שמירה ב-localStorage
         localStorage.setItem('flights', JSON.stringify(flights));
-    
-        // בדיקה אם הנתונים נשמרים
-        console.log("Flights saved:", localStorage.getItem('flights'));
     </script>
-    
+
 </body>
 </html>
