@@ -7,18 +7,14 @@
     <link rel="stylesheet" href="Styles.css">
 
     <style>
-        .image-container {
-            margin-right: 20px;
-            flex-shrink: 0; /* Prevents the image container from shrinking */
-        }
-
         .image-container img {
-            width: 150px;
-            height: 150px; /* Making image square */
+            width: 200px;
+            height: 172px; /* Making image square */
             border: 2px solid #333;
             border-radius: 5px;
+            margin-right: 10px;
+            object-fit: cover; /* Ensures consistent aspect ratio */
         }
-
         .details-container {
             border: 2px solid #333;
             padding: 20px;
@@ -56,7 +52,7 @@
             <!-- First Booking: Destination Image and Details -->
             <div class="booking-item">
                 <div class="image-container">
-                    <img src="destination-image.jpg" alt="Destination Image">
+                    <img src="https://api.kopalnia.pl/storage/2022/51/originals/piWvvIgX91HQMfP4N93BGVL5mqinTr97GNgeaQKV.jpg" alt="Krakow">
                 </div>
                 <div class="details-container">
                     <!-- Row 1: Origin and Boarding -->
@@ -86,7 +82,7 @@
             <!-- Second Booking: Another set of details -->
             <div class="booking-item">
                 <div class="image-container">
-                    <img src="destination-image.jpg" alt="Destination Image">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/a5/dd/08/caption.jpg?w=500&h=400&s=1" alt="Larnaca">
                 </div>
                 <div class="details-container">
                     <!-- Row 1: Origin and Boarding -->
