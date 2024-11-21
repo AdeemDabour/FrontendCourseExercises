@@ -1,3 +1,4 @@
+// הגדרת מחלקת Destination
 class Destination {
     constructor(name, airport, website, code, image) {
         this.name = name;
@@ -8,7 +9,7 @@ class Destination {
     }
 }
 
-
+// יצירת מערך של יעדים
 let destinations = [
     {
         name: "Tel Aviv",
@@ -89,9 +90,8 @@ let destinations = [
     }
 ];
 
-// פונקציה ליצירת טבלה דינמית
-function createTable(data) {
-    // בניית טבלת HTML
+// פונקציה ליצירת טבלת יעדים
+function createDestinationsTable(data) {
     let tableHTML = `
         <table>
             <thead>
@@ -106,7 +106,6 @@ function createTable(data) {
             <tbody>
     `;
 
-    // מעבר על כל היעדים והוספת שורות לטבלה
     data.forEach(destination => {
         tableHTML += `
             <tr>
@@ -119,15 +118,13 @@ function createTable(data) {
         `;
     });
 
-    // סיום הטבלה
     tableHTML += `
             </tbody>
         </table>
     `;
 
-    // הכנסת הטבלה ל-HTML
-    document.getElementById("tableContainer").innerHTML = tableHTML;
+    document.getElementById("destinationsTableContainer").innerHTML = tableHTML;
 }
 
 // קריאה לפונקציה עם הנתונים
-createTable(destinations);
+createDestinationsTable(destinations);

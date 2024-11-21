@@ -13,7 +13,7 @@ class Flight {
 }
 
 // יצירת מערך של טיסות
-const flights = [
+let flights = [
     new Flight('EK455', 'Krakow', 'Larnaca', '20/05/2024', '20:00', '21/05/2024', '02:00', 250),
     new Flight('LX8396', 'Larnaca', 'Zurich', '02/12/2024', '09:00', '02/12/2024', '11:00', 120),
     new Flight('AA120', 'Tel Aviv', 'London', '05/12/2024', '16:00', '05/12/2024', '20:30', 180),
@@ -27,9 +27,9 @@ const flights = [
 ];
 
 
-// פונקציה ליצירת טבלה דינמית
+
+// פונקציה ליצירת טבלת טיסות
 function createFlightsTable(data) {
-    // בניית טבלת HTML
     let tableHTML = `
         <table>
             <thead>
@@ -47,7 +47,6 @@ function createFlightsTable(data) {
             <tbody>
     `;
 
-    // מעבר על כל הטיסות והוספת שורות לטבלה
     data.forEach(flight => {
         tableHTML += `
             <tr>
@@ -63,15 +62,14 @@ function createFlightsTable(data) {
         `;
     });
 
-    // סיום הטבלה
     tableHTML += `
             </tbody>
         </table>
     `;
 
-    // הכנסת הטבלה ל-HTML
-    document.getElementById("tableContainer").innerHTML = tableHTML;
+    document.getElementById("flightsTableContainer").innerHTML = tableHTML;
 }
+
 
 // קריאה לפונקציה עם הנתונים
 createFlightsTable(flights);
