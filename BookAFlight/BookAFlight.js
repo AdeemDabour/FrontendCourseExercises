@@ -12,6 +12,24 @@ const boardingTime = getQueryParam("boardingTime");
 const arrivalDate = getQueryParam("arrivalDate");
 const arrivalTime = getQueryParam("arrivalTime");
 
+// Get the maximum seats parameter from the URL
+const maxSeats = parseInt(getQueryParam("seats")) || 1;
+// Set the maximum value for the passenger count input
+const passengerCountInput = document.getElementById("passengerCount");
+passengerCountInput.max = maxSeats;
+
+const errorSpanId = "error-passengerCount";
+let errorSpan = document.getElementById(errorSpanId);
+
+if (!errorSpan) {
+    // Create the error span if it doesn't already exist
+    errorSpan = document.createElement("span");
+    errorSpan.id = errorSpanId;
+    errorSpan.className = "error-message";
+    errorSpan.style.color = "red";
+    passengerCountInput.parentNode.appendChild(errorSpan);
+}
+
 // Format the dates and times for display
 const boardingDateTime = `${boardingDate || "Not selected"} ${boardingTime || "Not selected"}`;
 const landingDateTime = `${arrivalDate || "Not selected"} ${arrivalTime || "Not selected"}`;
@@ -67,10 +85,20 @@ function createPassengerFields(passengerCount) {
 // Initialize with 1 passenger by default
 createPassengerFields(1);
 
-// Add event listener to dynamically update fields when number of passengers changes
+// Update the passenger count dynamically
 document.getElementById("passengerCount").addEventListener("input", function() {
     const passengerCount = parseInt(this.value);
-    if (passengerCount >= 1) {
+
+    // Ensure the input doesn't exceed the maximum seats
+    if (passengerCount > maxSeats) {
+        errorSpan.textContent = `Max number of seats available at the moment is ${maxSeats}.`;
+        this.value = maxSeats; // Reset to maximum allowed
+        setTimeout(() => {
+            errorSpan.style.display = "none";
+        }, 7000);
+    } else 
+        errorSpan.textContent = ""; // Clear the error message
+        if (passengerCount >= 1) {
         createPassengerFields(passengerCount);
-    }
+        }
 });

@@ -8,3 +8,8 @@
     width: 40%;
     font-size: 32px; /* הגדלתי את גודל הטקסט */
 }
+.error-message {
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-left: 10px;
+}

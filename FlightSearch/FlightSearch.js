@@ -20,7 +20,7 @@ if (flights) {
             <td>${flight.arrivalDate}</td>
             <td>${flight.arrivalTime}</td>
             <td>${flight.seats}</td>
-            <td><button class="book-button" onclick="redirectToBookAFlight('${flight.origin}', '${flight.destination}', '${flight.boardingDate}', '${flight.boardingTime}', '${flight.arrivalDate}', '${flight.arrivalTime}')">Book</button></td>
+            <td><button class="book-button" onclick="redirectToBookAFlight('${flight.origin}', '${flight.destination}', '${flight.boardingDate}', '${flight.boardingTime}', '${flight.arrivalDate}', '${flight.arrivalTime}', '${flight.seats}')">Book</button></td>
         `;
         tableBody.appendChild(row);
     });
@@ -59,7 +59,7 @@ document.getElementById("originFilter").addEventListener("change", filterFlights
 document.getElementById("destinationFilter").addEventListener("change", filterFlights);
 
 // פונקציה להפניית המשתמש להזמנת טיסה
-function redirectToBookAFlight(origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime) {
-    const url = `../BookAFlight/BookAFlight.html?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&boardingDate=${encodeURIComponent(boardingDate)}&boardingTime=${encodeURIComponent(boardingTime)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}`;
+function redirectToBookAFlight(origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime,seats) {
+    const url = `../BookAFlight/BookAFlight.html?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&boardingDate=${encodeURIComponent(boardingDate)}&boardingTime=${encodeURIComponent(boardingTime)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}&seats=${encodeURIComponent(seats)}`;
     window.location.href = url;
 }
