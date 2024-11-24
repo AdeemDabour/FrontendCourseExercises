@@ -51,6 +51,9 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
     } else {
         alert("Destination added successfully!");
         this.reset(); // ניקוי הטופס
+        
+        // מעבר לעמוד טבלת היעדים
+        window.location.href = "../ManageDestinations/ManageDestinations.html";
     }
 });
 
