@@ -8,70 +8,80 @@
     <link rel="stylesheet" href="Headers.css">
     <link rel="stylesheet" href="Buttons.css">
     <link rel="stylesheet" href="Forms.css">
+    <link rel="stylesheet" href="AddFlight.css"
 </head>
 
 <body>
-     <!-- Title Section -->
-     <div class="header-container">
+    <!-- Title Section -->
+    <div class="header-container">
         <h1> <a href="Index.html" class="h1">OnoAir</a> </h1>
     </div>
 
     <div class="form-container">
         <div class="h2"><h2>New Flight</h2></div>
 
-        
         <!-- טופס הוספת טיסה -->
         <form id="addFlightForm">
             <div class="input-container">
                 <label for="flightNo">Flight No.:</label>
                 <input type="text" id="flightNo" name="flightNo" placeholder="Enter Flight Number" required>
+                <span class="error-message" id="error-flightNo"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="origin">Origin:</label>
                 <input type="text" id="origin" name="origin" placeholder="Enter Origin" required>
+                <span class="error-message" id="error-origin"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="destination">Destination:</label>
                 <input type="text" id="destination" name="destination" placeholder="Enter Destination" required>
+                <span class="error-message" id="error-destination"></span>
             </div>
-
-            <!-- שדות תאריך ושעה -->
+        
             <div class="input-container">
                 <label for="boardingDate">Boarding date:</label>
                 <input type="date" id="boardingDate" name="boardingDate" required>
+                <span class="error-message" id="error-boardingDate"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="boardingTime">Boarding time:</label>
                 <input type="time" id="boardingTime" name="boardingTime" required>
+                <span class="error-message" id="error-boardingTime"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="arrivalDate">Arrival date:</label>
                 <input type="date" id="arrivalDate" name="arrivalDate" required>
+                <span class="error-message" id="error-arrivalDate"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="arrivalTime">Arrival time:</label>
                 <input type="time" id="arrivalTime" name="arrivalTime" required>
+                <span class="error-message" id="error-arrivalTime"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="seats">No. of seats:</label>
                 <input type="number" id="seats" name="seats" placeholder="Enter number of seats" required>
+                <span class="error-message" id="error-seats"></span>
             </div>
-
+        
             <div class="links-container">
                 <button type="submit" class="link-button">Save</button>
             </div>
+        
+            <!-- Container for global errors -->
+            <div id="global-errors" class="error-message"></div>
         </form>
+        
     </div>
 
     <a id="helpButton" href="help.html">?</a>
 
     <script src="AddFlight.js"></script>
-
 </body>
 </html>
