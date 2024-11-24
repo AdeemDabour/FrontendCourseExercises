@@ -3,7 +3,12 @@ const flights = JSON.parse(localStorage.getItem('flights'));
 
 if (flights) {
     const tableBody = document.querySelector("#flightsTable tbody");
-    
+    const noResultsMessage = document.createElement('tr');
+    noResultsMessage.id = "no-results-message";
+    noResultsMessage.style.display = "none";
+    noResultsMessage.innerHTML = `<td colspan="9" style="text-align: center;">No flights match your search criteria.</td>`;
+    tableBody.appendChild(noResultsMessage);
+
     flights.forEach(flight => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -28,7 +33,9 @@ function filterFlights() {
     const originFilter = document.getElementById("originFilter").value;
     const destinationFilter = document.getElementById("destinationFilter").value;
 
-    const rows = document.querySelectorAll("#flightsTable tbody tr");
+    const rows = document.querySelectorAll("#flightsTable tbody tr:not(#no-results-message)");
+    let visibleRowCount = 0;
+
     rows.forEach(row => {
         const origin = row.cells[1].innerText;
         const destination = row.cells[2].innerText;
@@ -36,10 +43,15 @@ function filterFlights() {
         // הצגת שורה אם היא מתאימה לסינון
         if ((originFilter === "" || origin === originFilter) && (destinationFilter === "" || destination === destinationFilter)) {
             row.style.display = "";
+            visibleRowCount++;
         } else {
             row.style.display = "none";
         }
     });
+
+    // הצגת הודעה אם אין תוצאות
+    const noResultsMessage = document.getElementById("no-results-message");
+    noResultsMessage.style.display = visibleRowCount === 0 ? "" : "none";
 }
 
 // הוספת מאזינים לשדות הסינון
