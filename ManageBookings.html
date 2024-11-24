@@ -3,90 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ההזמנות שלי</title>
+    <title>My Bookings</title>
     <link rel="stylesheet" href="Styles.css">
     <link rel="stylesheet" href="Headers.css">
     <link rel="stylesheet" href="ManageBookings.css">
-
 </head>
-
-
 <body>
     <!-- Title Section -->
     <div class="header-container">
-        <h1> <a href="Index.html" class="h1">OnoAir</a> </h1>
+        <h1><a href="Index.html" class="h1">OnoAir</a></h1>
     </div>
 
+    <!-- Form Container -->
     <div class="form-container">
-        <div class="h2"> <h2>My Bookings</h2> </div>
+        <div class="h2"><h2>My Bookings</h2></div>
 
-
-        <div class="container">
-            <!-- First Booking: Destination Image and Details -->
-            <div class="booking-item">
-                <div class="image-container">
-                    <img src="https://api.kopalnia.pl/storage/2022/51/originals/piWvvIgX91HQMfP4N93BGVL5mqinTr97GNgeaQKV.jpg" alt="Krakow">
-                </div>
-                <div class="details-container">
-                    <!-- Row 1: Origin and Boarding -->
-                    <div class="row">
-                        <label class="origin">Origin:</label>
-                        <span>Tel Aviv</span>
-                        <label>Boarding:</label>
-                        <span>16/7/2025 20:00</span>
-                    </div>
-
-                    <!-- Row 2: Destination and Landing -->
-                    <div class="row">
-                        <label>Destination:</label>
-                        <span>Krakow</span>
-                        <label>Landing:</label>
-                        <span>17/7/2025 1:00</span>
-                    </div>
-
-                    <!-- Row 3: No. of passengers -->
-                    <div class="row">
-                        <label>No. of passengers:</label>
-                        <span class="passenger">5</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Second Booking: Another set of details -->
-            <div class="booking-item">
-                <div class="image-container">
-                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/a5/dd/08/caption.jpg?w=500&h=400&s=1" alt="Larnaca">
-                </div>
-                <div class="details-container">
-                    <!-- Row 1: Origin and Boarding -->
-                    <div class="row">
-                        <label class="origin">Origin:</label>
-                        <span>Krakow</span>
-                        <label>Boarding:</label>
-                        <span>20/5/2024 20:00</span>
-                    </div>
-
-                    <!-- Row 2: Destination and Landing -->
-                    <div class="row">
-                        <label>Destination:</label>
-                        <span>Larnaca</span>
-                        <label>Landing:</label>
-                        <span>21/5/2024 2:00</span>
-                    </div>
-
-                    <!-- Row 3: No. of passengers -->
-                    <div class="row">
-                        <label>No. of passengers:</label>
-                        <span class="passenger">6</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <a id="helpButton" href="help.html">?</a>
-
-
+        <!-- קונטיינר של ההזמנות -->
+        <div id="bookingsContainer"></div>
     </div>
 
+    <!-- Help Button -->
+    <a id="helpButton" href="help.html">?</a>
+
+    <!-- חיבור סקריפטים -->
+    <script src="classes/Booking.js"></script>
+    <script src="data/Bookings.js"></script>
 </body>
 </html>
