@@ -35,7 +35,7 @@ document.getElementById("addFlightForm").addEventListener("submit", function (ev
     }
 
     // בדיקת מספר מושבים
-    if (seats <= 0) {
+    if (seats <= 0 || isNaN(seats)) {
         document.getElementById("error-seats").textContent = "Number of seats must be a positive number.";
         errors.push("Number of seats must be a positive number.");
     }
@@ -51,12 +51,17 @@ document.getElementById("addFlightForm").addEventListener("submit", function (ev
         errors.push("Boarding date and time must be earlier than arrival.");
     }
 
-
+    // הצגת שגיאות
     if (errors.length > 0) {
         globalErrors.textContent = "Please fix the errors and try again:\n" + errors.join("\n");
     } else {
         alert("Flight added successfully!");
+
+        // ניקוי הטופס
         this.reset();
+
+        // מעבר לעמוד טבלת הטיסות
+        window.location.href = "../ManageFlights/ManageFlights.html";
     }
 });
 
