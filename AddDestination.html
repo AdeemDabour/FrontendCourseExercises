@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="Headers.css">
     <link rel="stylesheet" href="Buttons.css">
     <link rel="stylesheet" href="Forms.css">
+    <link rel="stylesheet" href="AddDestination.css">
 </head>
 
 <body>
@@ -24,32 +25,41 @@
             <div class="input-container">
                 <label for="destinationCode">Destination code:</label>
                 <input type="text" id="destinationCode" name="destinationCode" placeholder="Enter Destination code">
+                <span class="error-message" id="error-destinationCode"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="destinationName">Destination name:</label>
                 <input type="text" id="destinationName" name="destinationName" placeholder="Enter Destination name">
+                <span class="error-message" id="error-destinationName"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="airportName">Airport name:</label>
                 <input type="text" id="airportName" name="airportName" placeholder="Enter Airport name">
+                <span class="error-message" id="error-airportName"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="airportUrl">Airport url:</label>
                 <input type="text" id="airportUrl" name="airportUrl" placeholder="Enter Airport url">
+                <span class="error-message" id="error-airportUrl"></span>
             </div>
-
+        
             <div class="input-container">
                 <label for="imageUrl">Image url:</label>
                 <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image url">
+                <span class="error-message" id="error-imageUrl"></span>
             </div>
-
+        
             <div class="links-container">
                 <button type="submit" class="link-button">Save</button>
             </div>
+        
+            <!-- Global Errors -->
+            <div id="global-errors" class="error-message"></div>
         </form>
+        
     </div>
 
     <a id="helpButton" href="help.html">?</a>
