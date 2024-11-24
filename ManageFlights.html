@@ -3,35 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ניהול יעדי טיסה</title>
+    <title>ניהול טיסות</title>
     <link rel="stylesheet" href="Styles.css">
     <link rel="stylesheet" href="Headers.css">
     <link rel="stylesheet" href="Buttons.css">
-    <link rel="stylesheet" href="tables.css">
+    <link rel="stylesheet" href="Tables.css">
 </head>
 
-<body>
-
-    <!-- קישור לעמוד הבית -->
+<body>  
+    <!-- Title Section -->
     <div class="header-container">
-        <h1> <a href="Index.html" class="h1">OnoAir</a> </h1>
+        <h1><a href="Index.html" class="h1">OnoAir</a></h1>
     </div>
 
     <!-- תוכן העמוד -->
     <div class="form-container">
-        <div class="h2"><h2>Manage Destinations</h2></div>
-
+        <div class="h2"><h2>Manage Flights</h2></div>
 
         <!-- קונטיינר שבו תיבנה הטבלה -->
-        <div id="destinationsTableContainer"></div>
+        <div id="flightsTableContainer"></div>
 
-        <!-- כפתור להוספת יעד -->
+        <!-- כפתור להוספת טיסה -->
         <div class="links-container">
-            <a href="AddDestination.html" class="link-button">Add Destination</a>
+            <a href="AddFlight.html" class="link-button">Add Flight</a>
         </div>
     </div>
 
-    <!-- חיבור קובץ JavaScript -->
-    <script src="destinations.js"></script>
+    <!-- חיבור קבצי JavaScript -->
+    <script src="classes/Flight.js"></script>
+    <script src="data/Flights.js"></script>
 </body>
 </html>
