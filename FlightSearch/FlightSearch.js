@@ -48,6 +48,6 @@ document.getElementById("destinationFilter").addEventListener("change", filterFl
 
 // פונקציה להפניית המשתמש להזמנת טיסה
 function redirectToBookAFlight(origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime) {
-    const url = `BookAFlight.html?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&boardingDate=${encodeURIComponent(boardingDate)}&boardingTime=${encodeURIComponent(boardingTime)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}`;
+    const url = `../BookAFlight/BookAFlight.html?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&boardingDate=${encodeURIComponent(boardingDate)}&boardingTime=${encodeURIComponent(boardingTime)}&arrivalDate=${encodeURIComponent(arrivalDate)}&arrivalTime=${encodeURIComponent(arrivalTime)}`;
     window.location.href = url;
 }
