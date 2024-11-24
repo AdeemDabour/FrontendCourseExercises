@@ -1,45 +1,51 @@
 // פונקציה ליצירת טבלת טיסות
 function createFlightsTable(data) {
-    let tableHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th>Flight No.</th>
-                    <th>Origin</th>
-                    <th>Destination</th>
-                    <th>Boarding Date</th>
-                    <th>Boarding Time</th>
-                    <th>Arrival Date</th>
-                    <th>Arrival Time</th>
-                    <th>No. of Seats</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
+    const container = document.getElementById("flightsTableContainer");
+    container.innerHTML = ""; // ניקוי התוכן הקיים
+
+    // יצירת אלמנט הטבלה
+    const table = document.createElement("table");
+
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+    const headers = ["Flight No.", "Origin", "Destination", "Boarding Date", "Boarding Time", "Arrival Date", "Arrival Time", "No. of Seats"];
+    headers.forEach(headerText => {
+        const th = document.createElement("th");
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
 
     data.forEach(flight => {
-        tableHTML += `
-            <tr>
-                <td>${flight.flightNo}</td>
-                <td>${flight.origin}</td>
-                <td>${flight.destination}</td>
-                <td>${flight.boardingDate}</td>
-                <td>${flight.boardingTime}</td>
-                <td>${flight.arrivalDate}</td>
-                <td>${flight.arrivalTime}</td>
-                <td>${flight.seats}</td>
-            </tr>
-        `;
+        const row = document.createElement("tr");
+
+        // יצירת תא עבור כל נתון בטיסה
+        const flightData = [
+            flight.flightNo,
+            flight.origin,
+            flight.destination,
+            flight.boardingDate,
+            flight.boardingTime,
+            flight.arrivalDate,
+            flight.arrivalTime,
+            flight.seats
+        ];
+
+        flightData.forEach(item => {
+            const td = document.createElement("td");
+            td.textContent = item;
+            row.appendChild(td);
+        });
+
+        tbody.appendChild(row);
     });
 
-    tableHTML += `
-            </tbody>
-        </table>
-    `;
-
-    document.getElementById("flightsTableContainer").innerHTML = tableHTML;
+    table.appendChild(tbody);
+    container.appendChild(table);
 }
-
 
 // קריאה לפונקציה עם הנתונים
 createFlightsTable(flights);
