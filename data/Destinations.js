@@ -1,14 +1,3 @@
-// הגדרת מחלקת Destination
-class Destination {
-    constructor(name, airport, website, code, image) {
-        this.name = name;
-        this.airport = airport;
-        this.website = website;
-        this.code = code;
-        this.image = image;
-    }
-}
-
 // יצירת מערך של יעדים
 const destinations = [
     new Destination("Tel Aviv", "Ben Gurion Airport", "https://www.iaa.gov.il/en/", "TLV", "https://cdn.britannica.com/80/94380-050-F182700B/Tel-Aviv-Yafo-Israel.jpg?w=300"),

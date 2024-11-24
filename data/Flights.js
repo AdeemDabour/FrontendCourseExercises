@@ -1,17 +1,3 @@
-// הגדרת מחלקת Flight
-class Flight {
-    constructor(flightNo, origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime, seats) {
-        this.flightNo = flightNo;
-        this.origin = origin;
-        this.destination = destination;
-        this.boardingDate = boardingDate;
-        this.boardingTime = boardingTime;
-        this.arrivalDate = arrivalDate;
-        this.arrivalTime = arrivalTime;
-        this.seats = seats;
-    }
-}
-
 // יצירת מערך של טיסות
 let flights = [
     new Flight('EK455', 'Krakow', 'Larnaca', '20/05/2024', '20:00', '21/05/2024', '02:00', 250),
