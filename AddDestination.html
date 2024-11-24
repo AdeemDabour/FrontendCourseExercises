@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="Styles.css">
 </head>
 <body>
-    <div class="form-header">
-        הוספת יעד טיסה 
+    <!-- Header Section -->
+    <div class="main-header">
+        הוספת יעד טיסה
     </div>
+    <!-- Title Section -->
     <div class="header-container">
-        <a href="Index.html"> OnoAir </a>
+        <a href="Index.html" class="title-link">OnoAir</a>
     </div>
+
     <div class="form-containerL">
-        <h2>New Destination</h2>
+        <div class="form-container h2"><h2>New Destination</h2></div>
 
         <!-- טופס הוספת יעד -->
         <form id="addDestinationForm">
@@ -43,7 +46,10 @@
                 <input type="text" id="Image url" name="Image url" placeholder="Enter Image url">
             </div>
 
-            <button type="submit" id="saveButton" onclick="alert('Destination added successfully!')">Save</button>
+            
+            <div class="links-container">
+                <button type="submit" class="link-button" onclick="alert('Destination added successfully!')">Save</button>
+            </div>
 
         </form>
     </div>

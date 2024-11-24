@@ -9,17 +9,19 @@
 
 <body>
     <!-- כותרת קטנה מלמעלה עם המסגרת -->
-    <div class="form-header">
+    <div class="main-header">
         טופס הוספת טיסה
     </div>
 
-    <div class="header-container">
-        <a href="Index.html"> OnoAir </a>
+     <!-- Title Section -->
+     <div class="header-container">
+        <a href="Index.html" class="title-link">OnoAir</a>
     </div>
 
     <div class="form-containerL">
-        <h2>New Flight</h2>
+        <div class="form-container h2"><h2>New Flight</h2></div>
 
+        
         <!-- טופס הוספת טיסה -->
         <form id="addFlightForm">
             <div class="input-container">
@@ -63,7 +65,9 @@
                 <input type="number" id="seats" name="seats" placeholder="Enter number of seats" required>
             </div>
 
-            <button type="submit" id="saveButton">Save</button>
+            <div class="links-container">
+                <button type="submit" class="link-button">Save</button>
+            </div>
         </form>
     </div>
 

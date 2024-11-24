@@ -1,117 +1,203 @@
-.header-container {
-    border: 3px solid #333; /* מסגרת אפורה מסביב */
-    padding: 20px; /* ריווח פנימי */
-    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-    border-radius: 10px; /* פינות מעוגלות */
-    background-color: #f4f4f4; /* צבע רקע */
-}
-.header-container a {
-    margin: 0; /* מסיר ריווח אוטומטי סביב הכותרת */
-    font-size: 48px; /* גודל גופן לכותרת */
-    font-weight: bold; /* טקסט מודגש */
-    color: #333; /* צבע טקסט */
-    display: block; /* כל קישור על שורה נפרדת */
-    text-decoration: none; /* מסיר קו תחתון */
-}
-.header-container a:hover {
-    color: #007BFF; /* צבע משתנה כשמצביעים על הקישור */
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(180deg, #f7f9fc, #e6f7ff);
+    color: #333;
 }
 
-/* סגנון למסגרת מסביב לכל הקישורים */
-.links-container {
-    border: 3px solid #333; /* מסגרת אפורה מסביב */
-    padding: 50px; /* ריווח פנימי */
-    border-radius: 10px; /* פינות מעוגלות */
-    background-color: #f4f4f4; /* צבע רקע */
-}
 
-/* סגנון לקישורים */
-.links-container a {
-    display: block; /* כל קישור על שורה נפרדת */
-    margin-bottom: 10px; /* ריווח בין הקישורים */
-    color: #333; /* צבע טקסט */
-    font-size: 60px; /* גודל גופן */
-    font-weight: bold; /* טקסט מודגש */
-    text-align: center; /* ממרכז את הקישור */
-}
-.links-container a:hover {
-    color: #007BFF; /* צבע משתנה כשמצביעים על הקישור */
-}
-
-/* סגנון למסגרת סביב כל הטופס */
-.form-container {
-    border: 3px solid #333; /* מסגרת סביב הטופס */
-    padding: 20px; /* ריווח פנימי */
-    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-    border-radius: 10px; /* פינות מעוגלות */
-    background-color: #f4f4f4; /* צבע רקע */
-    text-align: center;
-}
 /* סגנון למסגרת סביב כל הטופס */
 .form-containerL {
     border: 3px solid #333; /* מסגרת סביב הטופס */
     padding: 20px; /* ריווח פנימי */
     margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
     border-radius: 10px; /* פינות מעוגלות */
-    background-color: #f4f4f4; /* צבע רקע */
+    width: 100%;
+    background: linear-gradient(180deg, #2d06bb52, #07aba0);
 }
 
-/* סגנון למלבן הקטן עם הטקסט "טופס הוספת טיסה" */
-.form-header {
-    width: 250px; /* רוחב המלבן */
-    padding: 10px; /* ריווח פנימי */
+/* Header */
+.main-header {
+    border: 3px solid #333; /* מסגרת סביב הטופס */
+    text-align: center;
+    background: linear-gradient(90deg, #ac0ec8, #1e7de1);
+    color: white;
+    font-size: 36px;
+    padding: 20px;
+    align-items: center;
+    margin-top: 0;
+    font-weight: bold;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    border-bottom: 5px solid #a77bd3;
+    border: 2px solid #333; /* מסגרת סביב הטופס */
     margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-    text-align: center; /* ממרכז את הטקסט */
-    background-color: #f4f4f4; /* צבע רקע בהיר */
-    border: 2px solid #333; /* מסגרת סביב המלבן */
-    border-radius: 5px; /* פינות מעוגלות */
-    font-size: 20px; /* גודל גופן */
-}
-/* סגנון לשדות הקלט */
-.input-container {
-    display: flex; /* מיקוד האלמנטים באותה שורה */
-    margin: 10px 0; /* ריווח בין השדות */
-    align-items: center; /* מיישר את התוכן באופן אנכי */
+    border-radius: 10px; /* פינות מעוגלות */
+    text-align: center;
+    width: 15%;
 }
 
-.input-container label {
-    width: 150px; /* קובע את רוחב התווית */
-    margin-right: 20px; /* ריווח בין התווית לשדה הקלט */
-    font-size: 18px;
+/* Title Link */
+.header-container {
+    border: 3px solid #333; /* מסגרת סביב הטופס */
+    padding: 20px; /* ריווח פנימי */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    border-radius: 10px; /* פינות מעוגלות */
+    width: 100%;
+    margin: 20px 0;
+    background: linear-gradient(90deg, #00da95, #1e7de1);
 }
 
-.input-container input {
-    width: 300px; /* רוחב שדה הקלט קטן יותר */
-    padding: 10px; /* ריווח פנימי */
-    border: 2px solid #333; /* מסגרת סביב שדה הקלט */
-    border-radius: 5px; /* פינות מעוגלות */
-    font-size: 16px; /* גודל גופן */
-}
-
-/* סגנון לכפתור שמירה */
-#saveButton {
-    margin-top: 20px;
-    padding: 10px 100px;
+.title-link {
     font-size: 48px;
-    background-color: #4CAF50; /* צבע רקע */
-    color: white; /* צבע טקסט */
+    font-weight: bold;
+    text-decoration: none;
+    color: #13171b;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.title-link:hover {
+    color: #d9a9eb;
+    transform: scale(1.1);
+}
+
+/* Navigation Links */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* מרווח גדול יותר בין הכפתורים */
+    margin: 40px auto;
+    max-width: 800px; /* מתאים לגדלים גדולים יותר */
+}
+
+.link-button {
+    text-decoration: none;
+    background: linear-gradient(135deg, #0309a6, #0d0657, #0d4351, #04672b);
+    color: white;
+    padding: 25px 50px; /* כפתורים גדולים יותר */
+    border-radius: 15px; /* פינות מעוגלות יותר */
+    font-size: 28px; /* גודל פונט גדול יותר */
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* צל לכפתורים גדולים */
+    background-size: 400% 400%;
+    animation: gradientShift 5s infinite;
+}
+
+.link-button:hover {
+    background: linear-gradient(135deg, #aa0e92, #404266, #0ca314, #b3700c);
+    transform: translateY(-5px); /* אפקט הרמה */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Gradient Animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Help Button */
+#helpButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px; /* גודל כפתור עזרה מוגדל */
+    height: 50px;
+    background: linear-gradient(135deg, #ffcc80, #81c784);
+    color: white;
+    font-size: 24px; /* גודל פונט גדול יותר */
+    font-weight: bold;
     border: none;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    display: block; /* מציב את הכפתור כבלוק */
-    margin-left: auto; /* ממרכז את הכפתור */
-    margin-right: auto; /* ממרכז את הכפתור */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#saveButton:hover {
-    background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
+#helpButton:hover {
+    background: linear-gradient(135deg, #81c784, #ffcc80);
+    transform: scale(1.2);
 }
+
+/* Help Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    text-align: center;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h2 {
+    color: #4a90e2;
+    text-align: center;
+    margin-top: 0;
+}
+
+.modal-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.modal-content li {
+    margin: 10px 0;
+}
+
+.modal-content a {
+    color: #4a90e2;
+    text-decoration: underline;
+}
+
+.modal-content a:hover {
+    text-decoration: none;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
 /* סגנון לכותרת Manage Flights - הגדלה והדגשה */
 .form-container h2 {
-    font-size: 68px; /* גודל גופן גדול יותר */
+    font-size: 46px; /* גודל גופן גדול יותר */
     font-weight: bold; /* טקסט מודגש */
     margin-top: 10px;
     margin-bottom: 40px;
+    text-align: center;
+    color: black;
 }
 
 /* סגנון לטבלה */
@@ -130,27 +216,10 @@ th, td {
 }
 
 th {
-    background-color: #f4f4f4; /* צבע רקע לכותרת */
     font-weight: bold; /* טקסט מודגש לכותרת */
 }
 
-/* סגנון לכפתור Add Flight */
-#addButton {
-    margin-top: 20px;
-    padding: 10px 100px;
-    font-size: 28px;
-    background-color: #4CAF50; /* צבע רקע */
-    color: white; /* צבע טקסט */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block; /* מציב את הכפתור כבלוק */
-    margin-left: auto; /* ממרכז את הכפתור */
-    margin-right: auto; /* ממרכז את הכפתור */
-    border: 2px solid #333; /* מסגרת סביב הכפתור */
-    text-decoration: none; /* מסיר קו תחתון */
-    text-align: center; /* ממרכז את הטקסט בכפתור */
-}
+
 
 #addButton:hover {
     background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
@@ -175,37 +244,26 @@ th {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Help Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+/* סגנון לשדות הקלט */
+.input-container {
+    display: flex; /* מיקוד האלמנטים באותה שורה */
+    margin: 10px 0; /* ריווח בין השדות */
+    align-items: center; /* מיישר את התוכן באופן אנכי */
 }
 
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 50%;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.input-container label {
+    width: 150px; /* קובע את רוחב התווית */
+    margin-right: 20px; /* ריווח בין התווית לשדה הקלט */
+    font-size: 18px;
 }
 
-.modal-content .close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
+.input-container input {
+    width: 300px; /* רוחב שדה הקלט קטן יותר */
+    padding: 10px; /* ריווח פנימי */
+    border: 2px solid #333; /* מסגרת סביב שדה הקלט */
+    border-radius: 5px; /* פינות מעוגלות */
+    font-size: 16px; /* גודל גופן */
 }
 
-.modal-content h2 {
-    margin-top: 0;
-}
+
+

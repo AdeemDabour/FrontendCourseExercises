@@ -7,52 +7,59 @@
     <link rel="stylesheet" href="Styles.css">
 </head>
 <body>
-    <div class="form-header">
-        מסך ראשי 
+    <!-- Header Section -->
+    <div class="main-header">
+        מסך ראשי
     </div>
-    <!-- אלמנט שמכיל את הכותרת עם המסגרת -->
-    <div class="header-container">
-        <a href="Index.html"> OnoAir </a>
+
+    <!-- Title Section -->
+     <div class="form-container">
+        <div class="header-container">
+            <a href="Index.html" class="title-link">OnoAir</a>
+        </div>
+     </div>
+
+    <!-- Navigation Section -->
+    <div class="form-containerL">
+        <div class="links-container">
+            <a href="ManageFlights.html" class="link-button">Admin - Manage Flights</a>
+            <a href="ManageDestinations.html" class="link-button">Admin - Manage Destinations</a>
+            <a href="FlightSearch.html" class="link-button">User - Book a Flight</a>
+            <a href="ManageBookings.html" class="link-button">User - Manage Bookings</a>
+        </div>
     </div>
-    <!-- אלמנט שמכיל את כל הקישורים -->
-    <div class="links-container">
-        <a href="ManageFlights.html"> Admin - Manage Flights </a>
-        <a href="ManageDestinations.html"> Admin - Manage Destinations </a>
-        <a href="FlightSearch.html"> User - Book a Flight </a>
-        <a href="ManageBookings.html"> User - Manage Bookings </a>
-    </div>
+
     <!-- Help Button -->
-<div id="helpButton" onclick="toggleHelpModal()">?</div>
+    <div id="helpButton" onclick="toggleHelpModal()">?</div>
 
-<!-- Help Modal -->
-<div id="helpModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="toggleHelpModal()">&times;</span>
-        <h2>עזרה ותמיכה</h2>
-<p>Welcome To OnoAir!</p>
-<ul>
-    <p><strong>הזמנת טיסה:</strong> השתמשו במסך "חיפוש טיסה" כדי לבחור טיסה ולשריין את מקומכם</p>
-    <p><strong>ניהול הזמנות:</strong>השתמשו במסך "ההזמנות שלי" כדי לצפות בהזמנות שלכם ולנהל אותם </p>
-    <p><strong>ניהול טיסות:</strong> המנהל יכול להוסיף, לערוך או להסיר טיסות</p>
-    <p><strong>ניהול יעדים:</strong> המנהל יכול לנהל את פרטי היעדים</p>
-</ul>
-<p>לקבלת סיוע נוסף, צרו קשר בכתובת <a href="mailto:support@onoair.com">support@onoair.com</a>.</p>
-
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleHelpModal()">&times;</span>
+            <h2>עזרה ותמיכה</h2>
+            <p>Welcome To OnoAir!</p>
+            <ul>
+                <li><strong>הזמנת טיסה:</strong> השתמשו במסך "חיפוש טיסה" כדי לבחור טיסה ולשריין את מקומכם.</li>
+                <li><strong>ניהול הזמנות:</strong> השתמשו במסך "ההזמנות שלי" כדי לצפות בהזמנות שלכם ולנהל אותן.</li>
+                <li><strong>ניהול טיסות:</strong> המנהל יכול להוסיף, לערוך או להסיר טיסות.</li>
+                <li><strong>ניהול יעדים:</strong> המנהל יכול לנהל את פרטי היעדים.</li>
+            </ul>
+            <p>לקבלת סיוע נוסף, צרו קשר בכתובת <a href="mailto:support@onoair.com">support@onoair.com</a>.</p>
+        </div>
     </div>
-</div>
-<script>
-    function toggleHelpModal() {
-        const modal = document.getElementById('helpModal');
-        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-    }
 
-    // Close the modal when clicking outside of it
-    window.onclick = function(event) {
-        const modal = document.getElementById('helpModal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
+    <script>
+        function toggleHelpModal() {
+            const modal = document.getElementById('helpModal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
         }
-    };
-</script>
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('helpModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
 </body>
 </html>
