@@ -7,60 +7,11 @@ body {
     color: #333;
 }
 
-
 /* סגנון למסגרת סביב כל הטופס */
-.form-containerL {
-    border: 3px solid #333; /* מסגרת סביב הטופס */
+.form-container {
     padding: 20px; /* ריווח פנימי */
-    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-    border-radius: 10px; /* פינות מעוגלות */
     width: 100%;
     background: linear-gradient(180deg, #2d06bb52, #07aba0);
-}
-
-/* Header */
-.main-header {
-    border: 3px solid #333; /* מסגרת סביב הטופס */
-    text-align: center;
-    background: linear-gradient(90deg, #ac0ec8, #1e7de1);
-    color: white;
-    font-size: 36px;
-    padding: 20px;
-    align-items: center;
-    margin-top: 0;
-    font-weight: bold;
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-    border-bottom: 5px solid #a77bd3;
-    border: 2px solid #333; /* מסגרת סביב הטופס */
-    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-    border-radius: 10px; /* פינות מעוגלות */
-    text-align: center;
-    width: 15%;
-}
-
-/* Title Link */
-.header-container {
-    border: 3px solid #333; /* מסגרת סביב הטופס */
-    padding: 20px; /* ריווח פנימי */
-    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-    border-radius: 10px; /* פינות מעוגלות */
-    width: 100%;
-    margin: 20px 0;
-    background: linear-gradient(90deg, #00da95, #1e7de1);
-}
-
-.title-link {
-    font-size: 48px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #13171b;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.title-link:hover {
-    color: #d9a9eb;
-    transform: scale(1.1);
 }
 
 /* Navigation Links */
@@ -73,38 +24,6 @@ body {
     max-width: 800px; /* מתאים לגדלים גדולים יותר */
 }
 
-.link-button {
-    text-decoration: none;
-    background: linear-gradient(135deg, #0309a6, #0d0657, #0d4351, #04672b);
-    color: white;
-    padding: 25px 50px; /* כפתורים גדולים יותר */
-    border-radius: 15px; /* פינות מעוגלות יותר */
-    font-size: 28px; /* גודל פונט גדול יותר */
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* צל לכפתורים גדולים */
-    background-size: 400% 400%;
-    animation: gradientShift 5s infinite;
-}
-
-.link-button:hover {
-    background: linear-gradient(135deg, #aa0e92, #404266, #0ca314, #b3700c);
-    transform: translateY(-5px); /* אפקט הרמה */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-}
-
-/* Gradient Animation */
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
 
 /* Help Button */
 #helpButton {
@@ -131,93 +50,6 @@ body {
     transform: scale(1.2);
 }
 
-/* Help Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 50%;
-    text-align: center;
-    color: #333;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.modal-content h2 {
-    color: #4a90e2;
-    text-align: center;
-    margin-top: 0;
-}
-
-.modal-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.modal-content li {
-    margin: 10px 0;
-}
-
-.modal-content a {
-    color: #4a90e2;
-    text-decoration: underline;
-}
-
-.modal-content a:hover {
-    text-decoration: none;
-}
-
-.modal-content .close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-
-/* סגנון לכותרת Manage Flights - הגדלה והדגשה */
-.form-container h2 {
-    font-size: 46px; /* גודל גופן גדול יותר */
-    font-weight: bold; /* טקסט מודגש */
-    margin-top: 10px;
-    margin-bottom: 40px;
-    text-align: center;
-    color: black;
-}
-
-/* סגנון לטבלה */
-table {
-    width: 90%; /* רוחב הטבלה תופס את כל רוחב הדף */
-    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
-    border-collapse: collapse; /* הסרת רווחים בין התאים */
-    border: 2px solid #333; /* מסגרת סביב הטבלה */
-    border-radius: 5px;
-}
-
-th, td {
-    padding: 10px; /* ריווח פנימי בתאים */
-    border: 1px solid #333; /* מסגרת סביב התאים */
-    text-align: center; /* ממרכז את הטקסט בתוך התאים */
-}
-
-th {
-    font-weight: bold; /* טקסט מודגש לכותרת */
-}
 
 
 
@@ -244,26 +76,6 @@ th {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* סגנון לשדות הקלט */
-.input-container {
-    display: flex; /* מיקוד האלמנטים באותה שורה */
-    margin: 10px 0; /* ריווח בין השדות */
-    align-items: center; /* מיישר את התוכן באופן אנכי */
-}
-
-.input-container label {
-    width: 150px; /* קובע את רוחב התווית */
-    margin-right: 20px; /* ריווח בין התווית לשדה הקלט */
-    font-size: 18px;
-}
-
-.input-container input {
-    width: 300px; /* רוחב שדה הקלט קטן יותר */
-    padding: 10px; /* ריווח פנימי */
-    border: 2px solid #333; /* מסגרת סביב שדה הקלט */
-    border-radius: 5px; /* פינות מעוגלות */
-    font-size: 16px; /* גודל גופן */
-}
 
 
 

@@ -1,0 +1,26 @@
+.image-container img {
+    width: 200px;
+    height: 171px; /* Making image square */
+    border: 2px solid #333;
+    border-radius: 5px;
+    margin-right: 10px;
+    object-fit: cover; /* Ensures consistent aspect ratio */
+}
+.details-container {
+    border: 2px solid #333;
+    padding: 20px;
+    border-radius: 5px;
+    width: 1000px; /* Increased the width */
+    text-align: left;
+    font-size: 38px; /* Increased font size */
+    margin-bottom: 20px; /* Adds space between the two booking boxes */
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+}
+
+
+/* Align the image and details horizontally */
+.booking-item {
+    display: flex;
+    margin-bottom: 30px; /* Adds space between booking items */
+}

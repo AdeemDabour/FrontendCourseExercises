@@ -1,0 +1,26 @@
+.h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #13171b;
+}
+
+.h1:hover {
+    color: #d9a9eb;
+    transform: scale(1.1);
+}
+
+.header-container {
+    padding: 20px;
+    width: 100%;
+    background: linear-gradient(90deg, #00da95, #1e7de1);
+}
+
+.h2 {
+    font-size: 36px; 
+    font-weight: bold;
+    text-align: center;
+    color: black;
+}
+
+
+

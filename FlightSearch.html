@@ -5,79 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>חיפוש טיסה</title>
     <link rel="stylesheet" href="Styles.css">
-    <style>
-        .filter-container {
-            margin-bottom: 20px;
-        }
-
-        .filter-container div {
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .filter-container label {
-            font-size: 18px;
-            margin-right: 10px;
-        }
-
-        .filter-container select {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            width: 250px;
-        }
-
-        table {
-            width: 90%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            border: 2px solid #333;
-            border-radius: 5px;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #333;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-
-        .book-button {
-            padding: 5px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .book-button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="Headers.css">
+    <link rel="stylesheet" href="Tables.css">
+    <link rel="stylesheet" href="FlightSearch.css">
 </head>
-<body>
 
-    <div class="main-header">
-        חיפוש טיסה
-    </div>
+<body>
 
     <!-- Title Section -->
     <div class="header-container">
-        <a href="Index.html" class="title-link">OnoAir</a>
+        <h1> <a href="Index.html" class="h1">OnoAir</a> <h1>
     </div>
 
-    <div class="form-containerL">
-        <div class="form-container h2"><h2>Book a flight</h2></div>
+    <div class="form-container">
+        <div class="h2"><h2>Book a flight</h2></div>
         
 
         <div class="filter-container">
-            <p style="font-size: 32px; font-weight: bold;">Filter by:</p>
+            <p class="filter-label">Filter by:</p>
 
             <div>
                 <label for="originFilter">Origin:</label>

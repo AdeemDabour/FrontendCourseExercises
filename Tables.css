@@ -1,0 +1,18 @@
+/* סגנון לטבלה */
+table {
+    width: 90%; /* רוחב הטבלה תופס את כל רוחב הדף */
+    margin: 20px auto; /* ריווח מבחוץ ומיקוד בעמוד */
+    border-collapse: collapse; /* הסרת רווחים בין התאים */
+    border: 2px solid #333; /* מסגרת סביב הטבלה */
+    border-radius: 5px;
+}
+
+th, td {
+    padding: 10px; /* ריווח פנימי בתאים */
+    border: 1px solid #333; /* מסגרת סביב התאים */
+    text-align: center; /* ממרכז את הטקסט בתוך התאים */
+}
+
+th {
+    font-weight: bold; /* טקסט מודגש לכותרת */
+}

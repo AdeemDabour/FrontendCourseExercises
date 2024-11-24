@@ -1,0 +1,37 @@
+.filter-label {
+    font-size: 32px;
+    font-weight: bold;
+    color: black;
+}
+
+.filter-container div {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.filter-container label {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.filter-container select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 250px;
+}
+
+
+.book-button {
+    padding: 5px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-button:hover {
+    background-color: #45a049;
+}

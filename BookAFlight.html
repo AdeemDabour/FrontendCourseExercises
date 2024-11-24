@@ -5,72 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הזמנת טיסה</title>
     <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="Headers.css">
+    <link rel="stylesheet" href="Forms.css">
+    <link rel="stylesheet" href="Buttons.css">
+    <link rel="stylesheet" href="BookAFlight.css">
 
-    <style>
-        .info-box {
-            padding: 20px;
-            margin: 20px 0;
-            border: 2px solid #333;
-            border-radius: 5px;
-            background-color: #f4f4f4;
-            text-align: left;
-            width: 40%;
-            font-size: 32px; /* הגדלתי את גודל הטקסט */
-        }
-
-        .input-container {
-            margin: 10px 0;
-            text-align: left;
-        }
-
-        .input-container label {
-            font-size: 20px;
-            margin-right: 10px;
-        }
-
-        .input-container input {
-            padding: 8px;
-            font-size: 20px;
-            width: 15%; /* צמצמתי את רוחב שדות הקלט */
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-
-        #saveButton {
-            padding: 20px 100px;
-            font-size: 38px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto;
-        }
-
-        #saveButton:hover {
-            background-color: #45a049;
-        }
-
-        .passenger-container {
-            margin-bottom: 15px;
-        }
-
-    </style>
 </head>
+
+
 <body>
-
-    <div class="main-header">
-        הזמנת טיסה
-    </div>
-
     <!-- Title Section -->
     <div class="header-container">
-        <a href="Index.html" class="title-link">OnoAir</a>
+        <h1> <a href="Index.html" class="h1">OnoAir</a> <h1>
     </div>
 
-    <div class="form-containerL">
-        <div class="form-container h2"><h2>Book a flight</h2></div>
+    <div class="form-container">
+        <div class="h2"><h2>Book a flight</h2></div>
 
 
         <!-- Display selected flight details -->
@@ -88,8 +38,10 @@
         <!-- Container for passenger information -->
         <div id="passengerFields"></div>
 
-        <!-- Save button -->
-        <button id="saveButton">Save</button>
+        <!-- Save button -->      
+        <div class="links-container">
+            <button type="submit" class="link-button">Save</button>
+        </div>
     </div>
 
     <script>

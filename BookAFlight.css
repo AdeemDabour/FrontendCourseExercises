@@ -1,0 +1,10 @@
+.info-box {
+    padding: 20px;
+    margin: 20px 0;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    text-align: left;
+    width: 40%;
+    font-size: 32px; /* הגדלתי את גודל הטקסט */
+}
