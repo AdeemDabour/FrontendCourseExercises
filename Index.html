@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="Styles.css">
     <link rel="stylesheet" href="Headers.css">
     <link rel="stylesheet" href="Buttons.css">
-
+    <link rel="stylesheet" href="help.css">
 </head>
 
 <body>
     <!-- Title Section -->
     <div class="header-container">
-        <h1> <a href="Index.html" class="h1">OnoAir</a> <h1>
+        <h1><a href="Index.html" class="h1">OnoAir</a></h1>
     </div>
-
-     
 
     <!-- Navigation Section -->
     <div class="form-container">
@@ -29,36 +27,6 @@
     </div>
 
     <!-- Help Button -->
-    <div id="helpButton" onclick="toggleHelpModal()">?</div>
-
-    <!-- Help Modal -->
-    <div id="helpModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="toggleHelpModal()">&times;</span>
-            <h2>עזרה ותמיכה</h2>
-            <p>Welcome To OnoAir!</p>
-            <ul>
-                <li><strong>הזמנת טיסה:</strong> השתמשו במסך "חיפוש טיסה" כדי לבחור טיסה ולשריין את מקומכם.</li>
-                <li><strong>ניהול הזמנות:</strong> השתמשו במסך "ההזמנות שלי" כדי לצפות בהזמנות שלכם ולנהל אותן.</li>
-                <li><strong>ניהול טיסות:</strong> המנהל יכול להוסיף, לערוך או להסיר טיסות.</li>
-                <li><strong>ניהול יעדים:</strong> המנהל יכול לנהל את פרטי היעדים.</li>
-            </ul>
-            <p>לקבלת סיוע נוסף, צרו קשר בכתובת <a href="mailto:support@onoair.com">support@onoair.com</a>.</p>
-        </div>
-    </div>
-
-    <script>
-        function toggleHelpModal() {
-            const modal = document.getElementById('helpModal');
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('helpModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        };
-    </script>
+    <a id="helpButton" href="help.html">?</a>
 </body>
 </html>

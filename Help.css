@@ -1,0 +1,59 @@
+#helpButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px; /* גודל כפתור */
+    height: 50px;
+    background: linear-gradient(135deg, #ffcc80, #81c784);
+    color: white;
+    font-size: 24px; /* גודל פונט */
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; /* הסרת הקו התחתון */
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#helpButton:hover {
+    background: linear-gradient(135deg, #81c784, #ffcc80);
+    transform: scale(1.2);
+}
+
+
+/* עיצוב למלבן סביב הטקסט */
+.support-box {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 800px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.support-box li {
+    margin: 15px 0;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.support-box li strong {
+    color: #058735;
+}
+
+.support-box a {
+    color: #2196F3;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.support-box a:hover {
+    color: #4b168d;
+    text-decoration: none;
+}

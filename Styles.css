@@ -25,57 +25,5 @@ body {
 }
 
 
-/* Help Button */
-#helpButton {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px; /* גודל כפתור עזרה מוגדל */
-    height: 50px;
-    background: linear-gradient(135deg, #ffcc80, #81c784);
-    color: white;
-    font-size: 24px; /* גודל פונט גדול יותר */
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#helpButton:hover {
-    background: linear-gradient(135deg, #81c784, #ffcc80);
-    transform: scale(1.2);
-}
-
-
-
-
-#addButton:hover {
-    background-color: #45a049; /* שינוי צבע כשמעבירים מעל הכפתור */
-}
-/* Help Button */
-#helpButton {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #007BFF;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-
 
 
