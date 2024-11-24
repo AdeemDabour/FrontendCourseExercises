@@ -1,18 +1,12 @@
 /* General Reset */
 body {
-    margin: 0;
+    margin: 0; /* הסרת מרווחים */
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(180deg, #f7f9fc, #e6f7ff);
-    color: #333;
+    background: linear-gradient(180deg, #2d06bb52, #07aba0); /* רקע אחיד לכל העמוד */
+    color: #333; /* צבע טקסט */
 }
 
-/* סגנון למסגרת סביב כל הטופס */
-.form-container {
-    padding: 20px; /* ריווח פנימי */
-    width: 100%;
-    background: linear-gradient(180deg, #2d06bb52, #07aba0);
-}
 
 /* Navigation Links */
 .links-container {
@@ -23,7 +17,3 @@ body {
     margin: 40px auto;
     max-width: 800px; /* מתאים לגדלים גדולים יותר */
 }
-
-
-
-

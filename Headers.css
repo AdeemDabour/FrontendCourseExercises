@@ -1,18 +1,30 @@
-.h1 {
+.header-container {
+    background: linear-gradient(90deg, #00da95, #1e7de1);
+    text-align: center;
+    padding: 20px;
+}
+
+.header-container h1 a {
+    color: white;
+    text-decoration: none;
     font-size: 48px;
     font-weight: bold;
-    color: #13171b;
+    text-shadow: 2px 2px 5px
+     rgba(0, 0, 0, 0.3);
 }
 
 .h1:hover {
     color: #d9a9eb;
     transform: scale(1.1);
 }
-
-.header-container {
+.form-container {
     padding: 20px;
-    width: 100%;
-    background: linear-gradient(90deg, #00da95, #1e7de1);
+    max-width: 1200px; /* כדי שהתוכן לא יתפוס את כל רוחב המסך */
+    margin: 40px auto; /* ריווח ומרכז העמוד */
+    background: linear-gradient(145deg, #e0f7fa, #b2ebf2); /* רקע גרדיאנט עדין */
+    border-radius: 10px; /* פינות מעוגלות */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* צל בולט מעט */
+    color: #333; /* צבע טקסט כהה לקריאות */
 }
 
 .h2 {
