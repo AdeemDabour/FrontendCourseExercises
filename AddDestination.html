@@ -13,7 +13,7 @@
 <body>
     <!-- Title Section -->
     <div class="header-container">
-        <h1> <a href="Index.html" class="h1">OnoAir</a> </h1>
+        <h1><a href="Index.html" class="h1">OnoAir</a></h1>
     </div>
 
     <div class="form-container">
@@ -22,63 +22,38 @@
         <!-- טופס הוספת יעד -->
         <form id="addDestinationForm">
             <div class="input-container">
-                <label for="Destination code">Destination code:</label>
-                <input type="text" id="Destination code" name="Destination code" placeholder="Enter Destination code">
+                <label for="destinationCode">Destination code:</label>
+                <input type="text" id="destinationCode" name="destinationCode" placeholder="Enter Destination code">
             </div>
 
             <div class="input-container">
-                <label for="Destination name">Destination name:</label>
-                <input type="text" id="Destination name" name="Destination name" placeholder="Enter Destination name">
+                <label for="destinationName">Destination name:</label>
+                <input type="text" id="destinationName" name="destinationName" placeholder="Enter Destination name">
             </div>
 
             <div class="input-container">
-                <label for="Airport name">Airport name:</label>
-                <input type="text" id="Airport name" name="Airport name" placeholder="Enter Airport name">
+                <label for="airportName">Airport name:</label>
+                <input type="text" id="airportName" name="airportName" placeholder="Enter Airport name">
             </div>
 
             <div class="input-container">
-                <label for="Airport url">Airport url:</label>
-                <input type="text" id="Airport url" name="Airport url" placeholder="Enter Airport url">
+                <label for="airportUrl">Airport url:</label>
+                <input type="text" id="airportUrl" name="airportUrl" placeholder="Enter Airport url">
             </div>
 
             <div class="input-container">
-                <label for="Image url">Image url:</label>
-                <input type="text" id="Image url" name="Image url" placeholder="Enter Image url">
+                <label for="imageUrl">Image url:</label>
+                <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image url">
             </div>
 
-            
             <div class="links-container">
-                <button type="submit" class="link-button" onclick="alert('Destination added successfully!')">Save</button>
+                <button type="submit" class="link-button">Save</button>
             </div>
-
         </form>
     </div>
 
+    <!-- חיבור קבצי JavaScript -->
     <script src="destinations.js"></script>
-    <script>
-        // מאזין לאירוע הגשת הטופס
-        document.getElementById("addDestinationForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // מניעת רענון הדף
-
-            // קבלת הערכים מהשדות
-            const code = document.getElementById("destinationCode").value;
-            const name = document.getElementById("destinationName").value;
-            const airport = document.getElementById("airportName").value;
-            const url = document.getElementById("airportUrl").value;
-            const image = document.getElementById("imageUrl").value;
-
-            // יצירת אובייקט יעד חדש
-            const newDestination = new Destination(code, name, airport, url, image);
-
-            // הוספת היעד למערך
-            destinations.push(newDestination);
-
-            // הודעה למשתמש
-            alert("Destination added successfully!");
-
-            // ניקוי השדות בטופס
-            this.reset();
-        });
-    </script>
+    <script src="AddDestination.js"></script>
 </body>
 </html>
