@@ -1,3 +1,6 @@
+import { destinations } from "../data/Destinations.js";
+
+console.log(destinations); // Verify this logs the destinations array
 // פונקציה ליצירת טבלת יעדים
 function createDestinationsTable(data) {
     const container = document.getElementById("destinationsTableContainer");
