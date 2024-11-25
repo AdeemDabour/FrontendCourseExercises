@@ -55,13 +55,49 @@ document.getElementById("addFlightForm").addEventListener("submit", function (ev
     if (errors.length > 0) {
         globalErrors.textContent = "Please fix the errors and try again:\n" + errors.join("\n");
     } else {
-        alert("Flight added successfully!");
+        const flightDetails = {
+            flight: {
+                flightNo,
+                origin,
+                destination,
+                boardingDate,
+                boardingTime,
+                arrivalDate,
+                arrivalTime,
+                seats,
+            },
+        };
+        // Create the success message container
+        const popupContainer = document.createElement("div");
+        popupContainer.id = "successPopup";
+        popupContainer.className = "popup-container";
 
+        // Add the success message content
+        popupContainer.innerHTML = `
+            <strong class="popup-title">The Flight Added Successfully!</strong>
+            <p>Flight Details:</p>
+            <ul class="popup-details">
+                <li><strong>FlightNo:</strong> ${flightDetails.flight.flightNo}</li>
+                <li><strong>Origin:</strong> ${flightDetails.flight.origin}</li>
+                <li><strong>Destination:</strong> ${flightDetails.flight.destination}</li>
+                <li><strong>Boarding Date:</strong> ${flightDetails.flight.boardingDate}</li>
+                <li><strong>Boarding Time:</strong> ${flightDetails.flight.boardingTime}</li>
+                <li><strong>arrival Date:</strong> ${flightDetails.flight.arrivalDate}</li>
+                <li><strong>arrival Time:</strong> ${flightDetails.flight.arrivalTime}</li>
+                <li><strong>No. Of Seats:</strong> ${flightDetails.flight.seats}</li>
+            </ul>
+            <button id="closePopupButton" class="popup-button">Great!</button>
+        `;
+
+        document.body.appendChild(popupContainer);
+        // Add event listener to close the popup
+        document.getElementById("closePopupButton").addEventListener("click", function () {
+            document.body.removeChild(popupContainer);
+            // מעבר לעמוד טבלת הטיסות
+            window.location.href = "../ManageFlights/ManageFlights.html";
+        });
         // ניקוי הטופס
         this.reset();
-
-        // מעבר לעמוד טבלת הטיסות
-        window.location.href = "../ManageFlights/ManageFlights.html";
     }
 });
 

@@ -28,4 +28,18 @@
         background-position: 0% 50%;
     }
 }
+/* Close button styles */
+.popup-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
 
+.popup-button:hover {
+    background-color: darkgreen;
+}
