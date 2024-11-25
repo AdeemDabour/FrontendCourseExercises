@@ -1,3 +1,5 @@
+import { flights } from "../data/Flights.js";
+
 // פונקציה ליצירת טבלת טיסות
 function createFlightsTable(data) {
     const container = document.getElementById("flightsTableContainer");

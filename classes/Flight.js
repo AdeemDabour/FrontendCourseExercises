@@ -1,4 +1,4 @@
-class Flight {
+export class Flight {
     constructor(flightNo, origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime, seats) {
         this.flightNo = flightNo;
         this.origin = origin;
