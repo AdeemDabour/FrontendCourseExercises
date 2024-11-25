@@ -134,8 +134,11 @@ document.getElementById("saveBookingButton").addEventListener("click", function 
             allValid = false;
         }
     }
+    const globalErrorMessage = document.getElementById("globalErrorMessage");
 
     if (allValid) {
+        //no need to show an error message.
+        globalErrorMessage.style.display = "none";
         const bookingDetails = {
             flight: {
                 origin,
@@ -172,6 +175,7 @@ document.getElementById("saveBookingButton").addEventListener("click", function 
             window.location.href = "../ManageBookings/ManageBookings.html";
         });
     } else {
-        alert("Please fix the errors before saving the booking.");
+        //show the error message.
+        globalErrorMessage.style.display = "block";
     }
 });
