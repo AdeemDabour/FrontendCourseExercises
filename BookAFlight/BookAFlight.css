@@ -2,11 +2,11 @@
     padding: 20px;
     margin: 20px 0;
     border: 2px solid #333;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #f4f4f4;
     text-align: left;
-    width: 40%;
-    font-size: 32px; /* הגדלתי את גודל הטקסט */
+    width: 60%;
+    font-size: 32px;
 }
 .error-message {
     font-size: 0.9em;
