@@ -13,3 +13,49 @@
     margin-top: 5px;
     margin-left: 10px;
 }
+/* Popup container styles */
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 2px solid green;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    width: 25%;
+}
+
+/* Popup title styles */
+.popup-title {
+    color: green;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Popup details list */
+.popup-details {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    margin: 10px 0;
+}
+
+/* Close button styles */
+.popup-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.popup-button:hover {
+    background-color: darkgreen;
+}
