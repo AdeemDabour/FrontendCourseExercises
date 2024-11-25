@@ -49,11 +49,51 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
     if (errors.length > 0) {
         globalErrors.textContent = "Please fix the errors and try again:\n" + errors.join("\n");
     } else {
-        alert("Destination added successfully!");
-        this.reset(); // ניקוי הטופס
-        
-        // מעבר לעמוד טבלת היעדים
-        window.location.href = "../ManageDestinations/ManageDestinations.html";
+        const destinationDetails = {
+            destination: {
+                destinationCode,
+                destinationName,
+                airportName,
+                airportUrl,
+                imageUrl,
+            },
+        };
+        // Create the success message container
+        const popupContainer = document.createElement("div");
+        popupContainer.id = "successPopup";
+        popupContainer.className = "popup-container";
+
+        // Add the success message content
+        popupContainer.innerHTML = `
+            <strong class="popup-title">The Destination Added Successfully!</strong>
+            <p>Destination Details:</p>
+            <ul class="popup-details">
+                <li><strong>DestinationCode:</strong> ${destinationDetails.destination.destinationCode}</li>
+                <li><strong>DestinationName:</strong> ${destinationDetails.destination.destinationName}</li>
+                <li><strong>AirportName:</strong> ${destinationDetails.destination.airportName}</li>
+                <li>
+                <strong>Airport URL:</strong> 
+                <a href="${destinationDetails.destination.airportUrl}" target="_blank" rel="noopener noreferrer">
+                ${destinationDetails.destination.airportUrl}</a>
+                </li>
+                <li>
+                <strong>Image URL:</strong> 
+                <a href="${destinationDetails.destination.imageUrl}" target="_blank" rel="noopener noreferrer">
+                ${destinationDetails.destination.imageUrl}</a>
+                </li>
+            </ul>
+            <button id="closePopupButton" class="popup-button">Great!</button>
+        `;
+
+        document.body.appendChild(popupContainer);
+        // Add event listener to close the popup
+        document.getElementById("closePopupButton").addEventListener("click", function () {
+            document.body.removeChild(popupContainer);
+            // מעבר לעמוד טבלת היעדים
+            window.location.href = "../ManageDestinations/ManageDestinations.html";
+        });
+        // ניקוי הטופס
+        this.reset();
     }
 });
 
