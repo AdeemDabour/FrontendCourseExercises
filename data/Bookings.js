@@ -1,4 +1,6 @@
-let bookings = [
+import { Booking } from "../classes/Booking.js";
+
+export let bookings = [
     new Booking("Tel Aviv", "Krakow", "16/7/2025 20:00", "17/7/2025 1:00", 5, "https://api.kopalnia.pl/storage/2022/51/originals/piWvvIgX91HQMfP4N93BGVL5mqinTr97GNgeaQKV.jpg"),
     new Booking("Krakow", "Larnaca", "20/5/2024 20:00", "21/5/2024 2:00", 6, "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/a5/dd/08/caption.jpg?w=500&h=400&s=1"),
     new Booking("Paris", "New York", "15/10/2025 14:00", "15/10/2025 22:00", 3, "https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg"),

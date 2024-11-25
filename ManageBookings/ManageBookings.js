@@ -1,3 +1,4 @@
+import { bookings } from "../data/Bookings.js";
 function displayBookings(bookings) {
     const container = document.getElementById("bookingsContainer");
     container.innerHTML = ""; // מנקה את הקונטיינר

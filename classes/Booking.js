@@ -1,4 +1,4 @@
-class Booking {
+export class Booking {
     constructor(origin, destination, boardingDateTime, landingDateTime, passengerCount, imageUrl) {
         this.origin = origin; // מוצא
         this.destination = destination; // יעד
