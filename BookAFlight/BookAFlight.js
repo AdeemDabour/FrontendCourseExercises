@@ -54,7 +54,12 @@ function createPassengerFields(passengerCount) {
 document.getElementById("passengerCount").addEventListener("input", function () {
     const passengerCount = parseInt(this.value);
 
-    if (passengerCount > maxSeats) {
+    if (isNaN(passengerCount) || passengerCount < 1) {
+        // אם המספר אינו תקין או קטן מ-1, תקן ל-1
+        this.value = 1;
+        showErrorMessage(this, "Number of passengers must be 1 or greater.");
+    } else if (passengerCount > maxSeats) {
+        // אם המספר גדול ממספר המושבים המקסימלי
         showErrorMessage(this, `Max number of seats available at the moment is ${maxSeats}.`);
         this.value = maxSeats;
     } else {
@@ -63,6 +68,7 @@ document.getElementById("passengerCount").addEventListener("input", function () 
         addValidationListeners(passengerCount);
     }
 });
+
 
 // Function to add validation listeners
 function addValidationListeners(passengerCount) {
