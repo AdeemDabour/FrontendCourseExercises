@@ -1,5 +1,5 @@
 import { Flight } from "../classes/Flight.js";
-// יצירת מערך של טיסות
+
 export let flights = [
     new Flight('EK455', 'Krakow', 'Larnaca', '20/05/2024', '20:00', '21/05/2024', '02:00', 250),
     new Flight('LX8396', 'Larnaca', 'Zurich', '02/12/2024', '09:00', '02/12/2024', '11:00', 120),

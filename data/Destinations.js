@@ -1,5 +1,5 @@
 import { Destination } from "../classes/Destination.js";
-// יצירת מערך של יעדים
+
 export let destinations = [
     new Destination("Tel Aviv", "Ben Gurion Airport", "https://www.iaa.gov.il/en/", "TLV", "https://cdn.britannica.com/80/94380-050-F182700B/Tel-Aviv-Yafo-Israel.jpg"),
     new Destination("New York", "John F. Kennedy International Airport", "https://www.jfkairport.com/", "JFK", "https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg"),

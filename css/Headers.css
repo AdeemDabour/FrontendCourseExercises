@@ -19,12 +19,12 @@
 }
 .form-container {
     padding: 20px;
-    max-width: 1200px; /* כדי שהתוכן לא יתפוס את כל רוחב המסך */
-    margin: 40px auto; /* ריווח ומרכז העמוד */
-    background: linear-gradient(145deg, #e0f7fa, #b2ebf2); /* רקע גרדיאנט עדין */
-    border-radius: 10px; /* פינות מעוגלות */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* צל בולט מעט */
-    color: #333; /* צבע טקסט כהה לקריאות */
+    max-width: 1200px;
+    margin: 40px auto;
+    background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #333;
 }
 
 .h2 {
@@ -34,23 +34,22 @@
     color: black;
 }
 
-
 #helpButton {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 50px; /* גודל כפתור */
+    width: 50px;
     height: 50px;
     background: linear-gradient(135deg, #ffcc80, #81c784);
     color: white;
-    font-size: 24px; /* גודל פונט */
+    font-size: 24px;
     font-weight: bold;
     border: none;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-decoration: none; /* הסרת הקו התחתון */
+    text-decoration: none;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -81,5 +80,3 @@
     color: white;
     text-decoration: none;
 }
-
-

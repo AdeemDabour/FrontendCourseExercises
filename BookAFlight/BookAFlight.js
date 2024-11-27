@@ -75,8 +75,6 @@ function createPassengerFields(passengerCount) {
     }
 }
 
-
-
 // Initialize dynamic passenger fields
 createPassengerFields(1);
 
@@ -175,5 +173,3 @@ function clearError(event) {
         globalErrors.textContent = "";
     }
 }
-
-

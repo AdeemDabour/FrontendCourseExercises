@@ -1,11 +1,9 @@
 import { flights } from "../data/Flights.js";
 
-// פונקציה ליצירת טבלת טיסות
 function createFlightsTable(data) {
     const container = document.getElementById("flightsTableContainer");
-    container.innerHTML = ""; // ניקוי התוכן הקיים
+    container.innerHTML = "";
 
-    // יצירת אלמנט הטבלה
     const table = document.createElement("table");
 
     const thead = document.createElement("thead");
@@ -24,7 +22,6 @@ function createFlightsTable(data) {
     data.forEach(flight => {
         const row = document.createElement("tr");
 
-        // יצירת תא עבור כל נתון בטיסה
         const flightData = [
             flight.flightNo,
             flight.origin,
@@ -49,5 +46,4 @@ function createFlightsTable(data) {
     container.appendChild(table);
 }
 
-// קריאה לפונקציה עם הנתונים
 createFlightsTable(flights);

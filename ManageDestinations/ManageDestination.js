@@ -1,11 +1,9 @@
 import { destinations } from "../data/Destinations.js";
 
 console.log(destinations); // Verify this logs the destinations array
-// פונקציה ליצירת טבלת יעדים
 function createDestinationsTable(data) {
     const container = document.getElementById("destinationsTableContainer");
 
-    // יצירת אלמנט הטבלה
     const table = document.createElement("table");
 
     const thead = document.createElement("thead");
@@ -59,5 +57,4 @@ function createDestinationsTable(data) {
     container.appendChild(table);
 }
 
-// קריאה לפונקציה עם הנתונים
 createDestinationsTable(destinations);

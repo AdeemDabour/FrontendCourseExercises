@@ -3,7 +3,7 @@
     background: linear-gradient(135deg, #0309a6, #0d0657, #0d4351, #04672b);
     color: white;
     padding: 25px 50px;
-    border-radius: 15px; /* פינות מעוגלות יותר */
+    border-radius: 15px;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
@@ -13,7 +13,7 @@
 
 .link-button:hover {
     background: linear-gradient(135deg, #aa0e92, #404266, #0ca314, #b3700c);
-    transform: translateY(-5px); /* אפקט הרמה */
+    transform: translateY(-5px);
 }
 
 /* Gradient Animation */

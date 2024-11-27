@@ -1,22 +1,22 @@
 /* General Reset */
 body {
-    margin: 0; /* הסרת מרווחים */
+    margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(180deg, #2d06bb52, #07aba0); /* רקע אחיד לכל העמוד */
-    color: #333; /* צבע טקסט */
+    background: linear-gradient(180deg, #2d06bb52, #07aba0);
+    color: #333;
 }
-
 
 /* Navigation Links */
 .links-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px; /* מרווח גדול יותר בין הכפתורים */
+    gap: 30px;
     margin: 40px auto;
-    max-width: 800px; /* מתאים לגדלים גדולים יותר */
+    max-width: 800px;
 }
+
 /* Popup container styles */
 .popup-container {
     position: fixed;
@@ -47,10 +47,11 @@ body {
     text-align: left;
     margin: 10px 0;
 }
+
 .popup-details li {
-    word-wrap: break-word; /* Break long words or URLs */
-    overflow-wrap: break-word; /* Support for older browsers */
-    word-break: break-all; /* Ensure URLs break at any point */
-    white-space: normal; /* Allow text to wrap onto the next line */
-    line-height: 1.5; /* Adjust line height for readability */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    line-height: 1.5;
 }

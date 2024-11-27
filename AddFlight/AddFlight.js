@@ -16,42 +16,35 @@ document.getElementById("addFlightForm").addEventListener("submit", function (ev
     const arrivalTime = document.getElementById("arrivalTime").value;
     const seats = document.getElementById("seats").value;
 
-    // בדיקת שדה מספר הטיסה
     if (!flightNo) {
         document.getElementById("error-flightNo").textContent = "Flight number is required.";
         errors.push("Flight number is required.");
     }
 
-    // בדיקת מקור
     if (!origin) {
         document.getElementById("error-origin").textContent = "Origin is required.";
         errors.push("Origin is required.");
     }
 
-    // בדיקת יעד
     if (!destination) {
         document.getElementById("error-destination").textContent = "Destination is required.";
         errors.push("Destination is required.");
     }
 
-    // בדיקת מספר מושבים
     if (seats <= 0 || isNaN(seats)) {
         document.getElementById("error-seats").textContent = "Number of seats must be a positive number.";
         errors.push("Number of seats must be a positive number.");
     }
 
-    // המרת תאריכים ושעות
     const boardingDateTime = new Date(`${boardingDate}T${boardingTime}`);
     const arrivalDateTime = new Date(`${arrivalDate}T${arrivalTime}`);
 
-    // בדיקה של תאריך ושעת המראה מול נחיתה
     if (boardingDateTime >= arrivalDateTime) {
         document.getElementById("error-boardingDate").textContent = "Boarding date and time must be earlier than arrival.";
         document.getElementById("error-boardingTime").textContent = "Boarding time must be earlier than arrival time.";
         errors.push("Boarding date and time must be earlier than arrival.");
     }
 
-    // הצגת שגיאות
     if (errors.length > 0) {
         globalErrors.textContent = "Please fix the errors and try again:\n" + errors.join("\n");
     } else {
@@ -93,15 +86,12 @@ document.getElementById("addFlightForm").addEventListener("submit", function (ev
         // Add event listener to close the popup
         document.getElementById("closePopupButton").addEventListener("click", function () {
             document.body.removeChild(popupContainer);
-            // מעבר לעמוד טבלת הטיסות
             window.location.href = "../ManageFlights/ManageFlights.html";
         });
-        // ניקוי הטופס
         this.reset();
     }
 });
 
-// פונקציה לניקוי שגיאה כאשר מתחילים למלא שדה מחדש
 function clearError(event) {
     const errorSpanId = `error-${event.target.id}`;
     const errorSpan = document.getElementById(errorSpanId);
@@ -110,7 +100,6 @@ function clearError(event) {
     }
 }
 
-// מאזינים לשדות הטופס
 const inputFields = document.querySelectorAll("#addFlightForm input");
 inputFields.forEach(field => {
     field.addEventListener("input", clearError);
