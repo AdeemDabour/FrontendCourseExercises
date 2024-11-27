@@ -7,16 +7,56 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     font-size: 18px;
+    transition: box-shadow 0.3s, transform 0.3s;
+    position: relative;
+}
+
+.booking-item::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 123, 255, 0.5);
+    animation: glow 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+    }
+}
+
+.booking-item:hover {
+    transform: scale(1.20);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-color: #007BFF;
 }
 
 .image-container {
     flex: 1;
     margin-right: 20px;
+    position: relative;
 }
 
 .image-container img {
-    max-width: 100%;
+    width: 350px;
+    height: 250px;
+    object-fit: cover;
     border-radius: 8px;
+    border: 2px solid #ddd;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.image-container img:hover {
+    transform: scale(1.05);
+    border-color: #007BFF;
 }
 
 .details-container {
@@ -30,19 +70,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 20px;
+    font-size: 34px;
+    color: #444;
 }
 
 .details-container label {
     font-weight: bold;
-    color: #333;
+    color: #007BFF;
     min-width: 150px;
-    font-size: 22px;
+    font-size: 30px;
 }
 
 .details-container span {
     flex: 1;
     text-align: left;
-    font-size: 20px;
+    font-size: 28px;
+    color: #333;
     margin-left: 10px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
 }

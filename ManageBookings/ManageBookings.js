@@ -1,4 +1,17 @@
 import { bookings } from "../data/Bookings.js";
+
+function createSparkles(container) {
+    for (let i = 0; i < 20; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.animationDelay = `${Math.random() * 2}s`;
+        sparkle.style.animationDuration = `${Math.random() * 1.5 + 0.5}s`;
+        container.appendChild(sparkle);
+    }
+}
+
 function displayBookings(bookings) {
     const container = document.getElementById("bookingsContainer");
     container.innerHTML = "";
@@ -43,6 +56,8 @@ function displayBookings(bookings) {
         bookingItem.appendChild(imageContainer);
         bookingItem.appendChild(detailsContainer);
         container.appendChild(bookingItem);
+
+        createSparkles(imageContainer);
     });
 }
 
