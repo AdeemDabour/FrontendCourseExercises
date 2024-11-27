@@ -1,16 +1,47 @@
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 20px auto;
+    border: 2px solid #970dc9;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    position: relative;
+    animation: glow 3s infinite;
+    text-align: center;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+    }
+}
+
 .filter-label {
     font-size: 32px;
     font-weight: bold;
-    color: black;
+    color: #007BFF;
+    margin-bottom: 15px;
 }
 
 .filter-container div {
-    margin-bottom: 10px;
-    display: block;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .filter-container label {
     font-size: 18px;
+    color: #333;
     margin-right: 10px;
 }
 
@@ -19,6 +50,13 @@
     font-size: 16px;
     border-radius: 5px;
     width: 250px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.filter-container select:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .book-button {
@@ -29,8 +67,10 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .book-button:hover {
     background-color: #45a049;
+    transform: scale(1.05);
 }
