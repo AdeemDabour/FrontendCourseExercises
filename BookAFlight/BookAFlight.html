@@ -28,24 +28,40 @@
             <div><strong>Origin:</strong> <span id="originDisplay"></span> <strong>Boarding:</strong> <span id="boardingDateTimeDisplay"></span></div>
             <div><strong>Destination:</strong> <span id="destinationDisplay"></span> <strong>Landing:</strong> <span id="landingDateTimeDisplay"></span></div>
         </div>
+        <form id="bookForm">
+            <!-- No of passengers input, initialized to 1 -->
+            <div class="input-container">
+                <label for="passengerCount">No of passengers:</label>
+                <input type="number" id="passengerCount" name="passengerCount" value="1" min="1" required>
+                <span class="error-message" id="error-passengerCount"></span>
+            </div>
+            <!-- Passenger Fields Container -->
+            <div id="passengerFields"></div>
 
-        <!-- No of passengers input, initialized to 1 -->
-        <div class="input-container">
-            <label for="passengerCount">No of passengers:</label>
-            <input type="number" id="passengerCount" name="passengerCount" value="1" min="1" required>
-        </div>
-
-        <!-- Container for passenger information -->
-        <div id="passengerFields"></div>
-
-        <!-- Save button -->      
-        <div class="links-container">
-            <button type="submit" id="saveBookingButton" class="link-button">Save</button>
-        </div>
-        <div id="globalErrorMessage" style="color: red; display: none;">Please fix the errors in the form before saving the booking.</div>
-
+            <!-- Using Template for dynamic-->
+            <template id="passengerTemplate">
+                <div class="passenger-container">
+                    <strong>Passenger #</strong>
+                    <div class="input-container">
+                        <label for="passengerName">Name:</label>
+                        <input type="text" class="passengerName" name="passengerName" required>
+                        <span class="error-message name-error"></span>
+                    </div>
+                    <div class="input-container">
+                        <label for="passportId">Passport ID:</label>
+                        <input type="number" class="passportId" name="passportId" required>
+                        <span class="error-message passport-error"></span>
+                    </div>
+                </div>
+            </template>                       
+            
+            <!-- Save button -->      
+            <div class="links-container">
+                <button type="submit" class="link-button">Save</button>
+            </div>
+            <div id="global-errors" class="error-message"></div>
+        </form>
     </div>
-
     <footer class="footer">
         <p>&copy; 2024 OnoAir. All rights reserved.</p>
     </footer>

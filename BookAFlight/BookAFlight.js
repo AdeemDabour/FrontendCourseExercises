@@ -23,128 +23,108 @@ document.getElementById("boardingDateTimeDisplay").innerText = boardingDateTime;
 document.getElementById("destinationDisplay").innerText = destination || "Not selected";
 document.getElementById("landingDateTimeDisplay").innerText = landingDateTime;
 
-// Initialize dynamic passenger fields
-createPassengerFields(1);
-addValidationListeners(1);
+// To handle errors
+const errorMessages = document.querySelectorAll(".error-message");
+errorMessages.forEach(msg => (msg.textContent = ""));
+const globalErrors = document.getElementById("global-errors");
+globalErrors.textContent = "";
 
 // Function to create passenger fields dynamically
 function createPassengerFields(passengerCount) {
     const passengerFieldsContainer = document.getElementById("passengerFields");
-    passengerFieldsContainer.innerHTML = ''; // Clear previous inputs
+    passengerFieldsContainer.innerHTML = ""; // Clear previous inputs
 
+    const template = document.getElementById("passengerTemplate");
     for (let i = 1; i <= passengerCount; i++) {
-        const passengerDiv = document.createElement("div");
-        passengerDiv.classList.add("passenger-container");
-        passengerDiv.innerHTML = `
-            <strong>Passenger ${i}</strong>
-            <div class="input-container">
-                <label for="passengerName${i}">Name:</label>
-                <input type="text" id="passengerName${i}" name="passengerName${i}" required>
-            </div>
-            <div class="input-container">
-                <label for="passportId${i}">Passport ID:</label>
-                <input type="number" id="passportId${i}" name="passportId${i}" required>
-            </div>
-        `;
+        const passengerDiv = template.content.cloneNode(true);
+
+        // Update passenger number
+        passengerDiv.querySelector("strong").textContent = `Passenger ${i}`;
+
+        // Update name input
+        const nameInput = passengerDiv.querySelector(".passengerName");
+        nameInput.id = `passengerName${i}`;
+        nameInput.name = `passengerName${i}`;
+        nameInput.addEventListener("input", clearError);
+
+        // Update corresponding label for name
+        const nameLabel = passengerDiv.querySelector("label[for='passengerName']");
+        if (nameLabel) nameLabel.setAttribute("for", `passengerName${i}`);
+
+        // Update passport input
+        const passportInput = passengerDiv.querySelector(".passportId");
+        passportInput.id = `passportId${i}`;
+        passportInput.name = `passportId${i}`;
+        passportInput.addEventListener("input", clearError);
+
+        // Update corresponding label for passport ID
+        const passportLabel = passengerDiv.querySelector("label[for='passportId']");
+        if (passportLabel) passportLabel.setAttribute("for", `passportId${i}`);
+
+        // Update name error span
+        const nameError = passengerDiv.querySelector(".name-error");
+        if (nameError) nameError.id = `error-passengerName${i}`;
+
+        // Update passport error span
+        const passportError = passengerDiv.querySelector(".passport-error");
+        if (passportError) passportError.id = `error-passportId${i}`;
+        console.log(`Assigned error span id for passport: error-passportId${i}`);
+
+        // Append the passengerDiv to the container
         passengerFieldsContainer.appendChild(passengerDiv);
     }
 }
+
+
+
+// Initialize dynamic passenger fields
+createPassengerFields(1);
 
 // Event listener for passenger count changes
 document.getElementById("passengerCount").addEventListener("input", function () {
     const passengerCount = parseInt(this.value);
 
-    if (isNaN(passengerCount) || passengerCount < 1) {
-        // אם המספר אינו תקין או קטן מ-1, תקן ל-1
-        this.value = 1;
-        showErrorMessage(this, "Number of passengers must be 1 or greater.");
-    } else if (passengerCount > maxSeats) {
-        // אם המספר גדול ממספר המושבים המקסימלי
-        showErrorMessage(this, `Max number of seats available at the moment is ${maxSeats}.`);
+    if (passengerCount > maxSeats) {
+        document.getElementById("error-passengerCount").textContent = `Max number of seats available at the moment is ${maxSeats}.`;
         this.value = maxSeats;
     } else {
-        hideErrorMessage(this);
+        document.getElementById("error-passengerCount").textContent = "";
         createPassengerFields(passengerCount);
-        addValidationListeners(passengerCount);
     }
 });
 
-
-// Function to add validation listeners
-function addValidationListeners(passengerCount) {
-    for (let i = 1; i <= passengerCount; i++) {
-        const nameField = document.getElementById(`passengerName${i}`);
-        const passportIdField = document.getElementById(`passportId${i}`);
-
-        if (nameField && passportIdField) {
-            nameField.addEventListener("input", () => validateName(nameField));
-            passportIdField.addEventListener("input", () => validatePassportId(passportIdField));
-        }
-    }
-}
-
-// Validation functions
-function validateName(nameField) {
-    const name = nameField.value.trim();
-    const errorMessage = "Name must contain letters only.";
-    if (!/^[a-zA-Z\s]+$/.test(name)) {
-        showErrorMessage(nameField, errorMessage);
-        return false;
-    }
-    hideErrorMessage(nameField);
-    return true;
-}
-
-function validatePassportId(passportIdField) {
-    const passportId = passportIdField.value.trim();
-    const errorMessage = "Passport ID must be exactly 8 digits.";
-    if (!/^\d{8}$/.test(passportId)) {
-        showErrorMessage(passportIdField, errorMessage);
-        return false;
-    }
-    hideErrorMessage(passportIdField);
-    return true;
-}
-
-// Helper functions for error message handling
-function showErrorMessage(field, message) {
-    let errorSpan = field.parentNode.querySelector(".error-message");
-    if (!errorSpan) {
-        errorSpan = document.createElement("span");
-        errorSpan.className = "error-message";
-        errorSpan.style.color = "red";
-        field.parentNode.appendChild(errorSpan);
-    }
-    errorSpan.textContent = message;
-}
-
-function hideErrorMessage(field) {
-    const errorSpan = field.parentNode.querySelector(".error-message");
-    if (errorSpan) {
-        errorSpan.textContent = "";
-    }
-}
-
-// Save booking and display success message
-document.getElementById("saveBookingButton").addEventListener("click", function (event) {
+// Handle form submission
+document.getElementById("bookForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
     const passengerCount = parseInt(passengerCountInput.value);
-    let allValid = true;
+    let errors = [];
 
+    // Validation for all the passengers' inputs
     for (let i = 1; i <= passengerCount; i++) {
         const nameField = document.getElementById(`passengerName${i}`);
         const passportIdField = document.getElementById(`passportId${i}`);
+        let passengerHasErrors = false;
 
-        if (!validateName(nameField) || !validatePassportId(passportIdField)) {
-            allValid = false;
+        if (!/^[a-zA-Z\s]+$/.test(nameField.value)) {
+            document.getElementById(`error-passengerName${i}`).textContent = "Name must contain letters only.";
+            passengerHasErrors = true;
+        }
+        if (!/^\d{8}$/.test(passportIdField.value)) {
+            document.getElementById(`error-passportId${i}`).textContent = "Passport ID must be exactly 8 digits.";
+            passengerHasErrors = true;
+        }
+
+        // Track errors for global message
+        if (passengerHasErrors) {
+            errors.push(i);
         }
     }
-    const globalErrorMessage = document.getElementById("globalErrorMessage");
 
-    if (allValid) {
-        //no need to show an error message.
-        globalErrorMessage.style.display = "none";
+    if (errors.length > 0) {
+        globalErrors.textContent = `Please fix the errors for passengers: ${errors.join(", ")}`;
+    } else {
+        // Save booking and display success message
         const bookingDetails = {
             flight: {
                 origin,
@@ -180,8 +160,20 @@ document.getElementById("saveBookingButton").addEventListener("click", function 
             document.body.removeChild(popupContainer);
             window.location.href = "../ManageBookings/ManageBookings.html";
         });
-    } else {
-        //show the error message.
-        globalErrorMessage.style.display = "block";
+
+        this.reset(); // Clear the form after finish
+        createPassengerFields(1); // Reset to default 1 passenger
     }
 });
+// Function to clear error messages dynamically
+function clearError(event) {
+    const inputFieldId = event.target.id; // Get the id of the field triggering the event
+    const errorSpanId = `error-${inputFieldId}`; // Generate the corresponding error span id
+    const errorSpan = document.getElementById(errorSpanId); // Locate the error span element
+    if (errorSpan) {
+        errorSpan.textContent = ""; // Clear the error message
+        globalErrors.textContent = "";
+    }
+}
+
+

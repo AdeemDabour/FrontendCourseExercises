@@ -9,13 +9,8 @@
     font-size: 32px;
 }
 .error-message {
-    font-size: 0.9em;
+    color: red;
+    font-size: 0.875em;
     margin-top: 5px;
-    margin-left: 10px;
-}
-#globalErrorMessage {
-    color: red; 
-    font-size: 20px; /* Adjust font size */
-    width: 100%; /* Full width of the form */
-    text-align: left; /* Align text to the left */
+    display: block;
 }
