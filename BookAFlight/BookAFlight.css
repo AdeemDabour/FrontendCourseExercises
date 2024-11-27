@@ -4,7 +4,7 @@
     border-radius: 10px;
     background-color: #f4f4f4;
     text-align: left;
-    width: 60%;
+    width: 70%;
     font-size: 32px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -36,5 +36,84 @@
     }
     50% {
         box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+    }
+}
+
+/* General styling for the form container */
+.form-container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 30px;
+    border: 2px solid #aa01d9;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Styling for individual passenger containers */
+.passenger-container {
+    width: 80%;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Align passenger container to the left */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Align passenger labels to the left */
+.passenger-container strong {
+    display: block;
+    text-align: left;
+    font-size: 18px;
+}
+
+/* Input container */
+.passenger-container .input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    align-items: flex-start; /* Ensures labels and inputs are aligned to the left */
+}
+
+/* Labels inside the input container */
+.passenger-container .input-container label {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+/* Inputs inside the input container */
+.passenger-container .input-container input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .passenger-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .passenger-container strong {
+        font-size: 16px;
+    }
+
+    .passenger-container .input-container input {
+        font-size: 14px;
+        padding: 6px;
     }
 }

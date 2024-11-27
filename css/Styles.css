@@ -6,19 +6,32 @@ body {
     color: #333;
 }
 
+/* Adjust form-container for consistent behavior */
 .form-container {
-    padding: 30px;
-    margin: 40px auto;
+    width: 100%;
+    padding: 20px;
+    margin: 20px auto;
     border: 2px solid #094f09;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 900px;
+    width: 90%; /* Match the table width */
+    max-width: 1200px; /* Increase the max width for larger layouts */
     text-align: center;
     position: relative;
     animation: glow 3s infinite;
+    overflow-x: auto;
 }
+
+/* Table container for better handling of overflow */
+#destinationsTableContainer,
+#flightsTableContainer {
+    overflow-x: auto; /* Add horizontal scrolling if needed */
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
 
 @keyframes glow {
     0%, 100% {

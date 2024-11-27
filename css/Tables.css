@@ -55,7 +55,7 @@ td img {
 
 /* Hover effect for images */
 td img:hover {
-    transform: scale(1.8);
+    transform: scale(1.4);
 }
 
 /* Styling for table captions */
@@ -74,7 +74,7 @@ table caption {
     }
 
     td img {
-        width: 250px;
-        height: 150px;
+        width: 300px;
+        height: 250px;
     }
 }

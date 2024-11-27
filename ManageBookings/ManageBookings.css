@@ -9,6 +9,8 @@
     font-size: 18px;
     transition: box-shadow 0.3s, transform 0.3s;
     position: relative;
+    width: 90%;
+    max-width: 1200px;
 }
 
 .booking-item::before {
@@ -33,22 +35,27 @@
     }
 }
 
+/* Animation and hover effects */
 .booking-item:hover {
-    transform: scale(1.20);
+    transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     border-color: #007BFF;
 }
 
+/* Image container */
 .image-container {
     flex: 1;
     margin-right: 20px;
     position: relative;
+    display: flex;
+    justify-content: center; /* Center the image */
+    align-items: center; /* Center the image vertically */
 }
 
 .image-container img {
-    width: 350px;
-    height: 250px;
-    object-fit: cover;
+    width: 300px; /* Fixed width for uniformity */
+    height: 200px; /* Fixed height for uniformity */
+    object-fit: cover; /* Ensure image is cropped properly */
     border-radius: 8px;
     border: 2px solid #ddd;
     transition: transform 0.3s, border-color 0.3s;
@@ -59,6 +66,7 @@
     border-color: #007BFF;
 }
 
+/* Details container */
 .details-container {
     flex: 2;
     display: flex;
@@ -66,31 +74,40 @@
     gap: 15px;
 }
 
+/* Each row in the details container */
 .details-container .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 34px;
+    display: grid; /* Use grid for alignment */
+    grid-template-columns: 150px 1fr; /* Fixed width for labels, flexible for values */
+    align-items: center; /* Align vertically */
+    gap: 10px; /* Space between label and value */
+    font-size: 20px; /* Adjust font size */
     color: #444;
 }
 
+/* Label styling */
 .details-container label {
     font-weight: bold;
     color: #007BFF;
-    min-width: 150px;
-    font-size: 30px;
-}
-
-.details-container span {
-    flex: 1;
     text-align: left;
-    font-size: 28px;
-    color: #333;
-    margin-left: 10px;
+    font-size: 20px; /* Ensure consistent font size */
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f3f4f6;
+/* Value styling */
+.details-container span {
+    text-align: left;
+    font-size: 20px;
     color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .details-container .row {
+        grid-template-columns: 120px 1fr; /* Adjust for smaller screens */
+        font-size: 18px;
+    }
+
+    .image-container img {
+        width: 250px;
+        height: 150px;
+    }
 }
