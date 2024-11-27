@@ -1,0 +1,13 @@
+.error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+    margin-left: 10px;
+    display: block;
+}
+.global-errors {
+    color: red;
+    font-size: 20px;
+    display: block;
+    text-align: left;
+}
