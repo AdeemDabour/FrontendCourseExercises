@@ -1,10 +1,40 @@
 .info-box {
     padding: 20px;
-    margin: 20px 0;
-    border: 2px solid #333;
+    border: 2px solid #aa01d9;
     border-radius: 10px;
     background-color: #f4f4f4;
     text-align: left;
     width: 60%;
     font-size: 32px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.info-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.6);
+    border-color: #0056b3;
+}
+
+.info-box::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 123, 255, 0.6);
+    animation: glow 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+    }
 }
