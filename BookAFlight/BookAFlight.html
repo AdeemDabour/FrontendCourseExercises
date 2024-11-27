@@ -1,72 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata and stylesheets -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Book a Flight </title>
+    <title>Book a Flight</title>
     <link rel="stylesheet" href="../css/Styles.css">
     <link rel="stylesheet" href="../css/Headers.css">
-    <link rel="stylesheet" href="../css/Forms.css">
     <link rel="stylesheet" href="../css/Buttons.css">
-    <link rel="stylesheet" href="../css/errors.css">
     <link rel="stylesheet" href="BookAFlight.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+    <!-- Header section -->
     <div class="header-container">
-        <h1><a href="../Index.html" class="h1"><i class="fas fa-plane-departure"></i> OnoAir</a></h1>
+        <h1>
+            <!-- Link back to the homepage -->
+            <a href="../Index.html" class="h1">
+                <i class="fas fa-plane-departure"></i> OnoAir
+            </a>
+        </h1>
     </div>
 
+    <!-- Booking form container -->
     <div class="form-container">
+        <!-- Form title -->
         <div class="h2"><h2>Book a flight</h2></div>
 
-        <!-- Display selected flight details -->
+        <!-- Flight details displayed for the selected flight -->
         <div class="info-box">
-            <div><strong>Origin:</strong> <span id="originDisplay"></span> <strong>Boarding:</strong> <span id="boardingDateTimeDisplay"></span></div>
-            <div><strong>Destination:</strong> <span id="destinationDisplay"></span> <strong>Landing:</strong> <span id="landingDateTimeDisplay"></span></div>
+            <div>
+                <strong>Origin:</strong> <span id="originDisplay"></span> <!-- Displays the origin of the flight -->
+                <strong>Boarding:</strong> <span id="boardingDateTimeDisplay"></span> <!-- Displays boarding details -->
+            </div>
+            <div>
+                <strong>Destination:</strong> <span id="destinationDisplay"></span> <!-- Displays the destination -->
+                <strong>Landing:</strong> <span id="landingDateTimeDisplay"></span> <!-- Displays landing details -->
+            </div>
         </div>
+
+        <!-- Form to input booking details -->
         <form id="bookForm">
-            <!-- No of passengers input, initialized to 1 -->
+            <!-- Input for the number of passengers -->
             <div class="input-container">
                 <label for="passengerCount">No of passengers:</label>
-                <input type="number" id="passengerCount" name="passengerCount" value="1" min="1" required>
-                <span class="error-message" id="error-passengerCount"></span>
+                <input type="number" id="passengerCount" name="passengerCount" value="1" min="1" required> <!-- Default value is 1 -->
+                <span class="error-message" id="error-passengerCount"></span> <!-- Error message placeholder -->
             </div>
-            <!-- Passenger Fields Container -->
+
+            <!-- Container to dynamically add passenger fields -->
             <div id="passengerFields"></div>
 
-            <!-- Using Template for dynamic-->
+            <!-- Template for dynamically generating passenger input fields -->
             <template id="passengerTemplate">
                 <div class="passenger-container">
-                    <strong>Passenger #</strong>
+                    <strong>Passenger #</strong> <!-- Placeholder for passenger number -->
+                    <!-- Input for passenger name -->
                     <div class="input-container">
                         <label for="passengerName">Name:</label>
                         <input type="text" class="passengerName" name="passengerName" required>
-                        <span class="error-message name-error"></span>
+                        <span class="error-message name-error"></span> <!-- Error message placeholder for name -->
                     </div>
+                    <!-- Input for passenger passport ID -->
                     <div class="input-container">
                         <label for="passportId">Passport ID:</label>
                         <input type="number" class="passportId" name="passportId" required>
-                        <span class="error-message passport-error"></span>
+                        <span class="error-message passport-error"></span> <!-- Error message placeholder for passport ID -->
                     </div>
                 </div>
             </template>                       
             
-            <!-- Save button -->      
+            <!-- Save button -->
             <div class="links-container">
                 <button type="submit" class="link-button">Save</button>
             </div>
+
+            <!-- Global error container -->
             <div id="global-errors" class="global-errors"></div>
         </form>
     </div>
+
+    <!-- Footer section -->
     <footer class="footer">
         <p>&copy; 2024 OnoAir. All rights reserved.</p>
     </footer>
 
+    <!-- Help button for quick navigation -->
     <a id="helpButton" href="../Help/Help.html">?</a>
 
+    <!-- JavaScript file to handle dynamic functionality -->
     <script src="BookAFlight.js"></script>
-
 </body>
 </html>

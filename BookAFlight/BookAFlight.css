@@ -1,3 +1,4 @@
+/* Styling for an informational box with a glowing effect */
 .info-box {
     padding: 20px;
     border: 2px solid #aa01d9;
@@ -11,12 +12,14 @@
     transition: box-shadow 0.3s, transform 0.3s;
 }
 
+/* Hover effect for the informational box */
 .info-box:hover {
     transform: scale(1.02);
     box-shadow: 0 8px 20px rgba(0, 123, 255, 0.6);
     border-color: #0056b3;
 }
 
+/* Pseudo-element for the glowing animation around the informational box */
 .info-box::before {
     content: '';
     position: absolute;
@@ -30,6 +33,7 @@
     pointer-events: none;
 }
 
+/* Keyframes for the glowing animation */
 @keyframes glow {
     0%, 100% {
         box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
@@ -63,29 +67,29 @@
     position: relative;
 }
 
-/* Align passenger container to the left */
+/* Flexbox layout for the form container and its content */
 .form-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-/* Align passenger labels to the left */
+/* Styling for labels inside passenger containers */
 .passenger-container strong {
     display: block;
     text-align: left;
     font-size: 18px;
 }
 
-/* Input container */
+/* Layout for input containers inside passenger containers */
 .passenger-container .input-container {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-    align-items: flex-start; /* Ensures labels and inputs are aligned to the left */
+    align-items: flex-start;
 }
 
-/* Labels inside the input container */
+/* Styling for labels inside input containers */
 .passenger-container .input-container label {
     text-align: left;
     font-weight: bold;
@@ -93,7 +97,7 @@
     font-size: 16px;
 }
 
-/* Inputs inside the input container */
+/* Styling for inputs inside input containers */
 .passenger-container .input-container input {
     padding: 8px;
     font-size: 16px;
@@ -101,7 +105,7 @@
     border-radius: 5px;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .passenger-container {
         width: 100%;

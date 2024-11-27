@@ -1,3 +1,4 @@
+/* Container styling for the support box, which contains support or help content */
 .support-box {
     margin: 40px auto;
     padding: 20px;
@@ -7,6 +8,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Styling for list items inside the support box */
 .support-box li {
     margin: 15px 0;
     font-size: 18px;
@@ -14,16 +16,19 @@
     color: #333;
 }
 
+/* Styling for emphasized text within list items */
 .support-box li strong {
     color: #058735;
 }
 
+/* Styling for links within the support box */
 .support-box a {
     color: #2196F3;
     text-decoration: underline;
     font-weight: bold;
 }
 
+/* Hover effect for links inside the support box */
 .support-box a:hover {
     color: #4b168d;
     text-decoration: none;

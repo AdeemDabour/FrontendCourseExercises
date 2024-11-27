@@ -1,6 +1,9 @@
+// Import the Flight class to create flight instances
 import { Flight } from "../classes/Flight.js";
 
+// Array to store multiple flight instances, each created with specific data for flight number, origin, destination, dates, times, and number of seats
 export let flights = [
+    // Creating instances of the Flight class with parameters: flight number, origin, destination, boarding date, boarding time, arrival date, arrival time, and number of seats
     new Flight('EK455', 'Krakow', 'Larnaca', '20/05/2024', '20:00', '21/05/2024', '02:00', 250),
     new Flight('LX8396', 'Larnaca', 'Zurich', '02/12/2024', '09:00', '02/12/2024', '11:00', 120),
     new Flight('AA120', 'Tel Aviv', 'London', '05/12/2024', '16:00', '05/12/2024', '20:30', 180),

@@ -1,3 +1,4 @@
+/* Global page styles */
 body {
     margin: 0;
     padding: 0;
@@ -6,33 +7,25 @@ body {
     color: #333;
 }
 
-/* Adjust form-container for consistent behavior */
+/* Styles for the form container */
 .form-container {
     width: 100%;
     padding: 20px;
-    margin: 20px auto;
+    margin: 40px auto;
     border: 2px solid #094f09;
     border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 90%; /* Match the table width */
     max-width: 1200px; /* Increase the max width for larger layouts */
     text-align: center;
     position: relative;
     animation: glow 3s infinite;
     overflow-x: auto;
+    color: #333;
 }
 
-/* Table container for better handling of overflow */
-#destinationsTableContainer,
-#flightsTableContainer {
-    overflow-x: auto; /* Add horizontal scrolling if needed */
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-
+/* Animation for glowing effect */
 @keyframes glow {
     0%, 100% {
         box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
@@ -40,6 +33,60 @@ body {
     50% {
         box-shadow: 0 0 20px rgba(0, 123, 255, 1);
     }
+}
+
+/* Styles for a container holding links */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+/* Styles for input fields and labels in forms */
+.input-container {
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.input-container label {
+    width: 150px;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.input-container input {
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for error messages */
+.error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+    margin-left: 10px;
+    display: block;
+}
+.global-errors {
+    color: red;
+    font-size: 20px;
+    display: block;
+    text-align: left;
+}
+
+/* Styles for the footer */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
 .links-container {
@@ -51,7 +98,7 @@ body {
     max-width: 800px;
 }
 
-/* Popup container styles */
+/* Styles for a popup container */
 .popup-container {
     position: fixed;
     top: 50%;
@@ -67,14 +114,14 @@ body {
     width: 25%;
 }
 
-/* Popup title styles */
+/* Styles for the title inside the popup */
 .popup-title {
     color: green;
     font-size: 18px;
     margin-bottom: 10px;
 }
 
-/* Popup details list */
+/* Styles for a list inside the popup */
 .popup-details {
     list-style-type: none;
     padding: 0;

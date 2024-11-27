@@ -1,6 +1,9 @@
+// Import the Destination class to create destination instances
 import { Destination } from "../classes/Destination.js";
 
+// Array to store multiple destination instances, each created with specific data for name, airport, website, code, and image
 export let destinations = [
+    // Creating instances of the Destination class with parameters: name, airport, website URL, airport code, and an image URL
     new Destination("Tel Aviv", "Ben Gurion Airport", "https://www.iaa.gov.il/en/", "TLV", "https://cdn.britannica.com/80/94380-050-F182700B/Tel-Aviv-Yafo-Israel.jpg"),
     new Destination("New York", "John F. Kennedy International Airport", "https://www.jfkairport.com/", "JFK", "https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg"),
     new Destination("Krakow", "John Paul II International Airport Kraków–Balice", "https://www.krakowairport.pl/en", "KRK", "https://api.kopalnia.pl/storage/2022/51/originals/piWvvIgX91HQMfP4N93BGVL5mqinTr97GNgeaQKV.jpg"),

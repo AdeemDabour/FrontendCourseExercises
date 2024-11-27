@@ -1,9 +1,11 @@
+/* Styles for the header container */
 .header-container {
     background: linear-gradient(90deg, #00da95, #1e7de1);
     text-align: center;
     padding: 20px;
 }
 
+/* Styles for the header title link inside the header */
 .header-container h1 a {
     color: white;
     text-decoration: none;
@@ -13,70 +15,16 @@
      rgba(0, 0, 0, 0.3);
 }
 
+/* Hover effect for the header title */
 .h1:hover {
     color: #d9a9eb;
     transform: scale(1.1);
 }
-.form-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 40px auto;
-    background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: #333;
-}
 
+/* Styles for secondary headers (h2) */
 .h2 {
     font-size: 36px; 
     font-weight: bold;
     text-align: center;
     color: black;
-}
-
-#helpButton {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #ffcc80, #81c784);
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#helpButton:hover {
-    background: linear-gradient(135deg, #81c784, #ffcc80);
-    transform: scale(1.2);
-}
-
-.footer {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-.footer ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-.footer ul li a {
-    color: white;
-    text-decoration: none;
 }

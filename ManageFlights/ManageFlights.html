@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata and stylesheets for the Manage Flights page -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Manage Flights </title>
@@ -11,27 +12,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body>  
+<body>
+    <!-- Header section with the website's logo and title -->
     <div class="header-container">
         <h1><a href="../Index.html" class="h1"><i class="fas fa-plane-departure"></i> OnoAir</a></h1>
     </div>
 
+    <!-- Main content container for managing flights -->
     <div class="form-container">
-        <div class="h2"><h2>Manage Flights</h2></div>
+        <div class="h2"><h2>Manage Flights</h2></div> <!-- Page title for Manage Flights -->
 
+        <!-- Container where the flights table will be displayed -->
         <div id="flightsTableContainer"></div>
 
+        <!-- Button to add a new flight -->
         <div class="links-container">
             <a href="../AddFlight/AddFlight.html" class="link-button">Add Flight</a>
         </div>
     </div>
 
+    <!-- Help button that links to the Help page -->
     <a id="helpButton" href="../Help/Help.html">?</a>
 
+    <!-- Footer section with copyright information -->
     <footer class="footer">
         <p>&copy; 2024 OnoAir. All rights reserved.</p>
     </footer>
 
+    <!-- Importing the JavaScript file for managing flights -->
     <script type="module" src="ManageFlights.js"></script>
 </body>
 </html>

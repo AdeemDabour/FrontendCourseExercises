@@ -1,3 +1,4 @@
+/* Styling for each booking item container, which includes an image and details */
 .booking-item {
     display: flex;
     margin: 20px 0;
@@ -13,6 +14,7 @@
     max-width: 1200px;
 }
 
+/* Glowing animation effect for the booking item container */
 .booking-item::before {
     content: '';
     position: absolute;
@@ -26,47 +28,40 @@
     pointer-events: none;
 }
 
-@keyframes glow {
-    0%, 100% {
-        box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(0, 123, 255, 1);
-    }
-}
-
-/* Animation and hover effects */
+/* Hover effect for booking items to highlight interactivity */
 .booking-item:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     border-color: #007BFF;
 }
 
-/* Image container */
+/* Styling for the image container inside a booking item */
 .image-container {
     flex: 1;
     margin-right: 20px;
     position: relative;
     display: flex;
-    justify-content: center; /* Center the image */
-    align-items: center; /* Center the image vertically */
+    justify-content: center;
+    align-items: center;
 }
 
+/* Styling for images inside the image container */
 .image-container img {
-    width: 300px; /* Fixed width for uniformity */
-    height: 200px; /* Fixed height for uniformity */
-    object-fit: cover; /* Ensure image is cropped properly */
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
     border-radius: 8px;
     border: 2px solid #ddd;
     transition: transform 0.3s, border-color 0.3s;
 }
 
+/* Hover effect for images to slightly enlarge and change border color */
 .image-container img:hover {
     transform: scale(1.05);
     border-color: #007BFF;
 }
 
-/* Details container */
+/* Styling for the details container within a booking item */
 .details-container {
     flex: 2;
     display: flex;
@@ -74,35 +69,35 @@
     gap: 15px;
 }
 
-/* Each row in the details container */
+/* Layout for each row of details (label and value) in the details container */
 .details-container .row {
-    display: grid; /* Use grid for alignment */
-    grid-template-columns: 150px 1fr; /* Fixed width for labels, flexible for values */
-    align-items: center; /* Align vertically */
-    gap: 10px; /* Space between label and value */
-    font-size: 20px; /* Adjust font size */
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
     color: #444;
 }
 
-/* Label styling */
+/* Styling for labels in the details rows */
 .details-container label {
     font-weight: bold;
     color: #007BFF;
     text-align: left;
-    font-size: 20px; /* Ensure consistent font size */
+    font-size: 20px;
 }
 
-/* Value styling */
+/* Styling for values in the details rows */
 .details-container span {
     text-align: left;
     font-size: 20px;
     color: #333;
 }
 
-/* Responsive Design */
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .details-container .row {
-        grid-template-columns: 120px 1fr; /* Adjust for smaller screens */
+        grid-template-columns: 120px 1fr;
         font-size: 18px;
     }
 

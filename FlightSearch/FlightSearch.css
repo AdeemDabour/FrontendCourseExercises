@@ -1,3 +1,4 @@
+/* Container for the filter section with a glowing animation and centered layout */
 .filter-container {
     display: flex;
     flex-direction: column;
@@ -15,6 +16,7 @@
     text-align: center;
 }
 
+/* Glowing animation effect for the filter container */
 @keyframes glow {
     0%, 100% {
         box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
@@ -24,6 +26,7 @@
     }
 }
 
+/* Label styling for the filter section */
 .filter-label {
     font-size: 32px;
     font-weight: bold;
@@ -31,6 +34,7 @@
     margin-bottom: 15px;
 }
 
+/* Styling for each row of filter controls */
 .filter-container div {
     margin-bottom: 15px;
     display: flex;
@@ -39,12 +43,14 @@
     gap: 10px;
 }
 
+/* Styling for labels inside the filter section */
 .filter-container label {
     font-size: 18px;
     color: #333;
     margin-right: 10px;
 }
 
+/* Styling for dropdowns inside the filter section */
 .filter-container select {
     padding: 10px;
     font-size: 16px;
@@ -54,11 +60,13 @@
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+/* Focus effect for dropdowns to highlight active input */
 .filter-container select:focus {
     border-color: #007BFF;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+/* Styling for the book button in the filter section */
 .book-button {
     padding: 5px 20px;
     font-size: 16px;
@@ -70,6 +78,7 @@
     transition: background-color 0.3s, transform 0.3s;
 }
 
+/* Hover effect for the book button */
 .book-button:hover {
     background-color: #45a049;
     transform: scale(1.05);
