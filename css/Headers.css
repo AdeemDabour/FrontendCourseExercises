@@ -28,3 +28,15 @@
     text-align: center;
     color: black;
 }
+
+/* Styles for the footer */
+.footer {
+    margin-top: auto;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
