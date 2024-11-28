@@ -9,15 +9,13 @@ body {
 
 /* Styles for the form container */
 .form-container {
-    width: 100%;
     padding: 20px;
     margin: 40px auto;
     border: 2px solid #094f09;
     border-radius: 10px;
     background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 90%; /* Match the table width */
-    max-width: 1200px; /* Increase the max width for larger layouts */
+    max-width: 1200px;
     text-align: center;
     position: relative;
     animation: glow 3s infinite;
