@@ -5,18 +5,11 @@
     border-radius: 10px;
     background-color: #f4f4f4;
     text-align: left;
-    width: 70%;
-    font-size: 32px;
+    width: 60%;
+    font-size: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     transition: box-shadow 0.3s, transform 0.3s;
-}
-
-/* Hover effect for the informational box */
-.info-box:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.6);
-    border-color: #0056b3;
 }
 
 /* Pseudo-element for the glowing animation around the informational box */
@@ -33,45 +26,16 @@
     pointer-events: none;
 }
 
-/* Keyframes for the glowing animation */
-@keyframes glow {
-    0%, 100% {
-        box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(0, 123, 255, 1);
-    }
-}
-
-/* General styling for the form container */
-.form-container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 30px;
-    border: 2px solid #aa01d9;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-}
-
 /* Styling for individual passenger containers */
 .passenger-container {
-    width: 80%;
+    width: 35%;
     margin: 20px 0;
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #030e88b8;
     border-radius: 8px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
-}
-
-/* Flexbox layout for the form container and its content */
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 /* Styling for labels inside passenger containers */
@@ -79,45 +43,4 @@
     display: block;
     text-align: left;
     font-size: 18px;
-}
-
-/* Layout for input containers inside passenger containers */
-.passenger-container .input-container {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-    align-items: flex-start;
-}
-
-/* Styling for labels inside input containers */
-.passenger-container .input-container label {
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 16px;
-}
-
-/* Styling for inputs inside input containers */
-.passenger-container .input-container input {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-    .passenger-container {
-        width: 100%;
-        padding: 10px;
-    }
-
-    .passenger-container strong {
-        font-size: 16px;
-    }
-
-    .passenger-container .input-container input {
-        font-size: 14px;
-        padding: 6px;
-    }
 }

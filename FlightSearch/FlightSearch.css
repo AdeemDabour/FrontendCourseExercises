@@ -16,15 +16,6 @@
     text-align: center;
 }
 
-/* Glowing animation effect for the filter container */
-@keyframes glow {
-    0%, 100% {
-        box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(0, 123, 255, 1);
-    }
-}
 
 /* Label styling for the filter section */
 .filter-label {
@@ -34,21 +25,6 @@
     margin-bottom: 15px;
 }
 
-/* Styling for each row of filter controls */
-.filter-container div {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Styling for labels inside the filter section */
-.filter-container label {
-    font-size: 18px;
-    color: #333;
-    margin-right: 10px;
-}
 
 /* Styling for dropdowns inside the filter section */
 .filter-container select {
