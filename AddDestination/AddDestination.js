@@ -1,3 +1,6 @@
+// Import the destinations array
+import { destinations } from "../data/Destinations.js";
+
 // Add a submit event listener to the form with id "addDestinationForm"
 document.getElementById("addDestinationForm").addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the default form submission behavior
@@ -11,7 +14,7 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
     let errors = []; // Array to store validation errors
 
     // Get the values from the form fields and trim any extra whitespace
-    const destinationCode = document.getElementById("destinationCode").value.trim();
+    const destinationCode = document.getElementById("destinationCode").value.trim().toUpperCase(); // Convert to uppercase
     const destinationName = document.getElementById("destinationName").value.trim();
     const airportName = document.getElementById("airportName").value.trim();
     const airportUrl = document.getElementById("airportUrl").value.trim();
@@ -21,6 +24,13 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
     if (!destinationCode || destinationCode.length < 3) {
         document.getElementById("error-destinationCode").textContent = "Destination code must be at least 3 characters.";
         errors.push("Destination code must be at least 3 characters.");
+    }
+
+    // Check for duplicate destination code
+    const isDuplicateCode = destinations.some(destination => destination.code === destinationCode);
+    if (isDuplicateCode) {
+        document.getElementById("error-destinationCode").textContent = "Destination code already exists.";
+        errors.push("Destination code already exists.");
     }
 
     // Validate destination name (must not be empty)

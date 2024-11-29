@@ -1,5 +1,6 @@
 // Importing the destinations data and the Flight class from external modules
 import { destinations } from "../data/Destinations.js";
+import { flights } from "../data/Flights.js"; // Importing the existing flights array
 import { Flight } from "../classes/Flight.js";
 
 // Log the destinations array to verify the data is being imported correctly
@@ -62,6 +63,13 @@ document.getElementById("addFlightForm").addEventListener("submit", function (ev
     if (!flightNo) {
         document.getElementById("error-flightNo").textContent = "Flight number is required.";
         errors.push("Flight number is required.");
+    } else {
+        // Check for duplicate flight number
+        const isDuplicateFlightNo = flights.some(flight => flight.flightNo === flightNo);
+        if (isDuplicateFlightNo) {
+            document.getElementById("error-flightNo").textContent = "Flight number already exists.";
+            errors.push("Flight number already exists.");
+        }
     }
 
     // Validate origin and destination
