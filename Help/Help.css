@@ -1,13 +1,13 @@
 /* Container styling for the support box, which contains support or help content */
 .support-box {
     margin: 40px auto;
-    padding: 20px;
-    width: 50%;
+    width: 70%;
     background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
     border-radius: 10px;
     border: 2px solid #970dc9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     animation: glow 3s infinite;
+    padding: 60px;
 }
 
 /* Styling for list items inside the support box */
