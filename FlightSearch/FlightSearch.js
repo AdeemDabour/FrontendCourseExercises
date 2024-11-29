@@ -1,5 +1,54 @@
-// Import the flights data from a separate file
+// Import the Flight class to create flight instances
 import { flights } from "../data/Flights.js";
+
+// Function to parse a date in dd/mm/yyyy format into a JavaScript Date object
+function parseDate(dateString, timeString) {
+    const [day, month, year] = dateString.split("/").map(Number); // Split the date string and convert to numbers
+    const [hours, minutes] = timeString.split(":").map(Number); // Split the time string and convert to numbers
+    return new Date(year, month - 1, day, hours, minutes); // Create a new Date object
+}
+
+// Sort flights by boarding date and time
+flights.sort((a, b) => {
+    const dateA = parseDate(a.boardingDate, a.boardingTime);
+    const dateB = parseDate(b.boardingDate, b.boardingTime);
+    return dateA - dateB; // Sort in ascending order
+});
+
+// Function to populate dropdown options dynamically from flights
+function populateDropdownOptions(flights, selectElement, columnIndex, defaultText) {
+    const uniqueValues = new Set(); // To store unique values for the dropdown
+
+    // Extract unique values from the specific column in flights
+    flights.forEach(flight => {
+        const value = columnIndex === 1 ? flight.origin : flight.destination;
+        uniqueValues.add(value); // Add unique values to the set
+    });
+
+    // Clear existing options
+    selectElement.innerHTML = "";
+
+    // Add default option
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = defaultText;
+    selectElement.appendChild(defaultOption);
+
+    // Add unique options to the dropdown
+    uniqueValues.forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        selectElement.appendChild(option);
+    });
+}
+
+// Populate dropdowns for origin and destination filters
+const originFilter = document.getElementById("originFilter");
+const destinationFilter = document.getElementById("destinationFilter");
+
+populateDropdownOptions(flights, originFilter, 1, "Select Origin");
+populateDropdownOptions(flights, destinationFilter, 2, "Select Destination");
 
 // Check if flight data is available
 if (flights && flights.length > 0) {
@@ -53,8 +102,8 @@ if (flights && flights.length > 0) {
 
 // Function to filter flights based on origin and destination
 function filterFlights() {
-    const originFilter = document.getElementById("originFilter").value; // Get selected origin filter value
-    const destinationFilter = document.getElementById("destinationFilter").value; // Get selected destination filter value
+    const originFilterValue = originFilter.value; // Get selected origin filter value
+    const destinationFilterValue = destinationFilter.value; // Get selected destination filter value
 
     const rows = document.querySelectorAll("#flightsTable tbody tr:not(#no-results-message)"); // Get all table rows except the "no results" message
     let visibleRowCount = 0; // Counter for visible rows
@@ -64,7 +113,7 @@ function filterFlights() {
         const destination = row.cells[2].innerText; // Get destination from the row
 
         // Check if the row matches the selected filters
-        if ((originFilter === "" || origin === originFilter) && (destinationFilter === "" || destination === destinationFilter)) {
+        if ((originFilterValue === "" || origin === originFilterValue) && (destinationFilterValue === "" || destination === destinationFilterValue)) {
             row.style.display = ""; // Show the row
             visibleRowCount++;
         } else {
@@ -78,8 +127,8 @@ function filterFlights() {
 }
 
 // Add event listeners to the origin and destination filter dropdowns
-document.getElementById("originFilter").addEventListener("change", filterFlights);
-document.getElementById("destinationFilter").addEventListener("change", filterFlights);
+originFilter.addEventListener("change", filterFlights);
+destinationFilter.addEventListener("change", filterFlights);
 
 // Function to redirect the user to the booking page with selected flight details
 function redirectToBookAFlight(origin, destination, boardingDate, boardingTime, arrivalDate, arrivalTime, seats) {
