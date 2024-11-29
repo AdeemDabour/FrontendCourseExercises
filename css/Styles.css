@@ -62,7 +62,16 @@ html, body {
 }
 
 .input-container input {
-    width: 300px;
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for select elements to match input fields */
+.input-container select {
+    width: 225px;
     padding: 10px;
     border: 2px solid #333;
     border-radius: 5px;

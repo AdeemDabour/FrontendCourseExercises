@@ -24,22 +24,6 @@
     margin-bottom: 15px;
 }
 
-/* Styling for dropdowns inside the filter section */
-.filter-container select {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    width: 250px;
-    border: 1px solid #ddd;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-/* Focus effect for dropdowns to highlight active input */
-.filter-container select:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
 /* Styling for the book button in the filter section */
 .book-button {
     padding: 5px 20px;

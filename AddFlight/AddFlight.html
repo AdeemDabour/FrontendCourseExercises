@@ -37,20 +37,24 @@
             <div class="input-container">
                 <label for="flightNo">Flight No.:</label>
                 <input type="text" id="flightNo" name="flightNo" placeholder="Enter Flight Number" required>
-                <span class="error-message" id="error-flightNo"></span> <!-- Error message placeholder -->
+                <span class="error-message" id="error-flightNo"></span>
             </div>
         
-            <!-- Origin input -->
-            <div class="input-container">
+            <!-- Origin select -->
+            <div class="input-container select">
                 <label for="origin">Origin:</label>
-                <input type="text" id="origin" name="origin" placeholder="Enter Origin" required>
+                <select id="origin" name="origin" required>
+                    <!-- Options populated dynamically -->
+                </select>
                 <span class="error-message" id="error-origin"></span>
             </div>
         
-            <!-- Destination input -->
-            <div class="input-container">
+            <!-- Destination select -->
+            <div class="input-container select">
                 <label for="destination">Destination:</label>
-                <input type="text" id="destination" name="destination" placeholder="Enter Destination" required>
+                <select id="destination" name="destination" required>
+                    <!-- Options populated dynamically -->
+                </select>
                 <span class="error-message" id="error-destination"></span>
             </div>
         
@@ -106,7 +110,7 @@
         <a id="helpButton" href="../Help/Help.html">?</a>
     </footer>
 
-    <!-- JavaScript file for handling form submission -->
-    <script src="AddFlight.js"></script>
+    <!-- Importing the JavaScript file for managing destinations -->
+    <script type="module" src="AddFlight.js"></script>
 </body>
 </html>

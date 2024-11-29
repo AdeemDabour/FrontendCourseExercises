@@ -68,7 +68,6 @@ function createPassengerFields(passengerCount) {
         // Update passport error span
         const passportError = passengerDiv.querySelector(".passport-error");
         if (passportError) passportError.id = `error-passportId${i}`;
-        console.log(`Assigned error span id for passport: error-passportId${i}`);
 
         // Append the passengerDiv to the container
         passengerFieldsContainer.appendChild(passengerDiv);
@@ -97,6 +96,7 @@ document.getElementById("bookForm").addEventListener("submit", function (event) 
 
     const passengerCount = parseInt(passengerCountInput.value);
     let errors = [];
+    const passportIds = new Set(); // Set to track unique passport IDs
 
     // Validation for all the passengers' inputs
     for (let i = 1; i <= passengerCount; i++) {
@@ -104,13 +104,22 @@ document.getElementById("bookForm").addEventListener("submit", function (event) 
         const passportIdField = document.getElementById(`passportId${i}`);
         let passengerHasErrors = false;
 
+        // Validate name
         if (!/^[a-zA-Z\s]+$/.test(nameField.value)) {
             document.getElementById(`error-passengerName${i}`).textContent = "Name must contain letters only.";
             passengerHasErrors = true;
         }
+
+        // Validate passport ID
         if (!/^\d{8}$/.test(passportIdField.value)) {
             document.getElementById(`error-passportId${i}`).textContent = "Passport ID must be exactly 8 digits.";
             passengerHasErrors = true;
+        } else if (passportIds.has(passportIdField.value)) {
+            // Check for duplicate passport ID
+            document.getElementById(`error-passportId${i}`).textContent = "Duplicate Passport ID detected.";
+            passengerHasErrors = true;
+        } else {
+            passportIds.add(passportIdField.value); // Add passport ID to the set
         }
 
         // Track errors for global message
@@ -163,6 +172,7 @@ document.getElementById("bookForm").addEventListener("submit", function (event) 
         createPassengerFields(1); // Reset to default 1 passenger
     }
 });
+
 // Function to clear error messages dynamically
 function clearError(event) {
     const inputFieldId = event.target.id; // Get the id of the field triggering the event
