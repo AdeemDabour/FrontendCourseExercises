@@ -19,6 +19,7 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
     const airportName = document.getElementById("airportName").value.trim();
     const airportUrl = document.getElementById("airportUrl").value.trim();
     const imageUrl = document.getElementById("imageUrl").value.trim();
+    const destinationEmail = document.getElementById("destinationEmail").value.trim(); // New email field
 
     // Validate destination code (must be at least 3 characters)
     if (!destinationCode || destinationCode.length < 3) {
@@ -59,6 +60,13 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
         errors.push("Valid image URL is required.");
     }
 
+    // Validate email (must be a valid email format)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!destinationEmail || !emailPattern.test(destinationEmail)) {
+        document.getElementById("error-destinationEmail").textContent = "Valid email is required.";
+        errors.push("Valid email is required.");
+    }
+
     // If there are validation errors, display them in the global error container
     if (errors.length > 0) {
         globalErrors.textContent = "Please fix the errors and try again:\n" + errors.join("\n");
@@ -71,6 +79,7 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
                 airportName,
                 airportUrl,
                 imageUrl,
+                destinationEmail, // Include the email
             },
         };
 
@@ -92,6 +101,7 @@ document.getElementById("addDestinationForm").addEventListener("submit", functio
                 <a href="${destinationDetails.destination.airportUrl}" target="_blank" rel="noopener noreferrer">
                 ${destinationDetails.destination.airportUrl}</a>
                 </li>
+                <li><strong>Email:</strong> ${destinationDetails.destination.destinationEmail}</li>
                 <li>
                 <strong>Image URL:</strong> 
                 <a href="${destinationDetails.destination.imageUrl}" target="_blank" rel="noopener noreferrer">
