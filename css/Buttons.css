@@ -5,7 +5,7 @@
     color: white;
     padding: 25px 50px;
     border-radius: 15px;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: bold;
     text-align: center;
     background-size: 400% 400%;
@@ -49,12 +49,12 @@
 
 /* Styles for a floating help button */
 #helpButton {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     right: 20px;
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #ffcc80, #81c784);
+    background: linear-gradient(135deg, #87CEEB, #4682B4);
     color: white;
     font-size: 24px;
     font-weight: bold;
@@ -70,6 +70,6 @@
 
 /* Hover effect for the help button */
 #helpButton:hover {
-    background: linear-gradient(135deg, #81c784, #ffcc80);
+    background: linear-gradient(135deg, #07205e, #1e04e2);
     transform: scale(1.2);
 }

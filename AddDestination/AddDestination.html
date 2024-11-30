@@ -18,13 +18,7 @@
 <body>
     <!-- Header section of the page -->
     <div class="header-container">
-        <h1>
-            <!-- Link to return to the homepage -->
-            <a href="../Index.html" class="h1">
-                <!-- Plane icon followed by the website name -->
-                <i class="fas fa-plane-departure"></i> OnoAir
-            </a>
-        </h1>
+        <h1><a href="../Index.html" class="h1">OnoAir <i class="fas fa-plane"></i> </a></h1>
     </div>
 
     <!-- Container for the form to add a new destination -->
@@ -36,12 +30,12 @@
         </div>
 
         <!-- Form for adding destination details -->
-        <form id="addDestinationForm">
+        <form id="addDestinationForm" method="post" action="ManageDestinations.html">
             <!-- Input field for destination code -->
             <div class="input-container">
                 <label for="destinationCode">Destination code:</label>
                 <input type="text" id="destinationCode" name="destinationCode" placeholder="Enter Destination code" required>
-                <span class="error-message" id="error-destinationCode"></span> <!-- Error message for this field -->
+                <span class="error-message" id="error-destinationCode"></span>
             </div>
         
             <!-- Input field for destination name -->
@@ -56,6 +50,13 @@
                 <label for="airportName">Airport name:</label>
                 <input type="text" id="airportName" name="airportName" placeholder="Enter Airport name" required>
                 <span class="error-message" id="error-airportName"></span>
+            </div>
+
+            <!-- Input field for email -->
+            <div class="input-container">
+                <label for="destinationEmail">Email:</label>
+                <input type="email" id="destinationEmail" name="destinationEmail" placeholder="Enter Email" required>
+                <span class="error-message" id="error-destinationEmail"></span>
             </div>
         
             <!-- Input field for airport URL -->
@@ -79,7 +80,7 @@
         
             <!-- Container for displaying global error messages -->
             <div id="global-errors" class="global-errors"></div>
-        </form>
+        </form>        
     </div>
 
     <!-- Footer section -->

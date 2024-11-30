@@ -1,20 +1,22 @@
 /* Container for the filter section with a glowing animation and centered layout */
 .filter-container {
+    font-size: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    margin: 20px auto;
     border: 2px solid #970dc9;
     border-radius: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 50%;
+    transition: box-shadow 0.3s, transform 0.3s;
+    max-width: 500px;
     position: relative;
     animation: glow 3s infinite;
-    text-align: center;
+    margin: 10px auto;
 }
+
+
 
 /* Label styling for the filter section */
 .filter-label {

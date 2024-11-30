@@ -5,11 +5,13 @@
     border-radius: 10px;
     background-color: #f4f4f4;
     text-align: left;
-    width: 60%;
     font-size: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
     transition: box-shadow 0.3s, transform 0.3s;
+    max-width: 700px;
+    margin-bottom: 40px;
+    
 }
 
 /* Pseudo-element for the glowing animation around the informational box */
@@ -36,6 +38,8 @@
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
+    max-width: 400px;
+    margin-bottom: 20px;
 }
 
 /* Styling for labels inside passenger containers */
