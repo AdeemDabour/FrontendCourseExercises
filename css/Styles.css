@@ -5,19 +5,19 @@ html, body {
     display: flex;
     flex-direction: column;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(180deg, #2d06bb52, #07aba0);
+    background: linear-gradient(#0000FF, #4682B4, #5F9EA0, #87CEEB, #ADD8E6);
     color: #333;
 }
 
 /* Styles for the form container */
 .form-container {
     padding: 20px;
-    margin: 40px auto;
+    margin: 20px auto;
     border: 2px solid #094f09;
     border-radius: 10px;
     background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 90%;
+    width: 100%;
     max-width: 1200px;
     text-align: center;
     position: relative;

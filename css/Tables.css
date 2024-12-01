@@ -1,7 +1,7 @@
 /* Basic table styling */
 table {
-    width: 80%;
-    margin: auto;
+    width: 90%;
+    margin: 10px auto;
     border-collapse: collapse;
     border: 2px solid #007BFF;
     border-radius: 8px;
