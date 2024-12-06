@@ -20,7 +20,12 @@
 <body>
     <!-- Header section -->
     <div class="header-container">
-        <h1><a href="../Index.html" class="h1">OnoAir <i class="fas fa-plane"></i> </a></h1>
+        <h1>
+            <!-- Link back to the homepage -->
+            <a href="../Index.html" class="h1">
+                <i class="fas fa-plane-departure"></i> OnoAir
+            </a>
+        </h1>
     </div>
 
     <!-- Main content: Flight search and booking -->
@@ -31,31 +36,32 @@
         </div>
         
         <!-- Filter section for searching flights -->
-        <div class="filter-container">
-            <p class="filter-label">Filter by:</p> <!-- Label for the filter section -->
+        <form id="searchFlightsForm" method="get">
+            <div class="filter-container">
+                <p class="filter-label">Filter by:</p> <!-- Label for the filter section -->
 
-            <!-- Dropdown to filter by origin -->
-            <div class="input-container">
-                <label for="originFilter">Origin:</label>
-                <select id="originFilter">
-                    <!-- Options will be dynamically populated -->
-                </select>
-            </div>
+                <!-- Dropdown to filter by origin -->
+                <div class="input-container">
+                    <label for="originFilter">Origin:</label>
+                    <select id="originFilter" name="origin">
+                        <!-- Options will be dynamically populated -->
+                    </select>
+                </div>
 
-            <!-- Dropdown to filter by destination -->
-            <div class="input-container">
-                <label for="destinationFilter">Destination:</label>
-                <select id="destinationFilter">
-                    <!-- Options will be dynamically populated -->
-                </select>
+                <!-- Dropdown to filter by destination -->
+                <div class="input-container">
+                    <label for="destinationFilter">Destination:</label>
+                    <select id="destinationFilter" name="destination">
+                        <!-- Options will be dynamically populated -->
+                    </select>
+                </div>
             </div>
-        </div>
+        </form>
 
         <!-- Table to display flights -->
         <table id="flightsTable">
             <thead>
                 <tr>
-                    <!-- Table headers for flight details -->
                     <th>Flight No.</th>
                     <th>Origin</th>
                     <th>Destination</th>
@@ -64,7 +70,7 @@
                     <th>Arrival Date</th>
                     <th>Arrival Time</th>
                     <th>No. of Seats</th>
-                    <th>Book</th> <!-- Column for booking action -->
+                    <th>Book</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,7 +82,6 @@
     <!-- Footer section -->
     <footer class="footer">
         <p>&copy; 2024 OnoAir. All rights reserved.</p>
-        <!-- Help button for quick navigation -->
         <a id="helpButton" href="../Help/Help.html">?</a>
     </footer>
 
