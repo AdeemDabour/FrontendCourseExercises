@@ -1,0 +1,55 @@
+.header-container {
+    background-image: url('https://www.elal.com/media/1tddsxlq/airplane-desktop.jpg');
+    background-size: cover;
+    background-position: center;
+    color: black;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 16px;
+  }
+  
+  
+  .menu-button {
+    color: white;
+    background-color: #152ba9;
+    border-radius: 12px;
+    width: 60px;
+    height: 60px;
+    transition: background-color 0.3s ease;
+    padding: 0;
+  }
+  
+  .menu-button:hover {
+    background-color: #215f9a;
+  }
+  
+  .menu-button mat-icon {
+    font-size: 48px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .header-container h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3f51b5;
+    margin-left: 24px;
+  }
+  
+  .header-container h1 a {
+    color: blue;
+    text-decoration: none;
+    font-size: 60px;
+  }
+  
+  .header-container h1 a:hover {
+    color: whitesmoke;
+    transform: scale(1.1);
+  }  

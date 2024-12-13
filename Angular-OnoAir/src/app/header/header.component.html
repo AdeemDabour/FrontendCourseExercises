@@ -1,0 +1,36 @@
+<div class="header-container">
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1><a routerLink="/">OnoAir</a></h1>
+
+  <!-- תפריט ראשי -->
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="adminMenu">
+      <mat-icon>admin_panel_settings</mat-icon> Admin
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="userMenu">
+      <mat-icon>person</mat-icon> User
+    </button>
+  </mat-menu>
+
+  <!-- תת-תפריט ל-Admin -->
+  <mat-menu #adminMenu="matMenu">
+    <button mat-menu-item [routerLink]="'/manage-destinations'">
+      Manage Destinations
+    </button>
+    <button mat-menu-item [routerLink]="'/manage-flights'">
+      Manage Flights
+    </button>
+  </mat-menu>
+
+  <!-- תת-תפריט ל-User -->
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item [routerLink]="'/search-flight'">
+      Search a Flight
+    </button>
+    <button mat-menu-item [routerLink]="'/my-bookings'">
+      My Bookings
+    </button>
+  </mat-menu>
+</div>
