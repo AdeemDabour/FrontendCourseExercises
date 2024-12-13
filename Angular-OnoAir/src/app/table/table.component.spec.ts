@@ -1,10 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TableComponent } from './table.component';
 
+interface TestData {
+  id: number;
+  name: string;
+}
+
 describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+  let component: TableComponent<TestData>;
+  let fixture: ComponentFixture<TableComponent<TestData>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -12,7 +16,7 @@ describe('TableComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(TableComponent<TestData>);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

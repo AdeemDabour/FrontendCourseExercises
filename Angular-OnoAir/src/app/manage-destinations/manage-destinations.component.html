@@ -1,1 +1,11 @@
-<p>manage-destinations works!</p>
+<div class="manage-destinations-container">
+    <h2>Manage Destinations</h2>
+    <p>Here you can manage all your destinations.</p>
+  
+    <app-table
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [actions]="actions">
+    </app-table>
+  </div>
+  

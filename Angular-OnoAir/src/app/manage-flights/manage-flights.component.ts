@@ -1,6 +1,17 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { TableComponent, PeriodicElement } from '../table/table.component';
+import { TableComponent } from '../table/table.component';
+
+export interface Flight {
+  flightNo: string;
+  origin: string;
+  destination: string;
+  boardingDate: Date;
+  boardingTime: string;
+  arrivalDate: Date;
+  arrivalTime: string;
+  seats: number;
+}
 
 @Component({
   selector: 'app-manage-flights',
@@ -10,14 +21,36 @@ import { TableComponent, PeriodicElement } from '../table/table.component';
   styleUrls: ['./manage-flights.component.css'],
 })
 export class ManageFlightsComponent {
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Flight>(FLIGHT_DATA);
+  displayedColumns: string[] = [
+    'flightNo',
+    'origin',
+    'destination',
+    'boardingDate',
+    'boardingTime',
+    'arrivalDate',
+    'arrivalTime',
+    'seats',
+  ];
 
-  onEditFlight(flight: PeriodicElement) {
+  actions = [
+    {
+      name: 'Edit',
+      callback: (flight: Flight) => this.onEditFlight(flight),
+    }
+  ];
+
+  onEditFlight(flight: Flight) {
     console.log('Editing flight:', flight);
+  }
+
+  onDeleteFlight(flight: Flight) {
+    console.log('Deleting flight:', flight);
+    this.dataSource.data = this.dataSource.data.filter(f => f !== flight);
   }
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const FLIGHT_DATA: Flight[] = [
   { flightNo: 'LX8396', origin: 'Larnaca', destination: 'Zurich', boardingDate: new Date('2025-12-02'), boardingTime: '09:00', arrivalDate: new Date('2025-12-02'), arrivalTime: '11:00', seats: 120 },
   { flightNo: 'AA120', origin: 'Tel Aviv', destination: 'London', boardingDate: new Date('2025-12-05'), boardingTime: '16:00', arrivalDate: new Date('2025-12-05'), arrivalTime: '20:30', seats: 180 },
   { flightNo: 'EK455', origin: 'Krakow', destination: 'Larnaca', boardingDate: new Date('2025-05-20'), boardingTime: '20:00', arrivalDate: new Date('2025-05-21'), arrivalTime: '02:00', seats: 250 },

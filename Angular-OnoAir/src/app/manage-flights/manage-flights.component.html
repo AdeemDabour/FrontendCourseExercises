@@ -4,6 +4,7 @@
 
   <app-table
     [dataSource]="dataSource"
-    (editFlight)="onEditFlight($event)">
+    [displayedColumns]="displayedColumns"
+    [actions]="actions">
   </app-table>
 </div>

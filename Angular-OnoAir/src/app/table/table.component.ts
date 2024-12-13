@@ -4,17 +4,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
-export interface PeriodicElement {
-  flightNo: string;
-  origin: string;
-  destination: string;
-  boardingDate: Date;
-  boardingTime: string;
-  arrivalDate: Date;
-  arrivalTime: string;
-  seats: number;
-}
-
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -22,23 +11,12 @@ export interface PeriodicElement {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
-export class TableComponent implements AfterViewInit {
-  @Input() dataSource = new MatTableDataSource<PeriodicElement>();
-  @Output() editFlight = new EventEmitter<PeriodicElement>();
+export class TableComponent<T> implements AfterViewInit {
+  @Input() dataSource = new MatTableDataSource<T>();
+  @Input() displayedColumns: string[] = [];
+  @Input() actions: { name: string; callback: (element: T) => void }[] = [];
 
   @ViewChild(MatSort) sort: MatSort | undefined;
-
-  displayedColumns: string[] = [
-    'flightNo',
-    'origin',
-    'destination',
-    'boardingDate',
-    'boardingTime',
-    'arrivalDate',
-    'arrivalTime',
-    'seats',
-    'actions',
-  ];
 
   ngAfterViewInit() {
     if (this.sort) {
@@ -46,7 +24,12 @@ export class TableComponent implements AfterViewInit {
     }
   }
 
-  onEditFlight(flight: PeriodicElement) {
-    this.editFlight.emit(flight);
+  onAction(callback: (element: T) => void, element: T) {
+    callback(element);
+  }
+
+  // Check if a column is a date column
+  isDateColumn(column: string): boolean {
+    return ['boardingDate', 'arrivalDate'].includes(column);
   }
 }
