@@ -1,32 +1,9 @@
 <div class="manage-flights-container">
-    <h2>Manage Flights</h2>
-    <p>Here you can manage all your flights.</p>
-  
-    <!-- טבלה לדוגמה עם רשימת טיסות -->
-    <table mat-table [dataSource]="flights" class="mat-elevation-z8">
-      <ng-container matColumnDef="flightNumber">
-        <th mat-header-cell *matHeaderCellDef> Flight Number </th>
-        <td mat-cell *matCellDef="let flight"> {{flight.number}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="destination">
-        <th mat-header-cell *matHeaderCellDef> Destination </th>
-        <td mat-cell *matCellDef="let flight"> {{flight.destination}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let flight">
-          <button mat-button color="accent" (click)="onEditFlight(flight)">Edit</button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+  <h2>Manage Flights</h2>
+  <p>Here you can manage all your flights.</p>
 
-    <!-- כפתור להוספת טיסה חדשה -->
-    <button mat-raised-button color="primary" (click)="onAddFlight()">Add Flight</button>
-  
-  </div>
-  
+  <app-table
+    [dataSource]="dataSource"
+    (editFlight)="onEditFlight($event)">
+  </app-table>
+</div>

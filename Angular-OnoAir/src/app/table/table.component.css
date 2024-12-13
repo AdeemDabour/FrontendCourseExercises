@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  th.mat-header-cell {
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  td.mat-cell {
+    text-align: left;
+  }
+  
+  button {
+    margin-right: 5px;
+  }  
