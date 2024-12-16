@@ -32,4 +32,6 @@ export class ManageDestinationsComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+  
 }
+

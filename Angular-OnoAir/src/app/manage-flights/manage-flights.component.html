@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+<div>
   <table mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="flightNo.">
@@ -16,25 +16,14 @@
       <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
     </ng-container>
     
-    <ng-container matColumnDef="boardingDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Boarding Date </th>
-      <td mat-cell *matCellDef="let element"> {{ element.boardingDate | date : 'dd/MM/yyyy' }} </td>
+    <ng-container matColumnDef="boardingDateTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Boarding Date Time </th>
+      <td mat-cell *matCellDef="let element"> {{ element.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }} </td>
     </ng-container>
-    
-    <ng-container matColumnDef="boardingTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Boarding Time </th>
-      <td mat-cell *matCellDef="let element"> {{ element.boardingTime }} </td>
-    </ng-container>
-    
-    
-    <ng-container matColumnDef="arrivalDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date </th>
-      <td mat-cell *matCellDef="let element"> {{ element.arrivalDate | date }} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="arrivalTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Time </th>
-      <td mat-cell *matCellDef="let element"> {{ element.arrivalTime }} </td>
+
+    <ng-container matColumnDef="arrivalDateTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date Time </th>
+      <td mat-cell *matCellDef="let element"> {{ element.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }} </td>
     </ng-container>
     
     <ng-container matColumnDef="seats">

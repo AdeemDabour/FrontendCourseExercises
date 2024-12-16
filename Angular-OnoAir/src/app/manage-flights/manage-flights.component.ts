@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ManageFlightsComponent implements AfterViewInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
-  displayedColumns: string[] = ['flightNo.', 'origin', 'destination', 'boardingDate', 'boardingTime', 'arrivalDate', 'arrivalTime', 'seats'];
+  displayedColumns: string[] = ['flightNo.', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats'];
   dataSource = new MatTableDataSource<Flight>();
 
   @ViewChild(MatSort) sort!: MatSort;
