@@ -25,6 +25,12 @@ export class FlightsService {
     { flightNo: 'UA992', origin: 'Los Angeles', destination: 'Tokyo', boardingDate: new Date('2025-12-12'), boardingTime: '11:00', arrivalDate: new Date('2025-12-12'), arrivalTime: '18:00', seats: 280 },
     { flightNo: 'AF2099', origin: 'Tel Aviv', destination: 'Paris', boardingDate: new Date('2025-12-20'), boardingTime: '15:00', arrivalDate: new Date('2025-12-20'), arrivalTime: '19:30', seats: 180 },
     { flightNo: 'LH402', origin: 'Tel Aviv', destination: 'Berlin', boardingDate: new Date('2025-12-24'), boardingTime: '10:00', arrivalDate: new Date('2025-12-24'), arrivalTime: '14:30', seats: 220 },
-    { flightNo: 'W61283', origin: 'Tel Aviv', destination: 'Krakow', boardingDate: new Date('2025-12-28'), boardingTime: '20:00', arrivalDate: new Date('2025-12-29'), arrivalTime: '01:00', seats: 150 },
-  ];
+    { flightNo: 'W61283', origin: 'Tel Aviv', destination: 'Krakow', boardingDate: new Date('2025-12-28'), boardingTime: '20:00', arrivalDate: new Date('2025-12-29'), arrivalTime: '01:00', seats: 150 }
+  ]
+
+public getFlights(): Flight[] {
+  return this.flights;
 }
+
+};
+
