@@ -104,4 +104,12 @@ export class DestinationService {
     code: "BER",
     imageUrl: "https://media.brate.com/images/europa/niemcy/berlin/berlin.jpg",
   },
-]};
+]
+
+// In DestinationService class
+public getDestinations(): Destination[] {
+  return this.destinations;
+}
+
+
+};

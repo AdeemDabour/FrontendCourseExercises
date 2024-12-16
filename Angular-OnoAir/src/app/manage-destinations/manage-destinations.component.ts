@@ -1,13 +1,35 @@
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { TableComponent } from '../table/table.component';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { DestinationService, Destination } from '../destinations.service';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-manage-destinations',
-  imports: [TableComponent],
+  imports: [MatSortModule, MatTableModule],
   templateUrl: './manage-destinations.component.html',
   styleUrls: ['./manage-destinations.component.css'],
 })
-export class ManageDestinationsComponent {
-  
+
+export class ManageDestinationsComponent implements AfterViewInit {
+  private _liveAnnouncer = inject(LiveAnnouncer);
+  displayedColumns: string[] = ['city', 'airport', 'website', 'email', 'code', 'imageUrl'];
+  dataSource = new MatTableDataSource<Destination>();
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private destinationService: DestinationService) { }
+
+  ngAfterViewInit(): void {
+    this.dataSource.data = this.destinationService.getDestinations();
+    this.dataSource.sort = this.sort;
+  }
+
+  announceSortChange(sortState: Sort): void {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
 }
