@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
+import { HomePageComponent } from './Features/home-page/home-page.component';
 import { ManageFlightsComponent } from './manage-flights/manage-flights.component';
 import { ManageDestinationsComponent } from './manage-destinations/manage-destinations.component';
 import { FlightSearchComponent } from './flight-search/flight-search.component';
