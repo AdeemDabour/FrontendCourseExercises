@@ -13,7 +13,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 export class ManageDestinationsComponent implements AfterViewInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
-  displayedColumns: string[] = ['name', 'airport', 'website', 'email', 'code', 'imageUrl'];
+  displayedColumns: string[] = ['name', 'airportName', 'airportWebsite', 'email', 'code', 'imageUrl'];
   dataSource = new MatTableDataSource<Destination>();
 
   @ViewChild(MatSort) sort!: MatSort;
