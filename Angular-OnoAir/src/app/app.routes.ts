@@ -6,6 +6,7 @@ import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { HelpPageComponent } from './Features/help-page/help-page.component';
 import { FlightDetailsComponent } from './flight-details/flight-details.component';
+import { DestinationDetailsComponent } from './destination-details/destination-details.component';
 
 export const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
@@ -14,6 +15,9 @@ export const routes: Routes = [
   { path: 'search-flight', component: FlightSearchComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
   { path: 'help-page', component: HelpPageComponent },
+  { path: 'flight-details', component: FlightDetailsComponent },
   { path: 'flight-details/:flightNo', component: FlightDetailsComponent },
-  { path: '', component: HomePageComponent },
+  { path: 'destination-details', component: FlightDetailsComponent },
+  { path: 'destination-details/:code', component: DestinationDetailsComponent },
+  { path: '', component: HomePageComponent }
 ];

@@ -1,0 +1,46 @@
+<h2 class="glitter-text">Destination Details</h2>
+
+<div class="destination-details-container">
+  <mat-card class="destination-card">
+    <mat-card-header>
+      <mat-card-title>{{ destination?.name }}</mat-card-title>
+      <mat-card-subtitle>{{ destination?.airportName }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <img mat-card-image [src]="destination?.imageUrl" alt="{{ destination?.name }}" />
+
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+            <strong>Destination Code: </strong>
+            <span>{{ destination?.code }}</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+            <strong>Destination Name: </strong>
+            <span>{{ destination?.name }}</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+            <strong>Airport Name: </strong>
+            <span>{{ destination?.airportName }}</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>   
+          <strong>Airport Url: </strong>
+          <a [href]="destination?.airportWebsite" target="_blank">Visit Website</a>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+            <strong>Image Url: </strong>
+            <a [href]="destination?.imageUrl" target="_blank">View Image</a>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list> 
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
