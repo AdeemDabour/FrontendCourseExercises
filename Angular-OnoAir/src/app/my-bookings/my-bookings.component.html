@@ -1,5 +1,6 @@
+<h2 class="glitter-text">My Bookings</h2>
 <div>
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table  mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="origin">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Origin </th>
         <td mat-cell *matCellDef="let element"> {{ element.origin }} </td>

@@ -1,27 +1,28 @@
 /* Basic table styling */
 table {
-  margin: 10px;
-  padding: 60px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 2px solid #007BFF;
   border-radius: 12px;
-  max-width: 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0;
+  padding: 50px;
+  table-layout: fixed;
 }
 
-/* Table headers styling */
 th {
-  padding: 15px;
+  padding: 4px;
+  word-wrap: break-word;
   font-weight: bold;
   background-color: #007BFF;
   border: 1px solid #ddd;
   color: #333;
-  font-size: 16px;
-  max-width: 1px;
+  font-size: 20px;
 }
 
 /* Table data cells styling */
 td {
-  padding: 10px;
+  padding: 4px;
+  word-wrap: break-word;
   border: 1px solid #ddd;
   font-size: 18px;
   color: #333;

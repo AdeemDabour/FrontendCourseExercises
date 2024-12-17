@@ -2,12 +2,9 @@
   background-image: url('https://www.elal.com/media/1tddsxlq/airplane-desktop.jpg');
   background-size: cover;
   background-position: center;
+  color: black;
+  min-height: 220px;
   height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .menu-button {
