@@ -30,5 +30,9 @@ public getFlights(): Flight[] {
   return this.flights;
 }
 
+public getFlightByNumber(flightNo: string): Flight | undefined {
+  return this.getFlights().find(flight => flight.flightNo === flightNo);
+}
+
 };
 

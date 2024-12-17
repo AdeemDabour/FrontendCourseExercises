@@ -1,0 +1,64 @@
+.flight-details-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #dbe9f6, #f0f4ff, #b3cde0);
+    padding: 50px 0;
+    border-radius: 16px;
+  }
+  
+  .flight-card {
+    width: 900px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #2275ce, #0b3d91);
+    color: #ffffff;
+    overflow: hidden;
+    padding: 30px 40px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .flight-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .mat-card-title,
+  .mat-card-subtitle {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .mat-card-title {
+    font-size: 38px;
+    margin-bottom: 12px;
+  }
+
+  .mat-card-subtitle {
+    font-size: 34px;
+    color: #c2e0f4;
+    margin-bottom: 20px;
+  }
+  
+  .mat-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: #f0f8ff;
+    border-bottom: 1px solid #80a8d8;
+  }
+  
+  .mat-list-item strong {
+    color: #ffeb3b;
+    font-size: 30px;
+  }
+  
+  .mat-card-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
