@@ -5,6 +5,7 @@ table {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 2px solid #007BFF;
   border-radius: 12px;
+  max-width: 1px;
 }
 
 /* Table headers styling */
@@ -13,9 +14,9 @@ th {
   font-weight: bold;
   background-color: #007BFF;
   border: 1px solid #ddd;
-
   color: #333;
   font-size: 16px;
+  max-width: 1px;
 }
 
 /* Table data cells styling */

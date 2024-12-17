@@ -1,8 +1,11 @@
-<div class="header-container">
+<mat-toolbar class="header-container">
   <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1><a routerLink="/">OnoAir</a></h1>
+
+  <h1>
+    <a routerLink="/">OnoAir</a>
+  </h1>
 
   <mat-menu #menu="matMenu">
     <button mat-menu-item [matMenuTriggerFor]="adminMenu">
@@ -30,4 +33,4 @@
       My Bookings
     </button>
   </mat-menu>
-</div>
+</mat-toolbar>
