@@ -1,0 +1,59 @@
+/* Basic table styling */
+table {
+  margin: 10px;
+  padding: 100px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #007BFF;
+  border-radius: 12px;
+}
+
+/* Table headers styling */
+th {
+  padding: 4px;
+  font-weight: bold;
+  background-color: #007BFF;
+  border: 1px solid #ddd;
+  color: #333;
+  font-size: 20px;
+  width: 0.5%;
+}
+
+/* Table data cells styling */
+td {
+  padding: 4px;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  color: #333;
+  width: 0.5%;
+}
+
+/* Alternating row colors */
+tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/* Hover effect for rows */
+tr:hover {
+  background-color: #e9f7fe;
+  transform: scale(1.01);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Styling for images inside table cells */
+td img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect for images */
+td img:hover {
+  transform: scale(1.1);
+}
