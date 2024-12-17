@@ -1,0 +1,28 @@
+<h2 class="section-title">Last Minute Flights</h2>
+
+<div class="flights-container">
+  <mat-grid-list cols="4" rowHeight="400px" gutterSize="20px">
+    <mat-grid-tile *ngFor="let flight of lastMinuteFlights" class="flight-card">
+      <mat-card class="flight-card-container">
+        <img mat-card-image [src]="flight.imageUrl" alt="Destination Image" class="flight-image"/>
+
+        <mat-card-header>
+          <mat-card-title>
+            {{flight.origin}} to {{ flight.destination }}
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p><strong>Departure Date:</strong> {{ flight.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong>Return Date:</strong> {{ flight.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="navigateToBooking(flight)">
+            Book Now
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
