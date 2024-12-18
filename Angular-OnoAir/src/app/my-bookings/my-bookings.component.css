@@ -46,4 +46,11 @@ label {
   font-weight: bold;
   margin-right: 8px;
 }
+.section-title {
+  font-size: 48px;
+    color: #150590;
+    font-weight: bold;
+    margin: 30px;
+    padding-left: 20px;
+}
 

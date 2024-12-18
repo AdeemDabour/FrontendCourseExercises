@@ -1,29 +1,64 @@
 <h2 class="glitter-text">My Bookings</h2>
-<div class="bookings-container">
-  <div class="booking-card" *ngFor="let booking of dataSource.data">
-    <div class="image-container">
-      <img [src]="booking.imageUrl" alt="{{ booking.destination }}" />
+
+<div>
+  <h3 class="section-title">Upcoming Bookings</h3>
+  <div class="bookings-container">
+    <div class="booking-card" *ngFor="let booking of upcomingBookings">
+      <div class="image-container">
+        <img [src]="booking.imageUrl" alt="{{ booking.destination }}" />
+      </div>
+      <div class="details-container">
+        <div class="row">
+          <label>Origin:</label>
+          <span>{{ booking.origin }}</span>
+        </div>
+        <div class="row">
+          <label>Destination:</label>
+          <span>{{ booking.destination }}</span>
+        </div>
+        <div class="row">
+          <label>Boarding:</label>
+          <span>{{ booking.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="row">
+          <label>Landing:</label>
+          <span>{{ booking.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="row">
+          <label>Passengers:</label>
+          <span>{{ booking.passengerCount }}</span>
+        </div>
+      </div>
     </div>
-    <div class="details-container">
-      <div class="row">
-        <label>Origin:</label>
-        <span>{{ booking.origin }}</span>
+  </div>
+
+  <h3 class="section-title">Previous Bookings</h3>
+  <div class="bookings-container">
+    <div class="booking-card" *ngFor="let booking of previousBookings">
+      <div class="image-container">
+        <img [src]="booking.imageUrl" alt="{{ booking.destination }}" />
       </div>
-      <div class="row">
-        <label>Destination:</label>
-        <span>{{ booking.destination }}</span>
-      </div>
-      <div class="row">
-        <label>Boarding:</label>
-        <span>{{ booking.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
-      </div>
-      <div class="row">
-        <label>Landing:</label>
-        <span>{{ booking.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
-      </div>
-      <div class="row">
-        <label>Passengers:</label>
-        <span>{{ booking.passengerCount }}</span>
+      <div class="details-container">
+        <div class="row">
+          <label>Origin:</label>
+          <span>{{ booking.origin }}</span>
+        </div>
+        <div class="row">
+          <label>Destination:</label>
+          <span>{{ booking.destination }}</span>
+        </div>
+        <div class="row">
+          <label>Boarding:</label>
+          <span>{{ booking.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="row">
+          <label>Landing:</label>
+          <span>{{ booking.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="row">
+          <label>Passengers:</label>
+          <span>{{ booking.passengerCount }}</span>
+        </div>
       </div>
     </div>
   </div>
