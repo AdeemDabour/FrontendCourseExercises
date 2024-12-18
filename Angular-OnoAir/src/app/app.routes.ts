@@ -5,9 +5,10 @@ import { ManageDestinationsComponent } from './manage-destinations/manage-destin
 import { FlightSearchComponent } from './flight-search/flight-search.component';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { HelpPageComponent } from './Features/help-page/help-page.component';
-import { FlightDetailsComponent } from './flight-details/flight-details.component';
-import { DestinationDetailsComponent } from './destination-details/destination-details.component';
-import { LastMinuteFlightsComponent } from './last-minute-flights/last-minute-flights.component';
+import { FlightDetailsComponent } from './Features/flight-details/flight-details.component';
+import { DestinationDetailsComponent } from './Features/destination-details/destination-details.component';
+import { LastMinuteFlightsComponent } from './Features/last-minute-flights/last-minute-flights.component';
+import { FlightsTableComponent } from './Features/flights-table/flights-table.component';
 
 export const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
@@ -21,5 +22,6 @@ export const routes: Routes = [
   { path: 'destination-details', component: FlightDetailsComponent },
   { path: 'destination-details/:code', component: DestinationDetailsComponent },
   { path: 'last-minute-flights', component: LastMinuteFlightsComponent },
+  { path: 'flights-table', component: FlightsTableComponent },
   { path: '', component: HomePageComponent }
 ];

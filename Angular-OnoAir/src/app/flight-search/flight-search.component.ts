@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { FlightsTableComponent } from '../Features/flights-table/flights-table.component';
+import { FlightsService, Flight } from '../flights.service';
 @Component({
   selector: 'app-flight-search',
-  imports: [],
+  imports: [FlightsTableComponent],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.css'
 })
-export class FlightSearchComponent {
+export class FlightSearchComponent implements OnInit {
+  futureFlights: Flight[] = [];
 
+  constructor(private flightService: FlightsService) {}
+
+  ngOnInit(): void {
+    const allFlights = this.flightService.getFlights();
+    const today = new Date();
+
+    // סינון טיסות עתידיות בלבד
+    this.futureFlights = allFlights.filter(flight => new Date(flight.boardingDateTime) > today);
+  }
 }
