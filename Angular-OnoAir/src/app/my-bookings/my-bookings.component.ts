@@ -5,10 +5,11 @@ import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DatePipe } from '@angular/common';
 import { BookingService, Booking } from '../bookings.service';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-bookings',
-  imports: [CommonModule, MatSortModule, MatTableModule, DatePipe],
+  imports: [CommonModule, MatCardModule , DatePipe],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
 })
