@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DestinationService, Destination } from '../destinations.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { DestinationService, Destination } from '../../destinations.service';
 @Component({
   selector: 'app-destination-details',
   imports: [CommonModule, MatCardModule, MatListModule, MatButtonModule],

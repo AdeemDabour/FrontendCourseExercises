@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 export class FlightsTableComponent implements AfterViewInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
 
+  @Input() showActionsColumn: boolean = true;
+
   @Input() flights: Flight[] = [];
   displayedColumns: string[] = ['flightNo.', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats', 'actions'];
   dataSource = new MatTableDataSource<Flight>();
@@ -26,9 +28,15 @@ export class FlightsTableComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.data = this.flights;
+  
+    // Adjust displayed columns based on the input property
+    this.displayedColumns = this.showActionsColumn
+      ? ['flightNo.', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats', 'actions']
+      : ['flightNo.', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats', 'book'];
+      
     this.dataSource.sort = this.sort;
   }
-
+  
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -53,4 +61,9 @@ export class FlightsTableComponent implements AfterViewInit {
       return originMatch || destinationMatch || boardingDateMatch || arrivalDateMatch;
     };
   }
+
+  navigateToBooking(flight: Flight): void {
+    this.router.navigate(['/book-flight', flight.flightNo]);
+  }
+  
 }

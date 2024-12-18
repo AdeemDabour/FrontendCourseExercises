@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightsService, Flight } from '../flights.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Router } from '@angular/router';
+import { FlightsService, Flight } from '../../flights.service';
 
 @Component({
   selector: 'app-last-minute-flights',

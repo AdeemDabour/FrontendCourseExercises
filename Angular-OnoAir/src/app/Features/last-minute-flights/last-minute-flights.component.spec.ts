@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LastMinuteFlightsComponent } from './last-minute-flights.component';
 
 describe('LastMinuteFlightsComponent', () => {
