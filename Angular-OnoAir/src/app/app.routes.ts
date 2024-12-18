@@ -9,6 +9,7 @@ import { FlightDetailsComponent } from './Features/flight-details/flight-details
 import { DestinationDetailsComponent } from './Features/destination-details/destination-details.component';
 import { LastMinuteFlightsComponent } from './Features/last-minute-flights/last-minute-flights.component';
 import { FlightsTableComponent } from './Features/flights-table/flights-table.component';
+import { BookFlightComponent } from './book-flight/book-flight.component';
 
 export const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
@@ -23,5 +24,6 @@ export const routes: Routes = [
   { path: 'destination-details/:code', component: DestinationDetailsComponent },
   { path: 'last-minute-flights', component: LastMinuteFlightsComponent },
   { path: 'flights-table', component: FlightsTableComponent },
+  { path: 'book-flight/:flightNo', component: BookFlightComponent },
   { path: '', component: HomePageComponent }
 ];

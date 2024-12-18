@@ -61,7 +61,6 @@ export class FlightsTableComponent implements AfterViewInit {
       return originMatch || destinationMatch || boardingDateMatch || arrivalDateMatch;
     };
   }
-
   navigateToBooking(flight: Flight): void {
     this.router.navigate(['/book-flight', flight.flightNo]);
   }
