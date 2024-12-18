@@ -1,15 +1,14 @@
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { DatePipe } from '@angular/common';
 import { BookingService, Booking } from '../bookings.service';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-bookings',
-  imports: [CommonModule, MatCardModule , DatePipe],
+  imports: [CommonModule, MatCardModule ],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
 })
