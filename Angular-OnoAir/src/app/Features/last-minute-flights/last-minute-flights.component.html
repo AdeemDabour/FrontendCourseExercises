@@ -13,8 +13,8 @@
         </mat-card-header>
 
         <mat-card-content>
-          <p><strong>Departure Date:</strong> {{ flight.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }}</p>
-          <p><strong>Return Date:</strong> {{ flight.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong>Boarding: </strong> {{ flight.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong>Landing: </strong> {{ flight.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
         </mat-card-content>
 
         <mat-card-actions align="end">

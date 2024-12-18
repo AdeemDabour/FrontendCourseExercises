@@ -16,6 +16,6 @@ export class FlightSearchComponent implements OnInit {
     const allFlights = this.flightService.getFlights();
     const today = new Date();
 
-    this.futureFlights = allFlights.filter(flight => new Date(flight.boardingDateTime) > today);
+    this.futureFlights = allFlights.filter(flight => new Date(flight.boarding) > today);
   }
 }

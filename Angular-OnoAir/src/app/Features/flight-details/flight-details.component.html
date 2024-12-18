@@ -16,13 +16,13 @@
           <mat-card-content>
             <mat-list>
               <mat-list-item>
-                <strong>Boarding Date: </strong>
-                <span>{{ flight?.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
+                <strong>Boarding: </strong>
+                <span>{{ flight?.boarding | date: 'dd/MM/yyyy HH:mm' }}</span>
               </mat-list-item>
               <mat-divider></mat-divider>
               <mat-list-item>
-                <strong>Arrival Date: </strong>
-                <span>{{ flight?.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</span>
+                <strong>Landing: </strong>
+                <span>{{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}</span>
               </mat-list-item>
               <mat-divider></mat-divider>
               <mat-list-item>

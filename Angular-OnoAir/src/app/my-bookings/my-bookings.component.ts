@@ -5,10 +5,11 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BookingService, Booking } from '../bookings.service';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-my-bookings',
-  imports: [CommonModule, MatCardModule ],
+  imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
 })
@@ -43,5 +44,10 @@ export class MyBookingsComponent implements AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  viewBooking(booking: any): void {
+    console.log('Viewing booking:', booking);
+    alert(`Viewing details for booking from ${booking.origin} to ${booking.destination}`);
   }
 }

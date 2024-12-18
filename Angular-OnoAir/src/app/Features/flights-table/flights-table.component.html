@@ -16,14 +16,14 @@
       <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
     </ng-container>
     
-    <ng-container matColumnDef="boardingDateTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Boarding Date Time </th>
-      <td mat-cell *matCellDef="let element"> {{ element.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }} </td>
+    <ng-container matColumnDef="boarding">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Boarding </th>
+      <td mat-cell *matCellDef="let element"> {{ element.boarding | date: 'dd/MM/yyyy HH:mm' }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="arrivalDateTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Arrival Date Time </th>
-      <td mat-cell *matCellDef="let element"> {{ element.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }} </td>
+    <ng-container matColumnDef="landing">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Landing </th>
+      <td mat-cell *matCellDef="let element"> {{ element.landing | date: 'dd/MM/yyyy HH:mm' }} </td>
     </ng-container>
     
     <ng-container matColumnDef="seats">

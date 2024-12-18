@@ -14,11 +14,14 @@
           <p><strong>Landing:</strong> {{ booking.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</p>
           <p><strong>Passengers:</strong> {{ booking.passengerCount }}</p>
         </div>
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="viewBooking(booking)">View</button>
+        </div>
       </div>
-    </mat-card>
+    </mat-card>    
   </div>
 
-  <h3 class="section-title">Previous Bookings</h3>
+  <h4 class="section-title">Previous Bookings</h4>
   <div class="bookings-container">
     <mat-card *ngFor="let booking of previousBookings" class="booking-card">
       <div class="card-content">
@@ -31,6 +34,9 @@
           <p><strong>Landing:</strong> {{ booking.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }}</p>
           <p><strong>Passengers:</strong> {{ booking.passengerCount }}</p>
         </div>
+      </div>
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="viewBooking(booking)">View</button>
       </div>
     </mat-card>
   </div>

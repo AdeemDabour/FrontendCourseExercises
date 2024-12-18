@@ -2,12 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  justify-content: center;
+  padding: 16px;
 }
 
 .booking-card {
   display: flex;
-  align-items: center;
   width: 100%;
   max-width: 600px;
   padding: 0;
@@ -27,6 +26,8 @@
   flex: 0 0 150px;
   height: 150px;
   overflow: hidden;
+  margin: 15px;
+  border-radius: 8px;
 }
 
 .image-container img {
@@ -38,9 +39,6 @@
 .details-container {
   flex-grow: 1;
   padding: 16px;
-}
-
-.details-container h3 {
   margin: 0 0 8px;
   color: #333;
   font-size: 1.2em;
@@ -50,11 +48,17 @@
   margin: 4px 0;
   color: #555;
 }
+
 .section-title {
   font-size: 48px;
-    color: #150590;
-    font-weight: bold;
-    margin: 30px;
-    padding-left: 20px;
+  color: #150590;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 

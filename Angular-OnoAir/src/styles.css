@@ -26,8 +26,8 @@ html, body {
 h2.glitter-text {
     font-size: 60px; 
     font-weight: bold;
-    text-align: center;
     color: transparent;
+    text-align: center;
     background: linear-gradient(to right, #011ec5, #074f13, #0615ec, #135156);
     background-size: 300% 300%;
     -webkit-background-clip: text;

@@ -19,7 +19,7 @@ export class FlightsTableComponent implements AfterViewInit {
   @Input() showActionsColumn: boolean = true;
 
   @Input() flights: Flight[] = [];
-  displayedColumns: string[] = ['flightNo.', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats', 'actions'];
+  displayedColumns: string[] = ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions'];
   dataSource = new MatTableDataSource<Flight>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -31,8 +31,8 @@ export class FlightsTableComponent implements AfterViewInit {
   
     // Adjust displayed columns based on the input property
     this.displayedColumns = this.showActionsColumn
-      ? ['flightNo.', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats', 'actions']
-      : ['flightNo.', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats', 'book'];
+      ? ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
+      : ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
       
     this.dataSource.sort = this.sort;
   }
@@ -55,8 +55,8 @@ export class FlightsTableComponent implements AfterViewInit {
     this.dataSource.filterPredicate = (data: Flight, filter: string) => {
       const originMatch = data.origin.toLowerCase().includes(filter);
       const destinationMatch = data.destination.toLowerCase().includes(filter);
-      const boardingDateMatch = data.boardingDateTime.toDateString().toLowerCase().includes(filter);
-      const arrivalDateMatch = data.arrivalDateTime.toDateString().toLowerCase().includes(filter);
+      const boardingDateMatch = data.boarding.toDateString().toLowerCase().includes(filter);
+      const arrivalDateMatch = data.landing.toDateString().toLowerCase().includes(filter);
 
       return originMatch || destinationMatch || boardingDateMatch || arrivalDateMatch;
     };
