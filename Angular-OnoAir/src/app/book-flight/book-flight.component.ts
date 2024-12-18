@@ -9,11 +9,8 @@ import { MatDivider } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-
-interface Passenger {
-  name: string;
-  passport: string;
-}
+import { Router } from '@angular/router';
+import { Passenger } from '../bookings.service';
 
 @Component({
   selector: 'app-book-flight',
@@ -26,15 +23,13 @@ export class BookFlightComponent implements OnInit {
   numPassengers: number = 1;
   passengers: Passenger[] = [];
 
-  constructor(private route: ActivatedRoute, private flightsService: FlightsService) {}
-
+  constructor(private route: ActivatedRoute, private flightsService: FlightsService, private router: Router) {}
   ngOnInit(): void {
     const flightNo = this.route.snapshot.paramMap.get('flightNo');
     if (flightNo) {
       this.loadFlightDetails(flightNo);
     }
   }
-
   loadFlightDetails(flightNo: string): void {
     this.flight = this.flightsService.getFlightByNumber(flightNo) || null;
     if (this.flight) {
@@ -43,7 +38,6 @@ export class BookFlightComponent implements OnInit {
       alert('Flight not found!');
     }
   }
-
   updatePassengers(): void {
     if (!this.flight) return;
     this.passengers = Array.from({ length: this.numPassengers }, () => ({
@@ -51,9 +45,18 @@ export class BookFlightComponent implements OnInit {
       passport: ''
     }));
   }
-
   submitBooking(): void {
-    console.log('Flight booking submitted:', this.flight, this.passengers);
-    alert('Booking submitted successfully!');
+    if (!this.flight) {
+      alert('No flight selected!');
+      return;
+    }
+  
+    const bookingDetails = {
+      flight: this.flight,
+      passengers: this.passengers
+    };
+  
+    console.log('Navigating to booking details with:', bookingDetails);
+    this.router.navigate(['/booking-details'], { state: { bookingDetails } });
   }
 }

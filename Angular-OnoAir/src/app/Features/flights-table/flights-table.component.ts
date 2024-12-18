@@ -6,7 +6,6 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-flights-table',
   imports: [MatSortModule, MatTableModule, MatIcon, DatePipe],
@@ -25,7 +24,6 @@ export class FlightsTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private router: Router) {}
-
   ngAfterViewInit(): void {
     this.dataSource.data = this.flights;
   
@@ -36,7 +34,6 @@ export class FlightsTableComponent implements AfterViewInit {
       
     this.dataSource.sort = this.sort;
   }
-  
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -44,11 +41,9 @@ export class FlightsTableComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
   openFlightDetails(flight: Flight): void {
     this.router.navigate(['/flight-details', flight.flightNo]);
   }
-
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filter = filterValue;
@@ -64,5 +59,4 @@ export class FlightsTableComponent implements AfterViewInit {
   navigateToBooking(flight: Flight): void {
     this.router.navigate(['/book-flight', flight.flightNo]);
   }
-  
 }

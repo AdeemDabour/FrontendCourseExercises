@@ -4,7 +4,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-
 @Component({
   selector: 'app-header',
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, RouterModule],

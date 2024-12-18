@@ -18,14 +18,14 @@
         <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
       </ng-container>
   
-      <ng-container matColumnDef="boardingDateTime">
+      <ng-container matColumnDef="boarding">
         <th mat-header-cell *matHeaderCellDef> Boarding </th>
-        <td mat-cell *matCellDef="let element"> {{ element.boardingDateTime | date: 'dd/MM/yyyy HH:mm' }} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.boarding | date: 'dd/MM/yyyy HH:mm' }} </td>
       </ng-container>
   
-      <ng-container matColumnDef="arrivalDateTime">
+      <ng-container matColumnDef="landing">
         <th mat-header-cell *matHeaderCellDef> Landing </th>
-        <td mat-cell *matCellDef="let element"> {{ element.arrivalDateTime | date: 'dd/MM/yyyy HH:mm' }} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.landing | date: 'dd/MM/yyyy HH:mm' }} </td>
       </ng-container>
   
       <ng-container matColumnDef="seats">
@@ -33,8 +33,8 @@
         <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
       </ng-container>
   
-      <tr mat-header-row *matHeaderRowDef="['flightNo', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['flightNo', 'origin', 'destination', 'boardingDateTime', 'arrivalDateTime', 'seats'];"></tr>
+      <tr mat-header-row *matHeaderRowDef="['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats'];"></tr>
     </table>
   </mat-card>
   
@@ -66,4 +66,3 @@
   </mat-card>
   
   <button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
-  

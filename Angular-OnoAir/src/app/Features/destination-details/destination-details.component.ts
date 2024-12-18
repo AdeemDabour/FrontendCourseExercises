@@ -13,13 +13,11 @@ import { DestinationService, Destination } from '../../destinations.service';
 })
 export class DestinationDetailsComponent implements OnInit {
   destination: Destination | undefined;
-
   constructor(
     private route: ActivatedRoute,
     private destinationService: DestinationService,
     private router: Router
   ) {}
-
   ngOnInit(): void {
     const code = this.route.snapshot.paramMap.get('code');
     if (code) {
@@ -27,7 +25,6 @@ export class DestinationDetailsComponent implements OnInit {
         .find(d => d.code === code);
     }
   }
-
   goBack(): void {
     this.router.navigate(['/manage-destinations']);
   }

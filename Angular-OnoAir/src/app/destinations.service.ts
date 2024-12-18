@@ -7,7 +7,6 @@ export interface Destination {
   code: string;
   imageUrl: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -103,9 +102,7 @@ export class DestinationService {
     imageUrl: "https://media.brate.com/images/europa/niemcy/berlin/berlin.jpg",
   }
 ]
-
 public getDestinations(): Destination[] {
   return this.destinations;
 }
-
 };

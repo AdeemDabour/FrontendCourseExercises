@@ -4,7 +4,7 @@
     background-color: #1c46a0;
     color: white;
     text-align: center;
-    margin: 0; /* מבטל רווחים */
+    margin: 0;
   }
   
   .footer-content {
@@ -12,16 +12,15 @@
     justify-content: space-between;
     padding: 0px;
     flex-wrap: wrap;
-    width: 100%; /* מבטיח התאמה לרוחב */
+    width: 100%;
   }
   
   /* Footer Sections */
   .footer-section {
     flex: 1;
     margin: 10px;
-    min-width: 200px; /* רווח מינימלי */
+    min-width: 200px;
   }
-  
   
   .footer-section ul {
     list-style: none;
@@ -66,13 +65,13 @@
   }
 
   .help-button {
-    position: absolute; /* מיקום יחסי ל-footer */
-    bottom: 20px; /* מרחק מהחלק התחתון של ה-footer */
-    right: 20px; /* מרחק מהצד הימני של ה-footer */
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
     padding: 10px 0;
     background: linear-gradient(135deg, #87CEEB, #4682B4);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 50%; /* כפתור עגול */
+    border-radius: 50%;
     color: white;
     text-align: center;
     transition: background-color 0.3s ease, transform 0.3s ease;
@@ -83,8 +82,7 @@
     transform: scale(1.1);
   }
   
-  
   .help-button mat-icon {
-    font-size: 24px; /* גודל האייקון */
-    color: white; /* צבע הסמל */
+    font-size: 24px;
+    color: white;
   }

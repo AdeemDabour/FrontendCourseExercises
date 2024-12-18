@@ -27,13 +27,12 @@
   }
   
   .destination-card img {
-    border-radius: 16px; /* מעגל קצוות התמונה */
-    height: 500px; /* שמירה על גובה */
+    border-radius: 16px;
+    height: 500px;
     width: 100%;
     padding: 8px;
     object-fit: cover;
   }
-  
   
   mat-list-item {
     display: flex;

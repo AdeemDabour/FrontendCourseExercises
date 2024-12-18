@@ -17,13 +17,10 @@ export class LastMinuteFlightsComponent implements OnInit {
   lastMinuteFlights: Flight[] = [];
 
   constructor(private flightsService: FlightsService, private router: Router) {}
-
   ngOnInit(): void {
     this.lastMinuteFlights = this.flightsService.getFlightsThisWeek();
   }
-
   navigateToBooking(flight: Flight): void {
     this.router.navigate(['/book-flight', flight.flightNo]);
   }
-
 }

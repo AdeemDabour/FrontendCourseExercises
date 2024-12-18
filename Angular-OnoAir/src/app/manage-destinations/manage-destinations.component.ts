@@ -5,7 +5,6 @@ import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-manage-destinations',
   imports: [MatSortModule, MatTableModule, MatIcon],
@@ -21,12 +20,10 @@ export class ManageDestinationsComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private destinationService: DestinationService, private router: Router) { }
-
   ngAfterViewInit(): void {
     this.dataSource.data = this.destinationService.getDestinations();
     this.dataSource.sort = this.sort;
   }
-
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -34,10 +31,7 @@ export class ManageDestinationsComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
     openDestinationDetails(destination: Destination): void {
     this.router.navigate(['/destination-details', destination.code]);
   }
-  
 }
-

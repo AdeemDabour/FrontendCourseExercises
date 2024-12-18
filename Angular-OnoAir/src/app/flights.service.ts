@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { DestinationService } from './destinations.service';
-
 export interface Flight {
   flightNo: string;
   origin: string;
@@ -10,10 +9,10 @@ export interface Flight {
   seats: number;
   imageUrl?: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class FlightsService {
   private flights: Flight[] = [
     { flightNo: 'LX1001', origin: 'Tel Aviv', destination: 'New York', boarding: new Date('2024-12-10 09:00'), landing: new Date('2024-12-10 18:00'), seats: 200 },
@@ -38,11 +37,9 @@ export class FlightsService {
     { flightNo: 'LH438', origin: 'Tel Aviv', destination: 'Paris', boarding: new Date('2024-12-22 10:00'), landing: new Date('2024-12-26 14:30'), seats: 240 },
     { flightNo: 'EK207', origin: 'Dubai', destination: 'Zurich', boarding: new Date('2024-12-23 08:00'), landing: new Date('2024-12-23 13:00'), seats: 200 },
   ];
-  
   constructor(private destinationService: DestinationService) {
     this.addImageUrlsToFlights();
   }
-
   public getFlightsThisWeek(): Flight[] {
     const today = new Date();
     const endOfWeek = new Date(today);
@@ -52,7 +49,6 @@ export class FlightsService {
       flight.boarding >= today && flight.boarding <= endOfWeek
     );
   }
-
   private addImageUrlsToFlights(): void {
     const destinations = this.destinationService.getDestinations();
     this.flights.forEach(flight => {
@@ -62,11 +58,9 @@ export class FlightsService {
       }
     });
   }
-
   public getFlights(): Flight[] {
     return this.flights;
   }
-
   public getFlightByNumber(flightNo: string): Flight | undefined {
     return this.flights.find(flight => flight.flightNo === flightNo);
   } 

@@ -1,53 +1,62 @@
-import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BookingService, Booking } from '../bookings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-my-bookings',
   imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
 })
-export class MyBookingsComponent implements AfterViewInit {
-  private _liveAnnouncer = inject(LiveAnnouncer);
-  dataSource = new MatTableDataSource<Booking>();
+export class MyBookingsComponent implements OnInit, OnDestroy {
   upcomingBookings: Booking[] = [];
   previousBookings: Booking[] = [];
+  private subscription!: Subscription;
 
-  @ViewChild(MatSort) sort!: MatSort;
+  constructor(private bookingService: BookingService, private router: Router) {}
+  ngOnInit(): void {
+    this.loadBookings();
 
-  constructor(private bookingService: BookingService) { }
-
-  ngAfterViewInit(): void {
+    // Listen to navigation events for refreshing data
+    this.subscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.urlAfterRedirects === '/my-bookings') {
+        this.loadBookings();
+      }
+    });
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+  loadBookings(): void {
     const allBookings = this.bookingService.getBookings();
     const today = new Date();
 
     // Separate bookings into upcoming and previous
     this.upcomingBookings = allBookings.filter(
-      booking => new Date(booking.boardingDateTime) > today
+      booking => new Date(booking.boarding) > today
     );
     this.previousBookings = allBookings.filter(
-      booking => new Date(booking.boardingDateTime) <= today
+      booking => new Date(booking.boarding) <= today
     );
-
-    this.dataSource.sort = this.sort;
   }
+  viewBooking(booking: Booking): void {
+    const bookingDetails = {
+      flight: {
+        origin: booking.origin,
+        destination: booking.destination,
+        boarding: booking.boarding,
+        landing: booking.landing,
+        passengerCount: booking.passengerCount,
+      },
+      passengers: []
+    };
 
-  announceSortChange(sortState: Sort): void {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
-  }
-
-  viewBooking(booking: any): void {
-    console.log('Viewing booking:', booking);
-    alert(`Viewing details for booking from ${booking.origin} to ${booking.destination}`);
+    console.log('Navigating to booking-details with:', bookingDetails);
+    this.router.navigate(['/booking-details'], { state: { bookingDetails } });
   }
 }
