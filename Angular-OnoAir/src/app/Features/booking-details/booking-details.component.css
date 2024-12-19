@@ -10,3 +10,9 @@ mat-card {
   mat-divider {
     margin: 10px 0;
   }
+
+  mat-card-actions button {
+    font-size: 16px;
+    padding: 8px 16px;
+    font-weight: bold;
+  }
