@@ -61,12 +61,7 @@ export class BookFlightComponent implements OnInit {
     }
     return code;
   }  
-  submitBooking(): void {
-    if (!this.flight) {
-      alert('No flight selected!');
-      return;
-    }
-  
+  submitBooking(): void { 
     this.bookingCode = this.generateBookingCode();
   
     const bookingDetails = {

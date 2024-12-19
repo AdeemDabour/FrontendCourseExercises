@@ -1,8 +1,10 @@
-<mat-card *ngIf="bookingCode">
+<!-- Booking Code Card -->
+<mat-card *ngIf="bookingCode" class="booking-card">
   <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
 </mat-card>
 
-<mat-card *ngIf="flight">
+<!-- Flight Details Card -->
+<mat-card *ngIf="flight" class="flight-card">
   <h2 class="glitter-text">Book a Flight</h2>
   <mat-divider></mat-divider>
   <table mat-table [dataSource]="[flight]" class="mat-elevation-z8 flight-details-table">
@@ -35,7 +37,8 @@
   </table>
 </mat-card>
 
-<mat-card>
+<!-- Passengers Form -->
+<mat-card class="form-card">
   <mat-form-field appearance="outline">
     <mat-label>No. of Passengers</mat-label>
     <input matInput type="number" [(ngModel)]="numPassengers" min="1" [max]="flight?.seats ?? 0" (change)="updatePassengers()" />
@@ -43,7 +46,8 @@
   </mat-form-field>
 </mat-card>
 
-<mat-card *ngFor="let passenger of passengers; let i = index">
+<!-- Passengers Details -->
+<mat-card *ngFor="let passenger of passengers; let i = index" class="passenger-card">
   <h3>Passenger {{ i + 1 }}</h3>
   <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
@@ -53,6 +57,6 @@
     <mat-label>Passport no.</mat-label>
     <input matInput [(ngModel)]="passenger.passport" placeholder="Enter passport no." />
   </mat-form-field>
-</mat-card>
 
-<button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
+  <button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
+</mat-card>

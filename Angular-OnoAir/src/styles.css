@@ -4,7 +4,7 @@ html, body {
     display: flex;
     flex-direction: column;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(#4682B4, #5F9EA0, #87CEEB, #ADD8E6);
+    background: linear-gradient(to bottom, hsl(231, 59%, 72%), #1a237e);
     color: #333;
     min-height: 100vh;
 }
@@ -24,14 +24,13 @@ html, body {
 h2.glitter-text {
     font-size: 60px; 
     font-weight: bold;
-    color: transparent;
     text-align: center;
-    background: linear-gradient(to right, #011ec5, #074f13, #0615ec, #135156);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
     animation: glitter 3s ease infinite;
+    font-family: 'Georgia', serif;
+    color: #0c2dbd;
+    text-shadow: 2px 2px 4px #444;
   }
+
   
   /* Basic table styling */
 table {

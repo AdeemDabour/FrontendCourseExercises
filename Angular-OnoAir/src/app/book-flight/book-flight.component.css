@@ -1,0 +1,49 @@
+/* General Styling */
+.mat-card {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Booking Code Styling */
+  .booking-card {
+    background: #f9f9f9;
+    border-left: 5px solid #3f51b5;
+  }
+  
+  /* Flight Card Styling */
+  .flight-card {
+    background: linear-gradient(to bottom, hsl(231, 59%, 72%), #1a237e);
+    color: white;
+  }
+  
+  /* Form Styling */
+  .form-card {
+    background: #eceff1;
+  }
+  
+  /* Passenger Card Styling */
+  .passenger-card {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+  }
+  
+  /* Table Styling */
+  .flight-details-table th {
+    background-color: #3f51b5;
+    color: white;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .flight-details-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .glitter-text {
+    font-family: 'Georgia', serif;
+    color: #0c2dbd;
+    text-shadow: 2px 2px 4px #444;
+  }  

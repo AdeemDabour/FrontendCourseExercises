@@ -4,4 +4,6 @@
     font-weight: bold;
     margin: 30px;
     padding-left: 20px;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px #444;
   }

@@ -20,7 +20,7 @@ export class FlightsService {
     { flightNo: 'AF203', origin: 'Paris', destination: 'Rome', boarding: new Date('2024-12-12 06:00'), landing: new Date('2024-12-12 12:00'), seats: 180 },
     { flightNo: 'EK205', origin: 'Larnaca', destination: 'Tokyo', boarding: new Date('2024-12-13 14:00'), landing: new Date('2024-12-14 06:00'), seats: 220 },
     { flightNo: 'AZ678', origin: 'Rome', destination: 'Los Angeles', boarding: new Date('2024-12-14 10:00'), landing: new Date('2024-12-14 20:00'), seats: 250 },
-    { flightNo: 'UA999', origin: 'Los Angeles', destination: 'Paris', boarding: new Date('2024-12-15 11:00'), landing: new Date('2024-12-15 23:00'), seats: 280 },
+    { flightNo: 'UA999', origin: 'Los Angeles', destination: 'Zurich', boarding: new Date('2024-12-15 11:00'), landing: new Date('2024-12-15 23:00'), seats: 280 },
     { flightNo: 'LH403', origin: 'Tel Aviv', destination: 'Berlin', boarding: new Date('2024-12-16 07:00'), landing: new Date('2024-12-16 14:00'), seats: 220 },
     { flightNo: 'UA854', origin: 'Zurich', destination: 'Larnaca', boarding: new Date('2024-12-17 10:00'), landing: new Date('2024-12-17 15:00'), seats: 260 },
     { flightNo: 'LH439', origin: 'Tel Aviv', destination: 'Paris', boarding: new Date('2024-12-18 08:00'), landing: new Date('2024-12-18 12:00'), seats: 240 },
@@ -33,7 +33,7 @@ export class FlightsService {
     { flightNo: 'UA992', origin: 'Los Angeles', destination: 'Tokyo', boarding: new Date('2024-12-21 11:00'), landing: new Date('2024-12-23 18:00'), seats: 280 },
     { flightNo: 'LH402', origin: 'Tel Aviv', destination: 'Berlin', boarding: new Date('2024-12-21 10:00'), landing: new Date('2024-12-24 14:30'), seats: 220 },
     { flightNo: 'UA852', origin: 'Los Angeles', destination: 'Larnaca', boarding: new Date('2024-12-21 11:00'), landing: new Date('2024-12-24 18:00'), seats: 260 },
-    { flightNo: 'LH438', origin: 'Tel Aviv', destination: 'Paris', boarding: new Date('2024-12-22 10:00'), landing: new Date('2024-12-24 14:30'), seats: 240 },
+    { flightNo: 'LH438', origin: 'Tel Aviv', destination: 'Los Angeles', boarding: new Date('2024-12-22 10:00'), landing: new Date('2024-12-24 14:30'), seats: 240 },
     { flightNo: 'EK207', origin: 'Dubai', destination: 'Zurich', boarding: new Date('2024-12-24 08:00'), landing: new Date('2024-12-24 13:00'), seats: 200 },
   ];
   constructor(private destinationService: DestinationService) {

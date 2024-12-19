@@ -36,6 +36,8 @@
   color: #3f51b5;
   margin-left: 24px;
   height: 25px;
+  font-family: 'Georgia', serif;
+  text-shadow: 2px 2px 4px #444;
 }
 
 .header-container h1 a {
