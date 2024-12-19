@@ -46,6 +46,7 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
   }
   viewBooking(booking: Booking): void {
     const bookingDetails = {
+      bookingCode: booking.bookingCode,
       flight: {
         origin: booking.origin,
         destination: booking.destination,
@@ -55,8 +56,9 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
       },
       passengers: []
     };
-
+  
     console.log('Navigating to booking-details with:', bookingDetails);
     this.router.navigate(['/booking-details'], { state: { bookingDetails } });
   }
-}
+  
+} 

@@ -1,9 +1,9 @@
 <mat-card *ngIf="bookingDetails; else noDetails">
     <h2 class="glitter-text">Booking Details</h2>
     <mat-divider></mat-divider>
-  
+    <p><strong>Booking Code:</strong> {{ bookingDetails.bookingCode }}</p>
     <p><strong>Origin:</strong> {{ bookingDetails.flight.origin }}</p>
-    <p><strong>Boarding:</strong> {{ bookingDetails.flight.boarding| date: 'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>Boarding:</strong> {{ bookingDetails.flight.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
     <p><strong>Destination:</strong> {{ bookingDetails.flight.destination }}</p>
     <p><strong>Landing:</strong> {{ bookingDetails.flight.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
     <p><strong>No. of Passengers:</strong> {{ bookingDetails.flight.passengerCount }}</p>
@@ -19,4 +19,4 @@
     <mat-card>
       <h2>No booking details available!</h2>
     </mat-card>
-  </ng-template>
+  </ng-template>  

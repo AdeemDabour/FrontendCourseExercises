@@ -1,68 +1,58 @@
+<mat-card *ngIf="bookingCode">
+  <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
+</mat-card>
+
 <mat-card *ngIf="flight">
-    <h2 class="glitter-text">Book a Flight</h2>
-    <mat-divider></mat-divider>
-  
-    <table mat-table [dataSource]="[flight]" class="mat-elevation-z8 flight-details-table">
-      <ng-container matColumnDef="flightNo">
-        <th mat-header-cell *matHeaderCellDef> Flight No. </th>
-        <td mat-cell *matCellDef="let element"> {{ element.flightNo }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="origin">
-        <th mat-header-cell *matHeaderCellDef> Origin </th>
-        <td mat-cell *matCellDef="let element"> {{ element.origin }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="destination">
-        <th mat-header-cell *matHeaderCellDef> Destination </th>
-        <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="boarding">
-        <th mat-header-cell *matHeaderCellDef> Boarding </th>
-        <td mat-cell *matCellDef="let element"> {{ element.boarding | date: 'dd/MM/yyyy HH:mm' }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="landing">
-        <th mat-header-cell *matHeaderCellDef> Landing </th>
-        <td mat-cell *matCellDef="let element"> {{ element.landing | date: 'dd/MM/yyyy HH:mm' }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="seats">
-        <th mat-header-cell *matHeaderCellDef> Seats </th>
-        <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats'];"></tr>
-    </table>
-  </mat-card>
-  
-  <mat-card>
-    <mat-form-field appearance="outline">
-      <mat-label>No. of Passengers</mat-label>
-      <input
-        matInput
-        type="number"
-        [(ngModel)]="numPassengers"
-        min="1"
-        [max]="flight?.seats ?? 0"
-        (change)="updatePassengers()"
-      />
-      <mat-hint>Enter between 1 and {{ flight?.seats }}</mat-hint>
-    </mat-form-field>
-  </mat-card>
-  
-  <mat-card *ngFor="let passenger of passengers; let i = index">
-    <h3>Passenger {{ i + 1 }}</h3>
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="passenger.name" placeholder="Enter name" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Passport no.</mat-label>
-      <input matInput [(ngModel)]="passenger.passport" placeholder="Enter passport no." />
-    </mat-form-field>
-  </mat-card>
-  
-  <button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
+  <h2 class="glitter-text">Book a Flight</h2>
+  <mat-divider></mat-divider>
+  <table mat-table [dataSource]="[flight]" class="mat-elevation-z8 flight-details-table">
+    <ng-container matColumnDef="flightNo">
+      <th mat-header-cell *matHeaderCellDef> Flight No. </th>
+      <td mat-cell *matCellDef="let element"> {{ element.flightNo }} </td>
+    </ng-container>
+    <ng-container matColumnDef="origin">
+      <th mat-header-cell *matHeaderCellDef> Origin </th>
+      <td mat-cell *matCellDef="let element"> {{ element.origin }} </td>
+    </ng-container>
+    <ng-container matColumnDef="destination">
+      <th mat-header-cell *matHeaderCellDef> Destination </th>
+      <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
+    </ng-container>
+    <ng-container matColumnDef="boarding">
+      <th mat-header-cell *matHeaderCellDef> Boarding </th>
+      <td mat-cell *matCellDef="let element"> {{ element.boarding | date: 'dd/MM/yyyy HH:mm' }} </td>
+    </ng-container>
+    <ng-container matColumnDef="landing">
+      <th mat-header-cell *matHeaderCellDef> Landing </th>
+      <td mat-cell *matCellDef="let element"> {{ element.landing | date: 'dd/MM/yyyy HH:mm' }} </td>
+    </ng-container>
+    <ng-container matColumnDef="seats">
+      <th mat-header-cell *matHeaderCellDef> Seats </th>
+      <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats'];"></tr>
+  </table>
+</mat-card>
+
+<mat-card>
+  <mat-form-field appearance="outline">
+    <mat-label>No. of Passengers</mat-label>
+    <input matInput type="number" [(ngModel)]="numPassengers" min="1" [max]="flight?.seats ?? 0" (change)="updatePassengers()" />
+    <mat-hint>Enter between 1 and {{ flight?.seats }}</mat-hint>
+  </mat-form-field>
+</mat-card>
+
+<mat-card *ngFor="let passenger of passengers; let i = index">
+  <h3>Passenger {{ i + 1 }}</h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="passenger.name" placeholder="Enter name" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Passport no.</mat-label>
+    <input matInput [(ngModel)]="passenger.passport" placeholder="Enter passport no." />
+  </mat-form-field>
+</mat-card>
+
+<button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>

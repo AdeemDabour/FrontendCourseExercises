@@ -10,6 +10,7 @@
         </div>
         <div class="details-container">
           <h3>{{ booking.origin }} → {{ booking.destination }}</h3>
+          <p><strong>Booking Code:</strong> {{ booking.bookingCode }}</p>
           <p><strong>Boarding:</strong> {{ booking.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
           <p><strong>Landing:</strong> {{ booking.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
           <p><strong>Passengers:</strong> {{ booking.passengerCount }}</p>
@@ -30,6 +31,7 @@
         </div>
         <div class="details-container">
           <h3>{{ booking.origin }} → {{ booking.destination }}</h3>
+          <p><strong>Booking Code:</strong> {{ booking.bookingCode }}</p>
           <p><strong>Boarding:</strong> {{ booking.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
           <p><strong>Landing:</strong> {{ booking.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
           <p><strong>Passengers:</strong> {{ booking.passengerCount }}</p>

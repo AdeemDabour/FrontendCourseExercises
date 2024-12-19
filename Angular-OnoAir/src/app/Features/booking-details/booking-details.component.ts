@@ -12,9 +12,9 @@ export class BookingDetailsComponent implements OnInit {
   bookingDetails: any = null;
   ngOnInit(): void {
     this.bookingDetails = history.state.bookingDetails;
-    console.log('Received booking details:', this.bookingDetails);
+    console.log('Received booking details:', this.bookingDetails); // Debugging
     if (!this.bookingDetails) {
       alert('No booking details found!');
     }
-  }
+  }  
 }

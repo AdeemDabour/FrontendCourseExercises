@@ -1,3 +1,11 @@
+.section-title {
+  font-size: 48px;
+  color: #150590;
+  font-weight: bold;
+  margin: 30px;
+  padding-left: 20px;
+}
+
 .search-container {
   display: flex;
   justify-content: center;
