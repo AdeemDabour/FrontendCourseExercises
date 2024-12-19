@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { LastMinuteFlightsComponent } from '../last-minute-flights/last-minute-flights.component';
-import { FlightSearchComponent } from '../../flight-search/flight-search.component';
 import { RouterModule } from '@angular/router';
+import { FindFligtComponent } from '../find-fligt/find-fligt.component';
 @Component({
   selector: 'app-home-page',
-  standalone: true,
-  imports: [MatCardModule, MatListModule, LastMinuteFlightsComponent, FlightSearchComponent, RouterModule],
+  imports: [MatCardModule, MatListModule, LastMinuteFlightsComponent, FindFligtComponent, RouterModule],
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })

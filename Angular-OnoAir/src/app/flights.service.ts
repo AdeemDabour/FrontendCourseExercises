@@ -25,8 +25,7 @@ export class FlightsService {
     { flightNo: 'UA854', origin: 'Zurich', destination: 'Larnaca', boarding: new Date('2024-12-17 10:00'), landing: new Date('2024-12-17 15:00'), seats: 260 },
     { flightNo: 'LH439', origin: 'Tel Aviv', destination: 'Paris', boarding: new Date('2024-12-18 08:00'), landing: new Date('2024-12-18 12:00'), seats: 240 },
     { flightNo: 'EK206', origin: 'Dubai', destination: 'Krakow', boarding: new Date('2024-12-18 18:00'), landing: new Date('2024-12-20 01:00'), seats: 250 },
-
-    { flightNo: 'LX8396', origin: 'Larnaca', destination: 'Zurich', boarding: new Date('2024-12-21 09:00'), landing: new Date('2024-12-21 12:00'), seats: 120 },
+    { flightNo: 'LX8396', origin: 'Larnaca', destination: 'Zurich', boarding: new Date('2024-12-19 09:00'), landing: new Date('2024-12-21 12:00'), seats: 120 },
     { flightNo: 'AA120', origin: 'Tel Aviv', destination: 'Dubai', boarding: new Date('2024-12-21 16:00'), landing: new Date('2024-12-21 20:30'), seats: 180 },
     { flightNo: 'AF2050', origin: 'Paris', destination: 'Tel Aviv', boarding: new Date('2024-12-21 10:00'), landing: new Date('2024-12-21 16:00'), seats: 200 },
     { flightNo: 'EK203', origin: 'Dubai', destination: 'Krakow', boarding: new Date('2024-12-21 18:00'), landing: new Date('2024-12-22 22:00'), seats: 250 },
