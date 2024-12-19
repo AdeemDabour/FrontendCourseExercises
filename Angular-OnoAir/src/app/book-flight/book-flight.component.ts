@@ -66,16 +66,20 @@ export class BookFlightComponent implements OnInit {
       alert('No flight selected!');
       return;
     }
-
+  
     this.bookingCode = this.generateBookingCode();
-
+  
     const bookingDetails = {
       bookingCode: this.bookingCode,
       flight: this.flight,
       passengers: this.passengers
     };
-
+  
     console.log('Navigating to booking details with:', bookingDetails);
-    this.router.navigate(['/booking-details'], { state: { bookingDetails } });
-  }
+  
+    // Navigate to the booking details page
+    this.router.navigate(['/booking-details', this.bookingCode], {
+      state: { bookingDetails }
+    });
+  }  
 }

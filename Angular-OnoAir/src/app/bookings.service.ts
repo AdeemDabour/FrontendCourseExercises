@@ -13,7 +13,6 @@ export interface Booking {
   imageUrl: string;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -112,5 +111,8 @@ export class BookingService {
   ];
   public getBookings(): Booking[] {
     return this.bookings;
+  }
+  public getBookingByCode(bookingCode: string): Booking | undefined {
+    return this.bookings.find(booking => booking.bookingCode === bookingCode);
   }
 }

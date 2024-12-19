@@ -105,4 +105,11 @@ export class DestinationService {
 public getDestinations(): Destination[] {
   return this.destinations;
 }
+public getDestinationByNameOrCode(identifier: string): Destination | undefined {
+  return this.destinations.find(
+    destination =>
+      destination.name.toLowerCase() === identifier.toLowerCase() ||
+      destination.code.toLowerCase() === identifier.toLowerCase()
+  );
+}
 };

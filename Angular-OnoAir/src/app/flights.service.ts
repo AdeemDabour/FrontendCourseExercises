@@ -40,6 +40,15 @@ export class FlightsService {
   constructor(private destinationService: DestinationService) {
     this.addImageUrlsToFlights();
   }
+
+  public getFlights(): Flight[] {
+    return this.flights;
+  }
+
+  public getFlightByNumber(flightNo: string): Flight | undefined {
+    return this.flights.find(flight => flight.flightNo === flightNo);
+  }
+
   public getFlightsThisWeek(): Flight[] {
     const today = new Date();
     const endOfWeek = new Date(today);
@@ -58,10 +67,4 @@ export class FlightsService {
       }
     });
   }
-  public getFlights(): Flight[] {
-    return this.flights;
-  }
-  public getFlightByNumber(flightNo: string): Flight | undefined {
-    return this.flights.find(flight => flight.flightNo === flightNo);
-  } 
 }

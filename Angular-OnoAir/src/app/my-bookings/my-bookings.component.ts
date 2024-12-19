@@ -58,7 +58,8 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
     };
   
     console.log('Navigating to booking-details with:', bookingDetails);
-    this.router.navigate(['/booking-details'], { state: { bookingDetails } });
-  }
   
+    // Navigate using the bookingCode as a route parameter
+    this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
+  }  
 } 
