@@ -18,9 +18,9 @@
         </mat-card-content>
 
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" (click)="navigateToBooking(flight)">
-            Book Now
-          </button>
+          <div [routerLink]="['/book-flight', flight.flightNo]">
+            <button mat-raised-button color="primary">Book Now</button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>

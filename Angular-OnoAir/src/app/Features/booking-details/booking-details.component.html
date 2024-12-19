@@ -1,7 +1,7 @@
 <mat-card *ngIf="bookingDetails; else noDetails">
     <h2 class="glitter-text">Booking Details</h2>
     <mat-divider></mat-divider>
-    <p><strong>Booking Code:</strong> {{ bookingDetails.bookingCode }}</p>
+    <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
     <p><strong>Origin:</strong> {{ bookingDetails.flight.origin }}</p>
     <p><strong>Boarding:</strong> {{ bookingDetails.flight.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
     <p><strong>Destination:</strong> {{ bookingDetails.flight.destination }}</p>

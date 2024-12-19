@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
-import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-booking-details',
   imports: [MatCardModule, MatDivider ,CommonModule],
@@ -10,13 +9,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './booking-details.component.css'
 })
 export class BookingDetailsComponent implements OnInit {
+  @Input() bookingCode = 0;
   bookingDetails: any = null;
-  bookingCode: string | null = null;
-
-  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.bookingCode = this.route.snapshot.paramMap.get('bookingCode');
     this.bookingDetails = history.state.bookingDetails;
 
     console.log('Booking Code:', this.bookingCode);

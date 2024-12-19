@@ -6,10 +6,10 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-flights-table',
-  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon ,DatePipe],
+  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon ,DatePipe, RouterLink],
   templateUrl: './flights-table.component.html',
   styleUrls: ['./flights-table.component.css']
 })
@@ -23,8 +23,6 @@ export class FlightsTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Flight>();
 
   @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private router: Router) {}
 
   ngOnChanges(): void {
     if (this.flights) {
@@ -47,9 +45,6 @@ export class FlightsTableComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  openFlightDetails(flight: Flight): void {
-    this.router.navigate(['/flight-details', flight.flightNo]);
-  }
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filter = filterValue;
@@ -61,8 +56,5 @@ export class FlightsTableComponent implements AfterViewInit {
 
       return originMatch || destinationMatch || boardingDateMatch || arrivalDateMatch;
     };
-  }
-  navigateToBooking(flight: Flight): void {
-    this.router.navigate(['/book-flight', flight.flightNo]);
   }
 }

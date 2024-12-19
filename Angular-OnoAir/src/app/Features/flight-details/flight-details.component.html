@@ -34,7 +34,9 @@
 
     </mat-card-header>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+      <div [routerLink]="['/manage-flights']">
+        <button mat-raised-button color="primary">Back</button>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>

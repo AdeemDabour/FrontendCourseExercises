@@ -7,8 +7,6 @@ import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { HelpPageComponent } from './Features/help-page/help-page.component';
 import { FlightDetailsComponent } from './Features/flight-details/flight-details.component';
 import { DestinationDetailsComponent } from './Features/destination-details/destination-details.component';
-import { LastMinuteFlightsComponent } from './Features/last-minute-flights/last-minute-flights.component';
-import { FlightsTableComponent } from './Features/flights-table/flights-table.component';
 import { BookFlightComponent } from './book-flight/book-flight.component';
 import { BookingDetailsComponent } from './Features/booking-details/booking-details.component';
 
@@ -19,13 +17,9 @@ export const routes: Routes = [
   { path: 'search-flight', component: FlightSearchComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
   { path: 'help-page', component: HelpPageComponent },
-  { path: 'flight-details', component: FlightDetailsComponent },
   { path: 'flight-details/:flightNo', component: FlightDetailsComponent },
-  { path: 'destination-details', component: FlightDetailsComponent },
   { path: 'destination-details/:code', component: DestinationDetailsComponent },
-  { path: 'last-minute-flights', component: LastMinuteFlightsComponent },
-  { path: 'flights-table', component: FlightsTableComponent },
-  { path: 'book-flight/:flightNo', component: BookFlightComponent },
   { path: 'booking-details/:bookingCode', component: BookingDetailsComponent },
+  { path: 'book-flight/:flightNo', component: BookFlightComponent },
   { path: '', component: HomePageComponent }
 ];

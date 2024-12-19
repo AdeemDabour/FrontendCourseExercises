@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FlightsService, Flight } from '../../flights.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -7,7 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-flight-details',
-  imports: [CommonModule, MatCardModule, MatListModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatListModule, MatButtonModule, RouterLink],
   templateUrl: './flight-details.component.html',
   styleUrl: './flight-details.component.css'
 })
@@ -23,8 +23,5 @@ export class FlightDetailsComponent implements OnInit {
     if (flightNo) {
       this.flight = this.flightService.getFlightByNumber(flightNo); // Retrieve the flight
     }
-  }
-  goBack(): void {
-    window.history.back();
   }
 }
