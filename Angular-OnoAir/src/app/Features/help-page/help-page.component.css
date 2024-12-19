@@ -11,17 +11,17 @@
   /* Header Toolbar */
   .help-header {
     font-size: 24px;
-    text-align: center;
     font-weight: bold;
   }
   
   /* FAQ Section */
-  .faq-section h2 {
+  .faq-section h3, h4, h5 {
+    font-size: 24px;
     text-align: center;
     margin-top: 20px;
     color: #3f51b5;
   }
-  
+
   mat-expansion-panel {
     margin-bottom: 10px;
   }

@@ -9,11 +9,11 @@
   }
   
   .flight-card {
-    width: 900px;
+    width: 600px;
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    background: linear-gradient(135deg, #2275ce, #0b3d91);
-    color: #ffffff;
+    background-color: #f9f9f9;
+    color: #3919c9;
     overflow: hidden;
     padding: 30px 40px;
     transition: all 0.3s ease-in-out;

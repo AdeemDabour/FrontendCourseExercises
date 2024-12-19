@@ -1,52 +1,89 @@
 <div class="help-container">
-    <mat-toolbar color="primary" class="help-header">
+  <h2 class="glitter-text">Help & Support</h2>
+
+  <mat-toolbar color="primary" class="help-header">
       <span>Welcome to OnoAir Support</span>
-    </mat-toolbar>
-  
-    <!-- FAQ Section with Expansion Panels -->
-    <section class="faq-section">
-      <h2>Frequently Asked Questions</h2>
+  </mat-toolbar>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+      <h3>Menu Explanation</h3>
       <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>How do I manage my bookings?</mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>You can manage your bookings by navigating to the "My Bookings" page in your account.</p>
-        </mat-expansion-panel>
-  
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>How do I search for flights?</mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>Use our "Search a Flight" feature to find and book flights easily.</p>
-        </mat-expansion-panel>
-  
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>How can I contact customer support?</mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>
-            You can contact us by email at
-            <a href="mailto:support@onoair.com">supportOnoAir.com</a>.
-          </p>
-        </mat-expansion-panel>
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>Manage Destinations</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>The administrator can manage and view destination details.</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>Manage Flights</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>The administrator can manage and view flight details.</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>Search a Flight</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>Use the "Search a Flight" screen to select a flight and reserve your spot.</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>My Bookings</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>Use the "My Bookings" screen to view and manage your reservations.</p>
+          </mat-expansion-panel>
       </mat-accordion>
-    </section>
-  
-    <!-- Contact Section -->
-    <section class="contact-section">
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Frequently Asked Questions -->
+  <section class="faq-section">
+      <h4>Frequently Asked Questions</h4>
+      <mat-accordion>
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>How do I see all my bookings?</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>You can see your bookings by navigating to the "My Bookings" page in your account. On this page, you can see a list of all your bookings to date and all their details.</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>How do I search for flights?</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>Navigate to the "Search a Flight" page. On this page, you can view a list of all available flights and use the sorting options to sort your search by origin name, destination name, departure date, or arrival date.</p>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                  <mat-panel-title>How can I contact customer support?</mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>See the "Contact Support" section below.</p>
+          </mat-expansion-panel>
+      </mat-accordion>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Contact Section -->
+  <section class="contact-section">
       <mat-card class="contact-card">
-        <mat-card-title>Need More Help?</mat-card-title>
-        <mat-card-content>
-          <p>Our support team is here to assist you with any issues.</p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button color="primary" 
-                    (click)="contactSupport()" 
-                    class="contact-button">
-              Contact Support
-            </button>
+          <mat-card-title>Need More Help?</mat-card-title>
+          <mat-card-content>
+              <p>Our support team is here to assist you with any issues.</p>
+              <p>Email: <a href="mailto:support@OnoAir.com">supportOnoAir.com</a></p>
+              <p>Phone: +1-800-ONO-AIR</p>
+          </mat-card-content>
+          <mat-card-actions>
+              <button mat-raised-button color="accent" class="contact-button" aria-label="Contact Support" onclick="window.location.href = 'mailto:support@OnoAir.com';">
+                  <mat-icon>email</mat-icon> Contact Us Now
+              </button>
           </mat-card-actions>
       </mat-card>
-    </section>
-  </div>
+  </section>
+</div>
