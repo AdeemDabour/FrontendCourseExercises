@@ -4,7 +4,8 @@ import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { Destination, DestinationService } from '../../service/destinations.service';
+import { DestinationService } from '../../service/destinations.service';
+import { Destination } from '../../model/destination';
 @Component({
   selector: 'app-manage-destinations',
   imports: [MatSortModule, MatTableModule, MatIcon],

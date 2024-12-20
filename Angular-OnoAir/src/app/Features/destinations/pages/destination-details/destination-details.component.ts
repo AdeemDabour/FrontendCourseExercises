@@ -4,7 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Destination, DestinationService } from '../../service/destinations.service';
+import { DestinationService } from '../../service/destinations.service';
+import { Destination } from '../../model/destination';
 @Component({
   selector: 'app-destination-details',
   imports: [CommonModule, MatCardModule, MatListModule, MatButtonModule, RouterLink],

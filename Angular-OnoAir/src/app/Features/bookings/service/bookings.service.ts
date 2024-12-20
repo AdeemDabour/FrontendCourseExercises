@@ -1,17 +1,5 @@
 import { Injectable } from '@angular/core';
-export interface Passenger {
-  name: string;
-  passport: string;
-}
-export interface Booking {
-  bookingCode: string;
-  origin: string;
-  destination: string;
-  boarding: Date;
-  landing: Date;
-  passengerCount: number;
-  imageUrl: string;
-}
+import { Booking } from '../model/booking';
 
 @Injectable({
   providedIn: 'root'

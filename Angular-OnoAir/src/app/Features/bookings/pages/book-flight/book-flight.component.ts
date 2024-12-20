@@ -8,7 +8,7 @@ import { MatDivider } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { Flight, FlightsService } from '../../../flights/service/flights.service';
+import {  Flight, FlightsService } from '../../../flights/service/flights.service';
 
 interface Passenger {
   name: string;

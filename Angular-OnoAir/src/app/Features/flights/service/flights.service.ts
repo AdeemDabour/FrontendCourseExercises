@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DestinationService } from '../../destinations/service/destinations.service';
-export interface Flight {
-  flightNo: string;
-  origin: string;
-  destination: string;
-  boarding: Date;
-  landing: Date;
-  seats: number;
-  imageUrl?: string;
-}
+import { Flight } from '../model/flight';
 @Injectable({
   providedIn: 'root'
 })
@@ -67,3 +59,5 @@ export class FlightsService {
     });
   }
 }
+
+export { Flight };

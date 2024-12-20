@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BookingService, Booking } from '../../service/bookings.service';
+import { BookingService } from '../../service/bookings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Booking } from '../../model/booking';
 @Component({
   selector: 'app-my-bookings',
   imports: [CommonModule, MatCardModule, MatButtonModule],
