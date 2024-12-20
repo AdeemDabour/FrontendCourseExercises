@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FindFlightComponent } from './find-flight.component';
 
-import { FindFligtComponent } from './find-fligt.component';
-
-describe('FindFligtComponent', () => {
-  let component: FindFligtComponent;
-  let fixture: ComponentFixture<FindFligtComponent>;
+describe('FindFlightComponent', () => {
+  let component: FindFlightComponent;
+  let fixture: ComponentFixture<FindFlightComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FindFligtComponent]
+      imports: [FindFlightComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FindFligtComponent);
+    fixture = TestBed.createComponent(FindFlightComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

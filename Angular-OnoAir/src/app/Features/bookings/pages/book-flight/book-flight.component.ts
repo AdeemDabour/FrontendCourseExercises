@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Flight, FlightsService } from '../flights.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -9,6 +8,7 @@ import { MatDivider } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { Flight, FlightsService } from '../../../flights/service/flights.service';
 
 interface Passenger {
   name: string;

@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './Features/home-page/home-page.component';
-import { ManageFlightsComponent } from './manage-flights/manage-flights.component';
-import { ManageDestinationsComponent } from './manage-destinations/manage-destinations.component';
-import { FlightSearchComponent } from './flight-search/flight-search.component';
-import { MyBookingsComponent } from './my-bookings/my-bookings.component';
-import { HelpPageComponent } from './Features/help-page/help-page.component';
-import { FlightDetailsComponent } from './Features/flight-details/flight-details.component';
-import { DestinationDetailsComponent } from './Features/destination-details/destination-details.component';
-import { BookFlightComponent } from './book-flight/book-flight.component';
-import { BookingDetailsComponent } from './Features/booking-details/booking-details.component';
+import { HomePageComponent } from './Features/home/pages/home-page/home-page.component';
+import { ManageDestinationsComponent } from './Features/destinations/pages/manage-destinations/manage-destinations.component';
+import { ManageFlightsComponent } from './Features/flights/pages/manage-flights/manage-flights.component';
+import { FlightSearchComponent } from './Features/flights/pages/flight-search/flight-search.component';
+import { MyBookingsComponent } from './Features/bookings/pages/my-bookings/my-bookings.component';
+import { HelpPageComponent } from './Features/help/pages/help-page/help-page.component';
+import { FlightDetailsComponent } from './Features/flights/pages/flight-details/flight-details.component';
+import { DestinationDetailsComponent } from './Features/destinations/pages/destination-details/destination-details.component';
+import { BookingDetailsComponent } from './Features/bookings/pages/booking-details/booking-details.component';
+import { BookFlightComponent } from './Features/bookings/pages/book-flight/book-flight.component';
 
 export const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },

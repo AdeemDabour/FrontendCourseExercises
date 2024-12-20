@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DestinationService } from './destinations.service';
+import { DestinationService } from '../../destinations/service/destinations.service';
 export interface Flight {
   flightNo: string;
   origin: string;

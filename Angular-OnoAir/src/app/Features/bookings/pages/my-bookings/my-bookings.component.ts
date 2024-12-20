@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BookingService, Booking } from '../bookings.service';
+import { BookingService, Booking } from '../../service/bookings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, NavigationEnd } from '@angular/router';

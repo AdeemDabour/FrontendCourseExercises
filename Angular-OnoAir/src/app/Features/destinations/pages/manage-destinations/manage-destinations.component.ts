@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
-import { DestinationService, Destination } from '../destinations.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { Destination, DestinationService } from '../../service/destinations.service';
 @Component({
   selector: 'app-manage-destinations',
   imports: [MatSortModule, MatTableModule, MatIcon],

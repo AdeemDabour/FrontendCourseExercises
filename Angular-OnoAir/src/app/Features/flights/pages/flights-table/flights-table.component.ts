@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ViewChild, inject, Input } from '@angular/core';
-import { Flight } from '../../flights.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -7,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Flight } from '../../service/flights.service';
 @Component({
   selector: 'app-flights-table',
   imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon ,DatePipe, RouterLink],

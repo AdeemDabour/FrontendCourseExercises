@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { FlightsTableComponent } from '../flights-table/flights-table.component';
-import { FlightsService, Flight } from '../../flights.service';
+import { FlightsService, Flight } from '../../../flights/service/flights.service';
+import { FlightsTableComponent } from '../../../flights/pages/flights-table/flights-table.component';
 
 @Component({
   selector: 'app-find-fligt',
   imports: [FlightsTableComponent],
-  templateUrl: './find-fligt.component.html',
-  styleUrl: './find-fligt.component.css'
+  templateUrl: './find-flight.component.html',
+  styleUrl: './find-flight.component.css'
 })
-export class FindFligtComponent {
+export class FindFlightComponent {
   futureFlights: Flight[] = [];
 
   constructor(private flightService: FlightsService) {
