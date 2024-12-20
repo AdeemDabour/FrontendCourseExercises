@@ -22,7 +22,7 @@ export class DestinationDetailsComponent implements OnInit {
   ngOnInit(): void {
     const code = this.route.snapshot.paramMap.get('code');
     if (code) {
-      this.destination = this.destinationService.getDestinations()
+      this.destination = this.destinationService.listDestinations()
         .find(d => d.code === code);
     }
   }

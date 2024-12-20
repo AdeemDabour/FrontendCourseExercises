@@ -13,7 +13,7 @@ export class FindFlightComponent {
   futureFlights: Flight[] = [];
 
   constructor(private flightService: FlightsService) {
-    this.flightService.getFlights().forEach(flight => {
+    this.flightService.listFlights().forEach(flight => {
       if (flight.boarding > new Date()) {
         this.futureFlights.push(flight);
       }

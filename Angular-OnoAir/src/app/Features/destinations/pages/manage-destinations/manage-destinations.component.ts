@@ -22,7 +22,7 @@ export class ManageDestinationsComponent implements AfterViewInit {
 
   constructor(private destinationService: DestinationService, private router: Router) { }
   ngAfterViewInit(): void {
-    this.dataSource.data = this.destinationService.getDestinations();
+    this.dataSource.data = this.destinationService.listDestinations();
     this.dataSource.sort = this.sort;
   }
   announceSortChange(sortState: Sort): void {

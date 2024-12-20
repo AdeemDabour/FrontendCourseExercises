@@ -32,15 +32,15 @@ export class FlightsService {
     this.addImageUrlsToFlights();
   }
 
-  public getFlights(): Flight[] {
+  listFlights(): Flight[] {
     return this.flights;
   }
 
-  public getFlightByNumber(flightNo: string): Flight | undefined {
+  getFlightByNumber(flightNo: string): Flight | undefined {
     return this.flights.find(flight => flight.flightNo === flightNo);
   }
 
-  public getFlightsThisWeek(): Flight[] {
+  getFlightsThisWeek(): Flight[] {
     const today = new Date();
     const endOfWeek = new Date(today);
     endOfWeek.setDate(today.getDate() + (7 - today.getDay()));
@@ -50,7 +50,7 @@ export class FlightsService {
     );
   }
   private addImageUrlsToFlights(): void {
-    const destinations = this.destinationService.getDestinations();
+    const destinations = this.destinationService.listDestinations();
     this.flights.forEach(flight => {
       const destination = destinations.find(dest => dest.name === flight.destination);
       if (destination) {

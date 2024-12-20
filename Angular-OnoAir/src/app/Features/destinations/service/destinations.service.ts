@@ -95,10 +95,12 @@ export class DestinationService {
       "https://media.brate.com/images/europa/niemcy/berlin/berlin.jpg"
     ),
   ]
-public getDestinations(): Destination[] {
+  constructor() { }
+
+listDestinations(): Destination[] {
   return this.destinations;
 }
-public getDestinationByNameOrCode(identifier: string): Destination | undefined {
+getDestinationByNameOrCode(identifier: string): Destination | undefined {
   return this.destinations.find(
     destination =>
       destination.name.toLowerCase() === identifier.toLowerCase() ||

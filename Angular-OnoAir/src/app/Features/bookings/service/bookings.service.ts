@@ -97,10 +97,13 @@ export class BookingService {
       "https://ca-times.brightspotcdn.com/dims4/default/9ecfbed/2147483647/strip/true/crop/3000x2000+0+0/resize/2000x1333!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F8f%2F9c%2F692f81e94d908d8492f513674f17%2Ffixing-downtown-la-illo-03.jpg"
     )
   ];
-  public getBookings(): Booking[] {
+
+  constructor() {}
+
+  listBookings(): Booking[] {
     return this.bookings;
   }
-  public getBookingByCode(bookingCode: string): Booking | undefined {
+  getBookingByCode(bookingCode: string): Booking | undefined {
     return this.bookings.find(booking => booking.bookingCode === bookingCode);
   }
 }

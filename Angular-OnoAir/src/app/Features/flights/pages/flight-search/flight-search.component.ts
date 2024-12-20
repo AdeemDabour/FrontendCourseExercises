@@ -14,7 +14,7 @@ export class FlightSearchComponent implements OnInit {
   constructor(private flightService: FlightsService) {}
 
   ngOnInit(): void {
-    const allFlights = this.flightService.getFlights();
+    const allFlights = this.flightService.listFlights();
     const today = new Date();
 
     this.futureFlights = allFlights.filter(flight => new Date(flight.boarding) > today);

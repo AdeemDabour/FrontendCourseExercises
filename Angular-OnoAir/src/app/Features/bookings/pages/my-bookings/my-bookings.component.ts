@@ -34,7 +34,7 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
     }
   }
   loadBookings(): void {
-    const allBookings = this.bookingService.getBookings();
+    const allBookings = this.bookingService.listBookings();
     const today = new Date();
 
     // Separate bookings into upcoming and previous

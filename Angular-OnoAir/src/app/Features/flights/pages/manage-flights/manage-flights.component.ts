@@ -15,6 +15,6 @@ export class ManageFlightsComponent implements OnInit {
   constructor(private flightService: FlightsService) {}
 
   ngOnInit(): void {
-    this.flights = this.flightService.getFlights();
+    this.flights = this.flightService.listFlights();
   }
 }
