@@ -7,26 +7,26 @@ import { Flight } from '../model/flight';
 
 export class FlightsService {
   private flights: Flight[] = [
-    { flightNo: 'LX1001', origin: 'Tel Aviv', destination: 'New York', boarding: new Date('2024-12-10 09:00'), landing: new Date('2024-12-10 18:00'), seats: 200 },
-    { flightNo: 'AA102', origin: 'Dubai', destination: 'Zurich', boarding: new Date('2024-12-11 12:00'), landing: new Date('2024-12-11 18:00'), seats: 150 },
-    { flightNo: 'AF203', origin: 'Paris', destination: 'Rome', boarding: new Date('2024-12-12 06:00'), landing: new Date('2024-12-12 12:00'), seats: 180 },
-    { flightNo: 'EK205', origin: 'Larnaca', destination: 'Tokyo', boarding: new Date('2024-12-13 14:00'), landing: new Date('2024-12-14 06:00'), seats: 220 },
-    { flightNo: 'AZ678', origin: 'Rome', destination: 'Los Angeles', boarding: new Date('2024-12-14 10:00'), landing: new Date('2024-12-14 20:00'), seats: 250 },
-    { flightNo: 'UA999', origin: 'Los Angeles', destination: 'Zurich', boarding: new Date('2024-12-15 11:00'), landing: new Date('2024-12-15 23:00'), seats: 280 },
-    { flightNo: 'LH403', origin: 'Tel Aviv', destination: 'Berlin', boarding: new Date('2024-12-16 07:00'), landing: new Date('2024-12-16 14:00'), seats: 220 },
-    { flightNo: 'UA854', origin: 'Zurich', destination: 'Larnaca', boarding: new Date('2024-12-17 10:00'), landing: new Date('2024-12-17 15:00'), seats: 260 },
-    { flightNo: 'LH439', origin: 'Tel Aviv', destination: 'Paris', boarding: new Date('2024-12-18 08:00'), landing: new Date('2024-12-18 12:00'), seats: 240 },
-    { flightNo: 'EK206', origin: 'Dubai', destination: 'Krakow', boarding: new Date('2024-12-18 18:00'), landing: new Date('2024-12-20 01:00'), seats: 250 },
-    { flightNo: 'LX8396', origin: 'Larnaca', destination: 'Zurich', boarding: new Date('2024-12-19 09:00'), landing: new Date('2024-12-21 12:00'), seats: 120 },
-    { flightNo: 'AA120', origin: 'Tel Aviv', destination: 'Dubai', boarding: new Date('2024-12-21 16:00'), landing: new Date('2024-12-21 20:30'), seats: 180 },
-    { flightNo: 'AF2050', origin: 'Paris', destination: 'Tel Aviv', boarding: new Date('2024-12-21 10:00'), landing: new Date('2024-12-21 16:00'), seats: 200 },
-    { flightNo: 'EK203', origin: 'Dubai', destination: 'Krakow', boarding: new Date('2024-12-21 18:00'), landing: new Date('2024-12-22 22:00'), seats: 250 },
-    { flightNo: 'AZ6789', origin: 'Rome', destination: 'New York', boarding: new Date('2024-12-21 12:00'), landing: new Date('2024-12-22 16:00'), seats: 300 },
-    { flightNo: 'UA992', origin: 'Los Angeles', destination: 'Tokyo', boarding: new Date('2024-12-21 11:00'), landing: new Date('2024-12-23 18:00'), seats: 280 },
-    { flightNo: 'LH402', origin: 'Tel Aviv', destination: 'Berlin', boarding: new Date('2024-12-21 10:00'), landing: new Date('2024-12-24 14:30'), seats: 220 },
-    { flightNo: 'UA852', origin: 'Los Angeles', destination: 'Larnaca', boarding: new Date('2024-12-21 11:00'), landing: new Date('2024-12-24 18:00'), seats: 260 },
-    { flightNo: 'LH438', origin: 'Tel Aviv', destination: 'Los Angeles', boarding: new Date('2024-12-22 10:00'), landing: new Date('2024-12-24 14:30'), seats: 240 },
-    { flightNo: 'EK207', origin: 'Dubai', destination: 'Zurich', boarding: new Date('2024-12-24 08:00'), landing: new Date('2024-12-24 13:00'), seats: 200 },
+    new Flight ('LX1001', 'Tel Aviv', 'New York', new Date('2024-12-10 09:00'), new Date('2024-12-10 18:00'), 200),
+    new Flight('AA102', 'Dubai', 'Zurich', new Date('2024-12-11 12:00'), new Date('2024-12-11 18:00'), 150),
+    new Flight('AF203', 'Paris', 'Rome', new Date('2024-12-12 06:00'), new Date('2024-12-12 12:00'), 180),
+    new Flight('EK205', 'Larnaca', 'Tokyo', new Date('2024-12-13 14:00'), new Date('2024-12-14 06:00'), 220),
+    new Flight('AZ678', 'Rome', 'Los Angeles', new Date('2024-12-14 10:00'), new Date('2024-12-14 20:00'), 250),
+    new Flight('UA999', 'Los Angeles', 'Zurich', new Date('2024-12-15 11:00'), new Date('2024-12-15 23:00'), 280),
+    new Flight('LH403', 'Tel Aviv', 'Berlin', new Date('2024-12-16 07:00'), new Date('2024-12-16 14:00'), 220),
+    new Flight('UA854', 'Zurich', 'Larnaca', new Date('2024-12-17 10:00'), new Date('2024-12-17 15:00'), 260),
+    new Flight('LH439', 'Tel Aviv', 'Paris', new Date('2024-12-18 08:00'), new Date('2024-12-18 12:00'), 240),
+    new Flight('EK206', 'Dubai', 'Krakow', new Date('2024-12-19 09:00'), new Date('2024-12-20 01:00'), 250),
+    new Flight('LX8396', 'Larnaca', 'Zurich', new Date('2024-12-20 09:00'), new Date('2024-12-21 12:00'), 120),
+    new Flight('AA120', 'Tel Aviv', 'Dubai', new Date('2024-12-21 16:00'), new Date('2024-12-21 20:30'), 180),
+    new Flight('AF2050', 'Paris', 'Tel Aviv', new Date('2024-12-22 10:00'), new Date('2024-12-22 16:00'), 200),
+    new Flight('EK203', 'Dubai', 'Krakow', new Date('2024-12-21 18:00'), new Date('2024-12-22 22:00'), 250),
+    new Flight('AZ6789', 'Rome', 'New York', new Date('2024-12-21 12:00'), new Date('2024-12-22 16:00'), 300),
+    new Flight('UA992', 'Los Angeles', 'Tokyo', new Date('2024-12-21 11:00'), new Date('2024-12-23 18:00'), 280),
+    new Flight('LH402', 'Tel Aviv', 'Berlin', new Date('2024-12-21 10:00'), new Date('2024-12-24 14:30'), 220),
+    new Flight('UA852', 'Los Angeles', 'Larnaca', new Date('2024-12-21 11:00'), new Date('2024-12-24 18:00'), 260),
+    new Flight('LH438', 'Tel Aviv', 'Los Angeles', new Date('2024-12-22 10:00'), new Date('2024-12-24 14:30'), 240),
+    new Flight('EK207', 'Dubai', 'Zurich', new Date('2024-12-24 08:00'), new Date('2024-12-24 13:00'), 200)
   ];
   constructor(private destinationService: DestinationService) {
     this.addImageUrlsToFlights();
@@ -60,4 +60,3 @@ export class FlightsService {
   }
 }
 
-export { Flight };

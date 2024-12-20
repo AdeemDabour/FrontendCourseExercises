@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FlightsTableComponent } from '../flights-table/flights-table.component';
-import { Flight, FlightsService } from '../../service/flights.service';
+import { FlightsService } from '../../service/flights.service';
+import { Flight } from '../../model/flight';
 
 @Component({
   selector: 'app-manage-flights',

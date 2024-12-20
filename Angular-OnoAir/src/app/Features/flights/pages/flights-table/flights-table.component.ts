@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Flight } from '../../service/flights.service';
+import { Flight } from '../../../flights/model/flight';
 @Component({
   selector: 'app-flights-table',
   imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon ,DatePipe, RouterLink],

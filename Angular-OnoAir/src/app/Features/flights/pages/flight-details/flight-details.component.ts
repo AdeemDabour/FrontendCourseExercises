@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
-import { Flight, FlightsService } from '../../service/flights.service';
+import { FlightsService } from '../../service/flights.service';
+import { Flight } from '../../model/flight';
 @Component({
   selector: 'app-flight-details',
   imports: [CommonModule, MatCardModule, MatListModule, MatButtonModule, RouterLink],

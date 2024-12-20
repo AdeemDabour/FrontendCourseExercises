@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FlightsService, Flight } from '../../../flights/service/flights.service';
+import { FlightsService} from '../../../flights/service/flights.service';
 import { FlightsTableComponent } from '../../../flights/pages/flights-table/flights-table.component';
+import { Flight } from '../../../flights/model/flight';
 
 @Component({
   selector: 'app-find-fligt',
