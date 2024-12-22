@@ -7,3 +7,11 @@
     font-family: 'Georgia', serif;
     text-shadow: 2px 2px 4px #444;
   }
+
+  .no-flights-message {
+    text-align: center;
+    font-size: 36px;
+    color: black;
+    margin: 20px 0;
+  }
+  

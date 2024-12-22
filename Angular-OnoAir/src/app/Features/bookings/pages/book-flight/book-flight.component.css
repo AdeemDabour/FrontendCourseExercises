@@ -46,4 +46,15 @@
     font-family: 'Georgia', serif;
     color: #0c2dbd;
     text-shadow: 2px 2px 4px #444;
-  }  
+  }
+
+  button.mat-raised-button {
+    width: auto;
+    display: inline-block;
+  }
+  
+  .passenger-card button {
+    margin: 10px auto;
+    display: block;
+    max-width: fit-content;
+  }

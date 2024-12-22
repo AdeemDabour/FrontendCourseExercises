@@ -1,42 +1,16 @@
 .section-title {
-    font-size: 48px;
-    color: #150590;
-    font-weight: bold;
-    margin: 30px;
-    padding-left: 20px;
-    font-family: 'Georgia', serif;
-    text-shadow: 2px 2px 4px #444;
-  }
-  
-  .flight-card-container {
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-  }
-  
-  .flight-card-container:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .flight-image {
-    height: 200px;
-    object-fit: cover;
-    width: 100%;
-  }
-  
-  mat-card-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #3f51b5;
-  }
-  
-  mat-card-subtitle {
-    font-size: 16px;
-    color: #607d8b;
-  }
-  
-  mat-card-actions button {
-    font-weight: bold;
-  }
+  font-size: 48px;
+  color: #150590;
+  font-weight: bold;
+  margin: 30px;
+  padding-left: 20px;
+  font-family: 'Georgia', serif;
+  text-shadow: 2px 2px 4px #444;
+}
+
+.no-flights-message {
+  text-align: center;
+  font-size: 36px;
+  color: black;
+  margin: 20px 0;
+}

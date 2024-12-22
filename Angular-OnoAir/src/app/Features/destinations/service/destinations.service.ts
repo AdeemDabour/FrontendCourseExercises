@@ -52,7 +52,7 @@ export class DestinationService {
       "https://www.parisaeroport.fr/en",
       "info@paris-airport.com",
       "CDG",
-      "https://149990825.v2.pressablecdn.com/wp-content/uploads/2023/09/Paris1.jpg"
+      "https://media.reshet.tv/image/upload/t_image_article_800/v1625650119/shutterstock_667548661_u8pqe8.webp"
     ),
     new Destination (
       "Tokyo",

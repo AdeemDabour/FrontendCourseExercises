@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FlightsTableComponent } from '../flights-table/flights-table.component';
 import { FlightsService } from '../../service/flights.service';
 import { Flight } from '../../model/flight';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-flight-search',
-  imports: [FlightsTableComponent],
+  imports: [FlightsTableComponent, CommonModule],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.css'
 })

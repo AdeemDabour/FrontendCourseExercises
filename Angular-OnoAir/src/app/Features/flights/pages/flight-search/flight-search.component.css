@@ -12,3 +12,10 @@
 .mat-form-field {
   width: 100%;
 }
+
+.no-flights-message {
+  text-align: center;
+  font-size: 36px;
+  color: black;
+  margin: 20px 0;
+}

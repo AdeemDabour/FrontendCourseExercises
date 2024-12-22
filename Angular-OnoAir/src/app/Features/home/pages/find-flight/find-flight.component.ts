@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FlightsService} from '../../../flights/service/flights.service';
 import { FlightsTableComponent } from '../../../flights/pages/flights-table/flights-table.component';
 import { Flight } from '../../../flights/model/flight';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-find-fligt',
-  imports: [FlightsTableComponent],
+  imports: [FlightsTableComponent, CommonModule],
   templateUrl: './find-flight.component.html',
   styleUrl: './find-flight.component.css'
 })
