@@ -49,15 +49,6 @@
   color: #555;
 }
 
-.section-title {
-  font-size: 48px;
-  color: #150590;
-  font-weight: bold;
-  margin: 10px;
-  font-family: 'Georgia', serif;
-  text-shadow: 2px 2px 4px #444;
-}
-
 .button-container {
   position: absolute;
   bottom: 10px;

@@ -32,34 +32,47 @@ h2.glitter-text {
   }
 
   
-  /* Basic table styling */
+/* Basic table styling */
 table {
-    border: 2px solid #007BFF;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 0;
-    padding: 50px;
-    table-layout: fixed;
-  }
-  
-  th {
-    padding: 4px;
-    word-wrap: break-word;
-    font-weight: bold;
-    background-color: #007BFF;
-    border: 1px solid #ddd;
-    color: #333;
-    font-size: 20px;
-  }
-  
-  /* Table data cells styling */
-  td {
-    padding: 4px;
-    word-wrap: break-word;
-    border: 1px solid #ddd;
-    font-size: 18px;
-    color: #333;
-  }
+  border: 2px solid #007BFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 0;
+  table-layout: auto;
+  width: auto;
+  max-width: 80%;
+}
+
+/* Responsive container */
+.table-container {
+  width: auto;
+  max-width: 90%;
+  margin: 10px auto;
+  overflow-x: auto;
+}
+
+/* Table header styling */
+th {
+  word-wrap: break-word;
+  font-weight: bold;
+  background-color: #007BFF;
+  border: 1px solid #dddddd;
+  color: black;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Table data cells styling */
+td {
+  word-wrap: break-word;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  padding: 10px;
+}
   
   /* Alternating row colors */
   tr:nth-child(odd) {
@@ -94,4 +107,38 @@ table {
 
   button.bold-button {
     font-weight: bold;
-}
+  }
+
+  .section-title {
+    font-size: 48px;
+    color: #150590;
+    font-weight: bold;
+    margin: 30px;
+    padding-left: 20px;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px #444;
+  }
+
+  .no-flights-message {
+    text-align: center;
+    font-size: 36px;
+    color: black;
+    margin: 20px 0;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0; 
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .button-container button {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 16px; 
+    transition: transform 0.3s ease;
+  }

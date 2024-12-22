@@ -5,7 +5,7 @@ import { Flight } from '../../../flights/model/flight';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-find-fligt',
+  selector: 'app-find-flight',
   imports: [FlightsTableComponent, CommonModule],
   templateUrl: './find-flight.component.html',
   styleUrl: './find-flight.component.css'

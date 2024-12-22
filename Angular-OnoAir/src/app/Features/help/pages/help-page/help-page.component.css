@@ -22,10 +22,6 @@
     color: #3f51b5;
   }
 
-  mat-expansion-panel {
-    margin-bottom: 10px;
-  }
-  
   /* Contact Card */
   .contact-section {
     text-align: center;
@@ -36,16 +32,7 @@
     max-width: 400px;
     margin: 0 auto;
   }
-  
-  .contact-button a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .contact-button a:hover {
-    text-decoration: underline;
-  }  
 
-  .contact-button {
-    margin: 0 auto;
-  }
+  .button-container {
+    width: 100%;
+  }  

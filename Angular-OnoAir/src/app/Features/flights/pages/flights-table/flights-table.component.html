@@ -1,4 +1,4 @@
-<div>
+<div class="table-container">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="flightNo.">
@@ -44,8 +44,8 @@
     <ng-container matColumnDef="book">
       <th mat-header-cell *matHeaderCellDef> Book </th>
       <td mat-cell *matCellDef="let element">
-        <div [routerLink]="['/book-flight', element.flightNo]">
-          <button mat-button color="primary" class="bold-button">Book</button>
+        <div [routerLink]="['/book-flight', element.flightNo]" class="button-container">
+          <button mat-button color="primary">Book</button>
         </div>
       </td>
     </ng-container>

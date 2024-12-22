@@ -57,6 +57,7 @@
     <mat-label>Passport no.</mat-label>
     <input matInput [(ngModel)]="passenger.passport" placeholder="Enter passport no." />
   </mat-form-field>
-
-  <button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
+  </div>
 </mat-card>

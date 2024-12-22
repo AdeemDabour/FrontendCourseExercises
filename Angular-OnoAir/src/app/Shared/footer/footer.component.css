@@ -40,10 +40,6 @@
     font-size: 18px;
   }
   
-  .footer-bottom p {
-    margin: 0;
-  }
-  
 .footer-section mat-icon {
     vertical-align: middle;
     margin-right: 8px;
@@ -54,14 +50,6 @@
   .footer-section ul li {
     align-items: center;
     margin: 5px 0;
-  }
-  
-  .footer-section ul li mat-icon {
-    margin-right: 12px;
-  }
-
-  .footer-section p mat-icon {
-    margin-right: 8px;
   }
 
   .help-button {
@@ -80,9 +68,4 @@
   .help-button:hover {
     background-color: #1e90ff;
     transform: scale(1.1);
-  }
-  
-  .help-button mat-icon {
-    font-size: 24px;
-    color: white;
   }
