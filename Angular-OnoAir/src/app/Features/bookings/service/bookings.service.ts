@@ -98,7 +98,7 @@ export class BookingService {
     )
   ];
 
-  constructor() {}
+  constructor() { }
 
   listBookings(): Booking[] {
     return this.bookings;

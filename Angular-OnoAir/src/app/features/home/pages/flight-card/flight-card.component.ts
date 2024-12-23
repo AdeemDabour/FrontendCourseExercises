@@ -13,5 +13,4 @@ import { Flight } from '../../../flights/model/flight';
 })
 export class FlightCardComponent {
   @Input() flight!: Flight;
-
 }

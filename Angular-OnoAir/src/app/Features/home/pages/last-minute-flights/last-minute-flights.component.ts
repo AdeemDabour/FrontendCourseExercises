@@ -19,7 +19,7 @@ export class LastMinuteFlightsComponent implements OnInit {
 
   lastMinuteFlights: Flight[] = [];
 
-  constructor(private flightsService: FlightsService) {}
+  constructor(private flightsService: FlightsService) { }
   ngOnInit(): void {
     this.lastMinuteFlights = this.flightsService.getFlightsThisWeek();
   }

@@ -3,18 +3,18 @@
     background: linear-gradient(to bottom, hsl(231, 59%, 72%), #1a237e);
     color: white;
   }
-  
+
   /* Form Styling */
   .form-card {
     background: #eceff1;
   }
-  
+
   /* Passenger Card Styling */
   .passenger-card {
     background: #fafafa;
     border: 1px solid #e0e0e0;
   }
-  
+
   /* Table Styling */
   .flight-details-table th {
     background-color: #3f51b5;
@@ -22,7 +22,7 @@
     text-align: left;
     padding: 8px;
   }
-  
+
   .flight-details-table td {
     padding: 8px;
     border-bottom: 1px solid #ddd;
@@ -32,7 +32,7 @@
     width: auto;
     display: inline-block;
   }
-  
+
   .passenger-card button {
     margin: 10px auto;
     display: block;

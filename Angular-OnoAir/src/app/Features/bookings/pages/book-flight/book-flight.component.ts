@@ -28,7 +28,7 @@ export class BookFlightComponent implements OnInit {
   passengers: Passenger[] = [];
   bookingCode: string = '';
 
-  constructor(private route: ActivatedRoute, private flightsService: FlightsService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private flightsService: FlightsService, private router: Router) { }
 
   ngOnInit(): void {
     const flightNo = this.route.snapshot.paramMap.get('flightNo');
@@ -61,21 +61,21 @@ export class BookFlightComponent implements OnInit {
       code += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return code;
-  }  
-  submitBooking(): void { 
+  }
+  submitBooking(): void {
     this.bookingCode = this.generateBookingCode();
-  
+
     const bookingDetails = {
       bookingCode: this.bookingCode,
       flight: this.flight,
       passengers: this.passengers
     };
-  
+
     console.log('Navigating to booking details with:', bookingDetails);
-  
+
     // Navigate to the booking details page
     this.router.navigate(['/booking-details', this.bookingCode], {
       state: { bookingDetails }
     });
-  }  
+  }
 }

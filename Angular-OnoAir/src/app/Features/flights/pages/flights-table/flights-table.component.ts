@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
 import { Flight } from '../../model/flight';
 @Component({
   selector: 'app-flights-table',
-  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon ,DatePipe, RouterLink],
+  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, RouterLink],
   templateUrl: './flights-table.component.html',
   styleUrls: ['./flights-table.component.css']
 })
@@ -28,7 +28,7 @@ export class FlightsTableComponent implements AfterViewInit {
     if (this.flights) {
       this.dataSource.data = this.flights;
     }
-  
+
     this.displayedColumns = this.showActionsColumn
       ? ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
       : ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
@@ -36,8 +36,8 @@ export class FlightsTableComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
-  }  
-  
+  }
+
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);

@@ -12,5 +12,4 @@ import { FindFlightComponent } from '../find-flight/find-flight.component';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
-
 }

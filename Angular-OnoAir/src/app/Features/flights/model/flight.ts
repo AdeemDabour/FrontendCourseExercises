@@ -7,5 +7,5 @@ export class Flight {
         public landing: Date,
         public seats: number,
         public imageUrl?: string
-    ) {} 
+    ) { }
 }

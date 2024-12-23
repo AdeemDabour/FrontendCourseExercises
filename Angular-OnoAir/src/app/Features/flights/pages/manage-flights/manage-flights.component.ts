@@ -12,7 +12,7 @@ import { Flight } from '../../model/flight';
 export class ManageFlightsComponent implements OnInit {
   flights: Flight[] = [];
 
-  constructor(private flightService: FlightsService) {}
+  constructor(private flightService: FlightsService) { }
 
   ngOnInit(): void {
     this.flights = this.flightService.listFlights();

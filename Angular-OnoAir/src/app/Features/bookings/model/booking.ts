@@ -7,5 +7,5 @@ export class Booking {
         public landing: Date,
         public passengerCount: number,
         public imageUrl: string
-    ) {}
+    ) { }
 }

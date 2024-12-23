@@ -17,7 +17,7 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
   previousBookings: Booking[] = [];
   private subscription!: Subscription;
 
-  constructor(private bookingService: BookingService, private router: Router) {}
+  constructor(private bookingService: BookingService, private router: Router) { }
   ngOnInit(): void {
     this.loadBookings();
 
@@ -57,10 +57,10 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
       },
       passengers: []
     };
-  
+
     console.log('Navigating to booking-details with:', bookingDetails);
-  
+
     // Navigate using the bookingCode as a route parameter
     this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
-  }  
-} 
+  }
+}

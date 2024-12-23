@@ -6,7 +6,7 @@ import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-booking-details',
-  imports: [MatCardModule, MatDivider ,CommonModule, MatButtonModule, RouterLink],
+  imports: [MatCardModule, MatDivider, CommonModule, MatButtonModule, RouterLink],
   templateUrl: './booking-details.component.html',
   styleUrl: './booking-details.component.css'
 })

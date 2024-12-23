@@ -1,71 +1,71 @@
 .footer-container {
-    position: relative;
-    padding: 20px;
-    background-color: #1c46a0;
-    color: white;
-    text-align: center;
-    margin: 0;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    padding: 0px;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  
-  /* Footer Sections */
-  .footer-section {
-    flex: 1;
-    margin: 10px;
-    min-width: 200px;
-  }
-  
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  /* Contact Links */
-  .footer-section a {
-    color: rgb(250, 250, 250);
-  }
-  
-  /* Footer Bottom */
-  .footer-bottom {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 0;
-    font-size: 18px;
-  }
-  
-.footer-section mat-icon {
-    vertical-align: middle;
-    margin-right: 8px;
-    color: #90caf9;
-    font-size: 20px;
-  }
-  
-  .footer-section ul li {
-    align-items: center;
-    margin: 5px 0;
-  }
+  position: relative;
+  padding: 20px;
+  background-color: #1c46a0;
+  color: white;
+  text-align: center;
+  margin: 0;
+}
 
-  .help-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 0;
-    background: linear-gradient(135deg, #87CEEB, #4682B4);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    color: white;
-    text-align: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .help-button:hover {
-    background-color: #1e90ff;
-    transform: scale(1.1);
-  }
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* Footer Sections */
+.footer-section {
+  flex: 1;
+  margin: 10px;
+  min-width: 200px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Contact Links */
+.footer-section a {
+  color: rgb(250, 250, 250);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 0;
+  font-size: 18px;
+}
+
+.footer-section mat-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+  color: #90caf9;
+  font-size: 20px;
+}
+
+.footer-section ul li {
+  align-items: center;
+  margin: 5px 0;
+}
+
+.help-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 0;
+  background: linear-gradient(135deg, #87CEEB, #4682B4);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.help-button:hover {
+  background-color: #1e90ff;
+  transform: scale(1.1);
+}

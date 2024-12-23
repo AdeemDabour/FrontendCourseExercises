@@ -18,7 +18,7 @@ export class FlightDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private flightService: FlightsService
-  ) {}
+  ) { }
   ngOnInit(): void {
     const flightNo = this.route.snapshot.paramMap.get('flightNo'); // Retrieve 'flightNo' from the route
     if (flightNo) {

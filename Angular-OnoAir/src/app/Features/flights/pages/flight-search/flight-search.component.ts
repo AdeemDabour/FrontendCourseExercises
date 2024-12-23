@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class FlightSearchComponent implements OnInit {
   futureFlights: Flight[] = [];
 
-  constructor(private flightService: FlightsService) {}
+  constructor(private flightService: FlightsService) { }
 
   ngOnInit(): void {
     const allFlights = this.flightService.listFlights();
