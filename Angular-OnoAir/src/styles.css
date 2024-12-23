@@ -33,7 +33,7 @@ h2.glitter-text {
 
   
 /* Basic table styling */
-table {
+.table-container {
   border: 2px solid #007BFF;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -41,14 +41,7 @@ table {
   padding: 0;
   table-layout: auto;
   width: auto;
-  max-width: 80%;
-}
-
-/* Responsive container */
-.table-container {
-  width: auto;
   max-width: 90%;
-  margin: 10px auto;
   overflow-x: auto;
 }
 
@@ -141,4 +134,15 @@ td {
     font-weight: bold;
     padding: 8px 16px; 
     transition: transform 0.3s ease;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto;
+    background: linear-gradient(to bottom, #8c7bcb, #8ab4db);
+    padding: 20px;
+    border-radius: 16px;
+    max-width: 80%;
   }

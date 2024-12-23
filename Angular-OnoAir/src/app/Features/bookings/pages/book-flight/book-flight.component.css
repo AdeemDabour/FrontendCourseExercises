@@ -1,40 +1,51 @@
-  /* Flight Card Styling */
-  .flight-card {
-    background: linear-gradient(to bottom, hsl(231, 59%, 72%), #1a237e);
-    color: white;
-  }
+.flight-card {
+  color: black;
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+}
 
-  /* Form Styling */
-  .form-card {
-    background: #eceff1;
-  }
+.form-card {
+  max-width: 80%;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  /* Passenger Card Styling */
-  .passenger-card {
-    background: #fafafa;
-    border: 1px solid #e0e0e0;
-  }
+.passenger-card {
+  max-width: 40%;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  /* Table Styling */
-  .flight-details-table th {
-    background-color: #3f51b5;
-    color: white;
-    text-align: left;
-    padding: 8px;
-  }
+.flight-details-table th {
+  background-color: #3f51b5;
+  color: white;
+  text-align: center;
+  padding: 5px;
+}
 
-  .flight-details-table td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-  }
+.flight-details-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
 
-  button.mat-raised-button {
-    width: auto;
-    display: inline-block;
-  }
+button.mat-raised-button {
+  width: auto;
+  display: inline-block;
+}
 
-  .passenger-card button {
-    margin: 10px auto;
-    display: block;
-    max-width: fit-content;
-  }
+mat-form-field {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+}
+
+mat-hint {
+  font-size: 14px;
+  color: black;
+}

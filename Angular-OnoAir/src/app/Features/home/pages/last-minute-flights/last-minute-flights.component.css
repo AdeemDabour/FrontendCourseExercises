@@ -4,6 +4,10 @@
   justify-content: space-between;
   align-items: center;
   height: 400px;
+  width: 300px;
+  margin: 5px;
+  padding: 15px;
+  background: linear-gradient(to bottom, #8c7bcb, #8ab4db);
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -19,6 +23,7 @@
   height: 200px;
   object-fit: cover;
   width: 100%;
+  border-radius: 8px;
 }
 
 mat-card-title {
