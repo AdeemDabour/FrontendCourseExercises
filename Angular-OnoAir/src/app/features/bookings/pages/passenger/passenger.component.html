@@ -1,0 +1,14 @@
+<div>
+    <mat-card class="passenger-card">
+        <h2>Passenger {{ index + 1 }}</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="passenger.name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Passport</mat-label>
+            <input matInput [(ngModel)]="passenger.passport" />
+        </mat-form-field>
+    </mat-card>
+</div>

@@ -10,15 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { FlightsService } from '../../../flights/service/flights.service';
 import { Flight } from '../../../flights/model/flight';
-
-interface Passenger {
-  name: string;
-  passport: string;
-}
-
+import { PassengerComponent } from '../passenger/passenger.component';
+import { Passenger } from '../../model/passenger';
 @Component({
   selector: 'app-book-flight',
-  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule],
+  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerComponent],
   templateUrl: './book-flight.component.html',
   styleUrl: './book-flight.component.css'
 })
@@ -28,7 +24,7 @@ export class BookFlightComponent implements OnInit {
   passengers: Passenger[] = [];
   bookingCode: string = '';
 
-  constructor(private route: ActivatedRoute, private flightsService: FlightsService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private flightsService: FlightsService, private router: Router) {}
 
   ngOnInit(): void {
     const flightNo = this.route.snapshot.paramMap.get('flightNo');
@@ -40,31 +36,31 @@ export class BookFlightComponent implements OnInit {
   loadFlightDetails(flightNo: string): void {
     this.flight = this.flightsService.getFlightByNumber(flightNo) || null;
     if (this.flight) {
-      this.updatePassengers();
+      this.createPassengerList();
     } else {
       alert('Flight not found!');
     }
   }
 
-  updatePassengers(): void {
-    if (!this.flight) return;
-    this.passengers = Array.from({ length: this.numPassengers }, () => ({
-      name: '',
-      passport: ''
+  updatePassengers(event: Event): void {
+    const value = parseInt((event.target as HTMLInputElement).value, 10) || 1;
+    this.numPassengers = Math.min(value, this.flight?.seats ?? 1);
+    this.createPassengerList();
+  }
+
+  createPassengerList(): void {
+    this.passengers = Array.from({ length: this.numPassengers }, (_, i) => ({
+      name: this.passengers[i]?.name || '',
+      passport: this.passengers[i]?.passport || ''
     }));
   }
 
-  private generateBookingCode(): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let code = '';
-    for (let i = 0; i < 6; i++) {
-      code += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return code;
+  updatePassenger(index: number, passenger: Passenger): void {
+    this.passengers[index] = passenger;
   }
+
   submitBooking(): void {
     this.bookingCode = this.generateBookingCode();
-
     const bookingDetails = {
       bookingCode: this.bookingCode,
       flight: this.flight,
@@ -72,10 +68,13 @@ export class BookFlightComponent implements OnInit {
     };
 
     console.log('Navigating to booking details with:', bookingDetails);
+    this.router.navigate(['/booking-details', this.bookingCode], { state: { bookingDetails } });
+  }
 
-    // Navigate to the booking details page
-    this.router.navigate(['/booking-details', this.bookingCode], {
-      state: { bookingDetails }
-    });
+  private generateBookingCode(): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    return Array.from({ length: 6 })
+      .map(() => characters.charAt(Math.floor(Math.random() * characters.length)))
+      .join('');
   }
 }

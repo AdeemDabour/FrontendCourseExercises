@@ -13,14 +13,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.passenger-card {
-  max-width: 40%;
-  margin: 20px;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 .flight-details-table th {
   background-color: #3f51b5;
   color: white;

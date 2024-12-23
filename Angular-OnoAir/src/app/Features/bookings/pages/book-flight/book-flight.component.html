@@ -2,10 +2,6 @@
   <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
 </mat-card>
 
-<mat-card *ngIf="bookingCode" class="booking-card">
-  <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
-</mat-card>
-
 <mat-card *ngIf="flight" class="flight-card">
   <h2 class="glitter-text">Book a Flight</h2>
   <mat-divider></mat-divider>
@@ -42,23 +38,13 @@
   <mat-card class="form-card">
     <mat-form-field appearance="outline">
       <mat-label>No. of Passengers</mat-label>
-      <input matInput type="number" [(ngModel)]="numPassengers" min="1" [max]="flight.seats"
-        (change)="updatePassengers()" />
+      <input matInput type="number" [value]="numPassengers" min="1" [max]="flight.seats"
+        (input)="updatePassengers($event)" />
       <mat-hint>Enter between 1 and {{ flight.seats }}</mat-hint>
     </mat-form-field>
 
     <ng-container *ngFor="let passenger of passengers; let i = index">
-      <mat-card class="passenger-card">
-        <h3>Passenger {{ i + 1 }}</h3>
-        <mat-form-field appearance="outline">
-          <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="passenger.name" placeholder="Enter name" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Passport no.</mat-label>
-          <input matInput [(ngModel)]="passenger.passport" placeholder="Enter passport no." />
-        </mat-form-field>
-      </mat-card>
+      <app-passenger [passenger]="passenger" [index]="i" (passengerChange)="updatePassenger(i, $event)"></app-passenger>
     </ng-container>
   </mat-card>
 
