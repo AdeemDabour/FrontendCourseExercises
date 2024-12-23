@@ -1,30 +1,13 @@
 <h2 class="section-title">Last Minute Flights</h2>
 
 <div class="flights-container">
-  <mat-grid-list cols="4" rowHeight="400px" gutterSize="20px">
+  <p *ngIf="lastMinuteFlights.length === 0" class="no-flights-message">
+    No flights available for this week.
+  </p>
+
+  <mat-grid-list *ngIf="lastMinuteFlights.length > 0" cols="4" rowHeight="400px" gutterSize="20px">
     <mat-grid-tile *ngFor="let flight of lastMinuteFlights" class="flight-card">
-      <mat-card class="flight-card-container">
-        <img mat-card-image [src]="flight.imageUrl" alt="Destination Image" class="flight-image" />
-
-        <mat-card-header>
-          <mat-card-title>
-            {{flight.origin}} to {{ flight.destination }}
-          </mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content>
-          <p><strong>Boarding: </strong> {{ flight.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
-          <p><strong>Landing: </strong> {{ flight.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
-        </mat-card-content>
-
-        <mat-card-actions align="end">
-          <div class="button-container">
-            <div [routerLink]="['/book-flight', flight.flightNo]">
-              <button mat-raised-button color="primary">Book Now</button>
-            </div>
-          </div>
-        </mat-card-actions>
-      </mat-card>
+      <app-flight-card [flight]="flight"></app-flight-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
