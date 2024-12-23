@@ -15,15 +15,23 @@ import { Destination } from '../../model/destination';
 export class DestinationDetailsComponent implements OnInit {
   @Input() code = 0;
   destination: Destination | undefined;
+  errorMessage: string | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private destinationService: DestinationService,
   ) {}
+
   ngOnInit(): void {
     const code = this.route.snapshot.paramMap.get('code');
     if (code) {
       this.destination = this.destinationService.listDestinations()
         .find(d => d.code === code);
+      if (!this.destination) {
+        this.errorMessage = `Destination with code ${code} does not exist.`;
+      }
+    } else {
+      this.errorMessage = 'No destination code provided in the URL.';
     }
   }
 }

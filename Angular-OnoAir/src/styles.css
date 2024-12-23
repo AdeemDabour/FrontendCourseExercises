@@ -146,3 +146,25 @@ td {
     border-radius: 16px;
     max-width: 80%;
   }
+
+  .error-card {
+    background-color: #ffe5e5;
+    color: #d32f2f;
+    border: 1px solid #ffcdd2;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .error-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .error-card p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }

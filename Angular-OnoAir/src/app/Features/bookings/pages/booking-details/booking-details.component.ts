@@ -13,6 +13,9 @@ import { RouterLink } from '@angular/router';
 export class BookingDetailsComponent implements OnInit {
   @Input() bookingCode = 0;
   bookingDetails: any = null;
+  errorMessage: string | null = null;
+
+  constructor() {}
 
   ngOnInit(): void {
     this.bookingDetails = history.state.bookingDetails;
@@ -21,7 +24,7 @@ export class BookingDetailsComponent implements OnInit {
     console.log('Booking Details:', this.bookingDetails);
 
     if (!this.bookingDetails) {
-      alert('No booking details found!');
+      this.errorMessage = `No booking details found for code ${this.bookingCode}.`;
     }
   }
 }

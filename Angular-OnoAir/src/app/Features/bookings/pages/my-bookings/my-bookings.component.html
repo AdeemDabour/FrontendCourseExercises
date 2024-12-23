@@ -3,23 +3,29 @@
 <div>
   <h3 class="section-title">Upcoming Bookings</h3>
   <div class="form-container">
-    <div class="bookings-container">
+    <div *ngIf="upcomingBookings.length > 0; else noUpcoming" class="bookings-container">
       <app-booking-card
         *ngFor="let booking of upcomingBookings"
         [booking]="booking"
         (viewBookingEvent)="viewBooking($event)">
       </app-booking-card>
     </div>
+    <ng-template #noUpcoming>
+      <p class="no-bookings-message">You have no upcoming bookings.</p>
+    </ng-template>
   </div>
 
   <h4 class="section-title">Previous Bookings</h4>
   <div class="form-container">
-    <div class="bookings-container">
+    <div *ngIf="previousBookings.length > 0; else noPrevious" class="bookings-container">
       <app-booking-card
         *ngFor="let booking of previousBookings"
         [booking]="booking"
         (viewBookingEvent)="viewBooking($event)">
       </app-booking-card>
     </div>
+    <ng-template #noPrevious>
+      <p class="no-bookings-message">You have no previous bookings.</p>
+    </ng-template>
   </div>
 </div>
