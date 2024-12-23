@@ -10,11 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { FlightsService } from '../../../flights/service/flights.service';
 import { Flight } from '../../../flights/model/flight';
-import { PassengerComponent } from '../passenger/passenger.component';
 import { Passenger } from '../../model/passenger';
+import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
 @Component({
   selector: 'app-book-flight',
-  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerComponent],
+  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent],
   templateUrl: './book-flight.component.html',
   styleUrl: './book-flight.component.css'
 })

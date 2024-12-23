@@ -6,12 +6,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-passenger',
+  selector: 'app-passenger-card',
   imports: [CommonModule, MatFormFieldModule, MatCardModule, MatInputModule, FormsModule],
-  templateUrl: './passenger.component.html',
-  styleUrl: './passenger.component.css'
+  templateUrl: './passenger-card.component.html',
+  styleUrl: './passenger-card.component.css'
 })
-export class PassengerComponent {
+export class PassengerCardComponent {
   @Input() passenger: { name: string; passport: string } = { name: '', passport: '' };
   @Input() index: number = 0;
   @Output() passengerChange = new EventEmitter<{ name: string; passport: string }>();

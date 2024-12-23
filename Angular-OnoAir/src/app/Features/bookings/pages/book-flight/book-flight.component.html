@@ -44,7 +44,7 @@
     </mat-form-field>
 
     <ng-container *ngFor="let passenger of passengers; let i = index">
-      <app-passenger [passenger]="passenger" [index]="i" (passengerChange)="updatePassenger(i, $event)"></app-passenger>
+      <app-passenger-card [passenger]="passenger" [index]="i" (passengerChange)="updatePassenger(i, $event)"></app-passenger-card>
     </ng-container>
   </mat-card>
 
