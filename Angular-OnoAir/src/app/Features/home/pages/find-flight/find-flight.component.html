@@ -1,7 +1,7 @@
 <h2 class="section-title">Find a Flight</h2>
 
 <p *ngIf="futureFlights.length === 0" class="no-flights-message">
-  No flights available.
+  No flights available at the moment.
 </p>
 
 <app-flights-table *ngIf="futureFlights.length > 0" [flights]="futureFlights"

@@ -1,0 +1,33 @@
+.flight-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 400px;
+    width: 300px;
+    margin: 5px;
+    padding: 15px;
+    background: linear-gradient(to bottom, #8c7bcb, #8ab4db);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .flight-card-container:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .flight-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  mat-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3f51b5;
+  }  

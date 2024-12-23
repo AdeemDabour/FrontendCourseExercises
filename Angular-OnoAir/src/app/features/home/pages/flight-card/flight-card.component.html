@@ -1,5 +1,5 @@
 <mat-card class="flight-card-container">
-  <img mat-card-image [src]="flight.imageUrl" alt="Destination Image" class="flight-image"/>
+  <img mat-card-image [src]="flight.imageUrl" alt="Destination Image" class="flight-image" />
 
   <mat-card-header>
     <mat-card-title>
@@ -13,8 +13,10 @@
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <div [routerLink]="['/book-flight', flight.flightNo]" class="button-container">
-      <button mat-raised-button color="primary">Book Now</button>
+    <div class="button-container">
+      <div [routerLink]="['/book-flight', flight.flightNo]">
+        <button mat-raised-button color="primary">Book Now</button>
+      </div>
     </div>
   </mat-card-actions>
 </mat-card>

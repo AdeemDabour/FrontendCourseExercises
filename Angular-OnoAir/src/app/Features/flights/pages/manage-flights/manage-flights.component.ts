@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FlightsTableComponent } from '../flights-table/flights-table.component';
 import { FlightsService } from '../../service/flights.service';
 import { Flight } from '../../model/flight';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-manage-flights',
-  imports: [FlightsTableComponent],
+  imports: [FlightsTableComponent, CommonModule],
   templateUrl: './manage-flights.component.html',
   styleUrls: ['./manage-flights.component.css'],
 })
