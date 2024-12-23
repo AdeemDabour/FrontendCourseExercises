@@ -1,0 +1,17 @@
+<mat-card class="booking-card">
+    <div class="card-content">
+      <div class="image-container">
+        <img [src]="booking.imageUrl" alt="{{ booking.destination }}" />
+      </div>
+      <div class="details-container">
+        <h3>{{ booking.origin }} → {{ booking.destination }}</h3>
+        <p><strong>Booking Code:</strong> {{ booking.bookingCode }}</p>
+        <p><strong>Boarding:</strong> {{ booking.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Landing:</strong> {{ booking.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Passengers:</strong> {{ booking.passengerCount }}</p>
+      </div>
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="viewBooking()">View</button>
+      </div>
+    </div>
+  </mat-card>

@@ -6,9 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Booking } from '../../model/booking';
+import { BookingCardComponent } from '../booking-card/booking-card.component';
 @Component({
   selector: 'app-my-bookings',
-  imports: [CommonModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, BookingCardComponent],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
 })
