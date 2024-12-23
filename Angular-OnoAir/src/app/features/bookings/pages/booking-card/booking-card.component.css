@@ -1,7 +1,7 @@
 .booking-card {
     display: flex;
     width: 100%;
-    max-width: 600px;
+    max-width: 1200px;
     padding: 0;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -17,7 +17,7 @@
 
 .image-container {
     aspect-ratio: 1 / 1;
-    width: 150px;
+    width: 200px;
     overflow: hidden;
     margin: 15px;
     border-radius: 8px;
@@ -47,4 +47,5 @@
     display: flex;
     justify-content: flex-end;
     margin-top: auto;
+    padding: 16px;
 }

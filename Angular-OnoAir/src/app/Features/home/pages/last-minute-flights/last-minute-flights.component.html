@@ -1,9 +1,13 @@
 <h2 class="section-title">Last Minute Flights</h2>
 
 <div class="flights-container">
-  <mat-grid-list cols="4" rowHeight="400px" gutterSize="20px">
+  <mat-grid-list *ngIf="lastMinuteFlights.length > 0" cols="4" rowHeight="400px" gutterSize="20px">
     <mat-grid-tile *ngFor="let flight of lastMinuteFlights">
       <app-flight-card [flight]="flight"></app-flight-card>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <div *ngIf="lastMinuteFlights.length === 0" class="no-flights-message">
+    <p>No last-minute flights available at the moment.</p>
+  </div>
 </div>
