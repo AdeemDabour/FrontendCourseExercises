@@ -16,7 +16,7 @@ export class PassengerCardComponent {
   @Input() index: number = 0;
   @Output() passengerChange = new EventEmitter<{ name: string; passport: string }>();
 
-  updatePassenger(field: 'name' | 'passport', event: Event): void {
+  onPassengerChange(field: 'name' | 'passport', event: Event): void {
     const value = (event.target as HTMLInputElement)?.value || '';
     this.passenger = { ...this.passenger, [field]: value };
     this.passengerChange.emit(this.passenger);

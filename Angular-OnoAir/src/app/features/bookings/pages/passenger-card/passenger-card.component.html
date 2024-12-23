@@ -1,14 +1,25 @@
 <div>
     <mat-card class="passenger-card">
-        <h2>Passenger {{ index + 1 }}</h2>
-        <mat-form-field appearance="outline">
-            <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="passenger.name" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Passport</mat-label>
-            <input matInput [(ngModel)]="passenger.passport" />
-        </mat-form-field>
+      <h2>Passenger {{ index + 1 }}</h2>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          [value]="passenger.name"
+          (input)="onPassengerChange('name', $event)"
+          placeholder="Enter name"
+        />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Passport</mat-label>
+        <input
+          matInput
+          [value]="passenger.passport"
+          (input)="onPassengerChange('passport', $event)"
+          placeholder="Enter passport number"
+        />
+      </mat-form-field>
     </mat-card>
-</div>
+  </div>  
