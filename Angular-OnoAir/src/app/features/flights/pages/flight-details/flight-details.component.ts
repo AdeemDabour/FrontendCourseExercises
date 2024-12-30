@@ -13,8 +13,9 @@ import { Flight } from '../../model/flight';
   styleUrl: './flight-details.component.css'
 })
 export class FlightDetailsComponent implements OnInit {
+  flight: Flight | undefined = undefined; // Define the property and allow it to be undefined
+  errorMessage: string | null = null; // Variable for error message
 
-  flight: Flight | undefined; // Define the property and allow it to be undefined
   constructor(
     private route: ActivatedRoute,
     private flightService: FlightsService
@@ -23,6 +24,11 @@ export class FlightDetailsComponent implements OnInit {
     const flightNo = this.route.snapshot.paramMap.get('flightNo'); // Retrieve 'flightNo' from the route
     if (flightNo) {
       this.flight = this.flightService.getFlightByNumber(flightNo); // Retrieve the flight
+      if (!this.flight) {
+        this.errorMessage = `Flight with number "${flightNo}" does not exist.`; // Error message if flight not found
+      }
+    } else {
+      this.errorMessage = 'Invalid flight number in URL.'; // Error message if no flightNo in URL
     }
   }
 }

@@ -23,6 +23,8 @@ export class BookFlightComponent implements OnInit {
   numPassengers: number = 1;
   passengers: Passenger[] = [];
   bookingCode: string = '';
+  errorMessage: string | null = null;
+
 
   constructor(private route: ActivatedRoute, private flightsService: FlightsService, private router: Router) {}
 
@@ -30,17 +32,22 @@ export class BookFlightComponent implements OnInit {
     const flightNo = this.route.snapshot.paramMap.get('flightNo');
     if (flightNo) {
       this.loadFlightDetails(flightNo);
+    } else {
+      this.errorMessage = 'Invalid flight number in URL.';
     }
   }
 
   loadFlightDetails(flightNo: string): void {
-    this.flight = this.flightsService.getFlightByNumber(flightNo) || null;
+    const flight = this.flightsService.getFlightByNumber(flightNo);
+    this.flight = flight || null; // Assign `null` if the flight is `undefined`.
+  
     if (this.flight) {
       this.createPassengerList();
     } else {
-      alert('Flight not found!');
+      this.errorMessage = `Flight with number "${flightNo}" does not exist.`;
     }
   }
+  
 
   updatePassengers(event: Event): void {
     const value = parseInt((event.target as HTMLInputElement).value, 10) || 1;
@@ -76,5 +83,9 @@ export class BookFlightComponent implements OnInit {
     return Array.from({ length: 6 })
       .map(() => characters.charAt(Math.floor(Math.random() * characters.length)))
       .join('');
+  }
+
+  goBack(): void {
+    this.router.navigate(['/search-flight']);
   }
 }

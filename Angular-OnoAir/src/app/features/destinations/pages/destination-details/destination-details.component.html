@@ -1,48 +1,62 @@
 <div class="form-container">
-  <mat-card class="destination-card">
-    <h2 class="glitter-text">Destination Details</h2>
-    <mat-divider></mat-divider>
-    <mat-card-header>
-      <mat-card-title>{{ destination?.name }}</mat-card-title>
-      <mat-card-subtitle>{{ destination?.airportName }}</mat-card-subtitle>
-    </mat-card-header>
+  <ng-container *ngIf="!errorMessage; else errorTemplate">
+    <mat-card class="destination-card">
+      <h2 class="glitter-text">Destination Details</h2>
+      <mat-divider></mat-divider>
+      <mat-card-header>
+        <mat-card-title>{{ destination?.name }}</mat-card-title>
+        <mat-card-subtitle>{{ destination?.airportName }}</mat-card-subtitle>
+      </mat-card-header>
 
-    <img mat-card-image [src]="destination?.imageUrl" alt="{{ destination?.name }}" />
+      <img mat-card-image [src]="destination?.imageUrl" alt="{{ destination?.name }}" />
 
-    <mat-card-content>
-      <mat-list>
-        <mat-list-item>
-            <strong>Destination Code: </strong>
-            <span>{{ code }}</span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <strong>Destination Name: </strong>
-            <span>{{ destination?.name }}</span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <strong>Airport Name: </strong>
-            <span>{{ destination?.airportName }}</span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>   
-          <strong>Airport Url: </strong>
-          <a [href]="destination?.airportWebsite" target="_blank">Visit Website</a>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <strong>Image Url: </strong>
-            <a [href]="destination?.imageUrl" target="_blank">View Image</a>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list> 
-    </mat-card-content>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+              <strong>Destination Code: </strong>
+              <span>{{ code }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+              <strong>Destination Name: </strong>
+              <span>{{ destination?.name }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+              <strong>Airport Name: </strong>
+              <span>{{ destination?.airportName }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>   
+            <strong>Airport Url: </strong>
+            <a [href]="destination?.airportWebsite" target="_blank">Visit Website</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+              <strong>Image Url: </strong>
+              <a [href]="destination?.imageUrl" target="_blank">View Image</a>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list> 
+      </mat-card-content>
 
-    <mat-card-actions align="end">
-      <div [routerLink]="['/manage-destinations']" class="button-container">
-        <button mat-raised-button color="primary">Back</button>
-      </div>
-    </mat-card-actions>    
-  </mat-card>
+      <mat-card-actions align="end">
+        <div [routerLink]="['/manage-destinations']" class="button-container">
+          <button mat-raised-button color="primary">Back</button>
+        </div>
+      </mat-card-actions>    
+    </mat-card>
+  </ng-container>
+
+  <ng-template #errorTemplate>
+    <mat-card class="error-card">
+      <h2 class="error-title">Error</h2>
+      <p>{{ errorMessage }}</p>
+      <mat-card-actions align="end">
+        <div [routerLink]="['/manage-destinations']" class="button-container">
+          <button mat-raised-button color="primary">Back</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
 </div>
