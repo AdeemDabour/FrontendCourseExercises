@@ -68,16 +68,21 @@ export class BookFlightComponent implements OnInit {
 
   submitBooking(): void {
     this.bookingCode = this.generateBookingCode();
+  
     const bookingDetails = {
       bookingCode: this.bookingCode,
       flight: this.flight,
-      passengers: this.passengers
+      passengers: this.passengers,
+      passengerCount: this.numPassengers,
     };
-
+  
     console.log('Navigating to booking details with:', bookingDetails);
-    this.router.navigate(['/booking-details', this.bookingCode], { state: { bookingDetails } });
+  
+    this.router.navigate(['/booking-details', this.bookingCode], {
+      state: { bookingDetails },
+    });
   }
-
+  
   private generateBookingCode(): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     return Array.from({ length: 6 })
@@ -86,6 +91,6 @@ export class BookFlightComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/search-flight']);
+    this.router.navigate(['/flight-search']);
   }
 }

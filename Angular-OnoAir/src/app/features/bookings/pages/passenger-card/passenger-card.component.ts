@@ -9,16 +9,15 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'app-passenger-card',
   imports: [CommonModule, MatFormFieldModule, MatCardModule, MatInputModule, FormsModule],
   templateUrl: './passenger-card.component.html',
-  styleUrl: './passenger-card.component.css'
+  styleUrls: ['./passenger-card.component.css']
 })
 export class PassengerCardComponent {
   @Input() passenger: { name: string; passport: string } = { name: '', passport: '' };
   @Input() index: number = 0;
   @Output() passengerChange = new EventEmitter<{ name: string; passport: string }>();
 
-  onPassengerChange(field: 'name' | 'passport', event: Event): void {
-    const value = (event.target as HTMLInputElement)?.value || '';
-    this.passenger = { ...this.passenger, [field]: value };
+  onPassengerChange(field: 'name' | 'passport', value: string): void {
+    this.passenger[field] = value;
     this.passengerChange.emit(this.passenger);
   }
 }
