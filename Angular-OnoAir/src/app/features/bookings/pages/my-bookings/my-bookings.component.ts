@@ -56,12 +56,12 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
         landing: booking.landing,
         passengerCount: booking.passengerCount,
       },
-      passengers: []
+      passengers: booking.passengers
     };
-
+  
     console.log('Navigating to booking-details with:', bookingDetails);
-
+  
     // Navigate using the bookingCode as a route parameter
     this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
-  }
+  }  
 }

@@ -9,10 +9,18 @@
     <p><strong>Landing:</strong> {{ bookingDetails.flight.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
     <p><strong>No. of Passengers:</strong> {{ bookingDetails.flight.passengerCount }}</p>
 
-    <div *ngFor="let passenger of bookingDetails.passengers; let i = index">
-      <h3>Passenger {{ i + 1 }}</h3>
-      <p><strong>Name:</strong> {{ passenger.name }}</p>
-      <p><strong>Passport no.:</strong> {{ passenger.passport }}</p>
+    <button mat-raised-button color="accent" (click)="togglePassengerList()">
+      {{ showPassengers ? 'Hide Passengers' : 'Show Passengers' }}
+    </button>
+
+    <div *ngIf="showPassengers">
+      <h3>Passenger List:</h3>
+      <div *ngFor="let passenger of bookingDetails.passengers; let i = index" class="passenger-details">
+        <p><strong>Passenger {{ i + 1 }}</strong></p>
+        <p><strong>Name:</strong> {{ passenger.name }}</p>
+        <p><strong>Passport no.:</strong> {{ passenger.passport }}</p>
+        <mat-divider></mat-divider>
+      </div>
     </div>
 
     <mat-card-actions align="end">
@@ -23,8 +31,8 @@
   </mat-card>
 </div>
 
-  <ng-template #noDetails>
-    <mat-card>
-      <h2>No booking details available!</h2>
-    </mat-card>
-  </ng-template>
+<ng-template #noDetails>
+  <mat-card>
+    <h2>No booking details available!</h2>
+  </mat-card>
+</ng-template>

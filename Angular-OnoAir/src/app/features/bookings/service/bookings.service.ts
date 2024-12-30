@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Booking } from '../model/booking';
+import { Passenger } from '../model/passenger';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,14 @@ export class BookingService {
       new Date("2025-07-16 20:00"),
       new Date("2025-07-17 01:00"),
       5,
-      "https://api.kopalnia.pl/storage/2022/51/originals/piWvvIgX91HQMfP4N93BGVL5mqinTr97GNgeaQKV.jpg"
+      "https://api.kopalnia.pl/storage/2022/51/originals/piWvvIgX91HQMfP4N93BGVL5mqinTr97GNgeaQKV.jpg",
+      [
+        new Passenger("Noy Dror", "318733268"),
+        new Passenger("Adeem Dabour", "208166744"),
+        new Passenger("Idan Elkayam", "286543286"),
+        new Passenger("Omer Gold", "435647864"),
+        new Passenger("Tom Brown", "234564656")
+      ]
     ),
     new Booking(
       "DEF456",
@@ -22,7 +30,15 @@ export class BookingService {
       new Date("2024-05-20 20:00"),
       new Date("2024-05-21 02:00"),
       6,
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/a5/dd/08/caption.jpg?w=500&h=400&s=1"
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/a5/dd/08/caption.jpg?w=500&h=400&s=1",
+      [
+        new Passenger("Noy Dror", "318733268"),
+        new Passenger("Adeem Dabour", "208166744"),
+        new Passenger("Dana Dabour", "235664466"),
+        new Passenger("Dima Dabour", "208976534"),
+        new Passenger("Ana Dabour", "857645322"),
+        new Passenger("Alice Green", "202454636")
+      ]
     ),
     new Booking(
       "GHI789",
@@ -31,7 +47,12 @@ export class BookingService {
       new Date("2025-10-15 14:00"),
       new Date("2025-10-15 22:00"),
       3,
-      "https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg"
+      "https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg",
+      [
+        new Passenger("Noy Dror", "318733268"),
+        new Passenger("Or Dror", "316457834"),
+        new Passenger("Ran Dror", "264567893")
+      ]
     ),
     new Booking(
       "JKL012",
@@ -40,7 +61,11 @@ export class BookingService {
       new Date("2024-12-10 08:00"),
       new Date("2024-12-10 10:30"),
       2,
-      "https://i.natgeofe.com/k/a6c9f195-de20-445d-9d36-745ef56042c5/OG_Colosseum_Ancient-Rome_KIDS_1122.jpg"
+      "https://i.natgeofe.com/k/a6c9f195-de20-445d-9d36-745ef56042c5/OG_Colosseum_Ancient-Rome_KIDS_1122.jpg",
+      [
+        new Passenger("Noy Dror", "318733268"),
+        new Passenger("Adeem Dabour", "208166744")
+      ]
     ),
     new Booking(
       "MNO345",
@@ -49,7 +74,13 @@ export class BookingService {
       new Date("2024-03-30 06:00"),
       new Date("2024-03-30 10:30"),
       4,
-      "https://ynet-pic1.yit.co.il/cdn-cgi/image/f=auto,w=740,q=75/picserver5/crop_images/2018/08/11/8709989/8709989_0_0_1000_563_0_x-large.jpg"
+      "https://ynet-pic1.yit.co.il/cdn-cgi/image/f=auto,w=740,q=75/picserver5/crop_images/2018/08/11/8709989/8709989_0_0_1000_563_0_x-large.jpg",
+      [
+        new Passenger("Noy Dror", "318733268"),
+        new Passenger("Or Dror", "316457834"),
+        new Passenger("Ran Dror", "264567893"),
+        new Passenger("Amir Dror", "246857965")
+      ]
     ),
     new Booking(
       "PQR678",
@@ -58,7 +89,11 @@ export class BookingService {
       new Date("2025-01-12 22:00"),
       new Date("2025-01-13 07:30"),
       2,
-      "https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/25/b5/62.jpg"
+      "https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/25/b5/62.jpg",
+      [
+        new Passenger("John Doe", "1234567890"),
+        new Passenger("Jane Smith", "9876543210"),
+      ]
     ),
     new Booking(
       "STU901",
@@ -67,7 +102,15 @@ export class BookingService {
       new Date("2024-11-22 09:00"),
       new Date("2024-11-22 12:00"),
       6,
-      "https://149990825.v2.pressablecdn.com/wp-content/uploads/2023/09/Paris1.jpg"
+      "https://149990825.v2.pressablecdn.com/wp-content/uploads/2023/09/Paris1.jpg",
+      [
+        new Passenger("Noy Dror", "318733268"),
+        new Passenger("Or Dror", "316457834"),
+        new Passenger("Ran Dror", "264567893"),
+        new Passenger("Amir Dror", "246857965"),
+        new Passenger("Tom Brown", "208166455"),
+        new Passenger("Alice Green", "432565433")
+      ]
     ),
     new Booking(
       "VWX234",
@@ -76,7 +119,12 @@ export class BookingService {
       new Date("2025-02-12 15:00"),
       new Date("2025-02-12 22:00"),
       3,
-      "https://lp-cms-production.imgix.net/features/2017/09/dubai-marina-skyline-2c8f1708f2a1.jpg?auto=compress&fit=crop&format=auto&q=50&w=1200&h=800"
+      "https://lp-cms-production.imgix.net/features/2017/09/dubai-marina-skyline-2c8f1708f2a1.jpg?auto=compress&fit=crop&format=auto&q=50&w=1200&h=800",
+      [
+        new Passenger("John Doe", "1234567890"),
+        new Passenger("Jane Smith", "9876543210"),
+        new Passenger("Bob Johnson", "5555555555")
+      ]
     ),
     new Booking(
       "YZA567",
@@ -85,7 +133,12 @@ export class BookingService {
       new Date("2025-06-15 23:30"),
       new Date("2025-06-16 08:00"),
       3,
-      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/13/tokyo-main.jpg"
+      "https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/13/tokyo-main.jpg",
+      [
+        new Passenger("John Doe", "1234567890"),
+        new Passenger("Jane Smith", "9876543210"),
+        new Passenger("Bob Johnson", "5555555555")
+      ]
     ),
     new Booking(
       "BCD890",
@@ -94,7 +147,11 @@ export class BookingService {
       new Date("2025-08-20 10:00"),
       new Date("2025-08-20 17:30"),
       2,
-      "https://ca-times.brightspotcdn.com/dims4/default/9ecfbed/2147483647/strip/true/crop/3000x2000+0+0/resize/2000x1333!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F8f%2F9c%2F692f81e94d908d8492f513674f17%2Ffixing-downtown-la-illo-03.jpg"
+      "https://ca-times.brightspotcdn.com/dims4/default/9ecfbed/2147483647/strip/true/crop/3000x2000+0+0/resize/2000x1333!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F8f%2F9c%2F692f81e94d908d8492f513674f17%2Ffixing-downtown-la-illo-03.jpg",
+      [
+        new Passenger("John Doe", "1234567890"),
+        new Passenger("Jane Smith", "9876543210")
+      ]
     )
   ];
 

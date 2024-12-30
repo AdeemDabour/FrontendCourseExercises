@@ -2,24 +2,20 @@
 
 <div>
   <h3 class="section-title">Upcoming Bookings</h3>
-  <div class="form-container">
-    <div class="bookings-container">
-      <app-booking-card
-        *ngFor="let booking of upcomingBookings"
-        [booking]="booking"
-        (viewBookingEvent)="viewBooking($event)">
-      </app-booking-card>
-    </div>
-  </div>
+  <ng-container *ngTemplateOutlet="bookingsList; context: { bookings: upcomingBookings }"></ng-container>
 
   <h4 class="section-title">Previous Bookings</h4>
+  <ng-container *ngTemplateOutlet="bookingsList; context: { bookings: previousBookings }"></ng-container>
+</div>
+
+<ng-template #bookingsList let-bookings="bookings">
   <div class="form-container">
     <div class="bookings-container">
       <app-booking-card
-        *ngFor="let booking of previousBookings"
+        *ngFor="let booking of bookings"
         [booking]="booking"
         (viewBookingEvent)="viewBooking($event)">
       </app-booking-card>
     </div>
   </div>
-</div>
+</ng-template>

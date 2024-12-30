@@ -1,3 +1,5 @@
+import { Passenger } from "./passenger";
+
 export class Booking {
     constructor(
         public bookingCode: string,
@@ -6,6 +8,7 @@ export class Booking {
         public boarding: Date,
         public landing: Date,
         public passengerCount: number,
-        public imageUrl: string
+        public imageUrl: string,
+        public passengers: Passenger[]
     ) { }
 }
