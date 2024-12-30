@@ -30,8 +30,8 @@ export class FlightsTableComponent implements AfterViewInit {
     }
 
     this.displayedColumns = this.showActionsColumn
-      ? ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
-      : ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
+      ? ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
+      : ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
   }
 
   ngAfterViewInit(): void {

@@ -94,6 +94,94 @@ export class DestinationService {
       "BER",
       "https://media.brate.com/images/europa/niemcy/berlin/berlin.jpg"
     ),
+    new Destination(
+      "London",
+      "Heathrow Airport",
+      "https://www.heathrow.com/",
+      "info@heathrow.com",
+      "LHR",
+      "https://cdn.goodlifetv.co.il/wp-content/uploads/2022/03/09182452/%D7%9C%D7%95%D7%A0%D7%93%D7%95%D7%9F-755.jpg"
+    ),
+    new Destination(
+      "Madrid",
+      "Adolfo Suárez Madrid–Barajas Airport",
+      "https://www.aena.es/en/madrid-barajas.html",
+      "info@madrid-airport.com",
+      "MAD",
+      "https://www.metailimbaolam.com/wp-content/uploads/2022/04/%D7%9E%D7%93%D7%A8%D7%99%D7%93-%D7%A2%D7%9D-%D7%99%D7%9C%D7%93%D7%99%D7%9D-%D7%9E%D7%93%D7%A8%D7%99%D7%9A1.jpg"
+    ),
+    new Destination(
+      "Chicago",
+      "Chicago O'Hare International Airport",
+      "https://www.flychicago.com/",
+      "info@ohare-airport.com",
+      "ORD",
+      "https://www.elal.com/magazine/wp-content/uploads/2017/01/ThinkstockPhotos-147533498.jpg"
+    ),
+    new Destination(
+      "Doha",
+      "Hamad International Airport",
+      "https://dohahamadairport.com/",
+      "info@hamad-airport.com",
+      "DOH",
+      "https://www.travelawaits.com/wp-content/uploads/2020/03/Doha-Qatar.jpg?resize=800%2C739"
+    ),
+    new Destination(
+      "Singapore",
+      "Singapore Changi Airport",
+      "https://www.changiairport.com/",
+      "info@changi-airport.com",
+      "SIN",
+      "https://www.state.gov/wp-content/uploads/2023/07/shutterstock_1932196766v2.jpg"
+    ),
+    new Destination(
+      "Istanbul",
+      "Istanbul Airport",
+      "https://www.istairport.com/en",
+      "info@ist-airport.com",
+      "IST",
+      "https://ychef.files.bbci.co.uk/624x351/p0j759k4.jpg"
+    ),
+    new Destination(
+      "Bangkok",
+      "Suvarnabhumi Airport",
+      "https://www.bangkokairportonline.com/",
+      "info@bangkok-airport.com",
+      "BKK",
+      "https://www.sarahdegheselle.com/wp-content/uploads/2024/07/big-b-bangkok-1-scaled.jpeg"
+    ),
+    new Destination(
+      "Lisbon",
+      "Lisbon Humberto Delgado Airport",
+      "https://www.aeroportolisboa.pt/en",
+      "info@lisbon-airport.com",
+      "LIS",
+      "https://blog.winetourismportugal.com/hs-fs/hubfs/social-suggested-images/RESTRICTED-imageGalleryItem0-PortugalsDouroValleytoLisbonforSoloTravellers-xlarge.png?width=955&name=RESTRICTED-imageGalleryItem0-PortugalsDouroValleytoLisbonforSoloTravellers-xlarge.png"
+    ),
+    new Destination(
+      "San Francisco",
+      "San Francisco International Airport",
+      "https://www.flysfo.com/",
+      "info@sfo-airport.com",
+      "SFO",
+      "https://media.istockphoto.com/id/476881195/photo/bay-bridge-and-san-francisco-skyline-at-sunset.jpg?s=612x612&w=0&k=20&c=dBeGdmYS8eOufXGT_YdRkuvKfLKUHFYwVaL9gHbkSXo="
+    ),
+    new Destination(
+      "Dallas",
+      "Dallas/Fort Worth International Airport",
+      "https://www.dfwairport.com/",
+      "info@dfw-airport.com",
+      "DFW",
+      "https://dallas.culturemap.com/media-library/dallas-skyline-with-reflection.jpg?id=31484298&width=2000&height=1500&quality=65&coordinates=55%2C0%2C55%2C0"
+    ),
+    new Destination(
+      "Miami",
+      "Miami International Airport",
+      "https://www.miami-airport.com/",
+      "info@miami-airport.com",
+      "MIA",
+      "https://www.hellolanding.com/blog/wp-content/uploads/2022/11/miami-florida-skyline-an.jpg"
+    )    
   ]
   constructor() { }
 
