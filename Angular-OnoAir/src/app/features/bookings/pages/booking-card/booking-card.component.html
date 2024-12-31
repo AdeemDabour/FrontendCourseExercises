@@ -1,7 +1,7 @@
-<mat-card class="booking-card">
+  <mat-card class="booking-card">
     <div class="card-content">
       <div class="image-container">
-        <img [src]="booking.imageUrl" alt="{{ booking.destination }}" />
+        <img [src]="destinationImageUrl || 'fallback-image.jpg'" alt="{{ booking.destination }}" />
       </div>
       <div class="details-container">
         <h3>{{ booking.origin }} → {{ booking.destination }}</h3>

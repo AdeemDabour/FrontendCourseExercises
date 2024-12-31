@@ -8,7 +8,6 @@ export class Booking {
         public boarding: Date,
         public landing: Date,
         public passengerCount: number,
-        public imageUrl: string,
         public passengers: Passenger[]
     ) { }
 }
