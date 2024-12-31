@@ -193,6 +193,10 @@ export class DestinationService {
       destination =>
         destination.name.toLowerCase() === identifier.toLowerCase() ||
         destination.code.toLowerCase() === identifier.toLowerCase()
-    );
+    )
+  }
+  getDestinationImage(nameOrCode: string): string {
+    const destination = this.getDestinationByNameOrCode(nameOrCode);
+    return destination?.imageUrl || 'fallback-image.jpg';
   }
 };

@@ -81,9 +81,7 @@ export class FlightsService {
     new Flight('FR200', 'Zurich', 'Paris', new Date('2025-01-30 12:00'), new Date('2025-01-30 14:00'), 120)
   ];
 
-  constructor(private destinationService: DestinationService) {
-    this.addImageUrlsToFlights();
-  }
+  constructor() { }
 
   listFlights(): Flight[] {
     return this.flights;
@@ -101,14 +99,5 @@ export class FlightsService {
     return this.flights.filter(flight =>
       flight.boarding >= today && flight.boarding <= endOfWeek
     );
-  }
-  private addImageUrlsToFlights(): void {
-    const destinations = this.destinationService.listDestinations();
-    this.flights.forEach(flight => {
-      const destination = destinations.find(dest => dest.name === flight.destination);
-      if (destination) {
-        flight.imageUrl = destination.imageUrl;
-      }
-    });
   }
 }

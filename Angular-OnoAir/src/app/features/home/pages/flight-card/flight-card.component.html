@@ -1,5 +1,7 @@
 <mat-card class="flight-card-container">
-  <img mat-card-image [src]="flight.imageUrl" alt="Destination Image" class="flight-image" />
+  <div class="image-destination">
+    <img mat-card-image [src]="destinationImageUrl" alt="{{ flight.destination }}" />
+  </div>
 
   <mat-card-header>
     <mat-card-title>
