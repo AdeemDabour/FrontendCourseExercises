@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Booking } from '../model/booking';
 import { Passenger } from '../model/passenger';
+import { FlightsService } from '../../flights/service/flights.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
+
+  constructor(private flightService: FlightsService) { }
 
   private passengers: Map<string, Passenger> = new Map([
     ["318733268", new Passenger("Noy Dror", "318733268")],
@@ -25,19 +28,17 @@ export class BookingService {
   ]);
 
   private bookings: Booking[] = [
-    new Booking("ABC123", "Tel Aviv", "Krakow", new Date("2025-07-16 20:00"), new Date("2025-07-17 01:00"), 5, ["318733268", "208166744", "286543286", "435647864", "234564656"]),
-    new Booking("DEF456", "Krakow", "Larnaca", new Date("2024-05-20 20:00"), new Date("2024-05-21 02:00"), 6, ["318733268", "208166744", "235664466", "208976534", "857645322", "202454636"]),
-    new Booking("GHI789", "Paris", "New York", new Date("2025-10-15 14:00"), new Date("2025-10-15 22:00"), 3, ["318733268", "316457834", "264567893"]),
-    new Booking("JKL012", "Berlin", "Rome", new Date("2024-12-10 08:00"), new Date("2024-12-10 10:30"), 2, ["318733268", "208166744"]),
-    new Booking("MNO345", "Tel Aviv", "London", new Date("2024-03-30 06:00"), new Date("2024-03-30 10:30"), 4, ["318733268", "316457834", "264567893", "246857965"]),
-    new Booking("PQR678", "Dubai", "Bangkok", new Date("2025-01-12 22:00"), new Date("2025-01-13 07:30"), 2, ["1234567890", "9876543210"]),
-    new Booking("STU901", "Zurich", "Paris", new Date("2024-11-22 09:00"), new Date("2024-11-22 12:00"), 6, ["318733268", "316457834", "264567893", "246857965", "208166455", "432565433"]),
-    new Booking("VWX234", "Rome", "Dubai", new Date("2025-02-12 15:00"), new Date("2025-02-12 22:00"), 3, ["1234567890", "9876543210", "246857965"]),
-    new Booking("YZA567", "Bangkok", "Tokyo", new Date("2025-06-15 23:30"), new Date("2025-06-16 08:00"), 3, ["1234567890", "9876543210", "246857965"]),
-    new Booking("BCD890", "Tokyo", "Los Angeles", new Date("2025-08-20 10:00"), new Date("2025-08-20 17:30"), 2, ["1234567890", "9876543210"])
+    new Booking("ABC123", "LX1001", 5, ["318733268", "208166744", "286543286", "435647864", "234564656"]),
+    new Booking("DEF456", "AA102", 6, ["318733268", "208166744", "235664466", "208976534", "857645322", "202454636"]),
+    new Booking("GHI789", "AF203", 3, ["318733268", "316457834", "264567893"]),
+    new Booking("JKL012", "EK205", 2, ["318733268", "208166744"]),
+    new Booking("MNO345", "AZ678", 4, ["318733268", "316457834", "264567893", "246857965"]),
+    new Booking("PQR678", "EK206", 2, ["1234567890", "9876543210"]),
+    new Booking("STU901", "AZ6789", 6, ["318733268", "316457834", "264567893", "246857965", "208166455", "432565433"]),
+    new Booking("VWX234", "LH438", 3, ["1234567890", "9876543210", "246857965"]),
+    new Booking("YZA567", "AF450", 3, ["1234567890", "9876543210", "246857965"]),
+    new Booking("BCD890", "BA800", 2, ["1234567890", "9876543210"])
   ];
-
-  constructor() { }
 
   listBookings(): Booking[] {
     return this.bookings;
@@ -50,5 +51,13 @@ export class BookingService {
     return passengerIds
       .map(id => this.passengers.get(id))
       .filter((passenger): passenger is Passenger => !!passenger);
+  }
+
+  getFlightDetails(flightNo: string) {
+    const flight = this.flightService.getFlightByNumber(flightNo);
+    if (!flight) {
+        throw new Error(`Flight not found for flight number: ${flightNo}`);
+    }
+    return flight;
   }
 }

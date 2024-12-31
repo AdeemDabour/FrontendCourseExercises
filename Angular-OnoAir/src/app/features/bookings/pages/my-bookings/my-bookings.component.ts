@@ -3,67 +3,70 @@ import { CommonModule } from '@angular/common';
 import { BookingService } from '../../service/bookings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 import { Booking } from '../../model/booking';
 import { BookingCardComponent } from '../booking-card/booking-card.component';
+
 @Component({
   selector: 'app-my-bookings',
   imports: [CommonModule, MatCardModule, MatButtonModule, BookingCardComponent],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
 })
-export class MyBookingsComponent implements OnInit, OnDestroy {
+export class MyBookingsComponent implements OnInit {
   upcomingBookings: Booking[] = [];
   previousBookings: Booking[] = [];
-  private subscription!: Subscription;
 
   constructor(private bookingService: BookingService, private router: Router) { }
+
   ngOnInit(): void {
     this.loadBookings();
+  }
 
-    // Listen to navigation events for refreshing data
-    this.subscription = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd && event.urlAfterRedirects === '/my-bookings') {
-        this.loadBookings();
-      }
-    });
-  }
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
   loadBookings(): void {
     const allBookings = this.bookingService.listBookings();
     const today = new Date();
 
-    // Separate bookings into upcoming and previous
-    this.upcomingBookings = allBookings.filter(
-      booking => new Date(booking.boarding) > today
-    );
-    this.previousBookings = allBookings.filter(
-      booking => new Date(booking.boarding) <= today
-    );
+    const [upcoming, previous] = allBookings.reduce((acc, booking) => {
+      const flight = this.bookingService.getFlightDetails(booking.flightNo);
+      if (!flight) {
+        console.error(`Flight details not found for flight number: ${booking.flightNo}`);
+        return acc;
+      }
+
+      if (new Date(flight.boarding) > today) {
+        acc[0].push(booking);
+      } else {
+        acc[1].push(booking);
+      }
+      return acc;
+    }, [[], []] as [Booking[], Booking[]]);
+
+    this.upcomingBookings = upcoming;
+    this.previousBookings = previous;
   }
+
   viewBooking(booking: Booking): void {
+    const flight = this.bookingService.getFlightDetails(booking.flightNo);
+    if (!flight) {
+      console.error(`Flight details not found for flight number: ${booking.flightNo}`);
+      return;
+    }
+
     const passengers = this.bookingService.getPassengersByIds(booking.passengerIds);
 
     const bookingDetails = {
       bookingCode: booking.bookingCode,
       flight: {
-        origin: booking.origin,
-        destination: booking.destination,
-        boarding: booking.boarding,
-        landing: booking.landing,
+        origin: flight.origin,
+        destination: flight.destination,
+        boarding: flight.boarding,
+        landing: flight.landing,
         passengerCount: booking.passengerCount,
       },
       passengers: passengers
     };
-  
-    console.log('Navigating to booking-details with:', bookingDetails);
-  
-    // Navigate using the bookingCode as a route parameter
+
     this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
-  }  
+  }
 }
