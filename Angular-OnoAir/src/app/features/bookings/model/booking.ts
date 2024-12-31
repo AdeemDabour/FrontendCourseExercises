@@ -8,6 +8,6 @@ export class Booking {
         public boarding: Date,
         public landing: Date,
         public passengerCount: number,
-        public passengers: Passenger[]
+        public passengerIds: string[]
     ) { }
 }

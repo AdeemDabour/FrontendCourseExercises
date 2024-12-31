@@ -47,6 +47,8 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
     );
   }
   viewBooking(booking: Booking): void {
+    const passengers = this.bookingService.getPassengersByIds(booking.passengerIds);
+
     const bookingDetails = {
       bookingCode: booking.bookingCode,
       flight: {
@@ -56,7 +58,7 @@ export class MyBookingsComponent implements OnInit, OnDestroy {
         landing: booking.landing,
         passengerCount: booking.passengerCount,
       },
-      passengers: booking.passengers
+      passengers: passengers
     };
   
     console.log('Navigating to booking-details with:', bookingDetails);
