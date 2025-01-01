@@ -8,7 +8,7 @@
       <p><strong>Booking Code:</strong> {{ booking.bookingCode }}</p>
       <p><strong>Boarding:</strong> {{ flight?.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
       <p><strong>Landing:</strong> {{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
-      <p><strong>Passengers:</strong> {{ booking.passengerCount }}</p>
+      <p><strong>Passengers:</strong> {{ booking.passengers.length }}</p>
     </div>
     <div class="button-container">
       <button mat-raised-button color="primary" (click)="viewBooking()">View</button>

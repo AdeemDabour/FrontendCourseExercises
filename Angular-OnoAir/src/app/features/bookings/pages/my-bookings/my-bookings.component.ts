@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingService } from '../../service/bookings.service';
 import { MatCardModule } from '@angular/material/card';
@@ -53,8 +53,7 @@ export class MyBookingsComponent implements OnInit {
       return;
     }
 
-    const passengers = this.bookingService.getPassengersByIds(booking.passengerIds);
-
+    const passengers = booking.passengers;
     const bookingDetails = {
       bookingCode: booking.bookingCode,
       flight: {
@@ -62,9 +61,9 @@ export class MyBookingsComponent implements OnInit {
         destination: flight.destination,
         boarding: flight.boarding,
         landing: flight.landing,
-        passengerCount: booking.passengerCount,
+        passengerCount: passengers.length
       },
-      passengers: passengers
+      passengers: passengers,
     };
 
     this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });

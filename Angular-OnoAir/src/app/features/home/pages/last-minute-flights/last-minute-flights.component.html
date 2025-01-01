@@ -2,7 +2,7 @@
 
 <div class="flights-container">
   <ng-container *ngIf="lastMinuteFlights.length > 0; else noFlights">
-    <mat-grid-list cols="4" rowHeight="400px" gutterSize="20px">
+    <mat-grid-list cols="5" rowHeight="400px" gutterSize="20px">
       <mat-grid-tile *ngFor="let flight of lastMinuteFlights">
         <app-flight-card [flight]="flight"></app-flight-card>
       </mat-grid-tile>
