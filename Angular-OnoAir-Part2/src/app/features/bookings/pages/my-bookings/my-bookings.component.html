@@ -1,0 +1,31 @@
+<h2 class="glitter-text">My Bookings</h2>
+
+<div>
+  <h3 class="section-title">Upcoming Bookings</h3>
+  <ng-container *ngIf="upcomingBookings.length > 0; else noUpcoming">
+    <ng-container *ngTemplateOutlet="bookingsList; context: { bookings: upcomingBookings }"></ng-container>
+  </ng-container>
+  <ng-template #noUpcoming>
+    <p class="no-bookings-message">No upcoming bookings available.</p>
+  </ng-template>
+
+  <h4 class="section-title">Previous Bookings</h4>
+  <ng-container *ngIf="previousBookings.length > 0; else noPrevious">
+    <ng-container *ngTemplateOutlet="bookingsList; context: { bookings: previousBookings }"></ng-container>
+  </ng-container>
+  <ng-template #noPrevious>
+    <p class="no-bookings-message">No previous bookings found.</p>
+  </ng-template>
+</div>
+
+<ng-template #bookingsList let-bookings="bookings">
+  <div class="form-container">
+    <div class="bookings-container">
+      <app-booking-card
+        *ngFor="let booking of bookings"
+        [booking]="booking"
+        (viewBookingEvent)="viewBooking($event)">
+      </app-booking-card>
+    </div>
+  </div>
+</ng-template>

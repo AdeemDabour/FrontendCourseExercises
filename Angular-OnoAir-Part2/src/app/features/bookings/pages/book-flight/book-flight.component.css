@@ -1,0 +1,63 @@
+.flight-card {
+  color: black;
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.form-card {
+  max-width: 80%;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flight-details-table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.flight-details-table th {
+  background-color: #3f51b5;
+  color: white;
+  text-align: center;
+  padding: 5px;
+}
+
+.flight-details-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.table-container {
+  width: 100%;
+  margin: auto;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .flight-details-table th, .flight-details-table td {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
+
+button.mat-raised-button {
+  width: auto;
+  display: inline-block;
+}
+
+mat-form-field {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+}
+
+mat-hint {
+  font-size: 14px;
+  color: black;
+}

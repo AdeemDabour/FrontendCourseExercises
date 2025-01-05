@@ -1,0 +1,39 @@
+/* General Container */
+.help-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1000px;
+    background: linear-gradient(to bottom, #b7ace2, #8ab4db);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header Toolbar */
+  .help-header {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* FAQ Section */
+  .faq-section h3, h4, h5 {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    color: #3f51b5;
+  
+  }
+
+  /* Contact Card */
+  .contact-section {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .contact-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .button-container {
+    width: 100%;
+  }
