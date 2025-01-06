@@ -21,6 +21,6 @@ export class ManageFlightsComponent implements OnInit {
     this.flights = this.flightService.listFlights();
   }
   addFlight(): void {
-    this.router.navigate(['/add-flight']);
+    this.router.navigate(['/flight-form', this.flightService.CreateUniqueId()]);
   }
 }

@@ -9,17 +9,17 @@ import { FlightDetailsComponent } from './features/flights/pages/flight-details/
 import { DestinationDetailsComponent } from './features/destinations/pages/destination-details/destination-details.component';
 import { BookingDetailsComponent } from './features/bookings/pages/booking-details/booking-details.component';
 import { BookFlightComponent } from './features/bookings/pages/book-flight/book-flight.component';
-import { AddFlightComponent } from './features/flights/pages/add-flight/add-flight.component';
 import { DestinationFormComponent } from './features/destinations/pages/destination-form/destination-form.component';
+import { FlightFormComponent } from './features/flights/pages/flight-form/flight-form.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
   { path: 'manage-flights', component: ManageFlightsComponent },
-  { path: 'add-flight', component: AddFlightComponent },
   { path: 'flight-search', component: FlightSearchComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
   { path: 'help-page', component: HelpPageComponent },
+  { path: 'flight-form/:id', component: FlightFormComponent },
   { path: 'destination-form/:id', component: DestinationFormComponent },
   { path: 'flight-details/:flightNo', component: FlightDetailsComponent },
   { path: 'destination-details/:code', component: DestinationDetailsComponent },

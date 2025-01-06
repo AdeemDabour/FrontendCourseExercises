@@ -1,0 +1,60 @@
+<div class="form-container">
+    <mat-card class="form-card">
+        <h2 class="glitter-text">Add Flight</h2>
+        <form #SumbitRegistrationForm="ngForm" (ngSubmit)="onSumbitRegistration()">
+            <div>
+                <mat-form-field>
+                    <mat-label>Flight No.</mat-label>
+                    <input matInput name="flightNo" required [(ngModel)]="newFlight.flightNo" pattern="^[a-zA-Z0-9]+$" />
+                    <mat-error>Flight No. must be letters or numbers only</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label>Origin</mat-label>
+                    <input matInput name="origin" required [(ngModel)]="newFlight.origin" pattern="^[a-zA-Z ]+$" />
+                    <mat-error>Origin must be letters only</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label>Destination</mat-label>
+                    <input matInput name="destination" required [(ngModel)]="newFlight.destination"
+                        pattern="^[a-zA-Z ]+$" />
+                    <mat-error>Destination must be letters only</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label>Boarding</mat-label>
+                    <input matInput name="boarding" required [(ngModel)]="newFlight.boarding" type="datetime-local" />
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label>Landing</mat-label>
+                    <input matInput name="landing" required [(ngModel)]="newFlight.landing" type="datetime-local" />
+                </mat-form-field>
+            </div>
+
+            <div>    
+                <mat-form-field>
+                    <mat-label>No. of Seats</mat-label>
+                    <input matInput name="seats" required [(ngModel)]="newFlight.seats" type="number" />
+                </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="SumbitRegistrationForm.invalid || SumbitRegistrationForm.pristine">
+                Save
+            </button>
+
+            <mat-card-actions align="end">
+                <button mat-raised-button color="primary" routerLink="/manage-flights">Back</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

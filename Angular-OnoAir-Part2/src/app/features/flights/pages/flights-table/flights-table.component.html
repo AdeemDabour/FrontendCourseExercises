@@ -1,6 +1,11 @@
 <div class="table-container">
   <table mat-table [dataSource]="dataSource" matSort>
 
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
     <ng-container matColumnDef="flightNo">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight No. </th>
       <td mat-cell *matCellDef="let element"> {{ element.flightNo }} </td>
@@ -38,7 +43,11 @@
           <button mat-icon-button color="primary">
             <mat-icon>edit</mat-icon>
           </button>
+          <button mat-icon-button color="warn" (click)="deleteFlight(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="book">

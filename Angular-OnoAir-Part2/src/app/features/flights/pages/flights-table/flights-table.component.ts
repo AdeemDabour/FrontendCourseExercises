@@ -5,8 +5,9 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Flight } from '../../model/flight';
+import { FlightsService } from '../../service/flights.service';
 @Component({
   selector: 'app-flights-table',
   imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, RouterLink],
@@ -19,10 +20,12 @@ export class FlightsTableComponent implements AfterViewInit {
   @Input() showActionsColumn: boolean = true;
 
   @Input() flights: Flight[] = [];
-  displayedColumns: string[] = ['flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions'];
+  displayedColumns: string[] = ['id', 'flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions'];
   dataSource = new MatTableDataSource<Flight>();
 
   @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private flightService: FlightsService, private router: Router) { }
 
   ngOnChanges(): void {
     if (this.flights) {
@@ -30,12 +33,25 @@ export class FlightsTableComponent implements AfterViewInit {
     }
 
     this.displayedColumns = this.showActionsColumn
-      ? ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
-      : ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
+      ? ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
+      : ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
   }
 
   ngAfterViewInit(): void {
+    this.refreshFlights();
     this.dataSource.sort = this.sort;
+  }
+
+  refreshFlights(): void {
+    this.dataSource.data = this.flightService.listFlights();
+  }
+
+  deleteFlight(id: number): void {
+    const confirmation = confirm('Are you sure you want to delete this flight?');
+    if (confirmation) {
+      this.flightService.removeFlight(id);
+      this.refreshFlights();
+    }
   }
 
   announceSortChange(sortState: Sort): void {
@@ -45,6 +61,15 @@ export class FlightsTableComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+
+  openFlightDetails(flight: Flight): void {
+    this.router.navigate(['/flight-details', flight.flightNo]);
+  }
+
+  addFlight(): void {
+    this.router.navigate(['/flight-form', this.flightService.CreateUniqueId()]);
+  }
+  
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filter = filterValue;

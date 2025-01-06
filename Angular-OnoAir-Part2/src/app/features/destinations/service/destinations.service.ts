@@ -32,6 +32,8 @@ export class DestinationService {
 
   constructor() { }
 
+  private lastAddedId: number = 0;
+
   private saveToLocalStorage(): void {
     localStorage.setItem('destinations', JSON.stringify(this.destinations));
   }
@@ -61,8 +63,6 @@ export class DestinationService {
     const destination = this.getDestinationByNameOrCode(nameOrCode);
     return destination?.imageUrl || 'fallback-image.jpg';
   }
-
-  private lastAddedId: number = 0;
 
   createUniqueId(): number {
     return this.destinations.length > 0
