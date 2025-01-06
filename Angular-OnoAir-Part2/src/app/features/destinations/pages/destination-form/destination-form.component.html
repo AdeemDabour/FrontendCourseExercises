@@ -1,0 +1,66 @@
+<div class="form-container">
+    <mat-card class="form-card">
+        <h2 class="glitter-text">Add Destination</h2>
+        <form #SumbitRegistrationForm="ngForm" (ngSubmit)="onSubmitRegistration()">
+            <div class="form-field">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput name="name" required [(ngModel)]="newDestination.name">
+                    <mat-error *ngIf="SumbitRegistrationForm.controls['name']?.hasError('required')">
+                        Name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Airport Name</mat-label>
+                    <input matInput name="airportName" required [(ngModel)]="newDestination.airportName">
+                    <mat-error *ngIf="SumbitRegistrationForm.controls['airportName']?.hasError('required')">
+                        Airport Name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Airport Website</mat-label>
+                    <input matInput name="airportWebsite" required [(ngModel)]="newDestination.airportWebsite">
+                    <mat-error *ngIf="SumbitRegistrationForm.controls['airportWebsite']?.hasError('required')">
+                        Airport Website is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput name="email" required [(ngModel)]="newDestination.email">
+                    <mat-error *ngIf="SumbitRegistrationForm.controls['email']?.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Destination Code</mat-label>
+                    <input matInput name="code" required [(ngModel)]="newDestination.code">
+                </mat-form-field>
+            </div>
+            <div class="form-field">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Image Url</mat-label>
+                    <input matInput name="imageUrl" required [(ngModel)]="newDestination.imageUrl">
+                    <mat-error *ngIf="SumbitRegistrationForm.controls['imageUrl']?.hasError('required')">
+                        Image Url is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="button-container">
+                <button mat-raised-button color="primary" type="submit" [disabled]="SumbitRegistrationForm.invalid">
+                    Submit
+                </button>
+            </div>
+            <mat-card-actions align="end">
+                <button mat-raised-button color="primary" routerLink="/manage-destinations">Back</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

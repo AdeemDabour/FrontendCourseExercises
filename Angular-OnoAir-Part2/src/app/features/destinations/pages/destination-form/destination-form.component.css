@@ -1,0 +1,27 @@
+ .form-card {
+     padding: 24px;
+     max-width: 800px;
+     width: 100%;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     border-radius: 8px;
+     background-color: white;
+ }
+
+ .form-field {
+     margin-bottom: 16px;
+     width: 50%;
+ }
+
+ .full-width {
+     width: 100%;
+ }
+
+ .button-container {
+     display: flex;
+     justify-content: space-between;
+     margin-top: 16px;
+ }
+
+ button {
+     min-width: 120px;
+ }

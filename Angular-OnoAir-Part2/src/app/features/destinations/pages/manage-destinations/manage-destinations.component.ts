@@ -16,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 export class ManageDestinationsComponent implements AfterViewInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
-  displayedColumns: string[] = ['name', 'airportName', 'airportWebsite', 'email', 'code', 'imageUrl', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'airportName', 'airportWebsite', 'email', 'code', 'imageUrl', 'actions'];
   dataSource = new MatTableDataSource<Destination>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -37,6 +37,6 @@ export class ManageDestinationsComponent implements AfterViewInit {
     this.router.navigate(['/destination-details', destination.code]);
   }
   addDestination(): void {
-    this.router.navigate(['/add-destination']);
+    this.router.navigate(['/destination-form']);
   }
 }
