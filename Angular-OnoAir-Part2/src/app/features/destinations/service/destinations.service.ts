@@ -5,7 +5,7 @@ import { Destination } from '../model/destination';
 })
 
 export class DestinationService {
-  private destinations: Destination[] = [
+  private destinations: Destination[] = this.loadFromLocalStorage() || [
     new Destination(1, "Tel Aviv", "Ben Gurion Airport", "https://www.iaa.gov.il/en/", "info@ben-gurion.com", "TLV", "https://cdn.britannica.com/80/94380-050-F182700B/Tel-Aviv-Yafo-Israel.jpg"),
     new Destination(2, "New York", "John F. Kennedy International Airport", "https://www.jfkairport.com/", "info@jfkairport.com", "JFK", "https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg"),
     new Destination(3, "Krakow", "John Paul II International Airport Kraków–Balice", "https://www.krakowairport.pl/en", "info@krakow-airport.com", "KRK", "https://api.kopalnia.pl/storage/2022/51/originals/piWvvIgX91HQMfP4N93BGVL5mqinTr97GNgeaQKV.jpg"),
@@ -28,14 +28,33 @@ export class DestinationService {
     new Destination(20, "San Francisco", "San Francisco International Airport", "https://www.flysfo.com/", "info@sfo-airport.com", "SFO", "https://media.istockphoto.com/id/476881195/photo/bay-bridge-and-san-francisco-skyline-at-sunset.jpg?s=612x612&w=0&k=20&c=dBeGdmYS8eOufXGT_YdRkuvKfLKUHFYwVaL9gHbkSXo="),
     new Destination(21, "Dallas", "Dallas/Fort Worth International Airport", "https://www.dfwairport.com/", "info@dfw-airport.com", "DFW", "https://dallas.culturemap.com/media-library/dallas-skyline-with-reflection.jpg?id=31484298&width=2000&height=1500&quality=65&coordinates=55%2C0%2C55%2C0"),
     new Destination(22, "Miami", "Miami International Airport", "https://www.miami-airport.com/", "info@miami-airport.com", "MIA", "https://www.hellolanding.com/blog/wp-content/uploads/2022/11/miami-florida-skyline-an.jpg")
-  ]
+  ];
 
 
   constructor() { }
 
+  private saveToLocalStorage(): void {
+    localStorage.setItem('destinations', JSON.stringify(this.destinations));
+  }
+
+  private loadFromLocalStorage(): Destination[] | null {
+    const data = localStorage.getItem('destinations');
+    return data ? JSON.parse(data) : null;
+  }
+
   listDestinations(): Destination[] {
     return this.destinations;
   }
+
+  addDestination(destination: Destination): void {
+    const maxId = this.destinations.length > 0
+      ? Math.max(...this.destinations.map(dest => dest.id))
+      : 0; 
+    destination.id = maxId + 1;
+    this.destinations.push(destination);
+    this.saveToLocalStorage(); // שמירה ב-LocalStorage
+  }
+
   getDestinationByNameOrCode(identifier: string): Destination | undefined {
     return this.destinations.find(
       destination =>
@@ -46,10 +65,6 @@ export class DestinationService {
   getDestinationImage(nameOrCode: string): string {
     const destination = this.getDestinationByNameOrCode(nameOrCode);
     return destination?.imageUrl || 'fallback-image.jpg';
-  }
-
-  addDestination(destination: Destination) {
-    this.destinations.push(destination);  
   }
 
 };

@@ -23,9 +23,14 @@ export class ManageDestinationsComponent implements AfterViewInit {
 
   constructor(private destinationService: DestinationService, private router: Router) { }
   ngAfterViewInit(): void {
-    this.dataSource.data = this.destinationService.listDestinations();
+    this.refreshDestinations();
     this.dataSource.sort = this.sort;
   }
+
+  refreshDestinations(): void {
+    this.dataSource.data = this.destinationService.listDestinations();
+  }
+
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);

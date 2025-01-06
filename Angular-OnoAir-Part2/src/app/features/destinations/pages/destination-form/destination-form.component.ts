@@ -7,11 +7,11 @@ import { CommonModule } from '@angular/common';
 import { Destination } from '../../model/destination';
 import { DestinationService } from '../../service/destinations.service';
 import { MatCardModule } from '@angular/material/card';
-import { RouterLink } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-destination-form',
-  imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterLink],
+  imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule],
   templateUrl: './destination-form.component.html',
   styleUrl: './destination-form.component.css'
 })
@@ -21,9 +21,9 @@ export class DestinationFormComponent implements OnInit {
 
   @Input() id = "0";
 
-  constructor(private destinationService: DestinationService) { };
+  constructor(private destinationService: DestinationService, private router: Router) { };
 
-  
+
   ngOnInit(): void {
     if (this.id) {
       let destinationFormService = this.destinationService.getDestinationByNameOrCode(this.id);
@@ -35,7 +35,9 @@ export class DestinationFormComponent implements OnInit {
 
   onSubmitRegistration() {
     this.destinationService.addDestination(this.newDestination);
+    this.router.navigate(['/manage-destinations']);
   }
+
 }
 
 
