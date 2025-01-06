@@ -9,11 +9,15 @@ import { FlightDetailsComponent } from './features/flights/pages/flight-details/
 import { DestinationDetailsComponent } from './features/destinations/pages/destination-details/destination-details.component';
 import { BookingDetailsComponent } from './features/bookings/pages/booking-details/booking-details.component';
 import { BookFlightComponent } from './features/bookings/pages/book-flight/book-flight.component';
+import { AddDestinationComponent } from './features/destinations/pages/add-destination/add-destination.component';
+import { AddFlightComponent } from './features/flights/pages/add-flight/add-flight.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
+  { path: 'add-destination', component: AddDestinationComponent },
   { path: 'manage-flights', component: ManageFlightsComponent },
+  { path: 'add-flight', component: AddFlightComponent },
   { path: 'flight-search', component: FlightSearchComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
   { path: 'help-page', component: HelpPageComponent },

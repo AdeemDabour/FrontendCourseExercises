@@ -6,9 +6,10 @@ import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { DestinationService } from '../../service/destinations.service';
 import { Destination } from '../../model/destination';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-manage-destinations',
-  imports: [MatSortModule, MatTableModule, MatIcon],
+  imports: [MatSortModule, MatTableModule, MatIcon, MatButtonModule],
   templateUrl: './manage-destinations.component.html',
   styleUrls: ['./manage-destinations.component.css'],
 })
@@ -32,7 +33,10 @@ export class ManageDestinationsComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-    openDestinationDetails(destination: Destination): void {
+  openDestinationDetails(destination: Destination): void {
     this.router.navigate(['/destination-details', destination.code]);
+  }
+  addDestination(): void {
+    this.router.navigate(['/add-destination']);
   }
 }
