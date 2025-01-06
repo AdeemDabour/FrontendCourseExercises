@@ -15,12 +15,12 @@ import { DestinationFormComponent } from './features/destinations/pages/destinat
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
-  { path: 'destination-form', component: DestinationFormComponent },
   { path: 'manage-flights', component: ManageFlightsComponent },
   { path: 'add-flight', component: AddFlightComponent },
   { path: 'flight-search', component: FlightSearchComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
   { path: 'help-page', component: HelpPageComponent },
+  { path: 'destination-form/:id', component: DestinationFormComponent },
   { path: 'flight-details/:flightNo', component: FlightDetailsComponent },
   { path: 'destination-details/:code', component: DestinationDetailsComponent },
   { path: 'booking-details/:bookingCode', component: BookingDetailsComponent },

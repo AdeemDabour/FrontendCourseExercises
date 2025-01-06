@@ -52,9 +52,9 @@ export class DestinationService {
       : 0; 
     destination.id = maxId + 1;
     this.destinations.push(destination);
-    this.saveToLocalStorage(); // שמירה ב-LocalStorage
+    this.saveToLocalStorage();
   }
-
+  
   getDestinationByNameOrCode(identifier: string): Destination | undefined {
     return this.destinations.find(
       destination =>

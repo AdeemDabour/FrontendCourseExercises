@@ -42,6 +42,9 @@ export class ManageDestinationsComponent implements AfterViewInit {
     this.router.navigate(['/destination-details', destination.code]);
   }
   addDestination(): void {
-    this.router.navigate(['/destination-form']);
-  }
+    const newDestination = new Destination(0, '', '', '', '', '', '');
+    this.destinationService.addDestination(newDestination);
+    const newId = newDestination.id;
+    this.router.navigate([`/destination-form/${newId}`]);
+  }  
 }

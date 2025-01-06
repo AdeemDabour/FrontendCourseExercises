@@ -19,7 +19,7 @@ export class DestinationFormComponent implements OnInit {
 
   newDestination: Destination = new Destination(0, '', '', '', '', '', '');
 
-  @Input() id = "0";
+  @Input() id = "";
 
   constructor(private destinationService: DestinationService, private router: Router) { };
 
