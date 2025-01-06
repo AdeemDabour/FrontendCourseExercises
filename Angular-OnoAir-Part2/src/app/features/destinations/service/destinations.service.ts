@@ -30,7 +30,6 @@ export class DestinationService {
     new Destination(22, "Miami", "Miami International Airport", "https://www.miami-airport.com/", "info@miami-airport.com", "MIA", "https://www.hellolanding.com/blog/wp-content/uploads/2022/11/miami-florida-skyline-an.jpg")
   ];
 
-
   constructor() { }
 
   private saveToLocalStorage(): void {
@@ -46,12 +45,8 @@ export class DestinationService {
     return this.destinations;
   }
 
-  addDestination(destination: Destination): void {
-    const maxId = this.destinations.length > 0
-      ? Math.max(...this.destinations.map(dest => dest.id))
-      : 0; 
-    destination.id = maxId + 1;
-    this.destinations.push(destination);
+  removeDestination(id: number): void {
+    this.destinations = this.destinations.filter(dest => dest.id !== id);
     this.saveToLocalStorage();
   }
   
@@ -67,4 +62,23 @@ export class DestinationService {
     return destination?.imageUrl || 'fallback-image.jpg';
   }
 
+  private lastAddedId: number = 0;
+
+  createUniqueId(): number {
+    return this.destinations.length > 0
+      ? Math.max(...this.destinations.map(dest => dest.id)) + 1
+      : 1;
+  }  
+
+  addDestination(destination: Destination): void {
+    if (!destination.id || destination.id === 0) {
+      destination.id = this.createUniqueId();
+    }
+    this.destinations.push(destination);
+    this.saveToLocalStorage();
+  }  
+  
+  getLastAddedId(): number {
+    return this.lastAddedId;
+  }
 };

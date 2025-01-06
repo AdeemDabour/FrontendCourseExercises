@@ -31,6 +31,14 @@ export class ManageDestinationsComponent implements AfterViewInit {
     this.dataSource.data = this.destinationService.listDestinations();
   }
 
+  deleteDestination(id: number): void {
+    const confirmation = confirm('Are you sure you want to delete this destination?');
+    if (confirmation) {
+      this.destinationService.removeDestination(id);
+      this.refreshDestinations();
+    }
+  }  
+
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -42,9 +50,6 @@ export class ManageDestinationsComponent implements AfterViewInit {
     this.router.navigate(['/destination-details', destination.code]);
   }
   addDestination(): void {
-    const newDestination = new Destination(0, '', '', '', '', '', '');
-    this.destinationService.addDestination(newDestination);
-    const newId = newDestination.id;
-    this.router.navigate([`/destination-form/${newId}`]);
+    this.router.navigate(['/destination-form', this.destinationService.createUniqueId()]);
   }  
 }
