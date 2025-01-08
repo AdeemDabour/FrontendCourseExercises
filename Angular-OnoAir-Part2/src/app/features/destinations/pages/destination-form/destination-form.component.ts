@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { Destination } from '../../model/destination';
+import { Destination,Status } from '../../model/destination';
 import { DestinationService } from '../../service/destinations.service';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
@@ -17,7 +17,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class DestinationFormComponent implements OnInit {
 
-  newDestination: Destination = new Destination(0, '', '', '', '', '', '');
+  newDestination: Destination = new Destination(0, '', '', '', '', '', '', Status.Active);
 
   @Input() id = 0;
 
