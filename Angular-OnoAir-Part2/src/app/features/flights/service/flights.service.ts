@@ -10,7 +10,7 @@ export class FlightsService {
     TOKYO: 'Tokyo', BERLIN: 'Berlin', CHICAGO: 'Chicago', DOHA: 'Doha', LARNACA: 'Larnaca', LONDON: 'London', KRK: 'Krakow', BANGKOK: 'Bangkok',
     LISBON: 'Lisbon', SAN_FRANCISCO: 'San Francisco', DALLAS: 'Dallas', MIAMI: 'Miami', ISTANBUL: 'Istanbul', SINGAPORE: 'Singapore', MADRID: 'Madrid'
   };
-  
+
   private flights: Flight[] = this.loadFromLocalStorage() || [
     new Flight(1, 'LX1001', this.DESTINATIONS.TEL_AVIV, this.DESTINATIONS.NEW_YORK, new Date('2024-04-10 09:00'), new Date('2024-04-10 18:00'), 200),
     new Flight(2, 'AA102', this.DESTINATIONS.DUBAI, this.DESTINATIONS.ZURICH, new Date('2024-05-11 12:00'), new Date('2024-05-11 18:00'), 150),
@@ -74,30 +74,32 @@ export class FlightsService {
   getFlightsThisWeek(): Flight[] {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-  
+
     const endOfWeek = new Date(today);
     endOfWeek.setDate(today.getDate() + 7);
 
-    return this.flights.filter(flight =>
-      flight.boarding >= today && flight.boarding <= endOfWeek
-    );
+    const result = this.flights.filter(flight => {
+      const boardingDate = new Date(flight.boarding);
+      return boardingDate >= today && boardingDate <= endOfWeek;
+    });
+    return result;
   }
-  
+
   private generateFutureDate(daysFromNow: number, hour: number): Date {
     const today = new Date();
     const futureDate = new Date(today);
-  
+
     futureDate.setDate(today.getDate() + daysFromNow);
-  
+
     futureDate.setHours(hour, 0, 0, 0);
-  
+
     return futureDate;
   }
-  
+
   CreateUniqueId(): number {
     return this.flights.length > 0
-    ? Math.max(...this.flights.map(flight => flight.id)) + 1
-    : 1;
+      ? Math.max(...this.flights.map(flight => flight.id)) + 1
+      : 1;
   }
 
   addFlight(flight: Flight): void {

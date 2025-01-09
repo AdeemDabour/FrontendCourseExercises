@@ -18,5 +18,6 @@ export class LastMinuteFlightsComponent implements OnInit {
 
   ngOnInit(): void {
     this.lastMinuteFlights = this.flightsService.getFlightsThisWeek();
-  }
+    console.log('Last Minute Flights:', this.lastMinuteFlights);
+  }  
 }
