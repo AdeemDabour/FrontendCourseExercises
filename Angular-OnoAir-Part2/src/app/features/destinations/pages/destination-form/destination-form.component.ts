@@ -50,7 +50,3 @@ export class DestinationFormComponent implements OnInit {
     this.router.navigate(['/manage-destinations']);
   }  
 }
-
-
-
-

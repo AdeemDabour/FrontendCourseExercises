@@ -27,9 +27,9 @@ button {
     min-width: 120px;
 }
 
-.error-right {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* רווח בין השדה לטקסט השגיאה */
-    flex-wrap: wrap;
+mat-error {
+    font-size: 14px;
+    margin-top: -20px; 
+    line-height: 1.2;
 }
+  

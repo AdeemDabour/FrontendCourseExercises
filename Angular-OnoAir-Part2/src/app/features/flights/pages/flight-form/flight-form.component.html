@@ -2,7 +2,7 @@
     <mat-card class="form-card">
         <h2 class="glitter-text">Add Flight</h2>
         <form #SumbitRegistrationForm="ngForm" (ngSubmit)="onSumbitRegistration()">
-            <div class="error-right">
+            <div>
                 <mat-form-field>
                     <mat-label>Flight No.</mat-label>
                     <input matInput name="flightNo" required [(ngModel)]="newFlight.flightNo" #flightNo="ngModel"
@@ -14,7 +14,7 @@
                 </mat-error>
             </div>
 
-            <div class="error-right">
+            <div>
                 <mat-form-field appearance="fill">
                     <mat-label>Origin</mat-label>
                     <mat-select [(ngModel)]="newFlight.origin" name="origin" required #origin="ngModel">
@@ -23,12 +23,12 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-error *ngIf="(origin.dirty || origin.touched) && newFlight.origin === newFlight.destination">
+                <mat-error *ngIf="(origin.dirty) && newFlight.origin === newFlight.destination">
                     Origin and destination cannot be the same.
                 </mat-error>
             </div>
 
-            <div class="error-right">
+            <div>
                 <mat-form-field appearance="fill">
                     <mat-label>Destination</mat-label>
                     <mat-select [(ngModel)]="newFlight.destination" name="destination" required #destination="ngModel">
@@ -37,27 +37,30 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-error
-                    *ngIf="(destination.dirty || destination.touched) && newFlight.origin === newFlight.destination">
+                <mat-error *ngIf="(destination.dirty) && newFlight.origin === newFlight.destination">
                     Origin and destination cannot be the same.
                 </mat-error>
             </div>
 
-            <div class="error-right">
+            <div>
                 <mat-form-field>
                     <mat-label>Boarding</mat-label>
                     <input matInput name="boarding" required [(ngModel)]="newFlight.boarding" #boarding="ngModel"
                         type="datetime-local" />
                 </mat-form-field>
-                <mat-error *ngIf="(boarding.dirty) && boarding.value && !isBoardingInFuture()">
-                    Boarding time must be in the future.
+                <mat-error
+                    *ngIf="boarding.dirty && boarding.value && (!isBoardingInFuture() || !isBoardingBeforeLanding())">
+                    <span *ngIf="!isBoardingInFuture()">
+                        Boarding time must be in the future.
+                    </span>
+                    <span *ngIf="!isBoardingBeforeLanding()">
+                        Boarding time must be before landing time.
+                    </span>
                 </mat-error>
-                <mat-error *ngIf="(boarding.dirty) && boarding.value && !isBoardingBeforeLanding()">
-                    Boarding time must be before landing time.
-                </mat-error>
+
             </div>
 
-            <div class="error-right">
+            <div>
                 <mat-form-field>
                     <mat-label>Landing</mat-label>
                     <input matInput name="landing" required [(ngModel)]="newFlight.landing" #landing="ngModel"
@@ -68,7 +71,7 @@
                 </mat-error>
             </div>
 
-            <div class="error-right">
+            <div>
                 <mat-form-field>
                     <mat-label>No. of Seats</mat-label>
                     <input matInput name="seats" required [(ngModel)]="newFlight.seats" #seats="ngModel" type="number"
