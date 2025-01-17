@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private destinationService: DestinationService) {}
   ngOnInit(): void {
     // Call the initialization method once
-    //this.destinationService.initializeDestinations();
+    this.destinationService.initializeDestinations();
     //used to add the whole destinations array to the firestore databse , DO NOT USE , will be removed later.
   }
 }

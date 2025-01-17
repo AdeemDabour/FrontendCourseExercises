@@ -24,16 +24,10 @@ export class DestinationDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const code = this.route.snapshot.paramMap.get('code');
-    if (code) {
-      this.destination = this.destinationService.listDestinations()
-        .find(d => d.code === code);
-
-      if (!this.destination) {
-        this.errorMessage = `Destination with code "${code}" does not exist.`;
-      }
-    } else {
-      this.errorMessage = 'Invalid destination code.';
-    }
+    this.route.paramMap.subscribe(params => {
+      this.code = params.get('code')!;
+      this.destination = this.destinationService.getDestinationByNameOrCode(this.code);
+      this.errorMessage = this.destination ? null : 'Destination not found';
+    });
   }
 }

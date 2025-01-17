@@ -22,22 +22,18 @@ export class ManageDestinationsComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private destinationService: DestinationService, private router: Router) { }
+
   ngAfterViewInit(): void {
-    this.refreshDestinations();
+    this.loadDestinations();
     this.dataSource.sort = this.sort;
   }
-
-  refreshDestinations(): void {
-    this.dataSource.data = this.destinationService.listDestinations();
+  
+  async loadDestinations(): Promise<void> {
+    this.destinationService.refreshDestinations().then(destinations => {
+      this.dataSource.data = destinations;
+    });
   }
-
-  deleteDestination(id: number): void {
-    const confirmation = confirm('Are you sure you want to delete this destination?');
-    if (confirmation) {
-      this.destinationService.removeDestination(id);
-      this.refreshDestinations();
-    }
-  }  
+  
 
   announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
@@ -49,7 +45,22 @@ export class ManageDestinationsComponent implements AfterViewInit {
   openDestinationDetails(destination: Destination): void {
     this.router.navigate(['/destination-details', destination.code]);
   }
-  addDestination(): void {
+  navigateToDestination(): void {
     this.router.navigate(['/destination-form', this.destinationService.createUniqueId()]);
   }  
+
+  deleteDestination(id: string): void {
+    const confirmation = confirm('Are you sure you want to delete this destination?');
+    if (confirmation) {
+      this.destinationService.removeDestination(id)
+        .then(() => {
+          console.log(`Destination with ID ${id} deleted successfully.`);
+          this.destinationService.refreshDestinations(); // עדכון הרשימה
+        })
+        .catch(error => {
+          console.error(`Error deleting destination with ID ${id}:`, error);
+        });
+    }
+  }
+  
 }
