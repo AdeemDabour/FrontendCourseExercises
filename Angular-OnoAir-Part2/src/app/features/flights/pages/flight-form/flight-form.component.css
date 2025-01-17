@@ -23,5 +23,13 @@
 }
 
 button {
+    margin-bottom: 20px;
     min-width: 120px;
+}
+
+.error-right {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* רווח בין השדה לטקסט השגיאה */
+    flex-wrap: wrap;
 }

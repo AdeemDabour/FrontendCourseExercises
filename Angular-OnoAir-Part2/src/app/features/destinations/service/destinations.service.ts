@@ -42,11 +42,11 @@ export class DestinationService {
   private lastAddedId: number = 0;
 
   private saveToLocalStorage(): void {
-    localStorage.setItem('destinations', JSON.stringify(this.destinations));
+    localStorage.setItem(this.collectionName, JSON.stringify(this.destinations));
   }
 
   private loadFromLocalStorage(): Destination[] | null {
-    const data = localStorage.getItem('destinations');
+    const data = localStorage.getItem(this.collectionName);
     return data ? JSON.parse(data) : null;
   }
 
@@ -91,7 +91,7 @@ export class DestinationService {
 
   //used to add the whole destinations array to the firestore databse Will be removed / changed later
   async initializeDestinations(): Promise<void> {
-    const destinationsCollection = collection(this.firestore, 'destinations');
+    const destinationsCollection = collection(this.firestore, this.collectionName);
     const snapshot = await getDocs(destinationsCollection);
   
     if (!snapshot.empty) {
@@ -121,4 +121,8 @@ export class DestinationService {
       console.log(`Destination ${destination.name} added successfully with ID: ${docRef.id}`);
     });
   }
+  listDestinationNames(): string[] {
+    return this.destinations.map(destination => destination.name);
+  }  
+
 };
