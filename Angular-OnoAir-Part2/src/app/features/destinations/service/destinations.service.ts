@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Destination, Status } from '../model/destination';
-import { Firestore, collection, addDoc, getDocs, doc, deleteDoc, query, where, getDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, getDocs, doc, deleteDoc, query, where, getDoc, setDoc, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { destinationConverter } from '../model/destination-converter';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,13 @@ export class DestinationService {
   constructor(private firestore: Firestore) { }
 
   private lastAddedId: string = "0";
+  dataSource = new MatTableDataSource<Destination>();
+  
+
+  getDestinations(): Observable<Destination[]> {
+    const collectionRef = collection(this.firestore, this.collectionName);
+    return collectionData(collectionRef, { idField: 'id' }) as Observable<Destination[]>;
+  }
 
   async listDestinations(): Promise<Destination[]> {
     const destinationsCollection = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
@@ -51,48 +59,50 @@ export class DestinationService {
       .sort((a, b) => parseInt(a.id) - parseInt(b.id)); // מיון לפי ID מספרי
   }  
 
+  
 async getDestination(id: string): Promise<Destination | undefined> {
   const destinationDoc = doc(this.firestore, this.collectionName, id).withConverter(destinationConverter);
   const destinationSnapshot = await getDoc(destinationDoc);
   return destinationSnapshot.data();
 }
 
+
+async createUniqueId(): Promise<string> {
+  const collectionRef = collection(this.firestore, this.collectionName);
+  const snapshot = await getDocs(collectionRef);
+  const ids = snapshot.docs.map((doc) => parseInt(doc.id, 10));
+  const maxId = Math.max(...ids, 0);
+  return (maxId + 1).toString();
+}
+
+async loadDestinations(): Promise<void> {
+  this.refreshDestinations().then(destinations => {
+    this.dataSource.data = destinations;
+  });
+}
+
+
+getLastAddedId(): number {
+  return parseInt(this.lastAddedId);
+}
+
 async addDestination(newDestination: Destination): Promise<void> {
   const destinationsCollection = collection(this.firestore, this.collectionName);
 
-  // קבלת המסמכים הקיימים כדי למצוא את ה-ID הגבוה ביותר
   const querySnapshot = await getDocs(destinationsCollection);
   const ids = querySnapshot.docs.map(doc => parseInt(doc.id)).filter(id => !isNaN(id));
 
-  // חישוב ה-ID הבא
   const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
 
-  // הוספת המסמך החדש עם ה-ID החדש
   const destinationDoc = doc(this.firestore, this.collectionName, nextId.toString());
   await setDoc(destinationDoc, { ...newDestination, id: nextId.toString() });
 
   console.log(`Destination added with ID: ${nextId}`);
 }
 
-createUniqueId(): string {
-  this.lastAddedId = (parseInt(this.lastAddedId) + 1).toString();
-  return this.lastAddedId;
-}
-
-getLastAddedId(): number {
-  return parseInt(this.lastAddedId);
-}
-
-
 async removeDestination(id: string): Promise<void> {
-  const destinationDoc = doc(this.firestore, this.collectionName, id);
-  const docSnapshot = await getDoc(destinationDoc);
-
-  if (docSnapshot.exists()) {
-    await deleteDoc(destinationDoc);
-  } else {
-    console.error(`Destination with ID ${id} does not exist.`);
-  }
+  const docRef = doc(this.firestore, `${this.collectionName}/${id}`);
+  await deleteDoc(docRef);
 }
 
 
@@ -142,10 +152,9 @@ async updateDestination(id: string, updatedDestination: Destination): Promise<vo
     const destinationsCollection = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
     const querySnapshot = await getDocs(destinationsCollection);
   
-    // ממיין את היעדים לפי ID
     return querySnapshot.docs
       .map(doc => doc.data())
-      .sort((a, b) => parseInt(a.id) - parseInt(b.id)); // מיון לפי ID מספרי
+      .sort((a, b) => parseInt(a.id) - parseInt(b.id));
   }
   
   
@@ -169,7 +178,6 @@ async updateDestination(id: string, updatedDestination: Destination): Promise<vo
 
   getDestinationStatus(code: string): Status {
     const destination = this.destinations.find(d => d.code.toLowerCase() === code.toLowerCase());
-    return destination ? destination.status : Status.Active; // סטטוס ברירת מחדל במקרה של שגיאה
+    return destination ? destination.status : Status.Active;
   } 
-
 };

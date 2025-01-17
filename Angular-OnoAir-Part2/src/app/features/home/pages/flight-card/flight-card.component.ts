@@ -20,5 +20,4 @@ export class FlightCardComponent {
   ngOnInit(): void {
     this.destinationImageUrl = this.destinationService.getDestinationImage(this.flight.destination);
   }  
-  
 }

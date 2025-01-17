@@ -22,8 +22,8 @@ export class DestinationFormComponent implements OnInit {
 
   constructor(private destinationService: DestinationService, private router: Router) { };
 
-
   ngOnInit(): void {
+    this.destinationService.loadDestinations();
   }
 
   removeDestination() {
