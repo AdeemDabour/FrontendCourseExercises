@@ -50,10 +50,16 @@ export class BookFlightComponent implements OnInit {
   
 
   updatePassengers(event: Event): void {
-    const value = parseInt((event.target as HTMLInputElement).value, 10) || 1;
-    this.numPassengers = Math.min(value, this.flight?.seats ?? 1);
+    const value = parseInt((event.target as HTMLInputElement).value, 10) || 1; // Parse the input value as a number
+    const maxSeats = parseInt(this.flight?.seats || '1', 10) || 1; // Parse seats as a number, default to 1 if invalid
+  
+    // Ensure numPassengers does not exceed maxSeats
+    this.numPassengers = Math.min(value, maxSeats);
+  
+    // Update the passenger list
     this.createPassengerList();
   }
+  
 
   createPassengerList(): void {
     this.passengers = Array.from({ length: this.numPassengers }, (_, i) => ({

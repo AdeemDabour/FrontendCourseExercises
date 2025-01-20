@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class FlightFormComponent implements OnInit {
 
-  newFlight: Flight = new Flight(0, '', '', '', new Date(), new Date(), 0, Status.Active);
+  newFlight: Flight = new Flight('0', '', '', '', new Date(), new Date(), '0', Status.Active);
   destinations: string[] = []; // List of destination names
 
   @Input() id = 0;
@@ -48,7 +48,7 @@ export class FlightFormComponent implements OnInit {
   }
 
   removeFlight() {
-    this.flightService.removeFlight(this.id);
+    this.flightService.removeFlight(this.id.toString());
     this.router.navigate(['/manage-flights']);
   }
 
@@ -58,9 +58,10 @@ export class FlightFormComponent implements OnInit {
       return;
     }
   
-    if (!this.newFlight.id || this.newFlight.id === 0) {
+    if (!this.newFlight.id || this.newFlight.id.trim() === '') {
       this.newFlight.id = this.flightService.CreateUniqueId();
     }
+    
   
     this.flightService.addFlight(this.newFlight);
     this.router.navigate(['/manage-flights']);
@@ -80,7 +81,7 @@ export class FlightFormComponent implements OnInit {
       return false; // Origin and destination must be different
     }
   
-    if (this.newFlight.seats <= 0) {
+    if (this.newFlight.seats <= '0') {
       return false; // Number of seats must be greater than 0
     }
   

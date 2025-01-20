@@ -85,7 +85,6 @@ export class DestinationService {
     return this.getDestinationByNameOrCode(nameOrCode).pipe(
       map(destination => {
         if (!destination) {
-          console.warn(`No destination found for: ${nameOrCode}`);
           return 'assets/fallback-image.jpg';
         }
         if (!destination.imageUrl) {

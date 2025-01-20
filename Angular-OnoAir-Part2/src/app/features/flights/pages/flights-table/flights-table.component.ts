@@ -46,7 +46,7 @@ export class FlightsTableComponent implements AfterViewInit {
     this.dataSource.data = this.flightService.listFlights();
   }
 
-  deleteFlight(id: number): void {
+  deleteFlight(id: string): void {
     const confirmation = confirm('Are you sure you want to delete this flight?');
     if (confirmation) {
       this.flightService.removeFlight(id);
