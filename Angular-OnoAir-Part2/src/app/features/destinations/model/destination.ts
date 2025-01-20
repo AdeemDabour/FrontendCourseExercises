@@ -7,7 +7,7 @@ export class Destination {
         public email: string,
         public code: string,
         public imageUrl: string,
-        public status: Status //need to make it string before putting it to firebase database since it doesn't catch enum
+        public status: Status 
     ) { }
 }
 export enum Status {

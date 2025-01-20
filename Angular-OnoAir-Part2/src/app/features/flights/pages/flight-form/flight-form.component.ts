@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { Flight } from '../../model/flight';
+import { Flight, Status } from '../../model/flight';
 import { FlightsService } from '../../service/flights.service';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class FlightFormComponent implements OnInit {
 
-  newFlight: Flight = new Flight(0, '', '', '', new Date(), new Date(), 0);
+  newFlight: Flight = new Flight(0, '', '', '', new Date(), new Date(), 0, Status.Active);
   destinations: string[] = []; // List of destination names
 
   @Input() id = 0;

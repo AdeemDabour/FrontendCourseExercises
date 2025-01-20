@@ -7,5 +7,10 @@ export class Flight {
         public boarding: Date,
         public landing: Date,
         public seats: number,
+        public status: Status
     ) { }
 }
+export enum Status {
+    Active = 'active',
+    Inactive = 'inactive'
+  }
