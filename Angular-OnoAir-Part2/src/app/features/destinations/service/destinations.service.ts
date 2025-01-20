@@ -20,9 +20,6 @@ export class DestinationService {
     const destinations = await this.refreshDestinations(); // Fetch destinations directly
     this.destinationsSubject.next(destinations); // Update the BehaviorSubject
   }
-  
-  
-  
 
   async addDestination(newDestination: Destination): Promise<void> {
     const destinationsCollection = collection(this.firestore, this.collectionName);
@@ -55,6 +52,21 @@ export class DestinationService {
     const maxId = Math.max(...ids, 0);
     return (maxId + 1).toString();
   }
+
+  async getDestinationById(id: string): Promise<Destination | undefined> {
+    const collectionRef = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
+    const querySnapshot = await getDocs(collectionRef);
+  
+    const destinationDoc = querySnapshot.docs.find((doc) => doc.id === id);
+    if (destinationDoc) {
+      return destinationDoc.data();
+    } else {
+      console.error(`Destination with ID ${id} not found.`);
+      return undefined;
+    }
+  }
+  
+  
   getDestinationByNameOrCode(nameOrCode: string): Observable<Destination | undefined> {
     const normalizedInput = nameOrCode.trim().toLowerCase();
   
@@ -67,9 +79,6 @@ export class DestinationService {
       )
     );
   }
-  
-  
-  
   
   getDestinationByName(name: string): Destination | undefined {
     const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
@@ -95,8 +104,7 @@ export class DestinationService {
       })
     );
   }
-  
-  
+   
   getDestinationStatus(code: string): Status {
     const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
     const destination = destinations.find(d => d.code.toLowerCase() === code.toLowerCase());
@@ -110,6 +118,4 @@ export class DestinationService {
       .map((doc) => doc.data())
       .sort((a, b) => parseInt(a.id) - parseInt(b.id)); // Sort by numeric ID
   }
-  
-
 }

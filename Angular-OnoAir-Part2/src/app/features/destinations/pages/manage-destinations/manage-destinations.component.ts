@@ -46,6 +46,10 @@ export class ManageDestinationsComponent implements OnInit {
     this.router.navigate(['/destination-details', destination.code]);
   }
 
+  openEditDestination(destination: Destination): void {
+    this.router.navigate(['/edit-destination', destination.id]);
+  }
+  
   navigateToAddDestination(): void {
     this.destinationService.createUniqueId().then((uniqueId) => {
       this.router.navigate(['/destination-form', uniqueId]);

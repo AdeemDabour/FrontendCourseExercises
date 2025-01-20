@@ -11,6 +11,7 @@ import { BookingDetailsComponent } from './features/bookings/pages/booking-detai
 import { BookFlightComponent } from './features/bookings/pages/book-flight/book-flight.component';
 import { DestinationFormComponent } from './features/destinations/pages/destination-form/destination-form.component';
 import { FlightFormComponent } from './features/flights/pages/flight-form/flight-form.component';
+import { EditDestinationComponent } from './features/destinations/pages/edit-destination/edit-destination.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -25,5 +26,7 @@ export const routes: Routes = [
   { path: 'destination-details/:code', component: DestinationDetailsComponent },
   { path: 'booking-details/:bookingCode', component: BookingDetailsComponent },
   { path: 'book-flight/:flightNo', component: BookFlightComponent },
+  { path: 'edit-destination/:id', component: EditDestinationComponent },
+  { path: 'manage-destinations', component: ManageDestinationsComponent },
   { path: '**', redirectTo: '' }
 ];

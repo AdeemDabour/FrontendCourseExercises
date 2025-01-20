@@ -1,1 +1,70 @@
-<p>edit-destination works!</p>
+<div class="form-container" *ngIf="!isLoading; else loadingTemplate">
+    <mat-card class="form-card">
+      <h2 class="glitter-text">Edit Destination</h2>
+      <form #editDestinationForm="ngForm" (ngSubmit)="saveDestination()">
+        <div>
+          <mat-form-field>
+            <mat-label>ID</mat-label>
+            <input matInput name="id" [(ngModel)]="destination.id" disabled />
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput name="name" required [(ngModel)]="destination.name" />
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Airport Name</mat-label>
+            <input matInput name="airportName" required [(ngModel)]="destination.airportName" />
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Airport Website</mat-label>
+            <input matInput name="airportWebsite" required [(ngModel)]="destination.airportWebsite" />
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput name="email" required [(ngModel)]="destination.email" type="email" />
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Destination Code</mat-label>
+            <input matInput name="code" required [(ngModel)]="destination.code" />
+          </mat-form-field>
+        </div>
+  
+        <div>
+          <mat-form-field>
+            <mat-label>Image Url</mat-label>
+            <input matInput name="imageUrl" required [(ngModel)]="destination.imageUrl" />
+          </mat-form-field>
+        </div>
+  
+        <div class="button-container">
+          <button mat-raised-button color="primary" type="submit" [disabled]="editDestinationForm.invalid">
+            Save
+          </button>
+          <button mat-raised-button color="warn" type="button" (click)="cancelEdit()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  
+  <ng-template #loadingTemplate>
+    <mat-card>
+      <p>Loading destination details...</p>
+    </mat-card>
+  </ng-template>
