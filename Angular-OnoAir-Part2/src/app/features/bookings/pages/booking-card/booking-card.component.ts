@@ -29,7 +29,9 @@ export class BookingCardComponent implements OnInit {
     this.flight = this.bookingService.getFlightDetails(this.booking.flightNo);
 
     // Retrieve destination image
-    this.destinationImageUrl = this.destinationService.getDestinationImage(this.flight?.destination || '');
+    this.destinationService.getDestinationImage(this.flight.destination).subscribe(imageUrl => {
+      this.destinationImageUrl = imageUrl;
+    });
   }  
 
   viewBooking(): void {

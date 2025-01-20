@@ -26,8 +26,12 @@ export class DestinationDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.code = params.get('code')!;
-      this.destination = this.destinationService.getDestinationByNameOrCode(this.code);
-      this.errorMessage = this.destination ? null : 'Destination not found';
+  
+      this.destinationService.getDestinationByNameOrCode(this.code).subscribe(destination => {
+        this.destination = destination || undefined; // Handle undefined case
+        this.errorMessage = this.destination ? null : 'Destination not found';
+      });
     });
   }
+  
 }

@@ -4,7 +4,6 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
-import { DestinationService } from './features/destinations/service/destinations.service';
 @Component({
   selector: 'app-root',
   imports: [HeaderComponent, FooterComponent, MatIconModule, MatButtonModule, RouterOutlet ],
@@ -13,10 +12,8 @@ import { DestinationService } from './features/destinations/service/destinations
 })
 export class AppComponent implements OnInit {
   title = 'OnoAir';
-  constructor(private destinationService: DestinationService) {}
+  constructor() {}
   ngOnInit(): void {
-    // Call the initialization method once
-    this.destinationService.initializeDestinations();
-    //used to add the whole destinations array to the firestore databse , DO NOT USE , will be removed later.
+    //USE Initilaizition functions here to upload to database. 1 time only then DELETE!
   }
 }

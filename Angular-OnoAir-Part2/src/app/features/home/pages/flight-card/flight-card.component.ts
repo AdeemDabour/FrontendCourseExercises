@@ -18,6 +18,8 @@ export class FlightCardComponent {
   constructor(private destinationService: DestinationService) {}
 
   ngOnInit(): void {
-    this.destinationImageUrl = this.destinationService.getDestinationImage(this.flight.destination);
-  }  
+    this.destinationService.getDestinationImage(this.flight.destination).subscribe(imageUrl => {
+      this.destinationImageUrl = imageUrl;
+    });
+  }
 }
