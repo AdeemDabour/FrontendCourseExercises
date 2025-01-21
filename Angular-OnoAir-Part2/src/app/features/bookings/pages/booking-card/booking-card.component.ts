@@ -17,7 +17,7 @@ export class BookingCardComponent implements OnInit {
   @Input() booking!: Booking;
   @Output() viewBookingEvent = new EventEmitter<any>();
   destinationImageUrl: string | null = null;
-  flight: Flight | null = null;
+  flight: Flight | undefined;
 
   constructor(
     private destinationService: DestinationService,
@@ -26,13 +26,27 @@ export class BookingCardComponent implements OnInit {
 
   ngOnInit(): void {
     // Retrieve flight details based on flightNo
-    this.flight = this.bookingService.getFlightDetails(this.booking.flightNo);
+    this.bookingService.getFlightDetails(this.booking.flightNo).subscribe(
+      flight => {
+        this.flight = flight;
 
-    // Retrieve destination image
-    this.destinationService.getDestinationImage(this.flight.destination).subscribe(imageUrl => {
-      this.destinationImageUrl = imageUrl;
-    });
-  }  
+        // Retrieve destination image if the flight exists
+        if (this.flight?.destination) {
+          this.destinationService.getDestinationImage(this.flight.destination).subscribe(
+            imageUrl => {
+              this.destinationImageUrl = imageUrl;
+            },
+            error => {
+              console.error('Error fetching destination image:', error);
+            }
+          );
+        }
+      },
+      error => {
+        console.error('Error fetching flight details:', error);
+      }
+    );
+  }
 
   viewBooking(): void {
     this.viewBookingEvent.emit(this.booking);

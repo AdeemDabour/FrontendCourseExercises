@@ -93,16 +93,12 @@ export class DestinationService {
   getDestinationImage(nameOrCode: string): Observable<string> {
     return this.getDestinationByNameOrCode(nameOrCode).pipe(
       map(destination => {
-        if (!destination) {
-          return 'assets/fallback-image.jpg';
-        }
-        if (!destination.imageUrl) {
-          console.warn(`Missing imageUrl for destination:`, destination);
-          return 'assets/fallback-image.jpg';
-        }
-        return destination.imageUrl;
-      })
-    );
+        if (destination) {
+          return destination.imageUrl;
+        } else {
+          return ''; // Return an empty string if no destination is found
+        } 
+    }));
   }
    
   getDestinationStatus(code: string): Status {

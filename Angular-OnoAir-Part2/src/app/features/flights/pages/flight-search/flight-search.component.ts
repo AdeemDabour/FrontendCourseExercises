@@ -3,6 +3,9 @@ import { FlightsTableComponent } from '../flights-table/flights-table.component'
 import { FlightsService } from '../../service/flights.service';
 import { Flight } from '../../model/flight';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-flight-search',
   imports: [FlightsTableComponent, CommonModule],
@@ -10,14 +13,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './flight-search.component.css'
 })
 export class FlightSearchComponent implements OnInit {
-  futureFlights: Flight[] = [];
+  futureFlights$: Observable<Flight[]> = new Observable();
 
-  constructor(private flightService: FlightsService) { }
+  constructor(private flightService: FlightsService) {}
 
   ngOnInit(): void {
-    const allFlights = this.flightService.listFlights();
     const today = new Date();
-
-    this.futureFlights = allFlights.filter(flight => new Date(flight.boarding) > today);
+    this.futureFlights$ = this.flightService.listFlights().pipe(
+      map((flights: Flight[]) => 
+        flights.filter((flight: Flight) => flight.boarding.toDate() > today) // Filter future flights
+      )
+    );
   }
 }

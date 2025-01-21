@@ -15,8 +15,14 @@ export class LastMinuteFlightsComponent implements OnInit {
   lastMinuteFlights: Flight[] = [];
 
   constructor(private flightsService: FlightsService) { }
-
   ngOnInit(): void {
-    this.lastMinuteFlights = this.flightsService.getFlightsThisWeek();
+    this.flightsService.getFlightsThisWeek().subscribe({
+      next: (flights: Flight[]) => {
+        this.lastMinuteFlights = flights;
+      },
+      error: (error) => {
+        console.error('Error fetching last minute flights:', error);
+      },
+    });
   }
 }

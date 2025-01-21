@@ -20,7 +20,7 @@ export class FlightsTableComponent implements AfterViewInit {
   @Input() showActionsColumn: boolean = true;
 
   @Input() flights: Flight[] = [];
-  displayedColumns: string[] = ['id', 'flightNo.', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions'];
+  displayedColumns: string[] = ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions'];
   dataSource = new MatTableDataSource<Flight>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -29,7 +29,7 @@ export class FlightsTableComponent implements AfterViewInit {
 
   ngOnChanges(): void {
     if (this.flights) {
-      this.dataSource.data = this.flights;
+      this.dataSource.data = this.sortById(this.flights); // Sort before assigning
     }
 
     this.displayedColumns = this.showActionsColumn
@@ -43,9 +43,16 @@ export class FlightsTableComponent implements AfterViewInit {
   }
 
   refreshFlights(): void {
-    this.dataSource.data = this.flightService.listFlights();
+    this.flightService.listFlights().subscribe({
+      next: (flights: Flight[]) => {
+        this.dataSource.data = this.sortById(flights); // Sort before assigning to dataSource
+      },
+      error: (error: any) => {
+        console.error('Failed to refresh flights:', error); // Handle errors gracefully
+      },
+    });
   }
-
+  
   deleteFlight(id: string): void {
     const confirmation = confirm('Are you sure you want to delete this flight?');
     if (confirmation) {
@@ -66,20 +73,20 @@ export class FlightsTableComponent implements AfterViewInit {
     this.router.navigate(['/flight-details', flight.flightNo]);
   }
 
-  addFlight(): void {
-    this.router.navigate(['/flight-form', this.flightService.CreateUniqueId()]);
-  }
-  
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filter = filterValue;
     this.dataSource.filterPredicate = (data: Flight, filter: string) => {
       const originMatch = data.origin.toLowerCase().includes(filter);
       const destinationMatch = data.destination.toLowerCase().includes(filter);
-      const boardingDateMatch = data.boarding.toDateString().toLowerCase().includes(filter);
-      const arrivalDateMatch = data.landing.toDateString().toLowerCase().includes(filter);
-
-      return originMatch || destinationMatch || boardingDateMatch || arrivalDateMatch;
+      const boardingDateMatch = data.boarding.toDate().toLocaleDateString().toLowerCase().includes(filter);
+      const landingDateMatch = data.landing.toDate().toLocaleDateString().toLowerCase().includes(filter);
+  
+      return originMatch || destinationMatch || boardingDateMatch || landingDateMatch;
     };
+  }
+
+  private sortById(flights: Flight[]): Flight[] {
+    return flights.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
   }
 }

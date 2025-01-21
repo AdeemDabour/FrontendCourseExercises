@@ -15,12 +15,16 @@ import { Router } from '@angular/router';
 export class ManageFlightsComponent implements OnInit {
   flights: Flight[] = [];
 
-  constructor(private flightService: FlightsService, private router: Router) { }
+  constructor(private flightService: FlightsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.flights = this.flightService.listFlights();
-  }
-  addFlight(): void {
-    this.router.navigate(['/flight-form', this.flightService.CreateUniqueId()]);
+    this.flightService.listFlights().subscribe({
+      next: (flights) => {
+        this.flights = flights;
+      },
+      error: (error) => {
+        console.error('Failed to load flights:', error);
+      },
+    });
   }
 }

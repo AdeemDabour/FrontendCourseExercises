@@ -23,10 +23,19 @@ export class FlightDetailsComponent implements OnInit {
   ngOnInit(): void {
     const flightNo = this.route.snapshot.paramMap.get('flightNo'); // Retrieve 'flightNo' from the route
     if (flightNo) {
-      this.flight = this.flightService.getFlightByNumber(flightNo); // Retrieve the flight
-      if (!this.flight) {
-        this.errorMessage = `Flight with number "${flightNo}" does not exist.`; // Error message if flight not found
-      }
+      // Subscribe to the observable to get the flight details
+      this.flightService.getFlightByNumber(flightNo).subscribe({
+        next: (flight) => {
+          if (flight) {
+            this.flight = flight; // Assign the flight if it exists
+          } else {
+            this.errorMessage = `Flight with number "${flightNo}" does not exist.`; // Error if flight not found
+          }
+        },
+        error: (err) => {
+          this.errorMessage = `An error occurred while fetching flight details: ${err.message}`;
+        },
+      });
     } else {
       this.errorMessage = 'Invalid flight number in URL.'; // Error message if no flightNo in URL
     }

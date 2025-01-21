@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
   title = 'OnoAir';
   constructor() {}
   ngOnInit(): void {
-    //USE Initilaizition functions here to upload to database. 1 time only then DELETE!
   }
+  
 }

@@ -12,11 +12,24 @@ import { FlightsService } from '../../../flights/service/flights.service';
 import { Flight } from '../../../flights/model/flight';
 import { Passenger } from '../../model/passenger';
 import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
+
 @Component({
   selector: 'app-book-flight',
-  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent],
+  imports: [
+    MatTableModule,
+    MatCardModule,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatDivider,
+    MatHint,
+    MatButtonModule,
+    FormsModule,
+    CommonModule,
+    PassengerCardComponent,
+  ],
   templateUrl: './book-flight.component.html',
-  styleUrl: './book-flight.component.css'
+  styleUrls: ['./book-flight.component.css'],
 })
 export class BookFlightComponent implements OnInit {
   flight: Flight | null = null;
@@ -25,8 +38,11 @@ export class BookFlightComponent implements OnInit {
   bookingCode: string = '';
   errorMessage: string | null = null;
 
-
-  constructor(private route: ActivatedRoute, private flightsService: FlightsService, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private flightsService: FlightsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const flightNo = this.route.snapshot.paramMap.get('flightNo');
@@ -38,57 +54,66 @@ export class BookFlightComponent implements OnInit {
   }
 
   loadFlightDetails(flightNo: string): void {
-    const flight = this.flightsService.getFlightByNumber(flightNo);
-    this.flight = flight || null; // Assign `null` if the flight is `undefined`.
-  
-    if (this.flight) {
-      this.createPassengerList();
-    } else {
-      this.errorMessage = `Flight with number "${flightNo}" does not exist.`;
-    }
+    this.flightsService.getFlightByNumber(flightNo).subscribe({
+      next: (flight) => {
+        if (flight) {
+          this.flight = flight;
+          this.createPassengerList();
+        } else {
+          this.errorMessage = `Flight with number "${flightNo}" does not exist.`;
+        }
+      },
+      error: (err) => {
+        console.error('Error loading flight details:', err);
+        this.errorMessage = 'Unable to load flight details. Please try again later.';
+      },
+    });
   }
-  
 
   updatePassengers(event: Event): void {
-    const value = parseInt((event.target as HTMLInputElement).value, 10) || 1; // Parse the input value as a number
-    const maxSeats = parseInt(this.flight?.seats || '1', 10) || 1; // Parse seats as a number, default to 1 if invalid
-  
-    // Ensure numPassengers does not exceed maxSeats
+    const value = parseInt((event.target as HTMLInputElement).value, 10) || 1;
+    const maxSeats = parseInt(this.flight?.seats || '1', 10) || 1;
     this.numPassengers = Math.min(value, maxSeats);
-  
-    // Update the passenger list
     this.createPassengerList();
   }
-  
 
   createPassengerList(): void {
+    // Dynamically adjust the passenger list length
+    const currentPassengers = this.passengers;
     this.passengers = Array.from({ length: this.numPassengers }, (_, i) => ({
-      name: this.passengers[i]?.name || '',
-      passport: this.passengers[i]?.passport || ''
+      name: currentPassengers[i]?.name || '',
+      passport: currentPassengers[i]?.passport || '',
     }));
   }
 
   updatePassenger(index: number, passenger: Passenger): void {
-    this.passengers[index] = passenger;
+    if (index >= 0 && index < this.passengers.length) {
+      this.passengers[index] = passenger;
+    }
   }
 
   submitBooking(): void {
+    if (!this.flight) {
+      this.errorMessage = 'No flight selected.';
+      return;
+    }
+
     this.bookingCode = this.generateBookingCode();
-  
+
     const bookingDetails = {
       bookingCode: this.bookingCode,
       flight: this.flight,
       passengers: this.passengers,
       passengerCount: this.numPassengers,
     };
-  
+
     console.log('Navigating to booking details with:', bookingDetails);
-  
+
     this.router.navigate(['/booking-details', this.bookingCode], {
       state: { bookingDetails },
     });
   }
-  
+
   private generateBookingCode(): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     return Array.from({ length: 6 })
