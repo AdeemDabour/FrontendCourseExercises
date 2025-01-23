@@ -35,8 +35,8 @@ export class FlightFormComponent implements OnInit {
     '',
     '',
     '',
-    Timestamp.fromDate(new Date()),
-    Timestamp.fromDate(new Date()),
+    new Date(),
+    new Date(),
     '0',
     Status.Active
   );
@@ -106,8 +106,8 @@ export class FlightFormComponent implements OnInit {
   
 
   isValidFlight(): boolean {
-    const boardingDate = this.newFlight.boarding.toDate();
-    const landingDate = this.newFlight.landing.toDate();
+    const boardingDate = this.newFlight.boarding;
+    const landingDate = this.newFlight.landing;
     return (
       boardingDate > new Date() &&
       boardingDate < landingDate &&
@@ -120,7 +120,7 @@ export class FlightFormComponent implements OnInit {
     if (!this.newFlight.boarding) {
       return true;
     }
-    const boardingDate = this.newFlight.boarding.toDate();
+    const boardingDate = this.newFlight.boarding;
     return boardingDate > new Date();
   }
 
@@ -128,8 +128,8 @@ export class FlightFormComponent implements OnInit {
     if (!this.newFlight.boarding || !this.newFlight.landing) {
       return true;
     }
-    const boardingDate = this.newFlight.boarding.toDate();
-    const landingDate = this.newFlight.landing.toDate();
+    const boardingDate = this.newFlight.boarding;
+    const landingDate = this.newFlight.landing;
     return boardingDate < landingDate;
   }
 }

@@ -20,12 +20,12 @@
         <mat-list>
           <mat-list-item>
             <strong>Boarding: </strong>
-            <span>{{ flight?.boarding?.toDate() | date: 'dd/MM/yyyy HH:mm' }}</span>
+            <span>{{ flight?.boarding | date: 'dd/MM/yyyy HH:mm' }}</span>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>
             <strong>Landing: </strong>
-            <span>{{ flight?.landing?.toDate() | date: 'dd/MM/yyyy HH:mm' }}</span>
+            <span>{{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}</span>
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>

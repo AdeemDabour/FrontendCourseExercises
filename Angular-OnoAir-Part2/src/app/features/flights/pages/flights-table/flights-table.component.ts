@@ -79,8 +79,8 @@ export class FlightsTableComponent implements AfterViewInit {
     this.dataSource.filterPredicate = (data: Flight, filter: string) => {
       const originMatch = data.origin.toLowerCase().includes(filter);
       const destinationMatch = data.destination.toLowerCase().includes(filter);
-      const boardingDateMatch = data.boarding.toDate().toLocaleDateString().toLowerCase().includes(filter);
-      const landingDateMatch = data.landing.toDate().toLocaleDateString().toLowerCase().includes(filter);
+      const boardingDateMatch = data.boarding.toLocaleDateString().toLowerCase().includes(filter);
+      const landingDateMatch = data.landing.toLocaleDateString().toLowerCase().includes(filter);
   
       return originMatch || destinationMatch || boardingDateMatch || landingDateMatch;
     };

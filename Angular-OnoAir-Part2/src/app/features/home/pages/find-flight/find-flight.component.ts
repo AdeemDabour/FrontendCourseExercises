@@ -22,7 +22,7 @@ export class FindFlightComponent implements OnInit {
     this.flightService.listFlights().subscribe({
       next: (allFlights: Flight[]) => {
         this.futureFlights = allFlights.filter((flight: Flight) => {
-          const boardingDate = (flight.boarding as Timestamp).toDate();
+          const boardingDate = flight.boarding;
           return boardingDate.getTime() > now.getTime();
         });
       },

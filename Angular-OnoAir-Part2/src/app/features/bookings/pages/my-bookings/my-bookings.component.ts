@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { Booking } from '../../model/booking';
 import { BookingCardComponent } from '../booking-card/booking-card.component';
-import { Timestamp } from 'firebase/firestore';
 
 @Component({
   selector: 'app-my-bookings',
@@ -41,7 +40,7 @@ export class MyBookingsComponent implements OnInit {
           return;
         }
 
-        const boardingDate = (flight.boarding as Timestamp).toDate(); // Convert Timestamp to Date
+        const boardingDate = flight.boarding; // Already a Date type
 
         if (boardingDate > today) {
           upcoming.push(booking);
@@ -69,8 +68,8 @@ export class MyBookingsComponent implements OnInit {
         flight: {
           origin: flight.origin,
           destination: flight.destination,
-          boarding: (flight.boarding as Timestamp).toDate(), // Convert Timestamp to Date
-          landing: (flight.landing as Timestamp).toDate(),   // Convert Timestamp to Date
+          boarding: flight.boarding, // Already a Date type
+          landing: flight.landing,   // Already a Date type
           passengerCount: passengers.length,
         },
         passengers: passengers,

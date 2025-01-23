@@ -21,7 +21,7 @@ export class FlightSearchComponent implements OnInit {
     const today = new Date();
     this.futureFlights$ = this.flightService.listFlights().pipe(
       map((flights: Flight[]) => 
-        flights.filter((flight: Flight) => flight.boarding.toDate() > today) // Filter future flights
+        flights.filter((flight: Flight) => flight.boarding > today) // Filter future flights
       )
     );
   }
