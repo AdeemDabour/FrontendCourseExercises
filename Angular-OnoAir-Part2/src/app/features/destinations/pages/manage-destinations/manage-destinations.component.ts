@@ -28,6 +28,7 @@ export class ManageDestinationsComponent implements OnInit {
   }
 
   async loadDestinations(): Promise<void> {
+    await this.destinationService.refreshDestinations();
     this.destinationService.refreshDestinations().then((destinations) => {
       this.dataSource.data = destinations;
       this.dataSource.sort = this.sort;
@@ -70,16 +71,5 @@ export class ManageDestinationsComponent implements OnInit {
           console.error(`Error deleting destination with ID ${id}:`, error);
         });
     }
-  }
-
-  addDestination(newDestination: Destination): void {
-    this.destinationService.addDestination(newDestination)
-      .then(() => {
-        console.log(`Destination with ID ${newDestination.id} added successfully.`);
-        this.dataSource.data = [...this.dataSource.data, newDestination];
-      })
-      .catch((error) => {
-        console.error('Error adding destination:', error);
-      });
   }
 }

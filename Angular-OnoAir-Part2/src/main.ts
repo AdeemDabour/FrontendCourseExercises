@@ -10,13 +10,13 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideFirebaseApp(() =>
       initializeApp({
-        apiKey: "AIzaSyBgRhH5mXbwX0JA5dehgzIhoriahr69Qbw",
-        authDomain: "frontedcourse-onoair.firebaseapp.com",
-        projectId: "frontedcourse-onoair",
-        storageBucket: "frontedcourse-onoair.firebasestorage.app",
-        messagingSenderId: "1021529028497",
-        appId: "1:1021529028497:web:b014bcec3df2e57a5e0c30",
-        measurementId: "G-C70RQXQGP9"
+        apiKey: "AIzaSyBh8F1KMuCVlJouYFLPZJclI2QVyV1c2jM",
+        authDomain: "onoair-3a09d.firebaseapp.com",
+        projectId: "onoair-3a09d",
+        storageBucket: "onoair-3a09d.firebasestorage.app",
+        messagingSenderId: "242311591205",
+        appId: "1:242311591205:web:c316ee6e1f626b250dd6cc",
+        measurementId: "G-3WJG27X55P"
       })
     ), // Initialize Firebase with configuration
     provideFirestore(() => getFirestore()), // Initialize Firestore

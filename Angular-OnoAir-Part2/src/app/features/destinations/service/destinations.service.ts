@@ -3,7 +3,7 @@ import { Firestore, collection, deleteDoc, doc, setDoc, collectionData, getDocs 
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Destination, Status } from '../model/destination';
 import { destinationConverter } from '../model/destination-converter';
-
+import { ManageDestinationsComponent } from '../pages/manage-destinations/manage-destinations.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -109,9 +109,32 @@ export class DestinationService {
   async refreshDestinations(): Promise<Destination[]> {
     const collectionRef = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
     const querySnapshot = await getDocs(collectionRef);
-  
+    
     return querySnapshot.docs
       .map((doc) => doc.data())
       .sort((a, b) => parseInt(a.id) - parseInt(b.id)); // Sort by numeric ID
   }
+  async getLastAddedDestination(): Promise<Destination | undefined> {
+    try {
+      const collectionRef = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
+      const querySnapshot = await getDocs(collectionRef);
+  
+      // Find the destination with the highest numeric ID
+      const destinations = querySnapshot.docs.map((doc) => doc.data());
+      if (destinations.length === 0) {
+        console.log('No destinations found.');
+        return undefined;
+      }
+  
+      const lastDestination = destinations.reduce((prev, current) => {
+        return parseInt(prev.id, 10) > parseInt(current.id, 10) ? prev : current;
+      });
+  
+      return lastDestination;
+    } catch (error) {
+      console.error('Error fetching the last added destination:', error);
+      return undefined;
+    }
+  }
+  
 }
