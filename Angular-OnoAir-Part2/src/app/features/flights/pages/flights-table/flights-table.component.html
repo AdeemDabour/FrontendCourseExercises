@@ -43,22 +43,23 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
-        <div [routerLink]="['/flight-details', element.flightNo]">
-          <button mat-icon-button color="primary">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteFlight(element.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
+        <button mat-icon-button color="primary" (click)="openFlightDetails(element)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="openEditFlight(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteFlight(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="book">
       <th mat-header-cell *matHeaderCellDef> Book </th>
       <td mat-cell *matCellDef="let element">
-        <div [routerLink]="['/book-flight', element.flightNo]" class="button-container">
-          <button mat-button color="primary">Book</button>
+        <div class="button-container">
+          <button mat-button color="primary" (click)="openBookFlight(element)">Book</button>
         </div>
       </td>
     </ng-container>

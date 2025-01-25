@@ -26,10 +26,6 @@ export class DestinationFormComponent implements OnInit {
     this.destinationService.loadDestinations();
   }
 
-  removeDestination() {
-    this.destinationService.removeDestination(this.newDestination.id);
-    this.router.navigate(['/manage-destinations']);
-  }
   onSubmitRegistration(): void {    
     this.destinationService.addDestination(this.newDestination);
     this.router.navigate(['/manage-destinations']);

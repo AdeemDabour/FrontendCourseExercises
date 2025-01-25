@@ -34,10 +34,17 @@ export class FlightsService {
 
   async addFlight(newFlight: Flight): Promise<void> {
     try {
-      const flightDoc = doc(this.getFlightsCollection(), newFlight.id);
-      await setDoc(flightDoc, newFlight);
-      console.log(`Flight ${newFlight.flightNo} added successfully`);
-      await this.loadFlights();
+      const flightsCollection = collection(this.firestore, this.collectionName);
+  
+    const querySnapshot = await getDocs(flightsCollection);
+    const ids = querySnapshot.docs.map(doc => parseInt(doc.id)).filter(id => !isNaN(id));
+  
+    const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+  
+    const flightDoc = doc(this.firestore, this.collectionName, nextId.toString());
+    await setDoc(flightDoc, { ...newFlight, id: nextId.toString() });
+  
+    console.log(`Flight: ${newFlight.flightNo} added with ID: ${nextId}`);
     } catch (error) {
       console.error('Error adding flight:', error);
     }
@@ -109,9 +116,6 @@ export class FlightsService {
       
       // Use the FlightConverter to map data properly
       const flights = querySnapshot.docs.map((doc) => doc.data());
-  
-      console.log('Fetched flights from Firestore:', flights); // Log fetched flights
-  
       return flights;
     } catch (error) {
       console.error('Error refreshing flights:', error);

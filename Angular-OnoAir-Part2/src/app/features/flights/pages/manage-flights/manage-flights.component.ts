@@ -18,6 +18,10 @@ export class ManageFlightsComponent implements OnInit {
   constructor(private flightService: FlightsService, private router: Router) {}
 
   ngOnInit(): void {
+    this.loadFlights();
+  }
+  async loadFlights(): Promise<void> {
+    await this.flightService.refreshFlights();
     this.flightService.listFlights().subscribe({
       next: (flights) => {
         this.flights = flights;
@@ -25,6 +29,14 @@ export class ManageFlightsComponent implements OnInit {
       error: (error) => {
         console.error('Failed to load flights:', error);
       },
+    })
+
+  }
+  navigateToAddFlight(): void {
+    this.flightService.createUniqueId().then((uniqueId) => {
+      this.router.navigate(['/flight-form', uniqueId]);
+    }).catch((error) => {
+      console.error('Error creating unique ID:', error);
     });
   }
 }

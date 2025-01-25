@@ -5,12 +5,12 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Flight } from '../../model/flight';
 import { FlightsService } from '../../service/flights.service';
 @Component({
   selector: 'app-flights-table',
-  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, RouterLink],
+  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe],
   templateUrl: './flights-table.component.html',
   styleUrls: ['./flights-table.component.css']
 })
@@ -28,6 +28,7 @@ export class FlightsTableComponent implements AfterViewInit {
   constructor(private flightService: FlightsService, private router: Router) { }
 
   ngOnChanges(): void {
+    this.refreshFlights();
     if (this.flights) {
       this.dataSource.data = this.sortById(this.flights); // Sort before assigning
     }
@@ -41,8 +42,8 @@ export class FlightsTableComponent implements AfterViewInit {
     this.refreshFlights();
     this.dataSource.sort = this.sort;
   }
-
   refreshFlights(): void {
+    this.flightService.refreshFlights();
     this.flightService.listFlights().subscribe({
       next: (flights: Flight[]) => {
         this.dataSource.data = this.sortById(flights); // Sort before assigning to dataSource
@@ -71,6 +72,12 @@ export class FlightsTableComponent implements AfterViewInit {
 
   openFlightDetails(flight: Flight): void {
     this.router.navigate(['/flight-details', flight.flightNo]);
+  }
+  openEditFlight(flight: Flight): void {
+    this.router.navigate(['/edit-flight', flight.id]);
+  }
+  openBookFlight(flight: Flight): void {
+    this.router.navigate(['/book-flight', flight.flightNo]);
   }
 
   applyFilter(event: Event): void {

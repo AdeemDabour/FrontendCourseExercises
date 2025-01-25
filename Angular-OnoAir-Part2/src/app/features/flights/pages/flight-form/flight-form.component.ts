@@ -11,7 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 import { DestinationService } from '../../../destinations/service/destinations.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { Timestamp } from 'firebase/firestore';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-flight-form',
@@ -25,24 +25,29 @@ import { Timestamp } from 'firebase/firestore';
     RouterModule,
     MatOptionModule,
     MatSelectModule,
+    MatDatepickerModule,
   ],
   templateUrl: './flight-form.component.html',
   styleUrls: ['./flight-form.component.css'],
 })
 export class FlightFormComponent implements OnInit {
   newFlight: Flight = new Flight(
-    '0',
+    '',
     '',
     '',
     '',
     new Date(),
     new Date(),
-    '0',
+    '',
     Status.Active
   );
 
   destinations: string[] = []; // List of destination names
-
+  today: Date = new Date();
+  boardingDate: Date | null = null;
+  boardingTime: string = '';
+  landingDate: Date | null = null;
+  landingTime: string = '';
   @Input() id = 0;
 
   constructor(
@@ -52,84 +57,43 @@ export class FlightFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.id > 0) {
-      this.flightService.getFlightByNumber(this.id.toString()).subscribe((flight) => {
-        if (flight) {
-          this.newFlight = flight;
-        } else {
-          console.error(`Flight with ID ${this.id} not found.`);
-        }
-      });
-    }
-  
+    this.flightService.loadFlights();
     // Load destination names from the service
     this.destinations = this.destinationService.listDestinationNames();
   }
-  
-
-  addFlight(): void {
-    this.flightService.createUniqueId().then((uniqueId) => {
-      this.router.navigate(['/flight-form', uniqueId]);
-    }).catch((error) => {
-      console.error('Error generating unique ID:', error);
-      alert('Failed to create a unique ID. Please try again.');
-    });
-  }
-  
-
-  removeFlight(): void {
-    this.flightService.removeFlight(this.id.toString());
-    this.router.navigate(['/manage-flights']);
-  }
-
   onSubmitRegistration(): void {
-    if (!this.isValidFlight()) {
-      alert('Invalid flight details. Please correct the errors.');
-      return;
-    }
-  
-    // Generate the ID and proceed only after it's resolved
-    if (!this.newFlight.id || this.newFlight.id.trim() === '') {
-      this.flightService.createUniqueId().then((uniqueId) => {
-        this.newFlight.id = uniqueId;
-  
-        // Add the flight after the ID is set
-        this.flightService.addFlight(this.newFlight).then(() => {
-          this.router.navigate(['/manage-flights']);
-        }).catch((error) => {
-          console.error('Error adding flight:', error);
-          alert('Failed to add flight. Please try again.');
-        });
-      });
+    if (this.isValidFlight()) {
+      this.combineDateAndTime();
+      this.flightService.addFlight(this.newFlight);
+      this.router.navigate(['/manage-flights']);
+      alert('Flight added successfully!,Please refresh the page.');
+    } else {
+      alert('Invalid flight Times. Please correct the Boarding/Landing times.');
     }
   }
-  
+
+  combineDateAndTime(): void {
+    if (this.boardingDate && this.boardingTime) {
+      const [hours, minutes] = this.boardingTime.split(':').map(Number);
+      this.newFlight.boarding = new Date(this.boardingDate);
+      this.newFlight.boarding.setHours(hours, minutes);
+    }
+
+    if (this.landingDate && this.landingTime) {
+      const [hours, minutes] = this.landingTime.split(':').map(Number);
+      this.newFlight.landing = new Date(this.landingDate);
+      this.newFlight.landing.setHours(hours, minutes);
+    }
+  }
 
   isValidFlight(): boolean {
-    const boardingDate = this.newFlight.boarding;
-    const landingDate = this.newFlight.landing;
     return (
-      boardingDate > new Date() &&
-      boardingDate < landingDate &&
-      this.newFlight.origin !== this.newFlight.destination &&
-      Number(this.newFlight.seats) > 0
+      !!this.boardingDate && // Ensure boardingDate is not null or undefined
+      !!this.landingDate &&  // Ensure landingDate is not null or undefined
+      this.landingDate > this.boardingDate // landingDate must be after boardingDate
     );
   }
+  
+  
 
-  isBoardingInFuture(): boolean {
-    if (!this.newFlight.boarding) {
-      return true;
-    }
-    const boardingDate = this.newFlight.boarding;
-    return boardingDate > new Date();
-  }
-
-  isBoardingBeforeLanding(): boolean {
-    if (!this.newFlight.boarding || !this.newFlight.landing) {
-      return true;
-    }
-    const boardingDate = this.newFlight.boarding;
-    const landingDate = this.newFlight.landing;
-    return boardingDate < landingDate;
-  }
 }

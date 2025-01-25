@@ -4,11 +4,13 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideNativeDateAdapter } from '@angular/material/core';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideAnimationsAsync(),
+    provideNativeDateAdapter(),
     provideFirestore(() => getFirestore()),
     provideFirebaseApp(() => initializeApp({
       apiKey: "AIzaSyBh8F1KMuCVlJouYFLPZJclI2QVyV1c2jM",

@@ -56,7 +56,6 @@ export class EditDestinationComponent implements OnInit {
   async saveDestination(): Promise<void> {
     try {
       await this.destinationService.updateDestination(this.destination.id, this.destination); // עדכון ב-API
-      console.log('Destination updated successfully.');
       this.router.navigate(['/manage-destinations']);
     } catch (error) {
       console.error('Error updating destination:', error);

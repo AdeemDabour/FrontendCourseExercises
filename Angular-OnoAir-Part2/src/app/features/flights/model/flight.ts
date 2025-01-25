@@ -1,5 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
-
 export class Flight {
   constructor(
     public id: string,

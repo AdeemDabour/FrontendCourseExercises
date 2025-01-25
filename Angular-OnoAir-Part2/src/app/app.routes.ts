@@ -12,7 +12,7 @@ import { BookFlightComponent } from './features/bookings/pages/book-flight/book-
 import { DestinationFormComponent } from './features/destinations/pages/destination-form/destination-form.component';
 import { FlightFormComponent } from './features/flights/pages/flight-form/flight-form.component';
 import { EditDestinationComponent } from './features/destinations/pages/edit-destination/edit-destination.component';
-
+import { EditFlightComponent } from './features/flights/pages/edit-flight/edit-flight.component';
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
@@ -28,5 +28,6 @@ export const routes: Routes = [
   { path: 'book-flight/:flightNo', component: BookFlightComponent },
   { path: 'edit-destination/:id', component: EditDestinationComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
+  { path: 'edit-flight/:id', component: EditFlightComponent },
   { path: '**', redirectTo: '' }
 ];

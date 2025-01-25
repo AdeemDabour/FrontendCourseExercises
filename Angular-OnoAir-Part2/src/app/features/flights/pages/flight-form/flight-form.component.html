@@ -15,10 +15,7 @@
             />
           </mat-form-field>
           <mat-error *ngIf="flightNo.invalid && flightNo.dirty && flightNo.value">
-            <span *ngIf="flightNo.hasError('required')">Flight No. is required.</span>
-            <span *ngIf="flightNo.hasError('pattern')">
               Flight No. must contain only letters or numbers.
-            </span>
           </mat-error>
         </div>
   
@@ -57,31 +54,80 @@
   
         <div>
           <mat-form-field>
-            <mat-label>Boarding</mat-label>
+            <mat-label>Boarding Date</mat-label>
             <input
               matInput
-              name="boarding"
+              [matDatepicker]="boardingPicker"
+              name = "boardingDate"
               required
-              [(ngModel)]="newFlight.boarding"
-              #boarding="ngModel"
-              type="datetime-local"
+              [(ngModel)]="boardingDate"
+              #boardingDateInput="ngModel"
+              [min]="today"
             />
+            <mat-datepicker-toggle matSuffix [for]="boardingPicker"></mat-datepicker-toggle>
+            <mat-datepicker #boardingPicker></mat-datepicker>
+            <mat-error *ngIf="boardingDateInput.invalid && boardingDateInput.touched">
+              <span *ngIf="boardingDateInput.errors?.['required']">Boarding date is required.</span>
+              <span *ngIf="boardingDateInput.errors?.['matDatepickerMin']">
+                Boarding date must be today or later.
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Boarding Time</mat-label>
+            <input
+              matInput
+              type="time"
+              name = "boardingTime"
+              required
+              [(ngModel)]="boardingTime"
+              #boardingTimeInput="ngModel"
+            />
+            <mat-error *ngIf="boardingTimeInput.invalid && boardingTimeInput.touched">
+              Boarding time is required.
+            </mat-error>
           </mat-form-field>
         </div>
-  
+        
         <div>
           <mat-form-field>
-            <mat-label>Landing</mat-label>
+            <mat-label>Landing Date</mat-label>
             <input
               matInput
-              name="landing"
+              [matDatepicker]="landingPicker"
+              name = "landingDate"
               required
-              [(ngModel)]="newFlight.landing"
-              #landing="ngModel"
-              type="datetime-local"
+              [(ngModel)]="landingDate"
+              #landingDateInput="ngModel"
+              [min]="boardingDate || today"
             />
+            <mat-datepicker-toggle matSuffix [for]="landingPicker"></mat-datepicker-toggle>
+            <mat-datepicker #landingPicker></mat-datepicker>
+            <mat-error *ngIf="landingDateInput.invalid && landingDateInput.touched">
+              <span *ngIf="landingDateInput.errors?.['required']">Landing date is required.</span>
+              <span *ngIf="landingDateInput.errors?.['matDatepickerMin']">
+                Landing date must be after the boarding date.
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Landing Time</mat-label>
+            <input
+              matInput
+              type="time"
+              name = "landingTime"
+              required
+              [(ngModel)]="landingTime"
+              #landingTimeInput="ngModel"
+            />
+            <mat-error *ngIf="landingTimeInput.invalid && landingTimeInput.touched">
+              Landing time is required.
+            </mat-error>
           </mat-form-field>
         </div>
+        
+        
+        
   
         <div>
           <mat-form-field>
@@ -93,8 +139,8 @@
               [(ngModel)]="newFlight.seats"
               #seats="ngModel"
               type="number"
-              min="1"
-            />
+              min="1"/>
+              <mat-error>seats must be greater than 0 </mat-error>
           </mat-form-field>
         </div>
   
@@ -105,9 +151,6 @@
           [disabled]="submitForm.invalid || submitForm.pristine"
         >
           Save
-        </button>
-        <button mat-raised-button color="warn" type="button" (click)="removeFlight()">
-          Remove Flight
         </button>
         <button mat-raised-button color="accent" routerLink="/manage-flights">Back</button>
       </form>
