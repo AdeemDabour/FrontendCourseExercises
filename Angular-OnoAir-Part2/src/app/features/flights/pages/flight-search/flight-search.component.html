@@ -1,5 +1,6 @@
+<h2 class="glitter-text">Flight Search</h2>
 <div *ngIf="futureFlights$ | async as futureFlights; else loading">
-  <app-flights-table [flights]="futureFlights"></app-flights-table>
+  <app-flights-table [flights]="futureFlights" [showActionsColumn]="false"></app-flights-table>
 </div>
 <ng-template #loading>
   <p>Loading flights...</p>

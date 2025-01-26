@@ -3,7 +3,6 @@ import { FlightsService } from '../../../flights/service/flights.service';
 import { FlightsTableComponent } from '../../../flights/pages/flights-table/flights-table.component';
 import { Flight } from '../../../flights/model/flight';
 import { CommonModule } from '@angular/common';
-import { Timestamp } from 'firebase/firestore'; // Ensure you import Timestamp if using Firestore
 
 @Component({
   selector: 'app-find-flight',
