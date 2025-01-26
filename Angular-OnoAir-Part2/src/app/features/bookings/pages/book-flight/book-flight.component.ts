@@ -12,7 +12,8 @@ import { FlightsService } from '../../../flights/service/flights.service';
 import { Flight } from '../../../flights/model/flight';
 import { Passenger } from '../../model/passenger';
 import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
-
+import { BookingService } from '../../service/bookings.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 @Component({
   selector: 'app-book-flight',
   imports: [
@@ -27,6 +28,7 @@ import { PassengerCardComponent } from '../passenger-card/passenger-card.compone
     FormsModule,
     CommonModule,
     PassengerCardComponent,
+    MatProgressBarModule
   ],
   templateUrl: './book-flight.component.html',
   styleUrls: ['./book-flight.component.css'],
@@ -37,11 +39,13 @@ export class BookFlightComponent implements OnInit {
   passengers: Passenger[] = [];
   bookingCode: string = '';
   errorMessage: string | null = null;
+  isLoading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private flightsService: FlightsService,
-    private router: Router
+    private router: Router,
+    private bookingService: BookingService
   ) {}
 
   ngOnInit(): void {
@@ -92,34 +96,27 @@ export class BookFlightComponent implements OnInit {
     }
   }
 
-  submitBooking(): void {
+  async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
       return;
     }
 
-    this.bookingCode = this.generateBookingCode();
+    this.isLoading = true;
 
-    const bookingDetails = {
-      bookingCode: this.bookingCode,
-      flight: this.flight,
-      passengers: this.passengers,
-      passengerCount: this.numPassengers,
-    };
-
-    console.log('Navigating to booking details with:', bookingDetails);
-
-    this.router.navigate(['/booking-details', this.bookingCode], {
-      state: { bookingDetails },
-    });
+    try {
+      const bookingCode = await this.bookingService.saveBooking(this.flight.flightNo, this.passengers);
+      console.log('Booking saved with code:', bookingCode);
+      this.router.navigate(['/booking-details', bookingCode], {
+        state: { flight: this.flight, passengers: this.passengers },
+      });
+    } catch (error) {
+      this.errorMessage = 'Unable to complete booking. Please try again later.';
+    } finally {
+      this.isLoading = false;
+    }
   }
 
-  private generateBookingCode(): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    return Array.from({ length: 6 })
-      .map(() => characters.charAt(Math.floor(Math.random() * characters.length)))
-      .join('');
-  }
 
   goBack(): void {
     this.router.navigate(['/flight-search']);

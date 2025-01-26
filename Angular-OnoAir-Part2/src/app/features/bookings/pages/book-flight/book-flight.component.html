@@ -1,62 +1,64 @@
 <div class="form-container">
-  <ng-container *ngIf="!errorMessage; else errorTemplate">
-    <mat-card *ngIf="bookingCode" class="booking-card">
-      <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
-    </mat-card>
-
-    <mat-card *ngIf="flight" class="flight-card">
-      <h2 class="glitter-text">Book a Flight</h2>
-      <mat-divider></mat-divider>
-      <table mat-table [dataSource]="[flight]" class="mat-elevation-z8 flight-details-table">
-        <ng-container matColumnDef="flightNo">
-          <th mat-header-cell *matHeaderCellDef> Flight No. </th>
-          <td mat-cell *matCellDef="let element"> {{ element.flightNo }} </td>
-        </ng-container>
-        <ng-container matColumnDef="origin">
-          <th mat-header-cell *matHeaderCellDef> Origin </th>
-          <td mat-cell *matCellDef="let element"> {{ element.origin }} </td>
-        </ng-container>
-        <ng-container matColumnDef="destination">
-          <th mat-header-cell *matHeaderCellDef> Destination </th>
-          <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
-        </ng-container>
-        <ng-container matColumnDef="boarding">
-          <th mat-header-cell *matHeaderCellDef> Boarding </th>
-          <td mat-cell *matCellDef="let element"> {{ element.boarding | date: 'dd/MM/yyyy HH:mm' }} </td>
-        </ng-container>
-        <ng-container matColumnDef="landing">
-          <th mat-header-cell *matHeaderCellDef> Landing </th>
-          <td mat-cell *matCellDef="let element"> {{ element.landing | date: 'dd/MM/yyyy HH:mm' }} </td>
-        </ng-container>
-        <ng-container matColumnDef="seats">
-          <th mat-header-cell *matHeaderCellDef> Seats </th>
-          <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats']">
-        </tr>
-        <tr mat-row
-          *matRowDef="let row; columns: ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats'];">
-        </tr>
-      </table>
-
-      <mat-card class="form-card">
-        <mat-form-field appearance="outline">
-          <mat-label>No. of Passengers</mat-label>
-          <input matInput type="number" [value]="numPassengers" min="1" [max]="flight.seats"
-            (input)="updatePassengers($event)" />
-          <mat-hint>Enter between 1 and {{ flight.seats }}</mat-hint>
-        </mat-form-field>
-
-        <ng-container *ngFor="let passenger of passengers; let i = index">
-          <app-passenger-card [passenger]="passenger" [index]="i"
-            (passengerChange)="updatePassenger(i, $event)"></app-passenger-card>
-        </ng-container>
+  <ng-container *ngIf="!isLoading; else loadingTemplate">
+    <ng-container *ngIf="!errorMessage; else errorTemplate">
+      <mat-card *ngIf="bookingCode" class="booking-card">
+        <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
       </mat-card>
 
-      <div class="button-container">
-        <button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
-      </div>
-    </mat-card>
+      <mat-card *ngIf="flight" class="flight-card">
+        <h2 class="glitter-text">Book a Flight</h2>
+        <mat-divider></mat-divider>
+        <table mat-table [dataSource]="[flight]" class="mat-elevation-z8 flight-details-table">
+          <ng-container matColumnDef="flightNo">
+            <th mat-header-cell *matHeaderCellDef> Flight No. </th>
+            <td mat-cell *matCellDef="let element"> {{ element.flightNo }} </td>
+          </ng-container>
+          <ng-container matColumnDef="origin">
+            <th mat-header-cell *matHeaderCellDef> Origin </th>
+            <td mat-cell *matCellDef="let element"> {{ element.origin }} </td>
+          </ng-container>
+          <ng-container matColumnDef="destination">
+            <th mat-header-cell *matHeaderCellDef> Destination </th>
+            <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
+          </ng-container>
+          <ng-container matColumnDef="boarding">
+            <th mat-header-cell *matHeaderCellDef> Boarding </th>
+            <td mat-cell *matCellDef="let element"> {{ element.boarding | date: 'dd/MM/yyyy HH:mm' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="landing">
+            <th mat-header-cell *matHeaderCellDef> Landing </th>
+            <td mat-cell *matCellDef="let element"> {{ element.landing | date: 'dd/MM/yyyy HH:mm' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="seats">
+            <th mat-header-cell *matHeaderCellDef> Seats </th>
+            <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats']">
+          </tr>
+          <tr mat-row
+            *matRowDef="let row; columns: ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats'];">
+          </tr>
+        </table>
+
+        <mat-card class="form-card">
+          <mat-form-field appearance="outline">
+            <mat-label>No. of Passengers</mat-label>
+            <input matInput type="number" [value]="numPassengers" min="1" [max]="flight.seats"
+              (input)="updatePassengers($event)" />
+            <mat-hint>Enter between 1 and {{ flight.seats }}</mat-hint>
+          </mat-form-field>
+
+          <ng-container *ngFor="let passenger of passengers; let i = index">
+            <app-passenger-card [passenger]="passenger" [index]="i"
+              (passengerChange)="updatePassenger(i, $event)"></app-passenger-card>
+          </ng-container>
+        </mat-card>
+
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="submitBooking()">Submit Booking</button>
+        </div>
+      </mat-card>
+    </ng-container>
   </ng-container>
 
   <ng-template #errorTemplate>
@@ -66,6 +68,13 @@
       <mat-card-actions align="end">
         <button mat-raised-button color="primary" (click)="goBack()">Back</button>
       </mat-card-actions>
+    </mat-card>
+  </ng-template>
+
+  <ng-template #loadingTemplate>
+    <mat-card>
+      <p class="loading-text">Loading flight details...</p>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card>
   </ng-template>
 </div>

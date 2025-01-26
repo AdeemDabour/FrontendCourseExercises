@@ -7,19 +7,16 @@ export const BookingConverter: FirestoreDataConverter<Booking> = {
     return {
       bookingCode: booking.bookingCode,
       flightNo: booking.flightNo,
-      status: booking.status,
+      status: booking.status, // Exclude passengers; they are in a sub-collection
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot): Booking {
     const data = snapshot.data();
-    const passengers: Passenger[] = (data['passengers'] || []).map((passengerData: any) => {
-      return new Passenger(passengerData.name, passengerData.passport);
-    });
     return new Booking(
       snapshot.id,
       data['bookingCode'],
       data['flightNo'],
-      passengers,
+      [], // Passengers will be fetched from the sub-collection
       data['status']
     );
   },
@@ -34,6 +31,6 @@ export const PassengerConverter: FirestoreDataConverter<Passenger> = {
   },
   fromFirestore(snapshot: QueryDocumentSnapshot): Passenger {
     const data = snapshot.data();
-    return new Passenger(data['name'], data['passport']);
+    return new Passenger(data['name'] || '', data['passport'] || ''); // Fallback to avoid undefined issues
   },
 };

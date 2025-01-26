@@ -26,27 +26,28 @@ export class BookingCardComponent implements OnInit {
 
   ngOnInit(): void {
     // Retrieve flight details based on flightNo
-    this.bookingService.getFlightDetails(this.booking.flightNo).subscribe(
-      flight => {
+    this.bookingService.getFlightDetails(this.booking.flightNo).subscribe({
+      next: (flight) => {
         this.flight = flight;
-
+  
         // Retrieve destination image if the flight exists
         if (this.flight?.destination) {
-          this.destinationService.getDestinationImage(this.flight.destination).subscribe(
-            imageUrl => {
+          this.destinationService.getDestinationImage(this.flight.destination).subscribe({
+            next: (imageUrl) => {
               this.destinationImageUrl = imageUrl;
             },
-            error => {
+            error: (error) => {
               console.error('Error fetching destination image:', error);
-            }
-          );
+            },
+          });
         }
       },
-      error => {
+      error: (error) => {
         console.error('Error fetching flight details:', error);
-      }
-    );
+      },
+    });
   }
+  
 
   viewBooking(): void {
     this.viewBookingEvent.emit(this.booking);
