@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, deleteDoc, doc, setDoc, collectionData, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, deleteDoc, doc, setDoc, getDocs } from '@angular/fire/firestore';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Destination, Status } from '../model/destination';
 import { destinationConverter } from '../model/destination-converter';
-import { ManageDestinationsComponent } from '../pages/manage-destinations/manage-destinations.component';
 @Injectable({
   providedIn: 'root',
 })

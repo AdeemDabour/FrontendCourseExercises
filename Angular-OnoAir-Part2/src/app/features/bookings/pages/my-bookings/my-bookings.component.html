@@ -1,6 +1,6 @@
 <h2 class="glitter-text">My Bookings</h2>
 
-<div>
+<div *ngIf="!isLoading; else loadingTemplate">
   <h3 class="section-title">Upcoming Bookings</h3>
   <ng-container *ngIf="upcomingBookings.length > 0; else noUpcoming">
     <ng-container *ngTemplateOutlet="bookingsList; context: { bookings: upcomingBookings }"></ng-container>
@@ -27,5 +27,12 @@
         (viewBookingEvent)="viewBooking($event)">
       </app-booking-card>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Loading bookings details...</p>
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
   </div>
 </ng-template>
