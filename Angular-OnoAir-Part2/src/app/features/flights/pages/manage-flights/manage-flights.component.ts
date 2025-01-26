@@ -5,16 +5,17 @@ import { Flight } from '../../model/flight';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-manage-flights',
-  imports: [FlightsTableComponent, MatButtonModule, CommonModule],
+  imports: [FlightsTableComponent, MatButtonModule, CommonModule, MatProgressBarModule],
   templateUrl: './manage-flights.component.html',
   styleUrls: ['./manage-flights.component.css'],
 })
 export class ManageFlightsComponent implements OnInit {
   flights: Flight[] = [];
-
+  isLoading: boolean = true;
   constructor(private flightService: FlightsService, private router: Router) {}
 
   ngOnInit(): void {
@@ -22,14 +23,18 @@ export class ManageFlightsComponent implements OnInit {
   }
   async loadFlights(): Promise<void> {
     await this.flightService.refreshFlights();
-    this.flightService.listFlights().subscribe({
-      next: (flights) => {
-        this.flights = flights;
-      },
-      error: (error) => {
-        console.error('Failed to load flights:', error);
-      },
-    })
+    try {
+      this.flightService.listFlights().subscribe({
+        next: (flights) => {
+          this.flights = flights;
+        },
+      }
+    );} catch (error) {
+      console.error('Failed to load flights:', error);
+    }
+    finally {
+      this.isLoading = false;
+    }
 
   }
   navigateToAddFlight(): void {

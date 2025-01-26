@@ -1,5 +1,5 @@
-<mat-card class="flight-card-container">
-  <div class="image-destination">
+<mat-card class="flight-card-container" >
+  <div class="image-destination" *ngIf="!isLoading; else loadingTemplate">
     <img mat-card-image [src]="destinationImageUrl" alt="{{ flight.destination }}" />
   </div>
 
@@ -22,3 +22,9 @@
     </div>
   </mat-card-actions>
 </mat-card>
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Loading flights cards...</p>
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  </div>
+</ng-template>

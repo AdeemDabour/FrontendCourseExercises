@@ -1,6 +1,6 @@
 <h2 class="glitter-text">Manage Flights</h2>
-
-<div *ngIf="flights.length > 0; else noFlights">
+<ng-container *ngIf="!isLoading; else loadingTemplate">
+<div *ngIf="flights.length > 0; else noFlights" >
   <app-flights-table [flights]="flights"></app-flights-table>
 </div>
 
@@ -10,4 +10,10 @@
 
 <div class="button-container">
   <button mat-raised-button color="primary" (click)="navigateToAddFlight()">Add Flight</button>
-</div>
+</div></ng-container>
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Loading Manage flights...</p>
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  </div>
+</ng-template>

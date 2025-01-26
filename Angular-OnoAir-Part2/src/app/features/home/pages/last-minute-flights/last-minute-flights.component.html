@@ -1,6 +1,6 @@
 <h2 class="section-title">Last Minute Flights</h2>
 
-<div class="flights-container">
+<div class="flights-container" *ngIf="!isLoading; else loadingTemplate">
   <ng-container *ngIf="lastMinuteFlights.length > 0; else noFlights">
     <mat-grid-list cols="5" rowHeight="400px" gutterSize="20px">
       <mat-grid-tile *ngFor="let flight of lastMinuteFlights">
@@ -14,3 +14,9 @@
     </div>
   </ng-template>
 </div>
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Loading last minute flights...</p>
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  </div>
+</ng-template>

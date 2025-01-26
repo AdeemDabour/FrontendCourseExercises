@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
 import { DestinationService } from '../../service/destinations.service';
 import { Destination } from '../../model/destination';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-manage-destinations',
-  imports: [MatSortModule, MatTableModule, MatIcon, MatButtonModule],
+  imports: [MatSortModule, MatTableModule, MatIcon, MatButtonModule, MatProgressBarModule, CommonModule],
   templateUrl: './manage-destinations.component.html',
   styleUrls: ['./manage-destinations.component.css'],
 })
@@ -18,7 +20,7 @@ export class ManageDestinationsComponent implements OnInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
   displayedColumns: string[] = ['id', 'name', 'airportName', 'airportWebsite', 'email', 'code', 'imageUrl', 'actions'];
   dataSource = new MatTableDataSource<Destination>();
-
+  isLoading: boolean = true;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private destinationService: DestinationService, private router: Router) {}
@@ -28,11 +30,19 @@ export class ManageDestinationsComponent implements OnInit {
   }
 
   async loadDestinations(): Promise<void> {
+    this.isLoading = true;
     await this.destinationService.refreshDestinations();
-    this.destinationService.refreshDestinations().then((destinations) => {
-      this.dataSource.data = destinations;
-      this.dataSource.sort = this.sort;
-    });
+    try {
+      this.destinationService.refreshDestinations().then((destinations) => {
+        this.dataSource.data = destinations;
+        this.dataSource.sort = this.sort;
+      });
+    } catch (error) {
+      console.error('Failed to load destinations:', error);
+    }finally {
+      this.isLoading = false;
+    }
+    
   }
 
   announceSortChange(sortState: Sort): void {

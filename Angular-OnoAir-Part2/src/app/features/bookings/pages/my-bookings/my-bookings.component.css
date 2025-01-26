@@ -13,18 +13,3 @@
   font-size: 24px;
   margin: 20px 0;
 }
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 10vh; /* Full viewport height */
-  text-align: center;
-  gap: 1rem; /* Space between the text and the progress bar */
-}
-
-.loading-container p {
-  font-size: 1.2rem;
-  color: #7e013f; /* Subtle text color */
-  margin: 0;
-}
