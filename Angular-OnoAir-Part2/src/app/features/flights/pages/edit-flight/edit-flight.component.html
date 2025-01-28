@@ -1,75 +1,112 @@
 <div class="form-container" *ngIf="!isLoading; else loadingTemplate">
-    <mat-card class="form-card">
-      <h2 class="glitter-text">Edit Flight</h2>
-      <form #editFlightForm="ngForm" (ngSubmit)="saveFlight()">
-        <div>
-          <mat-form-field>
-            <mat-label>ID</mat-label>
-            <input matInput name="id" [(ngModel)]="flight.id" disabled />
-          </mat-form-field>
-        </div>
-  
-        <div>
-          <mat-form-field>
-            <mat-label>Flight Number</mat-label>
-            <input matInput name="flightNo" required [(ngModel)]="flight.flightNo" />
-          </mat-form-field>
-        </div>
-  
-        <div>
-          <mat-form-field>
-            <mat-label>Origin</mat-label>
-            <input matInput name="origin" required [(ngModel)]="flight.origin" />
-          </mat-form-field>
-        </div>
-  
-        <div>
-          <mat-form-field>
-            <mat-label>Destination</mat-label>
-            <input matInput name="destination" required [(ngModel)]="flight.destination" />
-          </mat-form-field>
-        </div>
-  
-        <div>
-          <mat-form-field>
-            <mat-label>Boarding Date</mat-label>
-            <input matInput name="boarding" [matDatepicker]="boardingPicker" required [(ngModel)]="flight.boarding" />
-            <mat-datepicker-toggle matSuffix [for]="boardingPicker"></mat-datepicker-toggle>
-            <mat-datepicker #boardingPicker></mat-datepicker>
-          </mat-form-field>
-        </div>
-  
-        <div>
-          <mat-form-field>
-            <mat-label>Landing Date</mat-label>
-            <input matInput name="landing" [matDatepicker]="landingPicker" required [(ngModel)]="flight.landing" />
-            <mat-datepicker-toggle matSuffix [for]="landingPicker"></mat-datepicker-toggle>
-            <mat-datepicker #landingPicker></mat-datepicker>
-          </mat-form-field>
-        </div>
-  
-        <div>
-          <mat-form-field>
-            <mat-label>Seats</mat-label>
-            <input matInput name="seats" required [(ngModel)]="flight.seats" type="number" />
-          </mat-form-field>
-        </div>
-        
-        <div class="button-container">
-          <button mat-raised-button color="primary" type="submit" [disabled]="editFlightForm.invalid">
-            Save
-          </button>
-          <button mat-raised-button color="warn" type="button" (click)="cancelEdit()">
-            Cancel
-          </button>
-        </div>
-      </form>
-    </mat-card>
-  </div>
-  
-  <ng-template #loadingTemplate>
-    <mat-card>
-      <p>Loading flight details...</p>
-    </mat-card>
-  </ng-template>
-  
+  <mat-card class="form-card">
+    <h2 class="glitter-text">Edit Flight</h2>
+    <form #editFlightForm="ngForm" (ngSubmit)="saveFlight()">
+      <div>
+        <mat-form-field>
+          <mat-label>ID</mat-label>
+          <input matInput name="id" [(ngModel)]="flight.id" disabled />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Flight Number</mat-label>
+          <input matInput name="flightNo" required [(ngModel)]="flight.flightNo" />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Origin</mat-label>
+          <input matInput name="origin" required [(ngModel)]="flight.origin" />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Destination</mat-label>
+          <input matInput name="destination" required [(ngModel)]="flight.destination" />
+        </mat-form-field>
+      </div>
+
+      <!-- Boarding Date and Time -->
+      <div>
+        <mat-form-field>
+          <mat-label>Boarding Date</mat-label>
+          <input
+            matInput
+            name="boardingDate"
+            [matDatepicker]="boardingPicker"
+            required
+            [(ngModel)]="boardingDate"
+          />
+          <mat-datepicker-toggle matSuffix [for]="boardingPicker"></mat-datepicker-toggle>
+          <mat-datepicker #boardingPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Boarding Time</mat-label>
+          <input
+            matInput
+            name="boardingTime"
+            type="time"
+            required
+            [(ngModel)]="boardingTime"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- Landing Date and Time -->
+      <div>
+        <mat-form-field>
+          <mat-label>Landing Date</mat-label>
+          <input
+            matInput
+            name="landingDate"
+            [matDatepicker]="landingPicker"
+            required
+            [(ngModel)]="landingDate"
+          />
+          <mat-datepicker-toggle matSuffix [for]="landingPicker"></mat-datepicker-toggle>
+          <mat-datepicker #landingPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Landing Time</mat-label>
+          <input
+            matInput
+            name="landingTime"
+            type="time"
+            required
+            [(ngModel)]="landingTime"
+          />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Seats</mat-label>
+          <input matInput name="seats" required [(ngModel)]="flight.seats" type="number" />
+        </mat-form-field>
+      </div>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" [disabled]="editFlightForm.invalid">
+          Save
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="cancelEdit()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+<ng-template #loadingTemplate>
+  <mat-card>
+    <p>Loading flight details...</p>
+  </mat-card>
+</ng-template>

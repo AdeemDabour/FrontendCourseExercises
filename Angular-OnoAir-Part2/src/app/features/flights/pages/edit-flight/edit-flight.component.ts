@@ -28,6 +28,10 @@ import { MatOptionModule } from '@angular/material/core';
 })
 export class EditFlightComponent implements OnInit {
   flight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active);
+  boardingDate: Date | null = null;
+  boardingTime: string = '00:00'; // Default to midnight
+  landingDate: Date | null = null;
+  landingTime: string = '00:00'; // Default to midnight
   isLoading: boolean = true;
 
   constructor(
@@ -45,12 +49,17 @@ export class EditFlightComponent implements OnInit {
       this.router.navigate(['/manage-flights']);
     }
   }
+
   async loadFlight(id: string): Promise<void> {
     try {
       this.isLoading = true;
       const flight = await this.flightService.getFlightById(id);
       if (flight) {
         this.flight = flight;
+        this.boardingDate = new Date(flight.boarding);
+        this.boardingTime = this.formatTime(new Date(flight.boarding));
+        this.landingDate = new Date(flight.landing);
+        this.landingTime = this.formatTime(new Date(flight.landing));
       } else {
         console.error('Flight not found.');
         this.router.navigate(['/manage-flights']);
@@ -61,7 +70,19 @@ export class EditFlightComponent implements OnInit {
       this.isLoading = false;
     }
   }
+
+  private formatTime(date: Date): string {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
   async saveFlight(): Promise<void> {
+    if (this.boardingDate && this.boardingTime && this.landingDate && this.landingTime) {
+      this.flight.boarding = this.combineDateAndTime(this.boardingDate, this.boardingTime);
+      this.flight.landing = this.combineDateAndTime(this.landingDate, this.landingTime);
+    }
+
     try {
       await this.flightService.updateFlight(this.flight.id, this.flight);
       this.router.navigate(['/manage-flights']);
@@ -69,6 +90,14 @@ export class EditFlightComponent implements OnInit {
       console.error('Error updating flight:', error);
     }
   }
+
+  private combineDateAndTime(date: Date, time: string): Date {
+    const [hours, minutes] = time.split(':').map(Number);
+    const combinedDate = new Date(date);
+    combinedDate.setHours(hours, minutes, 0, 0);
+    return combinedDate;
+  }
+
   cancelEdit(): void {
     this.router.navigate(['/manage-flights']);
   }
