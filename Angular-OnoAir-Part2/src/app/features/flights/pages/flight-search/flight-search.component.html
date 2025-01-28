@@ -1,7 +1,20 @@
 <h2 class="glitter-text">Flight Search</h2>
-<div *ngIf="futureFlights$ | async as futureFlights; else loading">
-  <app-flights-table [flights]="futureFlights" [showActionsColumn]="false"></app-flights-table>
-</div>
-<ng-template #loading>
-  <p>Loading flights...</p>
+
+<ng-container *ngIf="!isLoading; else loadingTemplate">
+  <div *ngIf="futureFlights$ | async as futureFlights; else noFlightsTemplate">
+    <app-flights-table [flights]="futureFlights" [showActionsColumn]="false"></app-flights-table>
+  </div>
+</ng-container>
+
+<ng-template #noFlightsTemplate >
+  <div class="no-flights-message" >
+    <p>No future flights available.</p>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Loading flights...</p>
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  </div>
 </ng-template>

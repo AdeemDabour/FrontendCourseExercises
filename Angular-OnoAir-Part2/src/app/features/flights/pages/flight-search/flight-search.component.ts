@@ -4,25 +4,26 @@ import { FlightsService } from '../../service/flights.service';
 import { Flight } from '../../model/flight';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-flight-search',
-  imports: [FlightsTableComponent, CommonModule],
+  imports: [FlightsTableComponent, CommonModule, MatProgressBarModule],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.css'
 })
 export class FlightSearchComponent implements OnInit {
   futureFlights$: Observable<Flight[]> = new Observable();
-
+  isLoading: boolean = true;
   constructor(private flightService: FlightsService) {}
 
   ngOnInit(): void {
-    const today = new Date();
-    this.futureFlights$ = this.flightService.listFlights().pipe(
-      map((flights: Flight[]) => 
-        flights.filter((flight: Flight) => flight.boarding > today) // Filter future flights
-      )
-    );
-  }
+    try {
+      this.futureFlights$ = this.flightService.getFutureFlights();
+    } catch (error) {
+      console.warn('Error fetching future flights:', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }  
 }

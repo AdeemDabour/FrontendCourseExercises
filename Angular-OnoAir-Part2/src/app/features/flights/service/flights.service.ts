@@ -113,16 +113,17 @@ export class FlightsService {
     try {
       const collectionRef = this.getFlightsCollection();
       const querySnapshot = await getDocs(collectionRef);
-      
-      // Use the FlightConverter to map data properly
+  
+      // Fetch flights and update BehaviorSubject
       const flights = querySnapshot.docs.map((doc) => doc.data());
+      this.flightsSubject.next(flights); // Update with fresh data
       return flights;
     } catch (error) {
       console.error('Error refreshing flights:', error);
-      return [];
+      this.flightsSubject.next([]); // Clear subject on error
+      throw error;
     }
   }
-  
 
   getFlightsThisWeek(): Observable<Flight[]> {
     const today = new Date();
@@ -139,6 +140,28 @@ export class FlightsService {
       )
     );
   }
+  getFutureFlights(): Observable<Flight[]> {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set the time to midnight for date-only comparison
+  
+    return new Observable<Flight[]>((observer) => {
+      this.refreshFlights()
+        .then((flights) => {
+          const futureFlights = flights.filter((flight) => {
+            const boardingDate = new Date(flight.boarding); // Ensure valid Date object
+            return boardingDate >= today; // Include flights boarding today or later
+          });
+          observer.next(futureFlights);
+          observer.complete();
+        })
+        .catch((error) => {
+          console.error('Error fetching future flights:', error);
+          observer.error(error);
+        });
+    });
+  }
+  
+  
 
   listFlights(): Observable<Flight[]> {
     return this.flights$;

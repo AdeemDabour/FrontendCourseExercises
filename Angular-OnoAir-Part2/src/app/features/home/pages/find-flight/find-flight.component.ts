@@ -4,6 +4,7 @@ import { FlightsTableComponent } from '../../../flights/pages/flights-table/flig
 import { Flight } from '../../../flights/model/flight';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-find-flight',
@@ -12,27 +13,18 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrl: './find-flight.component.css'
 })
 export class FindFlightComponent implements OnInit {
-  futureFlights: Flight[] = [];
+  futureFlights$: Observable<Flight[]> = new Observable();
   isLoading: boolean = true;
   constructor(private flightService: FlightsService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    const now = new Date();
     try {
-      this.flightService.listFlights().subscribe({
-        next: (allFlights: Flight[]) => {
-          this.futureFlights = allFlights.filter((flight: Flight) => {
-            const boardingDate = flight.boarding;
-            return boardingDate.getTime() > now.getTime();
-          });
-        },
-      });
+      this.futureFlights$ = this.flightService.getFutureFlights();
     } catch (error) {
-      console.error('Error fetching future flights:', error);
+      console.warn('Error fetching future flights:', error);
     } finally {
       this.isLoading = false;
     }
-    
-  }
+  }  
 }
