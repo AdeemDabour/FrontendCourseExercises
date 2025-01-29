@@ -125,6 +125,7 @@ export class FlightsService {
     }
   }
 
+
   getFlightsThisWeek(): Observable<Flight[]> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);

@@ -4,9 +4,10 @@ import { BookingService } from '../../service/bookings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { Booking } from '../../model/booking';
+import { Booking, Status } from '../../model/booking';
 import { BookingCardComponent } from '../booking-card/booking-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FlightsService } from '../../../flights/service/flights.service';
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
@@ -18,7 +19,11 @@ export class MyBookingsComponent implements OnInit {
   upcomingBookings: Booking[] = [];
   previousBookings: Booking[] = [];
   isLoading: boolean = true;
-  constructor(private bookingService: BookingService, private router: Router) {}
+  constructor(
+    private bookingService: BookingService,
+    private router: Router,
+    private flightService: FlightsService
+    ) {}
 
   ngOnInit(): void {
     this.loadBookings();
@@ -29,38 +34,43 @@ export class MyBookingsComponent implements OnInit {
       this.isLoading = true;
       const allBookings = await this.bookingService.listBookings(); // Await the Promise
       const today = new Date();
-
+  
       // Initialize arrays for upcoming and previous bookings
       const upcoming: Booking[] = [];
       const previous: Booking[] = [];
-
+  
       // Process each booking
-      allBookings.forEach((booking: Booking) => {
-        this.bookingService.getFlightDetails(booking.flightNo).subscribe((flight) => {
+      for (const booking of allBookings) {
+        this.bookingService.getFlightDetails(booking.flightNo).subscribe(async (flight) => {
           if (!flight) {
             console.error(`Flight details not found for flight number: ${booking.flightNo}`);
             return;
           }
-
+  
           const boardingDate = flight.boarding; // Already a Date type
-
+  
           if (boardingDate > today) {
             upcoming.push(booking);
           } else {
+            // Add the booking to the previous array and update its status
+            if (booking.status !== Status.Inactive) {
+              await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
+            }
             previous.push(booking);
           }
-
+  
           // Update the properties after processing
           this.upcomingBookings = [...upcoming];
           this.previousBookings = [...previous];
         });
-      });
+      }
     } catch (error) {
       console.error('Error loading bookings:', error);
     } finally {
       this.isLoading = false;
     }
   }
+  
 
   viewBooking(booking: Booking): void {
     this.bookingService.getFlightDetails(booking.flightNo).subscribe((flight) => {

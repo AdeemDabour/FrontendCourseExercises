@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Booking, Status } from '../model/booking';
 import { Passenger } from '../model/passenger';
 import { FlightsService } from '../../flights/service/flights.service';
-import { collection, doc, Firestore, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
+import { collection, doc, Firestore, getDoc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
 import { BookingConverter, PassengerConverter } from '../model/booking-converter';
 
 @Injectable({
@@ -133,6 +133,27 @@ export class BookingService {
       return booking;
     } else {
       return null;
+    }
+  }
+  async updateBookingStatus(bookingId: string, status: Status): Promise<void> {
+    try {
+      const bookingDoc = doc(this.firestore, `${this.bookingsCollection}/${bookingId}`).withConverter(BookingConverter);
+      const bookingSnapshot = await getDoc(bookingDoc); // Use getDoc() to fetch the document
+  
+      if (bookingSnapshot.exists()) {
+        const updatedBooking = {
+          ...bookingSnapshot.data(), // Extract current data
+          status, // Update the status
+        };
+  
+        await setDoc(bookingDoc, updatedBooking); // Save updated booking back to Firestore
+        console.log(`Booking ID: ${bookingId} status updated to ${status}`);
+      } else {
+        console.error(`Booking ID: ${bookingId} does not exist in Firestore.`);
+      }
+    } catch (error) {
+      console.error(`Error updating booking status for ID: ${bookingId}`, error);
+      throw new Error('Unable to update booking status. Please try again later.');
     }
   }
   
