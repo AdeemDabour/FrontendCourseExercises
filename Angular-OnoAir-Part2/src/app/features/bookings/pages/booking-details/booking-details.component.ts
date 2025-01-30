@@ -32,8 +32,6 @@ export class BookingDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.bookingCode = this.route.snapshot.paramMap.get('bookingCode');
-    console.log('Booking Code from URL:', this.bookingCode);
-
     if (this.bookingCode) {
       this.fetchBookingDetails(this.bookingCode);
     } else {
@@ -46,24 +44,13 @@ export class BookingDetailsComponent implements OnInit {
     this.isLoading = true;
     try {
       this.bookingDetails = await this.bookingService.getBookingByCode(bookingCode);
-      console.log('Fetched Booking Details:', this.bookingDetails);
       this.flightService.getFlightByNumber(this.bookingDetails.flightNo).subscribe({
         next: (flight) => {
           this.flight = flight || null;
         },
-        error: (err) => {
-          console.error('Error fetching flight details:', err);
-          this.errorMessage = 'Unable to fetch flight details. Please try again later.';
-        },
       })
-      console.log('Flight:', this.bookingDetails.flightNo);
-      console.log('flight:', this.flight);
-      if (!this.bookingDetails) {
-        this.errorMessage = `Booking with code "${bookingCode}" not found.`;
-      }
     } catch (error) {
-      console.error('Error fetching booking details:', error);
-      this.errorMessage = 'Unable to fetch booking details. Please try again later.';
+      this.errorMessage = `Booking with code "${bookingCode}" does not exist.`;
     } finally {
       this.isLoading = false;
     }

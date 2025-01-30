@@ -29,7 +29,7 @@ export class DestinationDetailsComponent implements OnInit {
       this.destinationService.loadDestinations();
       this.destinationService.getDestinationByNameOrCode(this.code).subscribe(destination => {
         this.destination = destination || undefined; // Handle undefined case
-        this.errorMessage = this.destination ? null : 'Destination not found';
+        this.errorMessage = this.destination ? null : 'Destination with code "' + this.code + '" does not exist.';
       });
     });
   }
