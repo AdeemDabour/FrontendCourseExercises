@@ -13,6 +13,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+
 @Component({
   selector: 'app-flight-form',
   imports: [
@@ -48,6 +49,9 @@ export class FlightFormComponent implements OnInit {
   boardingTime: string = '';
   landingDate: Date | null = null;
   landingTime: string = '';
+  existingFlightNos: string[] = []; // Store existing flight numbers
+  flightNoExists: boolean = false;
+  invalidTime: boolean = true;
   @Input() id = 0;
 
   constructor(
@@ -56,13 +60,14 @@ export class FlightFormComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.flightService.loadFlights();
     // Load destination names from the service
     this.destinations = this.destinationService.listDestinationNames();
+    this.existingFlightNos = this.flightService.listFlightNames();
   }
   onSubmitRegistration(): void {
-    if (this.isValidFlight()) {
+    if (this.checkValidation()) {
       this.combineDateAndTime();
       this.flightService.addFlight(this.newFlight);
       this.router.navigate(['/manage-flights']);
@@ -85,15 +90,17 @@ export class FlightFormComponent implements OnInit {
       this.newFlight.landing.setHours(hours, minutes);
     }
   }
-
-  isValidFlight(): boolean {
-    return (
-      !!this.boardingDate && // Ensure boardingDate is not null or undefined
-      !!this.landingDate &&  // Ensure landingDate is not null or undefined
-      this.landingDate > this.boardingDate // landingDate must be after boardingDate
-    );
+  isLandingTimeInvalid(): boolean {
+    if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {
+      return false; // If any field is empty, don't show error
+    }
+    this.invalidTime = this.boardingDate.getDate() === this.landingDate.getDate() && this.landingTime <= this.boardingTime;
+    return this.boardingDate.getDate() === this.landingDate.getDate() && this.landingTime <= this.boardingTime;
   }
-  
-  
-
-}
+  checkFlightNoExists(): void {
+    this.flightNoExists = this.existingFlightNos.includes(this.newFlight.flightNo.trim());
+  }
+  checkValidation(): boolean {
+    return this.flightNoExists || this.invalidTime || this.newFlight.origin === this.newFlight.destination;
+  }
+} 

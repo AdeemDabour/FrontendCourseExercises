@@ -11,6 +11,15 @@
     margin-bottom: 16px;
     width: 50%;
 }
+mat-form-field {
+  width: 100%; /* Ensures all fields have equal width */
+  max-width: 215px; /* Adjust this based on your design preference */
+}
+
+.mat-form-field-wrapper {
+  width: 100%;
+}
+
 
 .full-width {
     width: 100%;
