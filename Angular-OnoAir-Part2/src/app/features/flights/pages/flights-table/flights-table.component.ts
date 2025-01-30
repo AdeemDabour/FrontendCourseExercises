@@ -32,7 +32,7 @@ export class FlightsTableComponent implements OnChanges {
 
     this.displayedColumns = this.showActionsColumn
       ? ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
-      : ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
+      : ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
   }
 
   announceSortChange(sortState: Sort): void {

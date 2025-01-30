@@ -12,7 +12,8 @@ import { DestinationService } from '../../../destinations/service/destinations.s
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import { CustomDateAdapter, CUSTOM_DATE_FORMATS } from '../../model/CustomDateAdapter';
 
 @Component({
   selector: 'app-flight-form',
@@ -30,6 +31,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   ],
   templateUrl: './flight-form.component.html',
   styleUrls: ['./flight-form.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+  ],
 })
 export class FlightFormComponent implements OnInit {
   newFlight: Flight = new Flight(
