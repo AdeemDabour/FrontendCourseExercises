@@ -8,6 +8,7 @@ import { Booking, Status } from '../../model/booking';
 import { BookingCardComponent } from '../booking-card/booking-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FlightsService } from '../../../flights/service/flights.service';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
@@ -39,31 +40,35 @@ export class MyBookingsComponent implements OnInit {
       const upcoming: Booking[] = [];
       const previous: Booking[] = [];
   
-      // Process each booking
-      for (const booking of allBookings) {
-        this.bookingService.getFlightDetails(booking.flightNo).subscribe(async (flight) => {
-          if (!flight) {
-            console.error(`Flight details not found for flight number: ${booking.flightNo}`);
-            return;
+      // Create an array of promises for fetching flights
+      const flightPromises = allBookings.map(async (booking) => {
+        const flight = await firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo));
+        
+        if (!flight) {
+          console.error(`Flight details not found for flight number: ${booking.flightNo}`);
+          return;
+        }
+  
+        const boardingDate = flight.boarding; // Already a Date type
+  
+        if (boardingDate > today) {
+          upcoming.push(booking);
+        } else {
+          // Add the booking to the previous array and update its status
+          if (booking.status !== Status.Inactive) {
+            await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
           }
+          previous.push(booking);
+        }
+      });
   
-          const boardingDate = flight.boarding; // Already a Date type
+      // Wait for all flights to be fetched before updating the UI
+      await Promise.all(flightPromises);
   
-          if (boardingDate > today) {
-            upcoming.push(booking);
-          } else {
-            // Add the booking to the previous array and update its status
-            if (booking.status !== Status.Inactive) {
-              await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
-            }
-            previous.push(booking);
-          }
+      // Update the properties after processing
+      this.upcomingBookings = [...upcoming];
+      this.previousBookings = [...previous];
   
-          // Update the properties after processing
-          this.upcomingBookings = [...upcoming];
-          this.previousBookings = [...previous];
-        });
-      }
     } catch (error) {
       console.error('Error loading bookings:', error);
     } finally {
@@ -71,28 +76,39 @@ export class MyBookingsComponent implements OnInit {
     }
   }
   
+  
 
   viewBooking(booking: Booking): void {
-    this.bookingService.getFlightDetails(booking.flightNo).subscribe((flight) => {
-      if (!flight) {
-        console.error(`Flight details not found for flight number: ${booking.flightNo}`);
-        return;
-      }
-
-      const passengers = booking.passengers;
-      const bookingDetails = {
-        bookingCode: booking.bookingCode,
-        flight: {
-          origin: flight.origin,
-          destination: flight.destination,
-          boarding: flight.boarding, // Already a Date type
-          landing: flight.landing,   // Already a Date type
-          passengerCount: passengers.length,
-        },
-        passengers: passengers,
-      };
-
-      this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
-    });
+    firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo))
+      .then((flight) => {
+        if (!flight) {
+          console.error(`Flight details not found for flight number: ${booking.flightNo}`);
+          return;
+        }
+  
+        const passengers = booking.passengers;
+        const bookingDetails = {
+          bookingCode: booking.bookingCode,
+          flight: {
+            origin: flight.origin,
+            destination: flight.destination,
+            boarding: flight.boarding, // Already a Date type
+            landing: flight.landing,   // Already a Date type
+            passengerCount: passengers.length,
+          },
+          passengers: passengers,
+        };
+  
+        console.log('Navigating to booking details with:', bookingDetails);
+  
+        // Prevent infinite navigation by ensuring we are not already on the same page
+        if (this.router.url !== `/booking-details/${booking.bookingCode}`) {
+          this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching flight details:', error);
+      });
   }
+  
 }
