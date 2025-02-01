@@ -3,110 +3,145 @@
     <h2 class="glitter-text">Edit Flight</h2>
     <form #editFlightForm="ngForm" (ngSubmit)="saveFlight()">
       <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>ID</mat-label>
           <input matInput name="id" [(ngModel)]="flight.id" disabled />
         </mat-form-field>
       </div>
 
+      <!-- Flight No -->
       <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Flight Number</mat-label>
-          <input matInput name="flightNo" required [(ngModel)]="flight.flightNo" />
+          <input matInput name="flightNo" required [(ngModel)]="flight.flightNo" #flightNo="ngModel"
+            pattern="^[a-zA-Z0-9]+$" (input)="checkFlightNoExists()" />
         </mat-form-field>
+        <mat-error *ngIf="flightNo.invalid && flightNo.touched">
+          <span *ngIf="flightNo.errors?.['required']">Flight No. is required.</span>
+          <span *ngIf="flightNo.errors?.['pattern']">Flight No. must contain only letters or numbers.</span>
+        </mat-error>
+        <mat-error *ngIf="flightNo.touched && flightNoExists">
+          Flight No. already exists, please choose a different one.
+        </mat-error>
       </div>
 
+      <!-- Origin -->
       <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Origin</mat-label>
-          <input matInput name="origin" required [(ngModel)]="flight.origin" />
+          <mat-select [(ngModel)]="flight.origin" name="origin" required #origin="ngModel">
+            <mat-option *ngFor="let destination of destinations" [value]="destination">
+              {{ destination }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+        <mat-error *ngIf="origin.touched && origin.invalid">
+          <span *ngIf="origin.errors?.['required']">Origin is required.</span>
+        </mat-error>
       </div>
 
+      <!-- Destination -->
       <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Destination</mat-label>
-          <input matInput name="destination" required [(ngModel)]="flight.destination" />
+          <mat-select [(ngModel)]="flight.destination" name="destination" required #destination="ngModel">
+            <mat-option *ngFor="let destination of destinations" [value]="destination">
+              {{ destination }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+        <mat-error *ngIf="destination.invalid && destination.touched">
+          <span *ngIf="destination.errors?.['required']">Destination is required.</span>
+        </mat-error>
+        <mat-error *ngIf="destination.dirty && flight.origin === flight.destination">
+          Origin and destination cannot be the same.
+        </mat-error>
       </div>
 
-      <!-- Boarding Date and Time -->
+      <!-- Boarding Date -->
       <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Boarding Date</mat-label>
-          <input
-            matInput
-            name="boardingDate"
-            [matDatepicker]="boardingPicker"
-            required
-            [(ngModel)]="boardingDate"
-          />
+          <input matInput [matDatepicker]="boardingPicker" name="boardingDate" required [(ngModel)]="boardingDate"
+            #boardingDateInput="ngModel" [min]="today" />
           <mat-datepicker-toggle matSuffix [for]="boardingPicker"></mat-datepicker-toggle>
           <mat-datepicker #boardingPicker></mat-datepicker>
         </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Boarding Time</mat-label>
-          <input
-            matInput
-            name="boardingTime"
-            type="time"
-            required
-            [(ngModel)]="boardingTime"
-          />
-        </mat-form-field>
+        <mat-error *ngIf="boardingDateInput.invalid && boardingDateInput.touched">
+          <span *ngIf="boardingDateInput.errors?.['required']">Boarding date is required.</span>
+        </mat-error>
       </div>
 
-      <!-- Landing Date and Time -->
+      <!-- Boarding Time -->
       <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Boarding Time</mat-label>
+          <input matInput type="time" name="boardingTime" required [(ngModel)]="boardingTime"
+            #boardingTimeInput="ngModel" />
+        </mat-form-field>
+        <mat-error *ngIf="boardingTimeInput.invalid && boardingTimeInput.touched">
+          Boarding time is required.
+        </mat-error>
+      </div>
+
+      <!-- Landing Date -->
+      <div>
+        <mat-form-field appearance="fill">
           <mat-label>Landing Date</mat-label>
-          <input
-            matInput
-            name="landingDate"
-            [matDatepicker]="landingPicker"
-            required
-            [(ngModel)]="landingDate"
-          />
+          <input matInput [matDatepicker]="landingPicker" name="landingDate" required [(ngModel)]="landingDate"
+            #landingDateInput="ngModel" [min]="boardingDate || today" />
           <mat-datepicker-toggle matSuffix [for]="landingPicker"></mat-datepicker-toggle>
           <mat-datepicker #landingPicker></mat-datepicker>
         </mat-form-field>
+        <mat-error *ngIf="landingDateInput.invalid && landingDateInput.touched">
+          <span *ngIf="landingDateInput.errors?.['required']">Landing date is required.</span>
+        </mat-error>
       </div>
+
+      <!-- Landing Time -->
       <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Landing Time</mat-label>
-          <input
-            matInput
-            name="landingTime"
-            type="time"
-            required
-            [(ngModel)]="landingTime"
-          />
+          <input matInput type="time" name="landingTime" required [(ngModel)]="landingTime" #landingTimeInput="ngModel"
+            (change)="isLandingTimeInvalid()" />
         </mat-form-field>
+        <mat-error *ngIf="landingTimeInput.invalid && landingTimeInput.touched">
+          <span *ngIf="landingTimeInput.errors?.['required']">Landing time is required.</span>
+        </mat-error>
+        <mat-error *ngIf="landingTimeInput.touched && isLandingTimeInvalid()">
+          Landing time must be after boarding time if both dates are the same.
+        </mat-error>
       </div>
 
+      <!-- No. of Seats -->
       <div>
-        <mat-form-field>
-          <mat-label>Seats</mat-label>
-          <input matInput name="seats" required [(ngModel)]="flight.seats" type="number" />
+        <mat-form-field appearance="fill">
+          <mat-label>No. of Seats</mat-label>
+          <input matInput name="seats" required [(ngModel)]="flight.seats" #seats="ngModel" type="number" min="1" />
         </mat-form-field>
+        <mat-error *ngIf="seats.invalid && seats.touched">
+          <span *ngIf="seats.errors?.['required']">Number of seats is required.</span>
+          <span *ngIf="seats.errors?.['min']">Number of seats must be at least 1.</span>
+        </mat-error>
       </div>
 
-      <div class="button-container">
-        <button mat-raised-button color="primary" type="submit" [disabled]="editFlightForm.invalid">
+      <!-- Buttons -->
+      <mat-card-actions align="start">
+        <button mat-raised-button color="primary" type="submit"
+          [disabled]="editFlightForm.invalid || checkValidation()">
           Save
         </button>
-        <button mat-raised-button color="warn" type="button" (click)="cancelEdit()">
-          Cancel
-        </button>
-      </div>
+      </mat-card-actions>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="accent" (click)="cancelEdit()">Back</button>
+      </mat-card-actions>
     </form>
   </mat-card>
 </div>
 
+<!-- Loading Template -->
 <ng-template #loadingTemplate>
   <mat-card>
-    <p>Loading flight details...</p>
+    <p>Loading flight details editor...</p>
   </mat-card>
 </ng-template>

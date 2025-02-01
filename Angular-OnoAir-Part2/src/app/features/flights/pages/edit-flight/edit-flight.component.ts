@@ -9,7 +9,10 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatOptionModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
+import { DestinationService } from '../../../destinations/service/destinations.service';
+import { CUSTOM_DATE_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-edit-flight',
@@ -21,29 +24,43 @@ import { MatOptionModule } from '@angular/material/core';
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
-    MatOptionModule
+    MatOptionModule,
+    MatSelectModule,
   ],
   templateUrl: './edit-flight.component.html',
-  styleUrl: './edit-flight.component.css'
+  styleUrl: './edit-flight.component.css',
+  providers: [
+      { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+      { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+      { provide: DateAdapter, useClass: CustomDateAdapter },
+    ],
 })
 export class EditFlightComponent implements OnInit {
   flight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active);
   boardingDate: Date | null = null;
-  boardingTime: string = '00:00'; // Default to midnight
+  boardingTime: string = '00:00'; 
   landingDate: Date | null = null;
-  landingTime: string = '00:00'; // Default to midnight
+  landingTime: string = '00:00'; 
+  destinations: string[] = [];
+  existingFlightNos: string[] = [];
+  flightNoExists: boolean = false;
+  invalidTime: boolean = false;
   isLoading: boolean = true;
+  today: Date = new Date();
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private flightService: FlightsService
+    private flightService: FlightsService,
+    private destinationService: DestinationService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const flightId = this.route.snapshot.paramMap.get('id');
+    this.destinations = this.destinationService.listDestinationNames();
     if (flightId) {
-      this.loadFlight(flightId);
+      await this.loadFlight(flightId);
+      this.existingFlightNos = this.flightService.listFlightNames().filter((flightNo) => flightNo !== this.flight.flightNo);
     } else {
       console.error('No flight ID provided.');
       this.router.navigate(['/manage-flights']);
@@ -77,6 +94,28 @@ export class EditFlightComponent implements OnInit {
     return `${hours}:${minutes}`;
   }
 
+  checkFlightNoExists(): void {
+    this.flightNoExists = this.existingFlightNos.includes(this.flight.flightNo.trim());
+  }
+
+  isLandingTimeInvalid(): boolean {
+    if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {
+      return false; 
+    }
+    this.invalidTime =
+      this.boardingDate.getDate() === this.landingDate.getDate() &&
+      this.landingTime <= this.boardingTime;
+    return this.invalidTime;
+  }
+
+  checkValidation(): boolean {
+    return (
+      this.flightNoExists ||
+      this.invalidTime ||
+      this.flight.origin === this.flight.destination
+    );
+  }
+
   async saveFlight(): Promise<void> {
     if (this.boardingDate && this.boardingTime && this.landingDate && this.landingTime) {
       this.flight.boarding = this.combineDateAndTime(this.boardingDate, this.boardingTime);
@@ -102,3 +141,4 @@ export class EditFlightComponent implements OnInit {
     this.router.navigate(['/manage-flights']);
   }
 }
+

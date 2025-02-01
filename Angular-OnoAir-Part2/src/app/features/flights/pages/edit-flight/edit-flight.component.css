@@ -25,3 +25,11 @@
 button {
     min-width: 120px;
 }
+mat-form-field {
+    width: 100%; /* Ensures all fields have equal width */
+    max-width: 215px; /* Adjust this based on your design preference */
+  }
+  
+  .mat-form-field-wrapper {
+    width: 100%;
+  }
