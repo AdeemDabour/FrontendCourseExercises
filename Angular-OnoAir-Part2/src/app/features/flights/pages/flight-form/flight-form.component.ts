@@ -78,11 +78,8 @@ export class FlightFormComponent implements OnInit {
       this.flightService.addFlight(this.newFlight);
       this.router.navigate(['/manage-flights']);
       alert('Flight added successfully!,Please refresh the page.');
-    } else {
-      alert('Invalid flight Times. Please correct the Boarding/Landing times.');
-    }
+    } 
   }
-
   combineDateAndTime(): void {
     if (this.boardingDate && this.boardingTime) {
       const [hours, minutes] = this.boardingTime.split(':').map(Number);

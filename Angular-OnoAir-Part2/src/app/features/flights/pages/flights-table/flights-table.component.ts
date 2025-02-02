@@ -9,11 +9,13 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Flight, Status } from '../../model/flight';
 import { FlightsService } from '../../service/flights.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { BookingService } from '../../../bookings/service/bookings.service';
 
 @Component({
   selector: 'app-flights-table',
   standalone: true,
-  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, MatPaginatorModule, CommonModule],
+  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, MatPaginatorModule, CommonModule, MatProgressBarModule],
   templateUrl: './flights-table.component.html',
   styleUrls: ['./flights-table.component.css']
 })
@@ -27,10 +29,12 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator; // ✅ Add Paginator 
   Status = Status;
+  isLoading: boolean = false;
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
     private flightService: FlightsService,
+    private bookingService: BookingService
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -76,32 +80,56 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
   }
 
   async toggleFlightStatus(flight: Flight): Promise<void> {
+    this.isLoading = true; // ✅ Start loading bar
+  
     const newStatus = flight.status === Status.Active ? Status.Inactive : Status.Active;
     const confirmMessage = newStatus === Status.Inactive
-    ? 'Are you sure you want to Deactivate this flight?' 
-    : 'Are you sure you want to Activate this flight?';
-    // Show a confirmation message
-    const confirmation = confirm(confirmMessage);
-  
-    if (!confirmation) {
-      return; // Exit if the user cancels
+      ? 'Are you sure you want to Deactivate this flight?' 
+      : 'Are you sure you want to Activate this flight?';
+
+    if (!confirm(confirmMessage)) {
+      this.isLoading = false; // ✅ Stop loading if user cancels
+      return; 
     }
-  
+
+    // ✅ **Prevent Deactivation if There Are Active Bookings**
+    if (newStatus === Status.Inactive) {
+      try {
+        const activeBookings = await this.bookingService.getActiveBookingsForFlight(flight.flightNo);
+        if (activeBookings.length > 0) {
+          this.isLoading = false; // ✅ Stop loading if deactivation is blocked
+          alert(`This flight cannot be deactivated because there are active bookings: ${activeBookings.map(b => b.bookingCode).join(', ')}`);
+          return; 
+        }
+      } catch (error) {
+        console.error('Error checking active bookings:', error);
+        alert('Error verifying active bookings. Please try again.');
+        this.isLoading = false; // ✅ Stop loading on error
+        return;
+      }
+    }
+
+    // ✅ **Prevent Activation if Boarding Date is in the Past**
+    if (newStatus === Status.Active) {
+      const now = new Date();
+      const boardingDate = new Date(flight.boarding);
+
+      if (boardingDate < now) {
+        this.isLoading = false; // ✅ Stop loading if activation is blocked
+        alert(`This flight cannot be activated because its boarding time (${boardingDate.toLocaleString()}) has already passed. \n\n please edit and update the flight Dates & Times if you want to activate it.`);
+        return;
+      }
+    }
+
     try {
-      // Update the local flight status first
       flight.status = newStatus;
-  
-      // Call the update function with the modified flight object
       await this.flightService.updateFlight(flight.id, flight);
-  
-      console.log(`Flight ${flight.id} status updated to ${newStatus}`);
     } catch (error) {
       console.error('Error updating flight status:', error);
+    } finally {
+      this.isLoading = false; // ✅ Stop loading
     }
-  }
-  
-  
-
+}
 
 
   applyFilter(event: Event): void {

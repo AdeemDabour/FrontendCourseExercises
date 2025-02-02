@@ -156,7 +156,16 @@ export class BookingService {
       throw new Error('Unable to update booking status. Please try again later.');
     }
   }
-  
-  
-  
+  async getActiveBookingsForFlight(flightNo: string): Promise<{ bookingCode: string }[]> {
+    try {
+      const bookings = await this.listBookings(); // ✅ Fetch all bookings
+      return bookings
+        .filter(booking => booking.flightNo === flightNo && booking.status === Status.Active)
+        .map(booking => ({ bookingCode: booking.bookingCode })); // ✅ Return only booking codes
+
+    } catch (error) {
+      console.error('Error fetching active bookings:', error);
+      throw error; // Ensure errors are properly handled
+    }
+  }
 }
