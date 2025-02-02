@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, deleteDoc, doc, setDoc, getDocs, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, doc, setDoc, getDocs } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Flight, Status } from '../model/flight';
@@ -22,42 +22,31 @@ export class FlightsService {
   }
 
   async loadFlights(): Promise<void> {
-  try {
-    const flights = await this.refreshFlights();
-    this.flightsSubject.next([]); // Clear existing data
-    this.flightsSubject.next(flights); // Replace with fresh data
-  } catch (error) {
-    console.error('Error loading flights:', error);
+    try {
+      const flights = await this.refreshFlights();
+      this.flightsSubject.next([]); // Clear existing data
+      this.flightsSubject.next(flights); // Replace with fresh data
+    } catch (error) {
+      console.error('Error loading flights:', error);
+    }
   }
-}
 
 
   async addFlight(newFlight: Flight): Promise<void> {
     try {
       const flightsCollection = collection(this.firestore, this.collectionName);
-  
-    const querySnapshot = await getDocs(flightsCollection);
-    const ids = querySnapshot.docs.map(doc => parseInt(doc.id)).filter(id => !isNaN(id));
-  
-    const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
-  
-    const flightDoc = doc(this.firestore, this.collectionName, nextId.toString());
-    await setDoc(flightDoc, { ...newFlight, id: nextId.toString() });
-  
-    console.log(`Flight: ${newFlight.flightNo} added with ID: ${nextId}`);
+
+      const querySnapshot = await getDocs(flightsCollection);
+      const ids = querySnapshot.docs.map(doc => parseInt(doc.id)).filter(id => !isNaN(id));
+
+      const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+
+      const flightDoc = doc(this.firestore, this.collectionName, nextId.toString());
+      await setDoc(flightDoc, { ...newFlight, id: nextId.toString() });
+
+      console.log(`Flight: ${newFlight.flightNo} added with ID: ${nextId}`);
     } catch (error) {
       console.error('Error adding flight:', error);
-    }
-  }
-
-  async removeFlight(flightId: string): Promise<void> {
-    try {
-      const docRef = doc(this.getFlightsCollection(), flightId);
-      await deleteDoc(docRef);
-      console.log(`Flight ${flightId} removed successfully`);
-      await this.loadFlights();
-    } catch (error) {
-      console.error('Error removing flight:', error);
     }
   }
 
@@ -113,7 +102,7 @@ export class FlightsService {
     try {
       const collectionRef = this.getFlightsCollection();
       const querySnapshot = await getDocs(collectionRef);
-  
+
       // Fetch flights and update BehaviorSubject
       const flights = querySnapshot.docs.map((doc) => doc.data());
       this.flightsSubject.next(flights); // Update with fresh data
@@ -129,18 +118,23 @@ export class FlightsService {
   getFlightsThisWeek(): Observable<Flight[]> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
+  
     const endOfWeek = new Date(today);
     endOfWeek.setDate(today.getDate() + 7);
-
+  
     return this.flights$.pipe(
       map((flights) =>
         flights.filter((flight) => {
-          return flight.boarding >= today && flight.boarding <= endOfWeek;
+          return (
+            flight.status === Status.Active && // Only include active flights
+            flight.boarding >= today &&
+            flight.boarding <= endOfWeek
+          );
         })
       )
     );
   }
+  
   getFutureFlights(): Observable<Flight[]> {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set the time to midnight for date-only comparison
@@ -150,7 +144,10 @@ export class FlightsService {
         .then((flights) => {
           const futureFlights = flights.filter((flight) => {
             const boardingDate = new Date(flight.boarding); // Ensure valid Date object
-            return boardingDate >= today; // Include flights boarding today or later
+            return (
+              flight.status === Status.Active && // Only include active flights
+              boardingDate >= today // Include flights boarding today or later
+            );
           });
           observer.next(futureFlights);
           observer.complete();
@@ -162,7 +159,7 @@ export class FlightsService {
     });
   }
   
-  
+
 
   listFlights(): Observable<Flight[]> {
     return this.flights$;

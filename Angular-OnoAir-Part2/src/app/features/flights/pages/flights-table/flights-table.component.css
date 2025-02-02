@@ -1,0 +1,23 @@
+/* ✅ Button Styling for Active and Inactive Status */
+.active-button {
+    color: green !important;
+    background-color: rgba(0, 128, 0, 0.1) !important;
+    /* Light green background */
+    border-radius: 50%;
+}
+
+.inactive-button {
+    color: red !important;
+    background-color: rgba(255, 0, 0, 0.1) !important;
+    /* Light red background */
+    border-radius: 50%;
+}
+
+/* ✅ Hover Effects */
+button.active-button:hover {
+    background-color: rgba(0, 128, 0, 0.3) !important;
+}
+
+button.inactive-button:hover {
+    background-color: rgba(255, 0, 0, 0.3) !important;
+}

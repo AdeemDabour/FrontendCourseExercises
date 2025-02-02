@@ -5,14 +5,15 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator'; 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Flight } from '../../model/flight';
+import { Flight, Status } from '../../model/flight';
+import { FlightsService } from '../../service/flights.service';
 
 @Component({
   selector: 'app-flights-table',
   standalone: true,
-  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, MatPaginatorModule],
+  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, MatPaginatorModule, CommonModule],
   templateUrl: './flights-table.component.html',
   styleUrls: ['./flights-table.component.css']
 })
@@ -25,8 +26,12 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator; // ✅ Add Paginator 
-
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router) {}
+  Status = Status;
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private router: Router,
+    private flightService: FlightsService,
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['flights'] && this.flights) {
@@ -70,12 +75,34 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
     this.router.navigate(['/book-flight', flight.flightNo]);
   }
 
-  deleteFlight(id: string): void {
-    const confirmation = confirm('Are you sure you want to delete this flight?');
-    if (confirmation) {
-      console.log(`Flight ${id} deleted`);
+  async toggleFlightStatus(flight: Flight): Promise<void> {
+    const newStatus = flight.status === Status.Active ? Status.Inactive : Status.Active;
+    const confirmMessage = newStatus === Status.Inactive
+    ? 'Are you sure you want to Deactivate this flight?' 
+    : 'Are you sure you want to Activate this flight?';
+    // Show a confirmation message
+    const confirmation = confirm(confirmMessage);
+  
+    if (!confirmation) {
+      return; // Exit if the user cancels
+    }
+  
+    try {
+      // Update the local flight status first
+      flight.status = newStatus;
+  
+      // Call the update function with the modified flight object
+      await this.flightService.updateFlight(flight.id, flight);
+  
+      console.log(`Flight ${flight.id} status updated to ${newStatus}`);
+    } catch (error) {
+      console.error('Error updating flight status:', error);
     }
   }
+  
+  
+
+
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();

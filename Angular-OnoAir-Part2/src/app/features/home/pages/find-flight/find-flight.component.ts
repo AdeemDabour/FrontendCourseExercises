@@ -4,7 +4,7 @@ import { FlightsTableComponent } from '../../../flights/pages/flights-table/flig
 import { Flight } from '../../../flights/model/flight';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-find-flight',

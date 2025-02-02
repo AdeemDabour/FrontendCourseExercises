@@ -57,9 +57,11 @@
         <button mat-icon-button color="primary" (click)="openEditFlight(element)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="deleteFlight(element.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <button mat-icon-button [ngClass]="{'active-button': element.status === Status.Active, 'inactive-button': element.status === Status.Inactive}" 
+            (click)="toggleFlightStatus(element)">
+      <mat-icon>{{ element.status === Status.Active ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+    </button>
+        
       </td>
     </ng-container>
 
