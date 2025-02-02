@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
-//import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator'; // ✅ Pagination Support
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator'; // ✅ Pagination Support
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { Flight } from '../../model/flight';
 @Component({
   selector: 'app-flights-table',
   standalone: true,
-  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe],
+  imports: [MatSortModule, MatTableModule, MatButtonModule, MatIcon, DatePipe, MatPaginatorModule],
   templateUrl: './flights-table.component.html',
   styleUrls: ['./flights-table.component.css']
 })
@@ -24,8 +24,7 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
   dataSource = new MatTableDataSource<Flight>();
 
   @ViewChild(MatSort) sort!: MatSort;
-  //@ViewChild(MatPaginator) paginator!: MatPaginator; // ✅ Add Paginator ADD TO IMPORTS INCASE GOING TO USE 
-  //OTHERWISE DELETE PAGINATOR.
+  @ViewChild(MatPaginator) paginator!: MatPaginator; // ✅ Add Paginator 
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router) {}
 
@@ -47,7 +46,7 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
     if (this.flights.length) {
       this.dataSource.data = this.sortById(this.flights);
       this.dataSource.sort = this.sort; // ✅ Assign MatSort
-      //this.dataSource.paginator = this.paginator; // ✅ Assign Paginator
+      this.dataSource.paginator = this.paginator; // ✅ Assign Paginator
     }
   }
 
