@@ -5,7 +5,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { DestinationService } from '../../service/destinations.service';
-import { Destination } from '../../model/destination';
+import { Destination, Status } from '../../model/destination';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
@@ -25,7 +25,7 @@ export class ManageDestinationsComponent implements OnInit {
   isLoading: boolean = true;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  Status = Status;
   constructor(private destinationService: DestinationService, private router: Router) {}
 
   ngOnInit(): void {
@@ -73,17 +73,26 @@ export class ManageDestinationsComponent implements OnInit {
     });
   }
 
-  deleteDestination(id: string): void {
-    const confirmation = confirm('Are you sure you want to delete this destination?');
-    if (confirmation) {
-      this.destinationService.removeDestination(id)
-        .then(() => {
-          console.log(`Destination with ID ${id} deleted successfully.`);
-          this.dataSource.data = this.dataSource.data.filter(destination => destination.id !== id);
-        })
-        .catch((error) => {
-          console.error(`Error deleting destination with ID ${id}:`, error);
-        });
+  async toggleDestinationStatus(destination: Destination): Promise<void> {
+    this.isLoading = true;
+    const newStatus = destination.status === Status.Active ? Status.Inactive : Status.Active;
+    const confirmMessage = newStatus === Status.Inactive
+      ? 'Are you sure you want to Deactivate this destination?' 
+      : 'Are you sure you want to Activate this destination?';
+
+    if (!confirm(confirmMessage)) {
+      this.isLoading = false;
+      return;
+    }
+
+    try {
+      destination.status = newStatus;
+      await this.destinationService.updateDestination(destination.id, destination);
+      console.log(`Destination ${destination.id} status updated to ${newStatus}`);
+    } catch (error) {
+      console.error('Error updating destination status:', error);
+    } finally {
+      this.isLoading = false;
     }
   }
 }
