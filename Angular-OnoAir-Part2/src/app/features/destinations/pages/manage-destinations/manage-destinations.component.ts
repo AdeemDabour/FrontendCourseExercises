@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { MatPaginator ,MatPaginatorModule } from '@angular/material/paginator';
+import { FlightsService } from '../../../flights/service/flights.service';
 
 @Component({
   selector: 'app-manage-destinations',
@@ -26,7 +27,11 @@ export class ManageDestinationsComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   Status = Status;
-  constructor(private destinationService: DestinationService, private router: Router) {}
+  constructor(
+      private destinationService: DestinationService,
+      private router: Router,
+      private flightService: FlightsService,
+    ) {}
 
   ngOnInit(): void {
     this.loadDestinations();
@@ -79,20 +84,43 @@ export class ManageDestinationsComponent implements OnInit {
     const confirmMessage = newStatus === Status.Inactive
       ? 'Are you sure you want to Deactivate this destination?' 
       : 'Are you sure you want to Activate this destination?';
-
+  
     if (!confirm(confirmMessage)) {
       this.isLoading = false;
       return;
     }
-
+  
+    if (newStatus === Status.Inactive) {
+      try {
+        console.log('Checking active flights for destination:', destination.name);
+        // Check if there are active flights for this destination
+        const activeFlights = await this.flightService.getActiveFlightsByDestination(destination.name);
+        console.log('Active Flights:', activeFlights);
+        if (activeFlights.length > 0) {
+          this.isLoading = false;
+          alert(`This destination cannot be deactivated because it is used in active flights: 
+            ${activeFlights.map(f => `Flight ${f.flightNo}`).join(', ')}`);
+          this.loadDestinations();
+          return ;
+        }
+      } catch (error) {
+        console.error('Error checking active flights:', error);
+        alert('Error verifying active flights. Please try again.');
+        this.isLoading = false;
+        return;
+      }
+    }
+  
     try {
       destination.status = newStatus;
       await this.destinationService.updateDestination(destination.id, destination);
       console.log(`Destination ${destination.id} status updated to ${newStatus}`);
+      this.loadDestinations();
     } catch (error) {
       console.error('Error updating destination status:', error);
     } finally {
       this.isLoading = false;
     }
   }
+  
 }

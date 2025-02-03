@@ -158,11 +158,28 @@ export class FlightsService {
         });
     });
   }
-  
-
-
   listFlights(): Observable<Flight[]> {
     return this.flights$;
   }
+  async getActiveFlightsByDestination(destinationName: string): Promise<Flight[]> {
+    try {
+      console.log('Checking inside getActiveFlightsByDestination:', destinationName);
+      const flights = await this.getFutureFlights().toPromise(); // Convert Observable to Promise
+      
+      if (!flights || flights.length === 0) {
+        return []; // Ensure an empty array is returned if no flights exist
+      }
+      return flights.filter(flight =>
+        flight.status === Status.Active &&
+        (flight.origin === destinationName || flight.destination === destinationName)
+      );
+  
+    } catch (error) {
+      console.error('Error checking flights for destination:', error);
+      return []; // Return empty array in case of error to prevent undefined issues
+    }
+  }
+  
+  
 }
 
