@@ -92,10 +92,8 @@ export class ManageDestinationsComponent implements OnInit {
   
     if (newStatus === Status.Inactive) {
       try {
-        console.log('Checking active flights for destination:', destination.name);
         // Check if there are active flights for this destination
         const activeFlights = await this.flightService.getActiveFlightsByDestination(destination.name);
-        console.log('Active Flights:', activeFlights);
         if (activeFlights.length > 0) {
           this.isLoading = false;
           alert(`This destination cannot be deactivated because it is used in active flights: 
@@ -114,7 +112,6 @@ export class ManageDestinationsComponent implements OnInit {
     try {
       destination.status = newStatus;
       await this.destinationService.updateDestination(destination.id, destination);
-      console.log(`Destination ${destination.id} status updated to ${newStatus}`);
       this.loadDestinations();
     } catch (error) {
       console.error('Error updating destination status:', error);

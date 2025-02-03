@@ -163,7 +163,6 @@ export class FlightsService {
   }
   async getActiveFlightsByDestination(destinationName: string): Promise<Flight[]> {
     try {
-      console.log('Checking inside getActiveFlightsByDestination:', destinationName);
       const flights = await this.getFutureFlights().toPromise(); // Convert Observable to Promise
       
       if (!flights || flights.length === 0) {
