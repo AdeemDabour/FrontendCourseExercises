@@ -117,11 +117,11 @@
       <div>
         <mat-form-field appearance="fill">
           <mat-label>No. of Seats</mat-label>
-          <input matInput name="seats" required [(ngModel)]="flight.seats" #seats="ngModel" type="number" min="1" />
+          <input matInput name="seats" required [(ngModel)]="flight.seats" #seats="ngModel" type="number" min="0" />
         </mat-form-field>
         <mat-error *ngIf="seats.invalid && seats.touched">
           <span *ngIf="seats.errors?.['required']">Number of seats is required.</span>
-          <span *ngIf="seats.errors?.['min']">Number of seats must be at least 1.</span>
+          <span *ngIf="seats.errors?.['min']">Number of seats must be at least 0.</span>
         </mat-error>
       </div>
 
