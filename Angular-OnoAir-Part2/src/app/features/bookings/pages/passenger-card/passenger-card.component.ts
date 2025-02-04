@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-passenger-card',
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatInputModule, FormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatCardModule, MatError, MatInputModule, FormsModule],
   templateUrl: './passenger-card.component.html',
   styleUrls: ['./passenger-card.component.css']
 })

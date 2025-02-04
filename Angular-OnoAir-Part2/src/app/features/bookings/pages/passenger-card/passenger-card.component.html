@@ -6,20 +6,30 @@
       <mat-label>Name</mat-label>
       <input
         matInput
+        name="name"
+        required
         [(ngModel)]="passenger.name"
-        (ngModelChange)="onPassengerChange('name', $event)"
-        placeholder="Enter name"
+        #nameInput="ngModel"
+        pattern="^[A-Za-z ]+$"
       />
+      <mat-error *ngIf="nameInput.invalid && nameInput.touched">
+        Name must contain only English letters
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Passport</mat-label>
       <input
         matInput
+        name="passport"
+        required
         [(ngModel)]="passenger.passport"
-        (ngModelChange)="onPassengerChange('passport', $event)"
-        placeholder="Enter passport number"
+        #passportInput="ngModel"
+        pattern="^\d{9,10}$"
       />
+      <mat-error *ngIf="passportInput.invalid && passportInput.touched">
+        Passport number must be 9 or 10 digits
+      </mat-error>
     </mat-form-field>
   </mat-card>
 </div>

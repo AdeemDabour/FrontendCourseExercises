@@ -1,7 +1,12 @@
 .passenger-card {
-    max-width: 60%;
+    max-width: 70%;
     margin: 20px;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  mat-form-field {
+    display: block;
+    margin-bottom: 16px;
   }

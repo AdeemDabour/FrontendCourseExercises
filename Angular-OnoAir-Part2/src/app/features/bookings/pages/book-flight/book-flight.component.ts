@@ -121,4 +121,10 @@ export class BookFlightComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/flight-search']);
   }
+
+  isFormValid(): boolean {
+    return this.passengers.every(passenger => 
+      /^[A-Za-z ]+$/.test(passenger.name) && /^\d{9,10}$/.test(passenger.passport)
+    );
+  }
 }
