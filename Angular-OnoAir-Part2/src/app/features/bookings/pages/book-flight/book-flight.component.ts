@@ -106,7 +106,7 @@ export class BookFlightComponent implements OnInit {
 
     try {
       const bookingCode = await this.bookingService.saveBooking(this.flight.flightNo, this.passengers);
-      console.log('Booking saved with code:', bookingCode);
+      await this.flightsService.updateSeatsForFlight(this.flight.flightNo, -this.passengers.length);
       this.router.navigate(['/booking-details', bookingCode], {
         state: { flight: this.flight, passengers: this.passengers },
       });

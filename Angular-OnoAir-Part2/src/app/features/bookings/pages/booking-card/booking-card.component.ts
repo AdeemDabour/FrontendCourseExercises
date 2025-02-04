@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { DestinationService } from "../../../destinations/service/destinations.service";
-import { Booking } from "../../model/booking";
+import { Booking, Status } from "../../model/booking";
 import { Flight } from "../../../flights/model/flight";
 import { BookingService } from "../../service/bookings.service";
 
@@ -16,9 +16,10 @@ import { BookingService } from "../../service/bookings.service";
 export class BookingCardComponent implements OnInit {
   @Input() booking!: Booking;
   @Output() viewBookingEvent = new EventEmitter<any>();
+  @Output() cancelBookingEvent = new EventEmitter<any>();
   destinationImageUrl: string | null = null;
   flight: Flight | undefined;
-
+  Status = Status;
   constructor(
     private destinationService: DestinationService,
     private bookingService: BookingService
@@ -51,5 +52,13 @@ export class BookingCardComponent implements OnInit {
 
   viewBooking(): void {
     this.viewBookingEvent.emit(this.booking);
+  }
+  cancelBooking(): void {
+    const confirmation = confirm(
+      `Are you sure you want to cancel booking ${this.booking.bookingCode}?`
+    );
+    if (confirmation) {
+      this.cancelBookingEvent.emit(this.booking);
+    }
   }
 }

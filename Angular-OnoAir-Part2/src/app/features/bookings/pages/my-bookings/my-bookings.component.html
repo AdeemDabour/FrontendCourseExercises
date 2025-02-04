@@ -24,7 +24,8 @@
       <app-booking-card
         *ngFor="let booking of bookings"
         [booking]="booking"
-        (viewBookingEvent)="viewBooking($event)">
+        (viewBookingEvent)="viewBooking($event)"
+        (cancelBookingEvent)="cancelBooking($event)">
       </app-booking-card>
     </div>
   </div>

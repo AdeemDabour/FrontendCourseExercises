@@ -10,8 +10,18 @@
       <strong>Landing:</strong> {{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}      
       <p><strong>Passengers:</strong> {{ booking.passengers.length }}</p>
     </div>
+
     <div class="button-container">
       <button mat-raised-button color="primary" (click)="viewBooking()">View</button>
+
+      <!-- ✅ Show Cancel button only for ACTIVE bookings -->
+      <button 
+        *ngIf="booking.status === Status.Active"
+        mat-raised-button 
+        color="warn"
+        (click)="cancelBooking()">
+        Cancel Booking
+      </button>
     </div>
   </div>
 </mat-card>

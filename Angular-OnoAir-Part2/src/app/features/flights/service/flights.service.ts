@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, setDoc, getDocs } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { Flight, Status } from '../model/flight';
 import { FlightConverter } from '../model/flight-converter';
 
@@ -118,10 +118,10 @@ export class FlightsService {
   getFlightsThisWeek(): Observable<Flight[]> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-  
+
     const endOfWeek = new Date(today);
     endOfWeek.setDate(today.getDate() + 7);
-  
+
     return this.flights$.pipe(
       map((flights) =>
         flights.filter((flight) => {
@@ -134,11 +134,11 @@ export class FlightsService {
       )
     );
   }
-  
+
   getFutureFlights(): Observable<Flight[]> {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set the time to midnight for date-only comparison
-  
+
     return new Observable<Flight[]>((observer) => {
       this.refreshFlights()
         .then((flights) => {
@@ -164,7 +164,7 @@ export class FlightsService {
   async getActiveFlightsByDestination(destinationName: string): Promise<Flight[]> {
     try {
       const flights = await this.getFutureFlights().toPromise(); // Convert Observable to Promise
-      
+
       if (!flights || flights.length === 0) {
         return []; // Ensure an empty array is returned if no flights exist
       }
@@ -172,13 +172,43 @@ export class FlightsService {
         flight.status === Status.Active &&
         (flight.origin === destinationName || flight.destination === destinationName)
       );
-  
+
     } catch (error) {
       console.error('Error checking flights for destination:', error);
       return []; // Return empty array in case of error to prevent undefined issues
     }
   }
-  
-  
+
+  async updateSeatsForFlight(flightNo: string, seatChange: number): Promise<void> {
+    try {
+      // Fetch the flight details
+      const flight = await firstValueFrom(this.getFlightByNumber(flightNo));
+
+      if (!flight) {
+        console.error(`🚨 Flight ${flightNo} not found.`);
+        return;
+      }
+
+      // Convert seats from string to number for calculations
+      const currentSeats = parseInt(flight.seats, 10);
+
+      if (isNaN(currentSeats)) {
+        console.error(`🚨 Invalid seats value for flight ${flightNo}:`, flight.seats);
+        return;
+      }
+
+      // Update available seats
+      const updatedSeats = currentSeats + seatChange; // Ensuring it doesn't go below zero
+
+      // Convert back to string before updating in the database
+      flight.seats = updatedSeats.toString();
+      await this.updateFlight(flight.id, flight);
+
+      console.log(`✅ Flight ${flightNo} seats updated: ${currentSeats} → ${updatedSeats}`);
+    } catch (error) {
+      console.error(`🚨 Error updating seats for flight ${flightNo}:`, error);
+    }
+  }
+
 }
 

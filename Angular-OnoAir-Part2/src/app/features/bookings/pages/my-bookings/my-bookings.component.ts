@@ -48,10 +48,10 @@ export class MyBookingsComponent implements OnInit {
           console.error(`Flight details not found for flight number: ${booking.flightNo}`);
           return;
         }
-  
+        
         const boardingDate = flight.boarding; // Already a Date type
   
-        if (boardingDate > today) {
+        if (boardingDate > today && booking.status !== Status.Inactive) {
           upcoming.push(booking);
         } else {
           // Add the booking to the previous array and update its status
@@ -100,15 +100,33 @@ export class MyBookingsComponent implements OnInit {
         };
   
         console.log('Navigating to booking details with:', bookingDetails);
-  
-        // Prevent infinite navigation by ensuring we are not already on the same page
-        if (this.router.url !== `/booking-details/${booking.bookingCode}`) {
-          this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
-        }
+        this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
       })
       .catch((error) => {
         console.error('Error fetching flight details:', error);
       });
   }
-  
+  async cancelBooking(booking: Booking): Promise<void> {
+    this.isLoading = true; // Show loading indicator
+
+    try {
+        // ✅ Update booking status to inactive
+        await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
+        
+        // ✅ Restore seats to the flight
+        await this.flightService.updateSeatsForFlight(booking.flightNo, booking.passengers.length);
+
+        // ✅ Remove from upcoming & move to previous
+        this.upcomingBookings = this.upcomingBookings.filter(b => b.id !== booking.id);
+        this.previousBookings.push({ ...booking, status: Status.Inactive });
+
+        console.log(`Booking ${booking.bookingCode} canceled & moved to previous bookings.`);
+    } catch (error) {
+        console.error('Error canceling booking:', error);
+        alert('Failed to cancel booking. Please try again.');
+    } finally {
+        this.isLoading = false;
+    }
+}
+
 }
