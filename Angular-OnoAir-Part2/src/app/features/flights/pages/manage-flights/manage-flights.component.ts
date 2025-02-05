@@ -19,21 +19,15 @@ export class ManageFlightsComponent implements OnInit {
   constructor(private flightService: FlightsService, private router: Router) { }
 
   ngOnInit(): void {
-    this.flightService.flights$.subscribe(flights => {
-      this.flights = flights;
-      this.isLoading = false;
-    });
+    this.loadFlights();
   }
 
   async loadFlights(): Promise<void> {
-    await this.flightService.refreshFlights();
     try {
-      this.flightService.listFlights().subscribe({
-        next: (flights) => {
-          this.flights = flights;
-        },
-      }
-      );
+      this.flightService.flights$.subscribe(flights => {
+        this.flights = flights;
+        this.isLoading = false;
+      });
     } catch (error) {
       console.error('Failed to load flights:', error);
     }
