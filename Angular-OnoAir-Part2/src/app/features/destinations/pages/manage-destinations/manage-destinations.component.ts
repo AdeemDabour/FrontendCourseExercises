@@ -82,42 +82,37 @@ export class ManageDestinationsComponent implements OnInit {
     this.isLoading = true;
     const newStatus = destination.status === Status.Active ? Status.Inactive : Status.Active;
     const confirmMessage = newStatus === Status.Inactive
-      ? 'Are you sure you want to Deactivate this destination?' 
-      : 'Are you sure you want to Activate this destination?';
-  
+        ? 'Are you sure you want to deactivate this destination?' 
+        : 'Are you sure you want to activate this destination?';
+
     if (!confirm(confirmMessage)) {
-      this.isLoading = false;
-      return;
-    }
-  
-    if (newStatus === Status.Inactive) {
-      try {
-        // Check if there are active flights for this destination
-        const activeFlights = await this.flightService.getActiveFlightsByDestination(destination.name);
-        if (activeFlights.length > 0) {
-          this.isLoading = false;
-          alert(`This destination cannot be deactivated because it is used in active flights: 
-            ${activeFlights.map(f => `Flight ${f.flightNo}`).join(', ')}`);
-          this.loadDestinations();
-          return ;
-        }
-      } catch (error) {
-        console.error('Error checking active flights:', error);
-        alert('Error verifying active flights. Please try again.');
         this.isLoading = false;
         return;
-      }
     }
-  
+    if (newStatus === Status.Inactive) {
+        try {
+            const activeFlights = await this.flightService.getActiveFlightsByDestination(destination.name);
+            if (activeFlights.length > 0) {
+                this.isLoading = false;
+                alert(`This destination cannot be deactivated because it is used in active flights:\n\n` +
+                    activeFlights.map(f => `Flight ${f.flightNo} (Origin: ${f.origin}, Destination: ${f.destination})`).join('\n'));
+                return;
+            }
+        } catch (error) {
+            console.error('Error checking active flights:', error);
+            alert('Error verifying active flights. Please try again.');
+            this.isLoading = false;
+            return;
+        }
+    }
     try {
-      destination.status = newStatus;
-      await this.destinationService.updateDestination(destination.id, destination);
-      this.loadDestinations();
+        destination.status = newStatus;
+        await this.destinationService.updateDestination(destination.id, destination);
+        this.loadDestinations();
     } catch (error) {
-      console.error('Error updating destination status:', error);
+        console.error('Error updating destination status:', error);
     } finally {
-      this.isLoading = false;
+        this.isLoading = false;
     }
-  }
-  
+}
 }

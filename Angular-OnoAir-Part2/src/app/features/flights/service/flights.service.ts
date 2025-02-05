@@ -24,8 +24,8 @@ export class FlightsService {
   async loadFlights(): Promise<void> {
     try {
       const flights = await this.refreshFlights();
-      this.flightsSubject.next([]); // Clear existing data
-      this.flightsSubject.next(flights); // Replace with fresh data
+      this.flightsSubject.next([]);
+      this.flightsSubject.next(flights);
     } catch (error) {
       console.error('Error loading flights:', error);
     }
@@ -46,7 +46,6 @@ export class FlightsService {
 
       console.log(`Flight: ${newFlight.flightNo} added with ID: ${nextId}`);
 
-      // 🔥 עדכון מידי של ה- BehaviorSubject כך שהטבלה תתעדכן בזמן אמת
       const updatedFlights = [...this.flightsSubject.getValue(), { ...newFlight, id: nextId.toString() }];
       this.flightsSubject.next(updatedFlights);
 
@@ -111,11 +110,11 @@ export class FlightsService {
 
       // Fetch flights and update BehaviorSubject
       const flights = querySnapshot.docs.map((doc) => doc.data());
-      this.flightsSubject.next(flights); // Update with fresh data
+      this.flightsSubject.next(flights);
       return flights;
     } catch (error) {
       console.error('Error refreshing flights:', error);
-      this.flightsSubject.next([]); // Clear subject on error
+      this.flightsSubject.next([]);
       throw error;
     }
   }
@@ -123,15 +122,15 @@ export class FlightsService {
 
   getFlightsThisWeek(): Observable<Flight[]> {
     const now = new Date();
-  
+
     const endOfWeek = new Date();
     endOfWeek.setDate(now.getDate() + 7);
-  
+
     return this.flights$.pipe(
       map((flights) =>
         flights.filter((flight) => {
           const flightBoarding = new Date(flight.boarding);
-  
+
           return (
             flight.status === Status.Active &&
             flightBoarding >= now &&
@@ -144,16 +143,16 @@ export class FlightsService {
 
   getFutureFlights(): Observable<Flight[]> {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set the time to midnight for date-only comparison
+    today.setHours(0, 0, 0, 0);
 
     return new Observable<Flight[]>((observer) => {
       this.refreshFlights()
         .then((flights) => {
           const futureFlights = flights.filter((flight) => {
-            const boardingDate = new Date(flight.boarding); // Ensure valid Date object
+            const boardingDate = new Date(flight.boarding);
             return (
-              flight.status === Status.Active && // Only include active flights
-              boardingDate >= today // Include flights boarding today or later
+              flight.status === Status.Active && 
+              boardingDate >= today
             );
           });
           observer.next(futureFlights);
@@ -170,21 +169,25 @@ export class FlightsService {
   }
   async getActiveFlightsByDestination(destinationName: string): Promise<Flight[]> {
     try {
-      const flights = await this.getFutureFlights().toPromise(); // Convert Observable to Promise
+        const collectionRef = this.getFlightsCollection();
+        const querySnapshot = await getDocs(collectionRef);
 
-      if (!flights || flights.length === 0) {
-        return []; // Ensure an empty array is returned if no flights exist
-      }
-      return flights.filter(flight =>
-        flight.status === Status.Active &&
-        (flight.origin === destinationName || flight.destination === destinationName)
-      );
+        if (querySnapshot.empty) {
+            return [];
+        }
+        return querySnapshot.docs
+            .map(doc => doc.data() as Flight)
+            .filter(flight => 
+                flight.status === Status.Active && 
+                (flight.origin.toLowerCase() === destinationName.toLowerCase() || 
+                 flight.destination.toLowerCase() === destinationName.toLowerCase())
+            );
 
     } catch (error) {
-      console.error('Error checking flights for destination:', error);
-      return []; // Return empty array in case of error to prevent undefined issues
+        console.error('Error checking flights for destination:', error);
+        return []; // Return empty array in case of error
     }
-  }
+}
 
   async updateSeatsForFlight(flightNo: string, seatChange: number): Promise<void> {
     try {
@@ -205,7 +208,7 @@ export class FlightsService {
       }
 
       // Update available seats
-      const updatedSeats = currentSeats + seatChange; // Ensuring it doesn't go below zero
+      const updatedSeats = currentSeats + seatChange;
 
       // Convert back to string before updating in the database
       flight.seats = updatedSeats.toString();
