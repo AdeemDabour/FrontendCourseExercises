@@ -6,7 +6,7 @@
                 <mat-form-field>
                     <mat-label>Name</mat-label>
                     <input matInput name="name" required [(ngModel)]="newDestination.name" #name="ngModel"
-                           pattern="^[a-zA-Z ]+$" (input)="checkNameExists()" />
+                        pattern="^[a-zA-Z ]+$" (input)="checkNameExists()" />
                 </mat-form-field>
                 <mat-error *ngIf="name.invalid && name.touched">
                     <span *ngIf="name.errors?.['required']">Name is required.</span>
@@ -20,8 +20,8 @@
             <div>
                 <mat-form-field>
                     <mat-label>Airport Name</mat-label>
-                    <input matInput name="airportName" required [(ngModel)]="newDestination.airportName" #airportName="ngModel"
-                        pattern="^[a-zA-Z ]+$" />
+                    <input matInput name="airportName" required [(ngModel)]="newDestination.airportName"
+                        #airportName="ngModel" pattern="^[a-zA-Z ]+$" />
                 </mat-form-field>
                 <mat-error *ngIf="airportName?.errors && airportName.touched">
                     <span *ngIf="airportName.errors?.['required']">Airport Name is required.</span>
@@ -32,12 +32,13 @@
             <div>
                 <mat-form-field>
                     <mat-label>Airport Website</mat-label>
-                    <input matInput name="airportWebsite" required [(ngModel)]="newDestination.airportWebsite" #airportWebsite="ngModel"
-                        pattern="https?:/.+" />
+                    <input matInput name="airportWebsite" required [(ngModel)]="newDestination.airportWebsite"
+                        #airportWebsite="ngModel" pattern="https?:/.+" />
                 </mat-form-field>
                 <mat-error *ngIf="airportWebsite?.errors && airportWebsite.touched">
                     <span *ngIf="airportWebsite.errors?.['required']">Airport Website is required.</span>
-                    <span *ngIf="airportWebsite.errors?.['pattern']">Airport Website format issue. URL must start with http:// or https://</span>
+                    <span *ngIf="airportWebsite.errors?.['pattern']">Airport Website format issue. URL must start with
+                        http:// or https://</span>
                 </mat-error>
             </div>
 
@@ -57,17 +58,21 @@
                 <mat-form-field>
                     <mat-label>Destination Code</mat-label>
                     <input matInput name="code" required [(ngModel)]="newDestination.code" #code="ngModel"
-                           pattern="^[a-zA-Z ]+$" (input)="checkCodeExists()" />
+                        pattern="^[A-Z]{3}$" maxlength="3" minlength="3" (input)="checkCodeExists()"
+                        (keyup)="newDestination.code = newDestination.code.toUpperCase()" />
                 </mat-form-field>
+
                 <mat-error *ngIf="code.invalid && code.touched">
                     <span *ngIf="code.errors?.['required']">Code is required.</span>
-                    <span *ngIf="code.errors?.['pattern']">Code must be letters only.</span>
+                    <span *ngIf="code.errors?.['pattern']">Code must be exactly 3 uppercase letters (A-Z).</span>
                 </mat-error>
+
                 <mat-error *ngIf="codeExists">
-                    Destination code already exists. Please choose a different Code.
+                    Destination code already exists. Please choose a different code.
                 </mat-error>
             </div>
-            
+
+
             <div>
                 <mat-form-field>
                     <mat-label>Image Url</mat-label>
@@ -80,7 +85,8 @@
                 </mat-error>
             </div>
 
-            <button mat-raised-button color="primary" type="submit" [disabled]="SumbitRegistrationForm.invalid || SumbitRegistrationForm.pristine">
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="SumbitRegistrationForm.invalid || SumbitRegistrationForm.pristine">
                 Save
             </button>
 
