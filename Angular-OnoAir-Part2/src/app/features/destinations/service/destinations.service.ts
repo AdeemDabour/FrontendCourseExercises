@@ -31,7 +31,7 @@ export class DestinationService {
     const destinationDoc = doc(this.firestore, this.collectionName, nextId.toString());
     await setDoc(destinationDoc, { ...newDestination, id: nextId.toString() });
 
-    console.log(`Destination added with ID: ${nextId}`);
+    console.log(`Destination ${newDestination.name} added with ID: ${nextId}`);
   }
 
   async removeDestination(id: string): Promise<void> {

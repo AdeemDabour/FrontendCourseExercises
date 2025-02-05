@@ -13,7 +13,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from 
 import { DestinationService } from '../../../destinations/service/destinations.service';
 import { CUSTOM_DATE_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 import { MatSelectModule } from '@angular/material/select';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-edit-flight',
   imports: [
@@ -52,7 +52,8 @@ export class EditFlightComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private flightService: FlightsService,
-    private destinationService: DestinationService
+    private destinationService: DestinationService,
+    private snackBar: MatSnackBar
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -124,6 +125,10 @@ export class EditFlightComponent implements OnInit {
 
     try {
       await this.flightService.updateFlight(this.flight.id, this.flight);
+      this.snackBar.open('Flight Updated successfully!', 'OK', {
+        verticalPosition: 'top', // Show at the top
+        horizontalPosition: 'center', // Centered
+      });
       this.router.navigate(['/manage-flights']);
     } catch (error) {
       console.error('Error updating flight:', error);

@@ -9,7 +9,7 @@ import { DestinationService } from '../../service/destinations.service';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-destination-form',
@@ -25,7 +25,11 @@ export class DestinationFormComponent implements OnInit {
   codeExists: boolean = false;
 
 
-  constructor(private destinationService: DestinationService, private router: Router) { };
+  constructor(
+    private destinationService: DestinationService, 
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { };
   async ngOnInit(): Promise<void> {
     this.existingDestinations = await firstValueFrom(this.destinationService.destinations$);
   }
@@ -47,6 +51,10 @@ export class DestinationFormComponent implements OnInit {
       return;
     }
     await this.destinationService.addDestination(this.newDestination);
+    this.snackBar.open('Destination Added successfully!', 'OK', {
+      verticalPosition: 'top', // Show at the top
+      horizontalPosition: 'center', // Centered
+    });
     this.router.navigate(['/manage-destinations']);
   }
 }

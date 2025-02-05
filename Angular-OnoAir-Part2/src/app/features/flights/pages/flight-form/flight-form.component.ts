@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 import { CustomDateAdapter, CUSTOM_DATE_FORMATS } from '../../model/CustomDateAdapter';
 import { Destination } from '../../../destinations/model/destination';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-flight-form',
@@ -64,7 +65,8 @@ export class FlightFormComponent implements OnInit {
   constructor(
     private flightService: FlightsService,
     private destinationService: DestinationService,
-    private router: Router
+    private router: Router,
+    private snackBar : MatSnackBar
   ) { }
   async ngOnInit(): Promise<void> {
     this.flightService.loadFlights();
@@ -83,9 +85,16 @@ export class FlightFormComponent implements OnInit {
     if (!this.checkValidation()) {
       this.combineDateAndTime();
       await this.flightService.addFlight(this.newFlight);
+      // ✅ Show success message
+      this.snackBar.open('Flight Added successfully!', 'OK', {
+        verticalPosition: 'top', // Show at the top
+        horizontalPosition: 'center', // Centered
+      });
+  
       this.router.navigate(['/manage-flights']);
     }
   }
+  
 
   combineDateAndTime(): void {
     if (this.boardingDate && this.boardingTime) {
