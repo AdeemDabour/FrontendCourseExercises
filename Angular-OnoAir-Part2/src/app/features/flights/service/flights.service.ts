@@ -45,10 +45,16 @@ export class FlightsService {
       await setDoc(flightDoc, { ...newFlight, id: nextId.toString() });
 
       console.log(`Flight: ${newFlight.flightNo} added with ID: ${nextId}`);
+
+      // 🔥 עדכון מידי של ה- BehaviorSubject כך שהטבלה תתעדכן בזמן אמת
+      const updatedFlights = [...this.flightsSubject.getValue(), { ...newFlight, id: nextId.toString() }];
+      this.flightsSubject.next(updatedFlights);
+
     } catch (error) {
       console.error('Error adding flight:', error);
     }
   }
+
 
   async updateFlight(flightId: string, updatedFlight: Flight): Promise<void> {
     try {
@@ -209,6 +215,4 @@ export class FlightsService {
       console.error(`🚨 Error updating seats for flight ${flightNo}:`, error);
     }
   }
-
 }
-

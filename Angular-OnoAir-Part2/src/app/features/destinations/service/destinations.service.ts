@@ -22,27 +22,31 @@ export class DestinationService {
 
   async addDestination(newDestination: Destination): Promise<void> {
     const destinationsCollection = collection(this.firestore, this.collectionName);
-  
+
     const querySnapshot = await getDocs(destinationsCollection);
     const ids = querySnapshot.docs.map(doc => parseInt(doc.id)).filter(id => !isNaN(id));
-  
+
     const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
-  
+
     const destinationDoc = doc(this.firestore, this.collectionName, nextId.toString());
     await setDoc(destinationDoc, { ...newDestination, id: nextId.toString() });
-  
+
     console.log(`Destination added with ID: ${nextId}`);
   }
 
   async removeDestination(id: string): Promise<void> {
     const docRef = doc(this.firestore, `${this.collectionName}/${id}`);
     await deleteDoc(docRef);
+
+    await this.loadDestinations();
   }
 
   async updateDestination(id: string, updatedDestination: Destination): Promise<void> {
     const docRef = doc(this.firestore, `${this.collectionName}/${id}`).withConverter(destinationConverter);
     await setDoc(docRef, updatedDestination);
     console.log(`Destination ${updatedDestination.name} updated successfully`);
+
+    await this.loadDestinations();
   }
 
   async createUniqueId(): Promise<string> {
@@ -56,7 +60,7 @@ export class DestinationService {
   async getDestinationById(id: string): Promise<Destination | undefined> {
     const collectionRef = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
     const querySnapshot = await getDocs(collectionRef);
-  
+
     const destinationDoc = querySnapshot.docs.find((doc) => doc.id === id);
     if (destinationDoc) {
       return destinationDoc.data();
@@ -65,11 +69,11 @@ export class DestinationService {
       return undefined;
     }
   }
-  
-  
+
+
   getDestinationByNameOrCode(nameOrCode: string): Observable<Destination | undefined> {
     const normalizedInput = nameOrCode.trim().toLowerCase();
-  
+
     return this.destinations$.pipe(
       map(destinations =>
         destinations.find(destination =>
@@ -79,17 +83,17 @@ export class DestinationService {
       )
     );
   }
-  
+
   getDestinationByName(name: string): Destination | undefined {
     const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
     return destinations.find(destination => destination.name === name);
   }
-  
+
   listDestinationNames(): string[] {
     const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
     return destinations.map(destination => destination.name);
   }
-  
+
   getDestinationImage(nameOrCode: string): Observable<string> {
     return this.getDestinationByNameOrCode(nameOrCode).pipe(
       map(destination => {
@@ -97,10 +101,10 @@ export class DestinationService {
           return destination.imageUrl;
         } else {
           return ''; // Return an empty string if no destination is found
-        } 
-    }));
+        }
+      }));
   }
-   
+
   getDestinationStatus(code: string): Status {
     const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
     const destination = destinations.find(d => d.code.toLowerCase() === code.toLowerCase());
@@ -109,10 +113,13 @@ export class DestinationService {
   async refreshDestinations(): Promise<Destination[]> {
     const collectionRef = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
     const querySnapshot = await getDocs(collectionRef);
-    
-    return querySnapshot.docs
+
+    const destinations = querySnapshot.docs
       .map((doc) => doc.data())
-      .sort((a, b) => parseInt(a.id) - parseInt(b.id)); // Sort by numeric ID
+      .sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+    this.destinationsSubject.next(destinations);
+
+    return destinations;
   }
-  
 }

@@ -16,11 +16,15 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class ManageFlightsComponent implements OnInit {
   flights: Flight[] = [];
   isLoading: boolean = true;
-  constructor(private flightService: FlightsService, private router: Router) {}
+  constructor(private flightService: FlightsService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadFlights();
+    this.flightService.flights$.subscribe(flights => {
+      this.flights = flights;
+      this.isLoading = false;
+    });
   }
+
   async loadFlights(): Promise<void> {
     await this.flightService.refreshFlights();
     try {
@@ -29,7 +33,8 @@ export class ManageFlightsComponent implements OnInit {
           this.flights = flights;
         },
       }
-    );} catch (error) {
+      );
+    } catch (error) {
       console.error('Failed to load flights:', error);
     }
     finally {

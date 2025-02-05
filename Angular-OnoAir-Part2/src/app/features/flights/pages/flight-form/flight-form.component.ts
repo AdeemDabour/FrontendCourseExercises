@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 import { CustomDateAdapter, CUSTOM_DATE_FORMATS } from '../../model/CustomDateAdapter';
+import { Destination } from '../../../destinations/model/destination';
 
 @Component({
   selector: 'app-flight-form',
@@ -64,22 +65,28 @@ export class FlightFormComponent implements OnInit {
     private flightService: FlightsService,
     private destinationService: DestinationService,
     private router: Router
-  ) {}
-
+  ) { }
   async ngOnInit(): Promise<void> {
     this.flightService.loadFlights();
-    // Load destination names from the service
-    this.destinations = this.destinationService.listDestinationNames();
+
+    this.destinationService.destinations$.subscribe(destinations => {
+      this.destinations = destinations
+        .filter((destination: Destination) => destination.status === Status.Active)
+        .map((destination: Destination) => destination.name)
+        .sort((a, b) => a.localeCompare(b));
+    });
+
     this.existingFlightNos = this.flightService.listFlightNames();
   }
-  onSubmitRegistration(): void {
-    if (this.checkValidation()) {
+
+  async onSubmitRegistration(): Promise<void> {
+    if (!this.checkValidation()) {
       this.combineDateAndTime();
-      this.flightService.addFlight(this.newFlight);
+      await this.flightService.addFlight(this.newFlight);
       this.router.navigate(['/manage-flights']);
-      alert('Flight added successfully!,Please refresh the page.');
-    } 
+    }
   }
+
   combineDateAndTime(): void {
     if (this.boardingDate && this.boardingTime) {
       const [hours, minutes] = this.boardingTime.split(':').map(Number);
