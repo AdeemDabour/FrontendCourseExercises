@@ -1,27 +1,42 @@
- .form-card {
-     padding: 24px;
-     max-width: 800px;
-     width: 100%;
-     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-     border-radius: 8px;
-     background-color: white;
- }
+.form-card {
+    padding: 24px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: white;
+}
 
- .form-field {
-     margin-bottom: 16px;
-     width: 50%;
- }
+.form-field {
+    margin-bottom: 16px;
+    width: 50%;
+}
+mat-form-field {
+  width: 100%;
+  max-width: 215px;
+}
 
- .full-width {
-     width: 100%;
- }
+.mat-form-field-wrapper {
+  width: 100%;
+}
 
- .button-container {
-     display: flex;
-     justify-content: space-between;
-     margin-top: 16px;
- }
+.full-width {
+    width: 100%;
+}
 
- button {
-     min-width: 120px;
- }
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+button {
+    margin-bottom: 20px;
+    min-width: 120px;
+}
+
+mat-error {
+    font-size: 14px;
+    margin-top: -20px; 
+    line-height: 1.2;
+}

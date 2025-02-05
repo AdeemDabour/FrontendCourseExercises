@@ -9,6 +9,7 @@ import { BookingCardComponent } from '../booking-card/booking-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FlightsService } from '../../../flights/service/flights.service';
 import { firstValueFrom } from 'rxjs';
+import { Flight } from '../../../flights/model/flight';
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
@@ -24,7 +25,7 @@ export class MyBookingsComponent implements OnInit {
     private bookingService: BookingService,
     private router: Router,
     private flightService: FlightsService
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadBookings();
@@ -33,51 +34,46 @@ export class MyBookingsComponent implements OnInit {
   async loadBookings(): Promise<void> {
     try {
       this.isLoading = true;
-      const allBookings = await this.bookingService.listBookings(); // Await the Promise
+      const allBookings = await this.bookingService.listBookings();
       const today = new Date();
-  
-      // Initialize arrays for upcoming and previous bookings
+
       const upcoming: Booking[] = [];
       const previous: Booking[] = [];
-  
-      // Create an array of promises for fetching flights
+
+      const flightDetails: { [key: string]: Flight } = {};
+
       const flightPromises = allBookings.map(async (booking) => {
         const flight = await firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo));
-        
+
         if (!flight) {
           console.error(`Flight details not found for flight number: ${booking.flightNo}`);
           return;
         }
-        
-        const boardingDate = flight.boarding; // Already a Date type
-  
+
+        flightDetails[booking.flightNo] = flight;
+        const boardingDate = new Date(flight.boarding);
+
         if (boardingDate > today && booking.status !== Status.Inactive) {
           upcoming.push(booking);
         } else {
-          // Add the booking to the previous array and update its status
           if (booking.status !== Status.Inactive) {
             await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
           }
           previous.push(booking);
         }
       });
-  
-      // Wait for all flights to be fetched before updating the UI
+
       await Promise.all(flightPromises);
-  
-      // Update the properties after processing
-      this.upcomingBookings = [...upcoming];
-      this.previousBookings = [...previous];
-  
+
+      this.upcomingBookings = upcoming.sort((a, b) => new Date(flightDetails[a.flightNo].boarding).getTime() - new Date(flightDetails[b.flightNo].boarding).getTime());
+      this.previousBookings = previous.sort((a, b) => new Date(flightDetails[b.flightNo].boarding).getTime() - new Date(flightDetails[a.flightNo].boarding).getTime());
+
     } catch (error) {
       console.error('Error loading bookings:', error);
     } finally {
       this.isLoading = false;
     }
   }
-  
-  
-
   viewBooking(booking: Booking): void {
     firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo))
       .then((flight) => {
@@ -85,20 +81,20 @@ export class MyBookingsComponent implements OnInit {
           console.error(`Flight details not found for flight number: ${booking.flightNo}`);
           return;
         }
-  
+
         const passengers = booking.passengers;
         const bookingDetails = {
           bookingCode: booking.bookingCode,
           flight: {
             origin: flight.origin,
             destination: flight.destination,
-            boarding: flight.boarding, // Already a Date type
-            landing: flight.landing,   // Already a Date type
+            boarding: flight.boarding,
+            landing: flight.landing,
             passengerCount: passengers.length,
           },
           passengers: passengers,
         };
-  
+
         console.log('Navigating to booking details with:', bookingDetails);
         this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
       })
@@ -110,23 +106,22 @@ export class MyBookingsComponent implements OnInit {
     this.isLoading = true; // Show loading indicator
 
     try {
-        // ✅ Update booking status to inactive
-        await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
-        
-        // ✅ Restore seats to the flight
-        await this.flightService.updateSeatsForFlight(booking.flightNo, booking.passengers.length);
+      // ✅ Update booking status to inactive
+      await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
 
-        // ✅ Remove from upcoming & move to previous
-        this.upcomingBookings = this.upcomingBookings.filter(b => b.id !== booking.id);
-        this.previousBookings.push({ ...booking, status: Status.Inactive });
+      // ✅ Restore seats to the flight
+      await this.flightService.updateSeatsForFlight(booking.flightNo, booking.passengers.length);
 
-        console.log(`Booking ${booking.bookingCode} canceled & moved to previous bookings.`);
+      // ✅ Remove from upcoming & move to previous
+      this.upcomingBookings = this.upcomingBookings.filter(b => b.id !== booking.id);
+      this.previousBookings.push({ ...booking, status: Status.Inactive });
+
+      console.log(`Booking ${booking.bookingCode} canceled & moved to previous bookings.`);
     } catch (error) {
-        console.error('Error canceling booking:', error);
-        alert('Failed to cancel booking. Please try again.');
+      console.error('Error canceling booking:', error);
+      alert('Failed to cancel booking. Please try again.');
     } finally {
-        this.isLoading = false;
+      this.isLoading = false;
     }
-}
-
+  }
 }

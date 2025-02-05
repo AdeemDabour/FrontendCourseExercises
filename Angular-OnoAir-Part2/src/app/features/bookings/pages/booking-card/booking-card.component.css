@@ -1,13 +1,13 @@
 .booking-card {
     display: flex;
     width: 100%;
-    max-width: 1200px;
+    max-width: 900px;
     padding: 0;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-  }
+}
 
 .card-content {
     display: flex;
@@ -48,4 +48,22 @@
     justify-content: flex-end;
     margin-top: auto;
     padding: 16px;
+}
+
+.bookings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    justify-content: center;
+    align-items: stretch;
+    padding: 16px;
+}
+
+@media (max-width: 768px) {
+    .bookings-container {
+        grid-template-columns: 1fr;
+    }
+    .booking-card {
+        width: 100%;
+    }
 }

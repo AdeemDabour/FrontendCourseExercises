@@ -128,7 +128,7 @@
       <!-- Buttons -->
       <mat-card-actions align="start">
         <button mat-raised-button color="primary" type="submit"
-          [disabled]="editFlightForm.invalid || checkValidation()">
+          [disabled]="editFlightForm.invalid || editFlightForm.pristine || checkValidation()">
           Save
         </button>
       </mat-card-actions>

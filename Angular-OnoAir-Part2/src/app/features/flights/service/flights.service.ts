@@ -122,19 +122,20 @@ export class FlightsService {
 
 
   getFlightsThisWeek(): Observable<Flight[]> {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const endOfWeek = new Date(today);
-    endOfWeek.setDate(today.getDate() + 7);
-
+    const now = new Date();
+  
+    const endOfWeek = new Date();
+    endOfWeek.setDate(now.getDate() + 7);
+  
     return this.flights$.pipe(
       map((flights) =>
         flights.filter((flight) => {
+          const flightBoarding = new Date(flight.boarding);
+  
           return (
-            flight.status === Status.Active && // Only include active flights
-            flight.boarding >= today &&
-            flight.boarding <= endOfWeek
+            flight.status === Status.Active &&
+            flightBoarding >= now &&
+            flightBoarding <= endOfWeek
           );
         })
       )

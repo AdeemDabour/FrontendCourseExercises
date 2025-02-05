@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { Component, OnInit } from '@angular/core';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-edit-destination',
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule, MatError],
   templateUrl: './edit-destination.component.html',
   styleUrl: './edit-destination.component.css',
 })

@@ -11,6 +11,14 @@
     margin-bottom: 16px;
     width: 50%;
 }
+mat-form-field {
+  width: 100%;
+  max-width: 215px;
+}
+
+.mat-form-field-wrapper {
+  width: 100%;
+}
 
 .full-width {
     width: 100%;
@@ -23,13 +31,12 @@
 }
 
 button {
+    margin-bottom: 20px;
     min-width: 120px;
 }
-mat-form-field {
-    width: 100%; /* Ensures all fields have equal width */
-    max-width: 215px; /* Adjust this based on your design preference */
-  }
-  
-  .mat-form-field-wrapper {
-    width: 100%;
-  }
+
+mat-error {
+    font-size: 14px;
+    margin-top: -20px; 
+    line-height: 1.2;
+}

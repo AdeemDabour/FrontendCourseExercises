@@ -5,52 +5,79 @@
             <div>
                 <mat-form-field>
                     <mat-label>Name</mat-label>
-                    <input matInput name="name" required [(ngModel)]="newDestination.name" pattern="^[a-zA-Z ]+$" />
-                    <mat-error>Name must be letters only</mat-error>
+                    <input matInput name="name" required [(ngModel)]="newDestination.name" #name="ngModel"
+                           pattern="^[a-zA-Z ]+$" (input)="checkNameExists()" />
                 </mat-form-field>
+                <mat-error *ngIf="name.invalid && name.touched">
+                    <span *ngIf="name.errors?.['required']">Name is required.</span>
+                    <span *ngIf="name.errors?.['pattern']">Name must be letters only.</span>
+                </mat-error>
+                <mat-error *ngIf="nameExists">
+                    Destination name already exists. Please choose a different Name.
+                </mat-error>
             </div>
 
             <div>
                 <mat-form-field>
                     <mat-label>Airport Name</mat-label>
-                    <input matInput name="airportName" required [(ngModel)]="newDestination.airportName"
+                    <input matInput name="airportName" required [(ngModel)]="newDestination.airportName" #airportName="ngModel"
                         pattern="^[a-zA-Z ]+$" />
-                    <mat-error>Airport Name be letters only</mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="airportName?.errors && airportName.touched">
+                    <span *ngIf="airportName.errors?.['required']">Airport Name is required.</span>
+                    <span *ngIf="airportName.errors?.['pattern']">Airport Name must be letters only.</span>
+                </mat-error>
             </div>
 
             <div>
                 <mat-form-field>
                     <mat-label>Airport Website</mat-label>
-                    <input matInput name="airportWebsite" required [(ngModel)]="newDestination.airportWebsite"
+                    <input matInput name="airportWebsite" required [(ngModel)]="newDestination.airportWebsite" #airportWebsite="ngModel"
                         pattern="https?:/.+" />
-                    <mat-error>Airport Website format issue. URL must start with http:// or https://.</mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="airportWebsite?.errors && airportWebsite.touched">
+                    <span *ngIf="airportWebsite.errors?.['required']">Airport Website is required.</span>
+                    <span *ngIf="airportWebsite.errors?.['pattern']">Airport Website format issue. URL must start with http:// or https://</span>
+                </mat-error>
             </div>
 
             <div>
                 <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input matInput name="email" required email [(ngModel)]="newDestination.email">
-                    <mat-error>Email format issue</mat-error>
+                    <input matInput name="email" required email [(ngModel)]="newDestination.email" #email="ngModel" />
                 </mat-form-field>
+                <mat-error *ngIf="email?.errors && email.touched">
+                    <span *ngIf="email.errors?.['required']">Email is required.</span>
+                    <span *ngIf="email.errors?.['email']">Invalid email format.</span>
+                </mat-error>
             </div>
+
 
             <div>
                 <mat-form-field>
                     <mat-label>Destination Code</mat-label>
-                    <input matInput name="code" required [(ngModel)]="newDestination.code" pattern="^[a-zA-Z ]+$" />
-                    <mat-error>Destination code be letters only</mat-error>
+                    <input matInput name="code" required [(ngModel)]="newDestination.code" #code="ngModel"
+                           pattern="^[a-zA-Z ]+$" (input)="checkCodeExists()" />
                 </mat-form-field>
+                <mat-error *ngIf="code.invalid && code.touched">
+                    <span *ngIf="code.errors?.['required']">Code is required.</span>
+                    <span *ngIf="code.errors?.['pattern']">Code must be letters only.</span>
+                </mat-error>
+                <mat-error *ngIf="codeExists">
+                    Destination code already exists. Please choose a different Code.
+                </mat-error>
             </div>
-
+            
             <div>
                 <mat-form-field>
                     <mat-label>Image Url</mat-label>
-                    <input matInput name="imageUrl" required [(ngModel)]="newDestination.imageUrl"
+                    <input matInput name="imageUrl" required [(ngModel)]="newDestination.imageUrl" #imageUrl="ngModel"
                         pattern="https?:/.+" />
-                    <mat-error>Must start with http:/ or https:/</mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="imageUrl?.errors && imageUrl.touched">
+                    <span *ngIf="imageUrl.errors?.['required']">Image URL is required.</span>
+                    <span *ngIf="imageUrl.errors?.['pattern']">Image URL must start with http:/ or https:/</span>
+                </mat-error>
             </div>
 
             <button mat-raised-button color="primary" type="submit" [disabled]="SumbitRegistrationForm.invalid || SumbitRegistrationForm.pristine">
