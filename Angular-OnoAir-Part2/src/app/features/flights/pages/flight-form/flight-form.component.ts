@@ -22,7 +22,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
   selector: 'app-flight-form',
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatOptionModule, MatSelectModule, MatDatepickerModule, MatTimepickerModule],
   templateUrl: './flight-form.component.html',
-  styleUrls: ['./flight-form.component.css'],
+  styleUrl: './flight-form.component.css',
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
@@ -30,17 +30,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
   ]  
 })
 export class FlightFormComponent implements OnInit {
-  newFlight: Flight = new Flight(
-    '',
-    '',
-    '',
-    '',
-    new Date(),
-    new Date(),
-    '',
-    Status.Active,
-    0
-  );
+  newFlight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active, 0);
 
   destinations: string[] = []; // List of destination names
   today: Date = new Date();
@@ -60,17 +50,14 @@ export class FlightFormComponent implements OnInit {
   ) { }
   async ngOnInit(): Promise<void> {
     this.flightService.loadFlights();
-
     this.destinationService.destinations$.subscribe(destinations => {
       this.destinations = destinations
         .filter((destination: Destination) => destination.status === Status.Active)
         .map((destination: Destination) => destination.name)
         .sort((a, b) => a.localeCompare(b));
     });
-
     this.existingFlightNos = this.flightService.listFlightNames();
   }
-
   async onSubmitRegistration(): Promise<void> {
     if (!this.checkValidation()) {
       this.combineDateAndTime();
@@ -84,8 +71,6 @@ export class FlightFormComponent implements OnInit {
       this.router.navigate(['/manage-flights']);
     }
   }
-
-
   combineDateAndTime(): void {
     if (this.boardingDate && this.boardingTime) {
       this.newFlight.boarding = new Date(this.boardingDate); // Copy date
@@ -96,25 +81,19 @@ export class FlightFormComponent implements OnInit {
       this.newFlight.landing.setHours(this.landingTime.getHours(), this.landingTime.getMinutes(), 0, 0);
     }
   }
-  
-
-
   isBoardingTimeInvalid(): boolean {
     if (!this.boardingDate || !this.boardingTime) {
       return false;
     }
-  
     const now = new Date();
     return  this.boardingDate.getDate() === now.getDate() && this.boardingTime < now; // Ensures boarding time is in the future
   }
-  
   isLandingTimeInvalid(): boolean {
     if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {
       return false;
     }
     return this.landingDate.getDate() === this.boardingDate.getDate() && this.landingTime <= this.boardingTime;
   }
-  
   checkFlightNoExists(): void {
     this.flightNoExists = this.existingFlightNos.includes(this.newFlight.flightNo.trim());
   }

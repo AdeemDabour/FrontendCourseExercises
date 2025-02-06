@@ -70,7 +70,6 @@ export class DestinationService {
     }
   }
 
-
   getDestinationByNameOrCode(nameOrCode: string): Observable<Destination | undefined> {
     const normalizedInput = nameOrCode.trim().toLowerCase();
 

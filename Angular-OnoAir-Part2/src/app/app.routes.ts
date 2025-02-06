@@ -13,6 +13,10 @@ import { DestinationFormComponent } from './features/destinations/pages/destinat
 import { FlightFormComponent } from './features/flights/pages/flight-form/flight-form.component';
 import { EditDestinationComponent } from './features/destinations/pages/edit-destination/edit-destination.component';
 import { EditFlightComponent } from './features/flights/pages/edit-flight/edit-flight.component';
+import { ManageCouponsComponent } from './features/bookings/pages/manage-coupons/manage-coupons.component';
+import { CouponFormComponent } from './features/bookings/pages/coupon-form/coupon-form.component';
+import { EditCouponComponent } from './features/bookings/pages/edit-coupon/edit-coupon.component';
+
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
@@ -29,5 +33,8 @@ export const routes: Routes = [
   { path: 'edit-destination/:id', component: EditDestinationComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
   { path: 'edit-flight/:id', component: EditFlightComponent },
+  { path: 'manage-coupons', component: ManageCouponsComponent },
+  { path: 'coupon-form/:id', component: CouponFormComponent },
+  { path: 'edit-coupon/:id', component: EditCouponComponent },
   { path: '**', redirectTo: '' }
 ];

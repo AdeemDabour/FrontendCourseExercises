@@ -14,8 +14,7 @@ import { FlightsService } from '../../../flights/service/flights.service';
 
 @Component({
   selector: 'app-manage-destinations',
-  imports: [MatSortModule, MatTableModule, MatIcon,
-           MatButtonModule, MatProgressBarModule, CommonModule, MatPaginatorModule],
+  imports: [MatSortModule, MatTableModule, MatIcon,MatButtonModule, MatProgressBarModule, CommonModule, MatPaginatorModule],
   templateUrl: './manage-destinations.component.html',
   styleUrls: ['./manage-destinations.component.css'],
 })

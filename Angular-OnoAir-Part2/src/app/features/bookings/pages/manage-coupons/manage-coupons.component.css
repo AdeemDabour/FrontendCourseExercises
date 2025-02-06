@@ -1,4 +1,4 @@
-  mat-header-row, mat-row {
+mat-header-row, mat-row {
     display: table;
     width: 100%;
   }
