@@ -63,7 +63,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Boarding Date</mat-label>
           <input matInput [matDatepicker]="boardingPicker" name="boardingDate" required [(ngModel)]="boardingDate"
-            #boardingDateInput="ngModel" [min]="today" />
+            #boardingDateInput="ngModel" />
           <mat-datepicker-toggle matSuffix [for]="boardingPicker"></mat-datepicker-toggle>
           <mat-datepicker #boardingPicker></mat-datepicker>
         </mat-form-field>
