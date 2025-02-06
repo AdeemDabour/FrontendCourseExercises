@@ -14,6 +14,7 @@ import { Passenger } from '../../model/passenger';
 import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
 import { BookingService } from '../../service/bookings.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-book-flight',
   imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule],
@@ -34,8 +35,9 @@ export class BookFlightComponent implements OnInit {
     private route: ActivatedRoute,
     private flightsService: FlightsService,
     private router: Router,
-    private bookingService: BookingService
-  ) {}
+    private bookingService: BookingService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     const flightNo = this.route.snapshot.paramMap.get('flightNo');
@@ -90,6 +92,11 @@ export class BookFlightComponent implements OnInit {
     try {
       const bookingCode = await this.bookingService.saveBooking(this.flight.flightNo, this.passengers);
       await this.flightsService.updateSeatsForFlight(this.flight.flightNo, -this.passengers.length);
+      // ✅ Show success message
+      this.snackBar.open('Booking Booked successfully!', 'OK', {
+        verticalPosition: 'top', // Show at the top
+        horizontalPosition: 'center', // Centered
+      });
       this.router.navigate(['/booking-details', bookingCode], {
         state: { flight: this.flight, passengers: this.passengers },
       });
@@ -106,24 +113,24 @@ export class BookFlightComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    const hasValidPassengers = this.passengers.every(passenger => 
+    const hasValidPassengers = this.passengers.every(passenger =>
       /^[A-Za-z ]+$/.test(passenger.name) && /^\d{9,10}$/.test(passenger.passport)
     );
-    
+
     const hasDuplicatePassports = this.hasDuplicatePassports();
-    
+
     return hasValidPassengers && !hasDuplicatePassports;
   }
 
   hasDuplicatePassports(): boolean {
     const passportNumbers = this.passengers.map(p => p.passport);
     const uniquePassports = new Set(passportNumbers);
-    
+
     if (passportNumbers.length !== uniquePassports.size) {
       this.passportErrorMessage = "There are passengers with the same passport number. Please check and correct.";
       return true;
     }
-    
+
 
     this.passportErrorMessage = null;
     return false;
