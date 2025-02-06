@@ -54,11 +54,14 @@
           </ng-container>
         </mat-card>
 
+        <p *ngIf="passportErrorMessage" class="error-text">{{ passportErrorMessage }}</p>
+
         <div class="button-container">
           <button mat-raised-button color="primary" (click)="submitBooking()" [disabled]="!isFormValid()">
             Submit Booking
           </button>
         </div>
+        
       </mat-card>
     </ng-container>
   </ng-container>

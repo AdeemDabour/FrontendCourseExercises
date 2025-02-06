@@ -61,3 +61,9 @@ mat-hint {
   font-size: 14px;
   color: black;
 }
+
+.error-text {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

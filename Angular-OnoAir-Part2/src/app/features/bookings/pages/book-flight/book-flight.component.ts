@@ -16,20 +16,7 @@ import { BookingService } from '../../service/bookings.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 @Component({
   selector: 'app-book-flight',
-  imports: [
-    MatTableModule,
-    MatCardModule,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatDivider,
-    MatHint,
-    MatButtonModule,
-    FormsModule,
-    CommonModule,
-    PassengerCardComponent,
-    MatProgressBarModule
-  ],
+  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule],
   templateUrl: './book-flight.component.html',
   styleUrls: ['./book-flight.component.css'],
 })
@@ -38,7 +25,9 @@ export class BookFlightComponent implements OnInit {
   numPassengers: number = 1;
   passengers: Passenger[] = [];
   bookingCode: string = '';
+  successMessage: string | null = null;
   errorMessage: string | null = null;
+  passportErrorMessage: string | null = null;
   isLoading: boolean = false;
 
   constructor(
@@ -90,12 +79,6 @@ export class BookFlightComponent implements OnInit {
     }));
   }
 
-  updatePassenger(index: number, passenger: Passenger): void {
-    if (index >= 0 && index < this.passengers.length) {
-      this.passengers[index] = passenger;
-    }
-  }
-
   async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
@@ -123,8 +106,33 @@ export class BookFlightComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    return this.passengers.every(passenger => 
+    const hasValidPassengers = this.passengers.every(passenger => 
       /^[A-Za-z ]+$/.test(passenger.name) && /^\d{9,10}$/.test(passenger.passport)
     );
+    
+    const hasDuplicatePassports = this.hasDuplicatePassports();
+    
+    return hasValidPassengers && !hasDuplicatePassports;
+  }
+
+  hasDuplicatePassports(): boolean {
+    const passportNumbers = this.passengers.map(p => p.passport);
+    const uniquePassports = new Set(passportNumbers);
+    
+    if (passportNumbers.length !== uniquePassports.size) {
+      this.passportErrorMessage = "There are passengers with the same passport number. Please check and correct.";
+      return true;
+    }
+    
+
+    this.passportErrorMessage = null;
+    return false;
+  }
+
+  updatePassenger(index: number, passenger: Passenger): void {
+    if (index >= 0 && index < this.passengers.length) {
+      this.passengers[index] = passenger;
+      this.hasDuplicatePassports();
+    }
   }
 }
