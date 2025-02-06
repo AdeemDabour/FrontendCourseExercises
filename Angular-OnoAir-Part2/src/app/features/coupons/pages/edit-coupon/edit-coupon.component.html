@@ -1,1 +1,5 @@
-<p>edit-coupon works!</p>
+<app-coupon-form 
+  [coupon]="coupon" 
+  [isEditMode]="true" 
+  (formSubmit)="saveCoupon($event)">
+</app-coupon-form>

@@ -1,12 +1,12 @@
 <div class="form-container">
     <mat-card class="form-card">
-        <h2 class="glitter-text">Add Coupon</h2>
-        <form #sumbitRegistrationForm="ngForm" (ngSubmit)="onSumbitRegistration()">
+        <h2 class="glitter-text">{{ isEditMode ? 'Edit Coupon' : 'Add Coupon' }}</h2>
+        <form #couponForm="ngForm" (ngSubmit)="submitForm()">
 
             <div>
                 <mat-form-field>
                     <mat-label>Code Coupon</mat-label>
-                    <input matInput name="code" required [(ngModel)]="newCoupon.codeCoupon" #code="ngModel" />
+                    <input matInput name="code" required [(ngModel)]="coupon.codeCoupon" #code="ngModel" />
                     <mat-error *ngIf="code.invalid && code.touched">
                         <span *ngIf="code.errors?.['required']">Code is required.</span>
                     </mat-error>
@@ -16,70 +16,51 @@
             <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Start Date</mat-label>
-                    <input matInput [matDatepicker]="startDatePicker" name="startDate" [(ngModel)]="newCoupon.startDate"
+                    <input matInput [matDatepicker]="startDatePicker" name="startDate" [(ngModel)]="coupon.startDate"
                         #startDate="ngModel" [min]="today" />
                     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #startDatePicker></mat-datepicker>
-                    <mat-error *ngIf="startDate.invalid && startDate.touched">
-                        <span *ngIf="startDate.errors?.['required']">Start Date is required.</span>
-                    </mat-error>
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field appearance="outline">
                     <mat-label>End Date</mat-label>
-                    <input matInput [matDatepicker]="endDatePicker" name="endDate" [(ngModel)]="newCoupon.endDate"
-                        #endDate="ngModel" [min]="newCoupon.startDate || today" />
+                    <input matInput [matDatepicker]="endDatePicker" name="endDate" [(ngModel)]="coupon.endDate"
+                        #endDate="ngModel" [min]="coupon.startDate || today" />
                     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #endDatePicker></mat-datepicker>
-                    <mat-error *ngIf="endDate.invalid && endDate.touched">
-                        <span *ngIf="endDate.errors?.['required']">End Date is required.</span>
-                    </mat-error>
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field>
                     <mat-label>Discount Percentage</mat-label>
-                    <input matInput name="discount" required type="number" [(ngModel)]="newCoupon.discountPercentage"
-                        #discount="ngModel" />
-                    <mat-error *ngIf="discount.invalid && discount.touched">
-                        <span *ngIf="discount.errors?.['required']">Discount is required.</span>
-                    </mat-error>
+                    <input matInput name="discount" required type="number" [(ngModel)]="coupon.discountPercentage" />
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field>
                     <mat-label>Description</mat-label>
-                    <input matInput name="description" required [(ngModel)]="newCoupon.description"
-                        #description="ngModel" />
-                    <mat-error *ngIf="description.invalid && description.touched">
-                        <span *ngIf="description.errors?.['required']">Description is required.</span>
-                    </mat-error>
+                    <input matInput name="description" required [(ngModel)]="coupon.description" />
                 </mat-form-field>
             </div>
 
             <div>
                 <mat-form-field>
                     <mat-label>Usage Limit</mat-label>
-                    <input matInput name="usageLimit" required type="number" [(ngModel)]="newCoupon.usageLimit"
-                        #usageLimit="ngModel" />
-                    <mat-error *ngIf="usageLimit.invalid && usageLimit.touched">
-                        <span *ngIf="usageLimit.errors?.['required']">Usage Limit is required.</span>
-                    </mat-error>
+                    <input matInput name="usageLimit" required type="number" [(ngModel)]="coupon.usageLimit" />
                 </mat-form-field>
             </div>
 
             <mat-card-actions align="start">
-                <button mat-raised-button color="primary" type="submit"
-                    [disabled]="sumbitRegistrationForm.invalid || sumbitRegistrationForm.pristine">
-                    Save
+                <button mat-raised-button color="primary" type="submit">
+                    {{ isEditMode ? 'Save Changes' : 'Save' }}
                 </button>
             </mat-card-actions>
             <mat-card-actions align="end">
-                <button mat-raised-button color="primary" routerLink="/manage-coupons">Back</button>
+                <button mat-raised-button color="accent" routerLink="/manage-coupons">Back</button>
             </mat-card-actions>
         </form>
     </mat-card>

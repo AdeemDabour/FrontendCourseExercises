@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CouponFormComponent } from './coupon-form.component';
 
 describe('CouponFormComponent', () => {
