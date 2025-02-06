@@ -57,7 +57,8 @@ export class MyBookingsComponent implements OnInit {
           upcoming.push(booking);
         } else {
           if (booking.status !== Status.Inactive) {
-            await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
+            booking.status = Status.Inactive;
+            await this.bookingService.updateBooking(booking.id, booking);
           }
           previous.push(booking);
         }
@@ -107,8 +108,9 @@ export class MyBookingsComponent implements OnInit {
 
     try {
       // ✅ Update booking status to inactive
-      await this.bookingService.updateBookingStatus(booking.id, Status.Inactive);
-
+      booking.status = Status.Inactive;
+      booking.canceled = true;
+      await this.bookingService.updateBooking(booking.id, booking);
       // ✅ Restore seats to the flight
       await this.flightService.updateSeatsForFlight(booking.flightNo, booking.passengers.length);
 

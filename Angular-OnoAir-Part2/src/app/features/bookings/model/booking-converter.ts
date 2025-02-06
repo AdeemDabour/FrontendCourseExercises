@@ -8,6 +8,7 @@ export const BookingConverter: FirestoreDataConverter<Booking> = {
       bookingCode: booking.bookingCode,
       flightNo: booking.flightNo,
       status: booking.status, // Exclude passengers; they are in a sub-collection
+      canceled: booking.canceled,
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot): Booking {
@@ -17,7 +18,8 @@ export const BookingConverter: FirestoreDataConverter<Booking> = {
       data['bookingCode'],
       data['flightNo'],
       [], // Passengers will be fetched from the sub-collection
-      data['status']
+      data['status'],
+      data['canceled']
     );
   },
 };

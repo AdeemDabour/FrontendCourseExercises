@@ -63,7 +63,20 @@
     .bookings-container {
         grid-template-columns: 1fr;
     }
+
     .booking-card {
         width: 100%;
     }
+}
+
+.canceled-indicator {
+    color: red;
+    font-weight: bold;
+    display: flex;
+    align-items: right;
+
+}
+
+mat-icon {
+    margin-right: 5px;
 }

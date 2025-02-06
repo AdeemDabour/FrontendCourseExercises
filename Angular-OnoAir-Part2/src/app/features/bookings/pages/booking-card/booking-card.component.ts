@@ -6,10 +6,10 @@ import { DestinationService } from "../../../destinations/service/destinations.s
 import { Booking, Status } from "../../model/booking";
 import { Flight } from "../../../flights/model/flight";
 import { BookingService } from "../../service/bookings.service";
-
+import { MatIconModule } from "@angular/material/icon";
 @Component({
   selector: 'app-booking-card',
-  imports: [CommonModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './booking-card.component.html',
   styleUrl: './booking-card.component.css'
 })

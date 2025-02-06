@@ -6,7 +6,8 @@ export class Booking {
         public bookingCode: string,
         public flightNo: string,
         public passengers: Passenger[],
-        public status: Status
+        public status: Status,
+        public canceled?: boolean,
     ) { }
 }
 export enum Status {

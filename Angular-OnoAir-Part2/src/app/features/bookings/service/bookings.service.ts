@@ -53,6 +53,7 @@ export class BookingService {
       flightNo,
       passengers: [], // Passengers will be stored in the sub-collection
       status: 'active' as Status,
+      canceled: false,
     };
   
     try {
@@ -135,27 +136,29 @@ export class BookingService {
       return null;
     }
   }
-  async updateBookingStatus(bookingId: string, status: Status): Promise<void> {
+  async updateBooking(bookingId: string, updatedBooking: Partial<Booking>): Promise<void> {
     try {
       const bookingDoc = doc(this.firestore, `${this.bookingsCollection}/${bookingId}`).withConverter(BookingConverter);
-      const bookingSnapshot = await getDoc(bookingDoc); // Use getDoc() to fetch the document
+      const bookingSnapshot = await getDoc(bookingDoc);
   
       if (bookingSnapshot.exists()) {
-        const updatedBooking = {
-          ...bookingSnapshot.data(), // Extract current data
-          status, // Update the status
+        // Merge the existing booking data with the updated fields
+        const newBookingData = {
+          ...bookingSnapshot.data(),
+          ...updatedBooking, // ✅ Merge only the fields provided
         };
   
-        await setDoc(bookingDoc, updatedBooking); // Save updated booking back to Firestore
-        console.log(`Booking ID: ${bookingId} status updated to ${status}`);
+        await setDoc(bookingDoc, newBookingData);
+        console.log(`Booking ID: ${bookingId} updated successfully.`);
       } else {
         console.error(`Booking ID: ${bookingId} does not exist in Firestore.`);
       }
     } catch (error) {
-      console.error(`Error updating booking status for ID: ${bookingId}`, error);
-      throw new Error('Unable to update booking status. Please try again later.');
+      console.error(`Error updating booking for ID: ${bookingId}`, error);
+      throw new Error('Unable to update booking. Please try again later.');
     }
   }
+  
   async getActiveBookingsForFlight(flightNo: string): Promise<{ bookingCode: string }[]> {
     try {
       const bookings = await this.listBookings(); // ✅ Fetch all bookings
