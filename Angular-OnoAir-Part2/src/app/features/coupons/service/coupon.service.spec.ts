@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { CouponService } from './coupon.service';
+import { CouponService } from '../service/coupon.service';
 
 describe('CouponService', () => {
   let service: CouponService;

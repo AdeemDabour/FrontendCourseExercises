@@ -13,9 +13,9 @@ import { DestinationFormComponent } from './features/destinations/pages/destinat
 import { FlightFormComponent } from './features/flights/pages/flight-form/flight-form.component';
 import { EditDestinationComponent } from './features/destinations/pages/edit-destination/edit-destination.component';
 import { EditFlightComponent } from './features/flights/pages/edit-flight/edit-flight.component';
-import { ManageCouponsComponent } from './features/bookings/pages/manage-coupons/manage-coupons.component';
-import { CouponFormComponent } from './features/bookings/pages/coupon-form/coupon-form.component';
-import { EditCouponComponent } from './features/bookings/pages/edit-coupon/edit-coupon.component';
+import { ManageCouponsComponent } from './features/coupons/pages/manage-coupons/manage-coupons.component';
+import { CouponFormComponent } from './features/coupons/pages/coupon-form/coupon-form.component';
+import { EditCouponComponent } from './features/coupons/pages/edit-coupon/edit-coupon.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },
