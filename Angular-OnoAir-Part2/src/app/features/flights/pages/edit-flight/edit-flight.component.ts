@@ -36,6 +36,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ],
 })
 export class EditFlightComponent implements OnInit {
+
   flight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active);
   boardingDate: Date | null = null;
   boardingTime: string = '00:00'; 
