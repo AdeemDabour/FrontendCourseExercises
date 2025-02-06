@@ -109,13 +109,45 @@ export class FlightFormComponent implements OnInit {
       this.newFlight.landing.setHours(hours, minutes);
     }
   }
+
+
+  isBoardingTimeInvalid(): boolean {
+    if (!this.boardingDate || !this.boardingTime) {
+      return false;
+    }
+  
+    const selectedBoardingDate = new Date(this.boardingDate);
+    const [boardingHours, boardingMinutes] = this.boardingTime.split(':').map(Number);
+    selectedBoardingDate.setHours(boardingHours, boardingMinutes);
+  
+    const now = new Date();
+  
+    return selectedBoardingDate < now;
+  }
+
   isLandingTimeInvalid(): boolean {
     if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {
-      return false; // If any field is empty, don't show error
+      return false;
     }
-    this.invalidTime = this.boardingDate.getDate() === this.landingDate.getDate() && this.landingTime <= this.boardingTime;
-    return this.boardingDate.getDate() === this.landingDate.getDate() && this.landingTime <= this.boardingTime;
+  
+    const selectedLandingDate = new Date(this.landingDate);
+    const [landingHours, landingMinutes] = this.landingTime.split(':').map(Number);
+    selectedLandingDate.setHours(landingHours, landingMinutes);
+  
+    const now = new Date();
+  
+    if (selectedLandingDate < now) {
+      return true;
+    }
+  
+    const selectedBoardingDate = new Date(this.boardingDate);
+    const [boardingHours, boardingMinutes] = this.boardingTime.split(':').map(Number);
+    selectedBoardingDate.setHours(boardingHours, boardingMinutes);
+  
+    return this.boardingDate.getTime() === this.landingDate.getTime() && selectedLandingDate <= selectedBoardingDate;
   }
+  
+  
   checkFlightNoExists(): void {
     this.flightNoExists = this.existingFlightNos.includes(this.newFlight.flightNo.trim());
   }

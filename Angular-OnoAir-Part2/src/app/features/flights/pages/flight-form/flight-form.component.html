@@ -65,15 +65,19 @@
         </mat-error>
       </div>
 
-      <div><mat-form-field appearance="fill">
-          <mat-label>Boarding Time</mat-label>
-          <input matInput type="time" name="boardingTime" required [(ngModel)]="boardingTime"
-            #boardingTimeInput="ngModel" />
-        </mat-form-field>
-        <mat-error *ngIf="boardingTimeInput.invalid && boardingTimeInput.touched">
-          Boarding time is required.
-        </mat-error>
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Boarding Time</mat-label>
+        <input matInput type="time" name="boardingTime" required [(ngModel)]="boardingTime" #boardingTimeInput="ngModel"
+          (change)="isBoardingTimeInvalid()" />
+      </mat-form-field>
+
+      <mat-error *ngIf="boardingTimeInput.invalid && boardingTimeInput.touched">
+        Boarding time is required.
+      </mat-error>
+
+      <mat-error *ngIf="boardingTimeInput.touched && isBoardingTimeInvalid()">
+        Boarding time cannot be in the past.
+      </mat-error>
 
       <div>
         <mat-form-field appearance="fill">
@@ -91,14 +95,16 @@
         <mat-form-field appearance="fill">
           <mat-label>Landing Time</mat-label>
           <input matInput type="time" name="landingTime" required [(ngModel)]="landingTime"
-            #landingTimeInput="ngModel" (change)="isLandingTimeInvalid()"/>
+            #landingTimeInput="ngModel" (change)="isLandingTimeInvalid()" />
         </mat-form-field>
+        
         <mat-error *ngIf="landingTimeInput.invalid && landingTimeInput.touched">
           <span *ngIf="landingTimeInput.errors?.['required']"> Landing time is required. </span>
         </mat-error>
+        
         <mat-error *ngIf="landingTimeInput.touched && isLandingTimeInvalid()">
-          Landing time must be after boarding time if both dates are the same.
-        </mat-error>
+          Landing time cannot be in the past or before boarding time if both dates are the same.
+        </mat-error>        
       </div>
       <div>
         <mat-form-field appearance="fill">
@@ -111,8 +117,8 @@
         </mat-error>
       </div>
       <mat-card-actions align="start">
-        <button mat-raised-button color="primary" type="submit" 
-        [disabled]="submitForm.invalid || submitForm.pristine || checkValidation() ">
+        <button mat-raised-button color="primary" type="submit"
+          [disabled]="submitForm.invalid || submitForm.pristine || checkValidation() || isBoardingTimeInvalid() || isLandingTimeInvalid()">
           Save
         </button>
       </mat-card-actions>
