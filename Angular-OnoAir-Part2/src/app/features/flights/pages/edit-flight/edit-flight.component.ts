@@ -10,10 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
-import { DestinationService } from '../../../destinations/service/destinations.service';
 import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 @Component({
   selector: 'app-edit-flight',
   imports: [
@@ -26,6 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatDatepickerModule,
     MatOptionModule,
     MatSelectModule,
+    MatTimepickerModule,
   ],
   templateUrl: './edit-flight.component.html',
   styleUrl: './edit-flight.component.css',
@@ -39,13 +40,11 @@ export class EditFlightComponent implements OnInit {
 
   flight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active);
   boardingDate: Date | null = null;
-  boardingTime: string = '00:00'; 
+  boardingTime: Date | null = null;
   landingDate: Date | null = null;
-  landingTime: string = '00:00'; 
-  destinations: string[] = [];
-  existingFlightNos: string[] = [];
-  flightNoExists: boolean = false;
+  landingTime: Date | null = null;
   invalidTime: boolean = false;
+  invalidDate: boolean = false;
   isLoading: boolean = true;
   today: Date = new Date();
 
@@ -53,16 +52,13 @@ export class EditFlightComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private flightService: FlightsService,
-    private destinationService: DestinationService,
     private snackBar: MatSnackBar
   ) {}
 
   async ngOnInit(): Promise<void> {
     const flightId = this.route.snapshot.paramMap.get('id');
-    this.destinations = this.destinationService.listDestinationNames();
     if (flightId) {
       await this.loadFlight(flightId);
-      this.existingFlightNos = this.flightService.listFlightNames().filter((flightNo) => flightNo !== this.flight.flightNo);
     } else {
       console.error('No flight ID provided.');
       this.router.navigate(['/manage-flights']);
@@ -76,9 +72,9 @@ export class EditFlightComponent implements OnInit {
       if (flight) {
         this.flight = flight;
         this.boardingDate = new Date(flight.boarding);
-        this.boardingTime = this.formatTime(new Date(flight.boarding));
+        this.boardingTime = new Date(flight.boarding);
         this.landingDate = new Date(flight.landing);
-        this.landingTime = this.formatTime(new Date(flight.landing));
+        this.landingTime = new Date (flight.landing);
       } else {
         console.error('Flight not found.');
         this.router.navigate(['/manage-flights']);
@@ -90,32 +86,24 @@ export class EditFlightComponent implements OnInit {
     }
   }
 
-  private formatTime(date: Date): string {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
-
-  checkFlightNoExists(): void {
-    this.flightNoExists = this.existingFlightNos.includes(this.flight.flightNo.trim());
-  }
-
   isLandingTimeInvalid(): boolean {
     if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {
       return false; 
     }
     this.invalidTime =
-      this.boardingDate.getDate() === this.landingDate.getDate() &&
+      this.boardingDate.getTime() >= this.landingDate.getTime() &&
       this.landingTime <= this.boardingTime;
+      console.log(this.invalidTime);
     return this.invalidTime;
   }
-
-  checkValidation(): boolean {
-    return (
-      this.flightNoExists ||
-      this.invalidTime ||
-      this.flight.origin === this.flight.destination
-    );
+  isLandingDateInvalid(): boolean {
+    if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {
+      return false; 
+    }
+    this.invalidDate =
+      this.boardingDate.getTime() > this.landingDate.getTime();
+      console.log("indalid date",this.invalidDate);
+    return this.invalidDate;
   }
 
   async saveFlight(): Promise<void> {
@@ -136,15 +124,16 @@ export class EditFlightComponent implements OnInit {
     }
   }
 
-  private combineDateAndTime(date: Date, time: string): Date {
-    const [hours, minutes] = time.split(':').map(Number);
+  private combineDateAndTime(date: Date, time: Date): Date {
     const combinedDate = new Date(date);
-    combinedDate.setHours(hours, minutes, 0, 0);
+    combinedDate.setHours(time.getHours(), time.getMinutes(), 0, 0);
     return combinedDate;
   }
-
   cancelEdit(): void {
     this.router.navigate(['/manage-flights']);
   }
-}
+  checkValidation(): boolean {
+    return this.invalidDate || this.invalidTime;
+  }
 
+}

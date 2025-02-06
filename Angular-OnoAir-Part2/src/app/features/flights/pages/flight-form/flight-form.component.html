@@ -6,7 +6,8 @@
         <mat-form-field appearance="fill">
           <mat-label>Flight No.</mat-label>
           <input matInput name="flightNo" required [(ngModel)]="newFlight.flightNo" #flightNo="ngModel"
-            pattern="^[a-zA-Z0-9]+$" (input)="checkFlightNoExists()" />
+            pattern="^[a-zA-Z0-9]+$" (input)="checkFlightNoExists()" 
+            (ngModelChange)="newFlight.flightNo = newFlight.flightNo.toUpperCase()"/>
         </mat-form-field>
         <mat-error *ngIf="flightNo.invalid && flightNo.touched">
           <span *ngIf="flightNo.errors?.['required']">flightNo is required.</span>
