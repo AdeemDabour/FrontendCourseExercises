@@ -12,6 +12,7 @@ export const FlightConverter = {
       landing: Timestamp.fromDate(flight.landing),   // Assumes it's already a Timestamp
       seats: flight.seats,
       status: flight.status,
+      price: flight.price
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot): Flight {
@@ -24,7 +25,8 @@ export const FlightConverter = {
       this.convertToValidDate(data["boarding"]), // Convert boarding to a valid Date
       this.convertToValidDate(data["landing"]),  // Convert landing to a valid Date
       data["seats"],
-      data["status"]
+      data["status"],
+      data["price"] || 0
     );
   },
   convertToValidDate(field: any): Date {
@@ -39,5 +41,4 @@ export const FlightConverter = {
       return new Date(0); // Fallback to epoch
     }
   }
-  
 };

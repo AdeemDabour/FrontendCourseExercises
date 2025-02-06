@@ -12,6 +12,7 @@ export class FlightsService {
   private collectionName = 'flights';
   private flightsSubject = new BehaviorSubject<Flight[]>([]);
   flights$ = this.flightsSubject.asObservable();
+  
 
   constructor(private firestore: Firestore) {
     this.loadFlights();

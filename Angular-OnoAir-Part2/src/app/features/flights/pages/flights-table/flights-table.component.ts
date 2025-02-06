@@ -23,7 +23,7 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
   @Input() showActionsColumn: boolean = true;
   @Input() flights: Flight[] = [];
 
-  displayedColumns: string[] = ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions'];
+  displayedColumns: string[] = ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'price','actions'];
   dataSource = new MatTableDataSource<Flight>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -44,8 +44,8 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
     }
 
     this.displayedColumns = this.showActionsColumn
-      ? ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'actions']
-      : ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'book'];
+      ? ['id', 'flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'price', 'actions']
+      : ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'price', 'book'];
   }
 
   ngAfterViewInit(): void {
@@ -152,4 +152,3 @@ export class FlightsTableComponent implements OnChanges, AfterViewInit {
     return flights.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
   }
 }
-

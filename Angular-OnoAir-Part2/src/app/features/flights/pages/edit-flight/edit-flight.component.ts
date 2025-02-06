@@ -17,17 +17,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 @Component({
   selector: 'app-edit-flight',
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatTimepickerModule,
-  ],
+    MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatOptionModule, MatSelectModule, MatTimepickerModule],
   templateUrl: './edit-flight.component.html',
   styleUrl: './edit-flight.component.css',
   providers: [
@@ -37,8 +27,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
     ],
 })
 export class EditFlightComponent implements OnInit {
-
-  flight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active);
+  flight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active, 0);
   boardingDate: Date | null = null;
   boardingTime: Date | null = null;
   landingDate: Date | null = null;

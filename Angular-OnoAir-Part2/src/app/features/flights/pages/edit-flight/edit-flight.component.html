@@ -109,6 +109,16 @@
         </mat-error>
       </div>
 
+      <mat-form-field appearance="fill">
+        <mat-label>Price ($)</mat-label>
+        <input matInput type="number" name="price" required [(ngModel)]="flight.price" #priceInput="ngModel" min="1"/>
+      </mat-form-field>
+      <mat-error *ngIf="priceInput.invalid && priceInput.touched">
+        <span *ngIf="priceInput.errors?.['required']">Price is required.</span>
+        <span *ngIf="priceInput.errors?.['min']">Price must be greater than 0.</span>
+      </mat-error>
+      
+
       <!-- Buttons -->
       <mat-card-actions align="start">
         <button mat-raised-button color="primary" type="submit"

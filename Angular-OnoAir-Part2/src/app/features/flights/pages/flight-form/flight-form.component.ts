@@ -20,19 +20,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
   selector: 'app-flight-form',
-  imports: [
-    FormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    CommonModule,
-    MatCardModule,
-    RouterModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTimepickerModule
-  ],
+  imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatOptionModule, MatSelectModule, MatDatepickerModule, MatTimepickerModule],
   templateUrl: './flight-form.component.html',
   styleUrls: ['./flight-form.component.css'],
   providers: [
@@ -50,7 +38,8 @@ export class FlightFormComponent implements OnInit {
     new Date(),
     new Date(),
     '',
-    Status.Active
+    Status.Active,
+    0
   );
 
   destinations: string[] = []; // List of destination names

@@ -119,9 +119,21 @@
           <span *ngIf="seats.errors?.['min']">Number of seats must be at least 1.</span>
         </mat-error>
       </div>
+
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Price</mat-label>
+          <input matInput name="price" required [(ngModel)]="newFlight.price" #price="ngModel" type="number" min="1" />
+        </mat-form-field>
+        <mat-error *ngIf="price.invalid && price.touched">
+          <span *ngIf="price.errors?.['required']">Price is required.</span>
+          <span *ngIf="price.errors?.['min']">Price must be at least 1.</span>
+        </mat-error>
+      </div>
+      
       <mat-card-actions align="start">
         <button mat-raised-button color="primary" type="submit"
-          [disabled]="submitForm.invalid || submitForm.pristine || checkValidation() || isBoardingTimeInvalid() || isLandingTimeInvalid()">
+          [disabled]="submitForm.invalid || submitForm.pristine || checkValidation() || isBoardingTimeInvalid() || isLandingTimeInvalid() || price.invalid">
           Save
         </button>
       </mat-card-actions>

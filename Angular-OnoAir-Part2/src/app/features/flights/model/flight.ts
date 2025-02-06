@@ -7,7 +7,8 @@ export class Flight {
     public boarding: Date,
     public landing: Date,
     public seats: string,
-    public status: Status
+    public status: Status,
+    public price: number
   ) {}
 }
 
