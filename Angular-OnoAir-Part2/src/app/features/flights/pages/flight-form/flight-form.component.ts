@@ -13,9 +13,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
-import { CustomDateAdapter, CUSTOM_DATE_FORMATS } from '../../model/CustomDateAdapter';
+import { CustomDateAdapter, CUSTOM_DATETIME_FORMATS } from '../../model/CustomDateAdapter';
 import { Destination } from '../../../destinations/model/destination';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
   selector: 'app-flight-form',
@@ -30,14 +31,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatOptionModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatTimepickerModule
   ],
   templateUrl: './flight-form.component.html',
   styleUrls: ['./flight-form.component.css'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
     { provide: DateAdapter, useClass: CustomDateAdapter },
-  ],
+  ]  
 })
 export class FlightFormComponent implements OnInit {
   newFlight: Flight = new Flight(
@@ -54,19 +56,18 @@ export class FlightFormComponent implements OnInit {
   destinations: string[] = []; // List of destination names
   today: Date = new Date();
   boardingDate: Date | null = null;
-  boardingTime: string = '';
+  boardingTime: Date | null = null;
   landingDate: Date | null = null;
-  landingTime: string = '';
+  landingTime: Date | null = null;
   existingFlightNos: string[] = []; // Store existing flight numbers
   flightNoExists: boolean = false;
-  invalidTime: boolean = true;
   @Input() id = 0;
 
   constructor(
     private flightService: FlightsService,
     private destinationService: DestinationService,
     private router: Router,
-    private snackBar : MatSnackBar
+    private snackBar: MatSnackBar
   ) { }
   async ngOnInit(): Promise<void> {
     this.flightService.loadFlights();
@@ -90,25 +91,23 @@ export class FlightFormComponent implements OnInit {
         verticalPosition: 'top', // Show at the top
         horizontalPosition: 'center', // Centered
       });
-  
+
       this.router.navigate(['/manage-flights']);
     }
   }
-  
+
 
   combineDateAndTime(): void {
     if (this.boardingDate && this.boardingTime) {
-      const [hours, minutes] = this.boardingTime.split(':').map(Number);
-      this.newFlight.boarding = new Date(this.boardingDate);
-      this.newFlight.boarding.setHours(hours, minutes);
+      this.newFlight.boarding = new Date(this.boardingDate); // Copy date
+      this.newFlight.boarding.setHours(this.boardingTime.getHours(), this.boardingTime.getMinutes(), 0, 0);
     }
-
     if (this.landingDate && this.landingTime) {
-      const [hours, minutes] = this.landingTime.split(':').map(Number);
-      this.newFlight.landing = new Date(this.landingDate);
-      this.newFlight.landing.setHours(hours, minutes);
+      this.newFlight.landing = new Date(this.landingDate); // Copy date
+      this.newFlight.landing.setHours(this.landingTime.getHours(), this.landingTime.getMinutes(), 0, 0);
     }
   }
+  
 
 
   isBoardingTimeInvalid(): boolean {
@@ -116,42 +115,21 @@ export class FlightFormComponent implements OnInit {
       return false;
     }
   
-    const selectedBoardingDate = new Date(this.boardingDate);
-    const [boardingHours, boardingMinutes] = this.boardingTime.split(':').map(Number);
-    selectedBoardingDate.setHours(boardingHours, boardingMinutes);
-  
     const now = new Date();
-  
-    return selectedBoardingDate < now;
+    return  this.boardingDate.getDate() === now.getDate() && this.boardingTime < now; // Ensures boarding time is in the future
   }
-
+  
   isLandingTimeInvalid(): boolean {
     if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {
       return false;
     }
-  
-    const selectedLandingDate = new Date(this.landingDate);
-    const [landingHours, landingMinutes] = this.landingTime.split(':').map(Number);
-    selectedLandingDate.setHours(landingHours, landingMinutes);
-  
-    const now = new Date();
-  
-    if (selectedLandingDate < now) {
-      return true;
-    }
-  
-    const selectedBoardingDate = new Date(this.boardingDate);
-    const [boardingHours, boardingMinutes] = this.boardingTime.split(':').map(Number);
-    selectedBoardingDate.setHours(boardingHours, boardingMinutes);
-  
-    return this.boardingDate.getTime() === this.landingDate.getTime() && selectedLandingDate <= selectedBoardingDate;
+    return this.landingDate.getDate() === this.boardingDate.getDate() && this.landingTime <= this.boardingTime;
   }
-  
   
   checkFlightNoExists(): void {
     this.flightNoExists = this.existingFlightNos.includes(this.newFlight.flightNo.trim());
   }
   checkValidation(): boolean {
-    return this.flightNoExists || this.invalidTime || this.newFlight.origin === this.newFlight.destination;
+    return this.flightNoExists || this.newFlight.origin === this.newFlight.destination;
   }
 } 

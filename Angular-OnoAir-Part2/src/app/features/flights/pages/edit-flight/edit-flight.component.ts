@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
 import { DestinationService } from '../../../destinations/service/destinations.service';
-import { CUSTOM_DATE_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
+import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
@@ -31,7 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './edit-flight.component.css',
   providers: [
       { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-      { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+      { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
       { provide: DateAdapter, useClass: CustomDateAdapter },
     ],
 })

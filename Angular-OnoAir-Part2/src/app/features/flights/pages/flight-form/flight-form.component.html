@@ -64,21 +64,22 @@
           <span *ngIf="boardingDateInput.errors?.['required']">Boarding date is required.</span>
         </mat-error>
       </div>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Boarding Time</mat-label>
-        <input matInput type="time" name="boardingTime" required [(ngModel)]="boardingTime" #boardingTimeInput="ngModel"
-          (change)="isBoardingTimeInvalid()" />
-      </mat-form-field>
-
-      <mat-error *ngIf="boardingTimeInput.invalid && boardingTimeInput.touched">
-        Boarding time is required.
-      </mat-error>
-
-      <mat-error *ngIf="boardingTimeInput.touched && isBoardingTimeInvalid()">
-        Boarding time cannot be in the past.
-      </mat-error>
-
+      <!-- Boarding Time -->
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Boarding Time</mat-label>
+          <input matInput [matTimepicker]="boardingTimePicker" 
+          [(ngModel)]="boardingTime" required name="boardingTime" (change)="isBoardingTimeInvalid()">
+          <mat-timepicker-toggle matSuffix [for]="boardingTimePicker"></mat-timepicker-toggle>
+          <mat-timepicker #boardingTimePicker></mat-timepicker>
+        </mat-form-field>
+        <mat-error *ngIf="!boardingTime">
+          Boarding time is required.
+        </mat-error>        
+        <mat-error *ngIf="boardingTime && isBoardingTimeInvalid()">
+          Boarding time cannot be in the past.
+        </mat-error>
+      </div>
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Landing Date</mat-label>
@@ -91,20 +92,21 @@
           <span *ngIf="landingDateInput.errors?.['required']">Landing date is required.</span>
         </mat-error>
       </div>
+      <!-- Landing Time -->
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Landing Time</mat-label>
-          <input matInput type="time" name="landingTime" required [(ngModel)]="landingTime"
-            #landingTimeInput="ngModel" (change)="isLandingTimeInvalid()" />
+          <input matInput [matTimepicker]="landingTimePicker" 
+          [(ngModel)]="landingTime" required name="landingTime" (change)="isLandingTimeInvalid()">
+          <mat-timepicker-toggle matSuffix [for]="landingTimePicker"></mat-timepicker-toggle>
+          <mat-timepicker #landingTimePicker></mat-timepicker>
         </mat-form-field>
-        
-        <mat-error *ngIf="landingTimeInput.invalid && landingTimeInput.touched">
-          <span *ngIf="landingTimeInput.errors?.['required']"> Landing time is required. </span>
+        <mat-error *ngIf="!landingTime">
+          Landing time is required.
         </mat-error>
-        
-        <mat-error *ngIf="landingTimeInput.touched && isLandingTimeInvalid()">
+        <mat-error *ngIf="landingTime && isLandingTimeInvalid()">
           Landing time cannot be in the past or before boarding time if both dates are the same.
-        </mat-error>        
+        </mat-error>
       </div>
       <div>
         <mat-form-field appearance="fill">
