@@ -1,0 +1,43 @@
+/* Container: Align filters in a row with proper spacing */
+.filter-container {
+    display: flex;
+    gap: 20px; /* Space between filters */
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    margin-left: 100px;
+}
+
+/* Increase mat-form-field width & height */
+mat-form-field {
+    width: 300px; /* Adjust width */
+    max-width: 350px;
+    height: 75px;
+}
+
+/* Styling for the labels (From, To, Passengers) */
+.filter-container span {
+    font-weight: bold;
+    font-size: 30px;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+/* Responsive: Stack fields on small screens */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    mat-form-field {
+        width: 100%; /* Full width for small screens */
+    }
+}
+/* Style the Clear Filters Button */
+button {
+    background-color: #f5b7b7;
+    height: 50px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
