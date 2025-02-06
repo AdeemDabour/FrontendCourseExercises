@@ -73,10 +73,10 @@
     color: red;
     font-weight: bold;
     display: flex;
-    align-items: right;
-
+    align-items: center;
 }
 
 mat-icon {
-    margin-right: 5px;
+    margin-right: 8px;
+    overflow: visible;
 }
