@@ -35,24 +35,25 @@ export class MyBookingsComponent implements OnInit {
     try {
       this.isLoading = true;
       const allBookings = await this.bookingService.listBookings();
+      console.log('All bookings:', allBookings);
+  
       const today = new Date();
-
       const upcoming: Booking[] = [];
       const previous: Booking[] = [];
-
       const flightDetails: { [key: string]: Flight } = {};
-
+  
       const flightPromises = allBookings.map(async (booking) => {
         const flight = await firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo));
-
+        console.log(`Flight for booking ${booking.bookingCode}:`, flight);
+  
         if (!flight) {
           console.error(`Flight details not found for flight number: ${booking.flightNo}`);
           return;
         }
-
+  
         flightDetails[booking.flightNo] = flight;
         const boardingDate = new Date(flight.boarding);
-
+  
         if (boardingDate > today && booking.status !== Status.Inactive) {
           upcoming.push(booking);
         } else {
@@ -63,18 +64,22 @@ export class MyBookingsComponent implements OnInit {
           previous.push(booking);
         }
       });
-
+  
       await Promise.all(flightPromises);
-
+  
+      console.log('Upcoming bookings:', upcoming);
+      console.log('Previous bookings:', previous);
+  
       this.upcomingBookings = upcoming.sort((a, b) => new Date(flightDetails[a.flightNo].boarding).getTime() - new Date(flightDetails[b.flightNo].boarding).getTime());
       this.previousBookings = previous.sort((a, b) => new Date(flightDetails[b.flightNo].boarding).getTime() - new Date(flightDetails[a.flightNo].boarding).getTime());
-
+  
     } catch (error) {
       console.error('Error loading bookings:', error);
     } finally {
       this.isLoading = false;
     }
   }
+  
   viewBooking(booking: Booking): void {
     firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo))
       .then((flight) => {
@@ -104,20 +109,19 @@ export class MyBookingsComponent implements OnInit {
       });
   }
   async cancelBooking(booking: Booking): Promise<void> {
-    this.isLoading = true; // Show loading indicator
-
+    this.isLoading = true;
+  
     try {
-      // ✅ Update booking status to inactive
       booking.status = Status.Inactive;
-      booking.canceled = true;
+      booking.canceled = booking.canceled ?? false;
+  
       await this.bookingService.updateBooking(booking.id, booking);
-      // ✅ Restore seats to the flight
+      
       await this.flightService.updateSeatsForFlight(booking.flightNo, booking.passengers.length);
-
-      // ✅ Remove from upcoming & move to previous
+  
       this.upcomingBookings = this.upcomingBookings.filter(b => b.id !== booking.id);
       this.previousBookings.push({ ...booking, status: Status.Inactive });
-
+  
       console.log(`Booking ${booking.bookingCode} canceled & moved to previous bookings.`);
     } catch (error) {
       console.error('Error canceling booking:', error);

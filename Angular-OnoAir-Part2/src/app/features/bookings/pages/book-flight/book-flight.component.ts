@@ -15,6 +15,9 @@ import { PassengerCardComponent } from '../passenger-card/passenger-card.compone
 import { BookingService } from '../../service/bookings.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Coupon } from '../../../coupons/model/coupon';
+import { CouponService } from '../../../coupons/service/coupon.service';
+
 @Component({
   selector: 'app-book-flight',
   imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule],
@@ -26,26 +29,33 @@ export class BookFlightComponent implements OnInit {
   numPassengers: number = 1;
   passengers: Passenger[] = [];
   bookingCode: string = '';
+  couponCode: string = '';
+  discountPercentage: number = 0;
+  totalPrice: number = 0;
+  finalPrice: number = 0;
   successMessage: string | null = null;
   errorMessage: string | null = null;
   passportErrorMessage: string | null = null;
   isLoading: boolean = false;
+  coupons: Coupon[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private flightsService: FlightsService,
     private router: Router,
     private bookingService: BookingService,
+    private couponService: CouponService,
     private snackBar: MatSnackBar
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const flightNo = this.route.snapshot.paramMap.get('flightNo');
     if (flightNo) {
       this.loadFlightDetails(flightNo);
     } else {
       this.errorMessage = 'Invalid flight number in URL.';
     }
+    this.coupons = await this.couponService.loadCoupons();
   }
 
   loadFlightDetails(flightNo: string): void {
@@ -54,6 +64,7 @@ export class BookFlightComponent implements OnInit {
         if (flight) {
           this.flight = flight;
           this.createPassengerList();
+          this.calculateTotalPrice();
         } else {
           this.errorMessage = `Flight with number "${flightNo}" does not exist.`;
         }
@@ -67,13 +78,24 @@ export class BookFlightComponent implements OnInit {
 
   updatePassengers(event: Event): void {
     const value = parseInt((event.target as HTMLInputElement).value, 10) || 1;
-    const maxSeats = parseInt(this.flight?.seats || '1', 10) || 1;
+    const maxSeats = Number(this.flight?.seats) || 1;
     this.numPassengers = Math.min(value, maxSeats);
     this.createPassengerList();
+    this.calculateTotalPrice();
+  }
+
+  calculateTotalPrice(): void {
+    if (this.flight) {
+      this.totalPrice = this.numPassengers * Number(this.flight.price);
+      this.updateFinalPrice();
+    }
+  }
+
+  updateFinalPrice(): void {
+    this.finalPrice = this.totalPrice * (1 - this.discountPercentage / 100);
   }
 
   createPassengerList(): void {
-    // Dynamically adjust the passenger list length
     const currentPassengers = this.passengers;
     this.passengers = Array.from({ length: this.numPassengers }, (_, i) => ({
       name: currentPassengers[i]?.name || '',
@@ -81,6 +103,24 @@ export class BookFlightComponent implements OnInit {
     }));
   }
 
+  updateTotalPrice(): void {
+    if (this.flight) {
+      this.totalPrice = this.numPassengers * this.flight.price;
+      this.finalPrice = this.totalPrice * (1 - this.discountPercentage / 100);
+    }
+  }
+  applyCoupon(): void {
+    this.discountPercentage = this.couponService.applyCoupon(this.couponCode);
+    
+    if (this.discountPercentage > 0) {
+      this.snackBar.open(`Coupon Applied! ${this.discountPercentage}% Discount`, 'OK', { duration: 2000 });
+    } else {
+      this.snackBar.open('Coupon code is invalid or expired', 'OK', { duration: 2000 });
+    }
+  
+    this.updateTotalPrice();
+  }
+  
   async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
@@ -92,7 +132,6 @@ export class BookFlightComponent implements OnInit {
     try {
       const bookingCode = await this.bookingService.saveBooking(this.flight.flightNo, this.passengers);
       await this.flightsService.updateSeatsForFlight(this.flight.flightNo, -this.passengers.length);
-      // ✅ Show success message
       this.snackBar.open('Booking Booked successfully!', 'OK', {
         verticalPosition: 'top', // Show at the top
         horizontalPosition: 'center', // Centered
@@ -106,8 +145,6 @@ export class BookFlightComponent implements OnInit {
       this.isLoading = false;
     }
   }
-
-
   goBack(): void {
     this.router.navigate(['/flight-search']);
   }
@@ -121,21 +158,23 @@ export class BookFlightComponent implements OnInit {
 
     return hasValidPassengers && !hasDuplicatePassports;
   }
-
   hasDuplicatePassports(): boolean {
+    if (this.passengers.some(p => !p.passport || p.passport.trim() === '')) {
+      this.passportErrorMessage = null;
+      return false;
+    }
+  
     const passportNumbers = this.passengers.map(p => p.passport);
     const uniquePassports = new Set(passportNumbers);
-
+  
     if (passportNumbers.length !== uniquePassports.size) {
       this.passportErrorMessage = "There are passengers with the same passport number. Please check and correct.";
       return true;
     }
-
-
+  
     this.passportErrorMessage = null;
     return false;
   }
-
   updatePassenger(index: number, passenger: Passenger): void {
     if (index >= 0 && index < this.passengers.length) {
       this.passengers[index] = passenger;

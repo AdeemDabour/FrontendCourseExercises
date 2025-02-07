@@ -43,8 +43,8 @@ export class BookingService {
     return flight;
   }
   async saveBooking(flightNo: string, passengers: Passenger[]): Promise<string> {
-    const nextId = await this.getNextBookingId(); // Get the next available ID
-    const bookingCode = this.generateBookingCode(); // Generate a unique booking code
+    const nextId = await this.getNextBookingId();
+    const bookingCode = this.generateBookingCode(); 
   
     // Prepare the booking object
     const booking: Booking = {
@@ -65,7 +65,7 @@ export class BookingService {
       await this.addPassengersToBooking(nextId.toString(), passengers);
   
       console.log(`Booking saved successfully with ID: ${nextId} and code: ${bookingCode}`);
-      return bookingCode; // Return the generated booking code
+      return bookingCode;
     } catch (error) {
       console.error('Error saving booking:', error);
       throw new Error('Unable to save booking. Please try again later.');
@@ -75,7 +75,7 @@ export class BookingService {
   private async addPassengersToBooking(bookingId: string, passengers: Passenger[]): Promise<void> {
     const passengersCollection = collection(this.firestore, `bookings/${bookingId}/passengers`).withConverter(PassengerConverter);
   
-    const batch = writeBatch(this.firestore); // Use a batch for efficient writes
+    const batch = writeBatch(this.firestore);
   
     passengers.forEach((passenger) => {
       if (!passenger.passport) {
@@ -83,11 +83,11 @@ export class BookingService {
         throw new Error('All passengers must have a valid passport ID.');
       }
   
-      const passengerDoc = doc(passengersCollection, passenger.passport); // Use passport as the document ID
+      const passengerDoc = doc(passengersCollection, passenger.passport);
       batch.set(passengerDoc, passenger);
     });
   
-    await batch.commit(); // Commit all passenger writes in a single batch
+    await batch.commit();
   }
   
   
@@ -99,11 +99,11 @@ export class BookingService {
       // Extract all existing IDs, parse as integers, and find the maximum
       const existingIds = querySnapshot.docs
         .map(doc => parseInt(doc.id, 10))
-        .filter(id => !isNaN(id)); // Ensure valid numeric IDs
+        .filter(id => !isNaN(id));
   
       const maxId = existingIds.length > 0 ? Math.max(...existingIds) : 0;
   
-      return maxId + 1; // Return the next sequential ID
+      return maxId + 1;
     } catch (error) {
       console.error('Error fetching booking IDs:', error);
       throw new Error('Unable to determine the next booking ID.');
@@ -145,8 +145,9 @@ export class BookingService {
         // Merge the existing booking data with the updated fields
         const newBookingData = {
           ...bookingSnapshot.data(),
-          ...updatedBooking, // ✅ Merge only the fields provided
+          ...updatedBooking,
         };
+        newBookingData.canceled = newBookingData.canceled ?? false;
   
         await setDoc(bookingDoc, newBookingData);
         console.log(`Booking ID: ${bookingId} updated successfully.`);
@@ -157,18 +158,18 @@ export class BookingService {
       console.error(`Error updating booking for ID: ${bookingId}`, error);
       throw new Error('Unable to update booking. Please try again later.');
     }
-  }
+  }  
   
   async getActiveBookingsForFlight(flightNo: string): Promise<{ bookingCode: string }[]> {
     try {
-      const bookings = await this.listBookings(); // ✅ Fetch all bookings
+      const bookings = await this.listBookings();
       return bookings
         .filter(booking => booking.flightNo === flightNo && booking.status === Status.Active)
-        .map(booking => ({ bookingCode: booking.bookingCode })); // ✅ Return only booking codes
+        .map(booking => ({ bookingCode: booking.bookingCode }));
 
     } catch (error) {
       console.error('Error fetching active bookings:', error);
-      throw error; // Ensure errors are properly handled
+      throw error;
     }
   }
 }

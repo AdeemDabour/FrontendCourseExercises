@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, deleteDoc, doc, setDoc, getDocs } from '@angular/fire/firestore';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Coupon } from '../model/coupon';
 import { CouponConverter } from '../model/coupon-converter';
 @Injectable({
@@ -14,12 +14,12 @@ export class CouponService {
   constructor(private firestore: Firestore) {
     this.loadCoupons();
   }
-
-  public async loadCoupons(): Promise<void> {
+  public async loadCoupons(): Promise<Coupon[]> {
     const coupons = await this.refreshCoupons();
     this.couponsSubject.next(coupons);
+    return coupons;
   }
-
+  
   async addCoupon(newCoupon: Coupon): Promise<void> {
     const couponsCollection = collection(this.firestore, this.collectionName);
     const querySnapshot = await getDocs(couponsCollection);
@@ -29,20 +29,17 @@ export class CouponService {
     await setDoc(couponDoc, { ...newCoupon, id: nextId.toString() });
     console.log(`Coupon: ${newCoupon.description} added with ID: ${nextId}`);
   }
-
   async removeCoupon(id: string): Promise<void> {
     const docRef = doc(this.firestore, `${this.collectionName}/${id}`);
     await deleteDoc(docRef);
 
     await this.loadCoupons();
   }
-
   async updateCoupon(id: string, updatedCoupon: Coupon): Promise<void> {
     const docRef = doc(this.firestore, `${this.collectionName}/${id}`).withConverter(CouponConverter);
     await setDoc(docRef, updatedCoupon);
     console.log(`Coupon ${updatedCoupon.description} updated successfully`);
   }
-
   async createUniqueId(): Promise<string> {
     const collectionRef = collection(this.firestore, this.collectionName);
     const snapshot = await getDocs(collectionRef);
@@ -50,7 +47,6 @@ export class CouponService {
     const maxId = Math.max(...ids, 0);
     return (maxId + 1).toString();
   }
-
   async getCouponById(id: string): Promise<Coupon | undefined> {
     const collectionRef = collection(this.firestore, this.collectionName).withConverter(CouponConverter);
     const querySnapshot = await getDocs(collectionRef);
@@ -62,16 +58,25 @@ export class CouponService {
       return undefined;
     }
   }
-
   async refreshCoupons(): Promise<Coupon[]> {
     const collectionRef = collection(this.firestore, this.collectionName).withConverter(CouponConverter);
     const querySnapshot = await getDocs(collectionRef);
     const coupons = querySnapshot.docs
       .map((doc) => doc.data())
       .sort((a, b) => parseInt(a.id) - parseInt(b.id));
-
     this.couponsSubject.next(coupons);
-
     return coupons;
+  }
+
+  applyCoupon(couponCode: string): number {
+    const coupon = this.couponsSubject.getValue().find(c => c.codeCoupon.toUpperCase() === couponCode.trim().toUpperCase());
+    if (!coupon) {
+      return 0;
+    }
+    const today = new Date();
+    if (today < new Date(coupon.startDate) || today > new Date(coupon.endDate)) {
+      return 0;
+    }
+    return coupon.discountPercentage;
   }
 }
