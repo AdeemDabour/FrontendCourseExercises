@@ -10,6 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FlightsService } from '../../../flights/service/flights.service';
 import { firstValueFrom } from 'rxjs';
 import { Flight } from '../../../flights/model/flight';
+
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
@@ -21,6 +22,7 @@ export class MyBookingsComponent implements OnInit {
   upcomingBookings: Booking[] = [];
   previousBookings: Booking[] = [];
   isLoading: boolean = true;
+
   constructor(
     private bookingService: BookingService,
     private router: Router,
@@ -35,25 +37,28 @@ export class MyBookingsComponent implements OnInit {
     try {
       this.isLoading = true;
       const allBookings = await this.bookingService.listBookings();
-      console.log('All bookings:', allBookings);
-  
       const today = new Date();
+
       const upcoming: Booking[] = [];
       const previous: Booking[] = [];
+
       const flightDetails: { [key: string]: Flight } = {};
-  
+
       const flightPromises = allBookings.map(async (booking) => {
         const flight = await firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo));
-        console.log(`Flight for booking ${booking.bookingCode}:`, flight);
-  
+
         if (!flight) {
           console.error(`Flight details not found for flight number: ${booking.flightNo}`);
           return;
         }
-  
+
         flightDetails[booking.flightNo] = flight;
         const boardingDate = new Date(flight.boarding);
-  
+
+        if (booking.totalPrice !== undefined && booking.finalPrice === undefined) {
+          booking.finalPrice = booking.totalPrice * (1 - (booking.discountPercentage || 0) / 100);
+        }
+
         if (boardingDate > today && booking.status !== Status.Inactive) {
           upcoming.push(booking);
         } else {
@@ -64,22 +69,19 @@ export class MyBookingsComponent implements OnInit {
           previous.push(booking);
         }
       });
-  
+
       await Promise.all(flightPromises);
-  
-      console.log('Upcoming bookings:', upcoming);
-      console.log('Previous bookings:', previous);
-  
+
       this.upcomingBookings = upcoming.sort((a, b) => new Date(flightDetails[a.flightNo].boarding).getTime() - new Date(flightDetails[b.flightNo].boarding).getTime());
       this.previousBookings = previous.sort((a, b) => new Date(flightDetails[b.flightNo].boarding).getTime() - new Date(flightDetails[a.flightNo].boarding).getTime());
-  
+
     } catch (error) {
       console.error('Error loading bookings:', error);
     } finally {
       this.isLoading = false;
     }
-  }
-  
+}
+
   viewBooking(booking: Booking): void {
     firstValueFrom(this.bookingService.getFlightDetails(booking.flightNo))
       .then((flight) => {
@@ -99,6 +101,9 @@ export class MyBookingsComponent implements OnInit {
             passengerCount: passengers.length,
           },
           passengers: passengers,
+          totalPrice: booking.totalPrice,
+          discountPercentage: booking.discountPercentage,
+          finalPrice: booking.finalPrice,
         };
 
         console.log('Navigating to booking details with:', bookingDetails);
@@ -108,20 +113,19 @@ export class MyBookingsComponent implements OnInit {
         console.error('Error fetching flight details:', error);
       });
   }
+
   async cancelBooking(booking: Booking): Promise<void> {
     this.isLoading = true;
-  
+
     try {
       booking.status = Status.Inactive;
-      booking.canceled = booking.canceled ?? false;
-  
+      booking.canceled = true;
       await this.bookingService.updateBooking(booking.id, booking);
-      
       await this.flightService.updateSeatsForFlight(booking.flightNo, booking.passengers.length);
-  
+
       this.upcomingBookings = this.upcomingBookings.filter(b => b.id !== booking.id);
       this.previousBookings.push({ ...booking, status: Status.Inactive });
-  
+
       console.log(`Booking ${booking.bookingCode} canceled & moved to previous bookings.`);
     } catch (error) {
       console.error('Error canceling booking:', error);

@@ -79,4 +79,15 @@ export class CouponService {
     }
     return coupon.discountPercentage;
   }
+
+  async getValidCoupon(code: string): Promise<Coupon | null> {
+    const coupons = await this.loadCoupons();
+    const today = new Date();
+    
+    return coupons.find(coupon => 
+      coupon.codeCoupon.toUpperCase() === code.toUpperCase() &&
+      new Date(coupon.startDate) <= today &&
+      new Date(coupon.endDate) >= today
+    ) || null;
+  }
 }

@@ -4,6 +4,7 @@ import { Passenger } from '../model/passenger';
 import { FlightsService } from '../../flights/service/flights.service';
 import { collection, doc, Firestore, getDoc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
 import { BookingConverter, PassengerConverter } from '../model/booking-converter';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { BookingConverter, PassengerConverter } from '../model/booking-converter
 export class BookingService {
   private bookingsCollection = 'bookings';
   constructor(private flightService: FlightsService, private firestore: Firestore) { }
-  
+
   async listBookings(): Promise<Booking[]> {
     const collectionRef = collection(this.firestore, this.bookingsCollection).withConverter(BookingConverter);
     const querySnapshot = await getDocs(collectionRef);
@@ -42,26 +43,27 @@ export class BookingService {
     }
     return flight;
   }
-  async saveBooking(flightNo: string, passengers: Passenger[]): Promise<string> {
+
+  async saveBooking(flightNo: string, passengers: Passenger[], totalPrice: number, discountPercentage: number, finalPrice: number): Promise<string> {
     const nextId = await this.getNextBookingId();
     const bookingCode = this.generateBookingCode(); 
   
-    // Prepare the booking object
     const booking: Booking = {
       id: nextId.toString(),
       bookingCode,
       flightNo,
-      passengers: [], // Passengers will be stored in the sub-collection
+      passengers: [],
       status: 'active' as Status,
       canceled: false,
+      totalPrice,
+      discountPercentage,
+      finalPrice
     };
   
     try {
-      // Save the booking document to the main collection
       const bookingDoc = doc(this.firestore, `${this.bookingsCollection}/${nextId}`).withConverter(BookingConverter);
       await setDoc(bookingDoc, booking);
   
-      // Save passengers to the sub-collection
       await this.addPassengersToBooking(nextId.toString(), passengers);
   
       console.log(`Booking saved successfully with ID: ${nextId} and code: ${bookingCode}`);
@@ -74,43 +76,41 @@ export class BookingService {
   
   private async addPassengersToBooking(bookingId: string, passengers: Passenger[]): Promise<void> {
     const passengersCollection = collection(this.firestore, `bookings/${bookingId}/passengers`).withConverter(PassengerConverter);
-  
+
     const batch = writeBatch(this.firestore);
-  
+
     passengers.forEach((passenger) => {
       if (!passenger.passport) {
         console.error(`Passenger is missing a passport ID:`, passenger);
         throw new Error('All passengers must have a valid passport ID.');
       }
-  
+
       const passengerDoc = doc(passengersCollection, passenger.passport);
       batch.set(passengerDoc, passenger);
     });
-  
+
     await batch.commit();
   }
-  
-  
+
   async getNextBookingId(): Promise<number> {
     try {
       const bookingsCollection = collection(this.firestore, this.bookingsCollection);
       const querySnapshot = await getDocs(bookingsCollection);
-  
+
       // Extract all existing IDs, parse as integers, and find the maximum
       const existingIds = querySnapshot.docs
         .map(doc => parseInt(doc.id, 10))
         .filter(id => !isNaN(id));
-  
+
       const maxId = existingIds.length > 0 ? Math.max(...existingIds) : 0;
-  
+
       return maxId + 1;
     } catch (error) {
       console.error('Error fetching booking IDs:', error);
       throw new Error('Unable to determine the next booking ID.');
     }
   }
-  
-  
+
   private generateBookingCode(): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     return Array.from({ length: 6 })
@@ -136,11 +136,12 @@ export class BookingService {
       return null;
     }
   }
+  
   async updateBooking(bookingId: string, updatedBooking: Partial<Booking>): Promise<void> {
     try {
       const bookingDoc = doc(this.firestore, `${this.bookingsCollection}/${bookingId}`).withConverter(BookingConverter);
       const bookingSnapshot = await getDoc(bookingDoc);
-  
+
       if (bookingSnapshot.exists()) {
         // Merge the existing booking data with the updated fields
         const newBookingData = {
@@ -148,7 +149,7 @@ export class BookingService {
           ...updatedBooking,
         };
         newBookingData.canceled = newBookingData.canceled ?? false;
-  
+
         await setDoc(bookingDoc, newBookingData);
         console.log(`Booking ID: ${bookingId} updated successfully.`);
       } else {
@@ -158,8 +159,8 @@ export class BookingService {
       console.error(`Error updating booking for ID: ${bookingId}`, error);
       throw new Error('Unable to update booking. Please try again later.');
     }
-  }  
-  
+  }
+
   async getActiveBookingsForFlight(flightNo: string): Promise<{ bookingCode: string }[]> {
     try {
       const bookings = await this.listBookings();

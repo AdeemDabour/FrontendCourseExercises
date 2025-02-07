@@ -109,42 +109,70 @@ export class BookFlightComponent implements OnInit {
       this.finalPrice = this.totalPrice * (1 - this.discountPercentage / 100);
     }
   }
-  applyCoupon(): void {
-    this.discountPercentage = this.couponService.applyCoupon(this.couponCode);
-    
-    if (this.discountPercentage > 0) {
-      this.snackBar.open(`Coupon Applied! ${this.discountPercentage}% Discount`, 'OK', { duration: 2000 });
-    } else {
+  async applyCoupon(): Promise<void> {
+    if (!this.couponCode.trim()) {
+      this.snackBar.open('Please enter a coupon code', 'OK', { duration: 2000 });
+      return;
+    }
+  
+    const coupon = await this.couponService.getValidCoupon(this.couponCode.trim());
+  
+    if (!coupon) {
       this.snackBar.open('Coupon code is invalid or expired', 'OK', { duration: 2000 });
+      this.discountPercentage = 0;
+    } else {
+      this.discountPercentage = coupon.discountPercentage;
+      this.snackBar.open(`Coupon Applied! ${coupon.discountPercentage}% Discount`, 'OK', { duration: 2000 });
     }
   
     this.updateTotalPrice();
   }
-  
+
   async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
       return;
     }
-
+  
     this.isLoading = true;
-
+  
     try {
-      const bookingCode = await this.bookingService.saveBooking(this.flight.flightNo, this.passengers);
+      const newBooking = {
+        flightNo: this.flight.flightNo,
+        passengers: this.passengers,
+        totalPrice: this.totalPrice,
+        discountPercentage: this.discountPercentage,
+        finalPrice: this.totalPrice * (1 - this.discountPercentage / 100),
+        status: 'Active',
+        canceled: false
+      };
+  
+      const bookingCode = await this.bookingService.saveBooking(
+        newBooking.flightNo,
+        newBooking.passengers,
+        newBooking.totalPrice,
+        newBooking.discountPercentage,
+        newBooking.finalPrice
+      );
+  
       await this.flightsService.updateSeatsForFlight(this.flight.flightNo, -this.passengers.length);
-      this.snackBar.open('Booking Booked successfully!', 'OK', {
+  
+      this.snackBar.open('Booking Booked successfully!', 'OK', { 
         verticalPosition: 'top', // Show at the top
         horizontalPosition: 'center', // Centered
       });
+  
       this.router.navigate(['/booking-details', bookingCode], {
-        state: { flight: this.flight, passengers: this.passengers },
+        state: { bookingDetails: newBooking }
       });
+  
     } catch (error) {
       this.errorMessage = 'Unable to complete booking. Please try again later.';
     } finally {
       this.isLoading = false;
     }
   }
+  
   goBack(): void {
     this.router.navigate(['/flight-search']);
   }

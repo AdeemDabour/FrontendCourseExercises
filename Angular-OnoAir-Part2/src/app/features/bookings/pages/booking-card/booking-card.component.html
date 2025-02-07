@@ -6,11 +6,27 @@
     <div class="details-container">
       <h3>{{ flight?.origin }} → {{ flight?.destination }}</h3>
       <p><strong>Booking Code:</strong> {{ booking.bookingCode }}</p>
-      <strong>Boarding:</strong> {{ flight?.boarding | date: 'dd/MM/yyyy HH:mm' }}
-      <strong>Landing:</strong> {{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}
+      <p><strong>Boarding:</strong> {{ flight?.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Landing:</strong> {{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}</p>      
       <p><strong>Passengers:</strong> {{ booking.passengers.length }}</p>
+
+      <p *ngIf="booking.discountPercentage && booking.discountPercentage > 0">
+        <strong>Total Price (Before Discount):</strong> ${{ booking.totalPrice.toFixed(2) }}
+      </p>
+
+      <p>
+        <strong>
+          Final Price {{ booking.discountPercentage && booking.discountPercentage > 0 ? '(After Discount)' : '' }}:
+        </strong>
+        ${{ finalPrice.toFixed(2) }}
+      </p>
+
+      <p *ngIf="booking.discountPercentage">
+        <strong>Discount:</strong> -{{ booking.discountPercentage }}%
+      </p>
     </div>
-    <!-- ✅ Show Canceled Status -->
+
+    <!-- Show Canceled Status -->
     <p *ngIf="booking.canceled" class="canceled-indicator">
       <mat-icon color="warn">cancel</mat-icon> <strong> Canceled Booking</strong>
     </p>
@@ -18,7 +34,7 @@
     <div class="button-container">
       <button mat-raised-button color="primary" (click)="viewBooking()">View</button>
 
-      <!-- ✅ Show Cancel button only for ACTIVE bookings -->
+      <!-- Show Cancel button only for ACTIVE bookings -->
       <button *ngIf="booking.status === Status.Active" mat-raised-button color="warn" (click)="cancelBooking()">
         Cancel Booking
       </button>

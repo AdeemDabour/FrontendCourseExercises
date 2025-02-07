@@ -8,7 +8,6 @@ import { BookingService } from '../../service/bookings.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Flight } from '../../../flights/model/flight';
 import { FlightsService } from '../../../flights/service/flights.service';
-
 @Component({
   selector: 'app-booking-details',
   imports: [MatCardModule, MatDivider, CommonModule, MatButtonModule, RouterLink, MatProgressBarModule],
@@ -26,7 +25,7 @@ export class BookingDetailsComponent implements OnInit {
   constructor(
       private bookingService: BookingService,
       private route: ActivatedRoute,
-      private flightService: FlightsService
+      private flightService: FlightsService,
     ) {}
 
   ngOnInit(): void {
@@ -44,18 +43,31 @@ export class BookingDetailsComponent implements OnInit {
     this.isLoading = true;
     try {
       this.bookingDetails = await this.bookingService.getBookingByCode(bookingCode);
+      
+      if (this.bookingDetails) {
+        console.log('✅ Booking details loaded:', this.bookingDetails);
+
+        this.bookingDetails.totalPrice = this.bookingDetails.totalPrice || 0;
+        this.bookingDetails.discountPercentage = this.bookingDetails.discountPercentage || 0;
+        this.bookingDetails.finalPrice = this.bookingDetails.finalPrice || this.bookingDetails.totalPrice;
+        
+        console.log(`Total Price: ${this.bookingDetails.totalPrice}, Discount: ${this.bookingDetails.discountPercentage}%, Final Price: ${this.bookingDetails.finalPrice}`);
+      } else {
+        console.warn('⚠️ No booking details found');
+      }
+
       this.flightService.getFlightByNumber(this.bookingDetails.flightNo).subscribe({
         next: (flight) => {
           this.flight = flight || null;
         },
-      })
+      });
+
     } catch (error) {
       this.errorMessage = `Booking with code "${bookingCode}" does not exist.`;
     } finally {
       this.isLoading = false;
     }
   }
-  
 
   togglePassengerList(): void {
     this.showPassengers = !this.showPassengers;
