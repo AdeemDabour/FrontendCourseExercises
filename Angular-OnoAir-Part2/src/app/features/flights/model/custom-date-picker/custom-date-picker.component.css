@@ -1,0 +1,42 @@
+.date-toggle {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .date-toggle button {
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .date-toggle button.active {
+    background-color: #3f51b5;
+    color: white;
+  }
+  
+  .month-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .month-item {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .month-item.selected {
+    background-color: #3f51b5;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
