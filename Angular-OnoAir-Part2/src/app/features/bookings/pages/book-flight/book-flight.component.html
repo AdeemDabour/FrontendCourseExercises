@@ -65,7 +65,9 @@
             <input matInput name="couponCode" [(ngModel)]="couponCode" />
           </mat-form-field>
           <button mat-raised-button color="accent" (click)="applyCoupon()">Apply</button>
-
+          <mat-card-actions align="end">
+            <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+          </mat-card-actions>
           <p *ngIf="passportErrorMessage" class="error-text">{{ passportErrorMessage }}</p>
 
           <div class="button-container">
@@ -82,9 +84,6 @@
     <mat-card class="error-card">
       <h2 class="error-title">Error</h2>
       <p>{{ errorMessage }}</p>
-      <mat-card-actions align="end">
-        <button mat-raised-button color="primary" (click)="goBack()">Back</button>
-      </mat-card-actions>
     </mat-card>
   </ng-template>
 

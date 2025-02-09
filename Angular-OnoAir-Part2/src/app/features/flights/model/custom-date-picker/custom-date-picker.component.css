@@ -10,7 +10,7 @@
   }
   
   .date-toggle button.active {
-    background-color: #3f51b5;
+    background-color: #7e013f;
     color: white;
   }
   
@@ -22,21 +22,31 @@
   
   .month-item {
     text-align: center;
+    color: black;
+    background-color: #f5cece;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #f5cece;
     cursor: pointer;
     transition: 0.3s;
   }
   
-  .month-item.selected {
-    background-color: #3f51b5;
+  .month-item:hover {
+    background-color: #7e013f;
     color: white;
     font-weight: bold;
   }
+  .month-item.selected {
+    background-color: #7e013f !important; /* Make sure it applies */
+    color: white;
+    font-weight: bold;
+  }  
   
   .actions {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
-    justify-content: space-between;
+  }
+  .actions button {
+    background-color: #7e013f;
+    color: white;
   }
   

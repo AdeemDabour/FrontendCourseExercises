@@ -36,7 +36,8 @@ mat-form-field {
 }
 /* Style the Clear Filters Button */
 button {
-    background-color: #f5b7b7;
+    background-color: #7e013f;
+    color: white;
     height: 50px;
     font-weight: bold;
     margin-bottom: 15px;

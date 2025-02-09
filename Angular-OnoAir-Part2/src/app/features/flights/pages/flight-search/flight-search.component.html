@@ -2,7 +2,7 @@
 
 <!-- Filter Inputs Container -->
 <div class="filter-container">
-  
+
   <!-- Origin Filter -->
   <div class="filter-item">
     <span class="filter-label">From :</span>
@@ -39,31 +39,33 @@
   </div>
 
   <!-- Clear Filters Button -->
-  <button mat-raised-button color="warn" (click)="clearFilters()">Clear Filters</button>
+  <button mat-raised-button color="warn" (click)="clearFilters()">Clear All Filters</button>
 
+  <!-- Date Picker Filter -->
+  <div class="filter-item">
+    <span class="filter-label">Date :</span>
+    <app-custom-date-picker [(ngModel)]="selectedDates" (ngModelChange)="applyFilters()"
+      (monthSelectionChange)="selectedMonthsArray = $event; applyFilters()">
+    </app-custom-date-picker>
+  </div>
 </div>
 
+  <!-- Flights Table -->
+  <ng-container *ngIf="!isLoading; else loadingTemplate">
+    <div *ngIf="filteredFlights.length > 0; else noFlightsTemplate">
+      <app-flights-table [flights]="filteredFlights" [showActionsColumn]="false"></app-flights-table>
+    </div>
+  </ng-container>
 
+  <ng-template #noFlightsTemplate>
+    <div class="no-flights-message">
+      <p>No matching flights available.</p>
+    </div>
+  </ng-template>
 
-
-
-
-<!-- Flights Table -->
-<ng-container *ngIf="!isLoading; else loadingTemplate">
-  <div *ngIf="filteredFlights.length > 0; else noFlightsTemplate">
-    <app-flights-table [flights]="filteredFlights" [showActionsColumn]="false"></app-flights-table>
-  </div>
-</ng-container>
-
-<ng-template #noFlightsTemplate>
-  <div class="no-flights-message">
-    <p>No matching flights available.</p>
-  </div>
-</ng-template>
-
-<ng-template #loadingTemplate>
-  <div class="loading-container">
-    <p>Loading flights...</p>
-    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
-  </div>
-</ng-template>
+  <ng-template #loadingTemplate>
+    <div class="loading-container">
+      <p>Loading flights...</p>
+      <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    </div>
+  </ng-template>
