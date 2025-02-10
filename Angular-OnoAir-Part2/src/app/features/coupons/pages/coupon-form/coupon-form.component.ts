@@ -9,7 +9,6 @@ import { CouponService } from '../../service/coupon.service';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -32,6 +31,7 @@ export class CouponFormComponent implements OnInit {
   exitingCoupons: Coupon[] = [];
   startDate: Date | null = null;
   endDate: Date | null = null;
+  couponErrorMessage: string | null = null;
   @Input() id = 0;
   @Input() coupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
   @Input() isEditMode: boolean = false;
@@ -40,7 +40,6 @@ export class CouponFormComponent implements OnInit {
   constructor(
     private couponService: CouponService,
     private router: Router,
-    private snackBar: MatSnackBar,
     private dateAdapter: DateAdapter<Date>
   ) {
     this.dateAdapter.setLocale('en-GB');
@@ -55,12 +54,18 @@ export class CouponFormComponent implements OnInit {
     this.formSubmit.emit(this.coupon);
   }
 
-  async onSumbitRegistration(): Promise<void> {
-    await this.couponService.addCoupon(this.newCoupon);
-    this.snackBar.open('Coupon added successfully', 'OK', {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-    });
-    this.router.navigate(['/manage-coupons']);
+  async onSubmitRegistration(): Promise<void> {
+    this.couponErrorMessage = null; // Reset previous error
+
+    try {
+      await this.couponService.addCoupon(this.coupon);
+      this.router.navigate(['/manage-coupons']); // Redirect after success
+    } catch (error) {
+      if (error instanceof Error) {
+        this.couponErrorMessage = error.message; // Set the error message
+      } else {
+        this.couponErrorMessage = 'An unknown error occurred';
+      }
+    }
   }
 }

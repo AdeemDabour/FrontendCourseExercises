@@ -38,6 +38,8 @@ export class BookFlightComponent implements OnInit {
   passportErrorMessage: string | null = null;
   isLoading: boolean = false;
   coupons: Coupon[] = [];
+  couponErrorMessage: string | null = null;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -110,23 +112,31 @@ export class BookFlightComponent implements OnInit {
     }
   }
   async applyCoupon(): Promise<void> {
+    this.couponErrorMessage = null;
+  
     if (!this.couponCode.trim()) {
-      this.snackBar.open('Please enter a coupon code', 'OK', { duration: 2000 });
+      this.couponErrorMessage = 'Please enter a coupon code';
       return;
     }
   
-    const coupon = await this.couponService.getValidCoupon(this.couponCode.trim());
+    try {
+      const discount = await this.couponService.applyCoupon(this.couponCode.trim());
   
-    if (!coupon) {
-      this.snackBar.open('Coupon code is invalid or expired', 'OK', { duration: 2000 });
-      this.discountPercentage = 0;
-    } else {
-      this.discountPercentage = coupon.discountPercentage;
-      this.snackBar.open(`Coupon Applied! ${coupon.discountPercentage}% Discount`, 'OK', { duration: 2000 });
-    }
+      if (discount > 0) {
+        this.discountPercentage = discount;
+        this.couponErrorMessage = null; // Clear error if successful
+      } else {
+        this.couponErrorMessage = 'Invalid or expired coupon code';
+        this.discountPercentage = 0;
+      }
+    } catch (error) {
+      this.couponErrorMessage = String(error);
+    }  
   
     this.updateTotalPrice();
   }
+  
+  
 
   async submitBooking(): Promise<void> {
     if (!this.flight) {

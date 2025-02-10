@@ -40,3 +40,9 @@ mat-error {
     margin-top: -20px; 
     line-height: 1.2;
 }
+
+.error-text {
+    color: red;
+    font-weight: bold;
+    margin-top: 1px;
+}

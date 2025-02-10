@@ -1,16 +1,21 @@
 <div class="form-container">
     <mat-card class="form-card">
         <h2 class="glitter-text">{{ isEditMode ? 'Edit Coupon' : 'Add Coupon' }}</h2>
-        <form #couponForm="ngForm" (ngSubmit)="submitForm()">
+        <form #couponForm="ngForm" (ngSubmit)="onSubmitRegistration()">
 
             <div>
                 <mat-form-field>
                     <mat-label>Code Coupon</mat-label>
                     <input matInput name="code" required [(ngModel)]="coupon.codeCoupon" #code="ngModel" />
+
                     <mat-error *ngIf="code.invalid && code.touched">
                         <span *ngIf="code.errors?.['required']">Code is required.</span>
                     </mat-error>
                 </mat-form-field>
+
+                <p *ngIf="couponErrorMessage" class="error-text">
+                    {{ couponErrorMessage }}
+                </p>
             </div>
 
             <div>
@@ -58,6 +63,7 @@
                 <button mat-raised-button color="primary" type="submit">
                     {{ isEditMode ? 'Save Changes' : 'Save' }}
                 </button>
+
             </mat-card-actions>
             <mat-card-actions align="end">
                 <button mat-raised-button color="accent" routerLink="/manage-coupons">Back</button>
