@@ -4,42 +4,12 @@
   <button mat-button [class.active]="mode === 'flexible'" (click)="setMode('flexible')">Flexible Dates</button>
 </div>
 
-<!-- Specific Dates Selection -->
+<!-- Specific Dates Selection (Calendar) -->
 <div *ngIf="mode === 'specific'">
-  <mat-form-field appearance="fill">
-    <mat-label>Choose Dates</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" 
-    (dateChange)="onDateSelected($event)" [min]="today">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker [startAt]="today" [touchUi]="true"></mat-datepicker>
-  </mat-form-field>
-
-  <!-- Display Selected Dates -->
-  <div *ngIf="selectedDates.length > 0">
-    <p>Selected Dates:</p>
-    <ul>
-      <li *ngFor="let date of selectedDates">
-        {{ date | date: 'dd/MM/yyyy' }}
-        <button mat-icon-button color="warn" (click)="removeDate(date)">
-          <mat-icon>close</mat-icon>
-        </button>
-      </li>
-    </ul>
-  </div>
+  <app-calendar-view (dateSelectionChange)="onDatesSelected($event)"></app-calendar-view>
 </div>
 
 <!-- Flexible Dates Selection (Month Grid) -->
-<div *ngIf="mode === 'flexible'" class="month-grid">
-  <div *ngFor="let month of months" 
-       class="month-item" 
-       [ngClass]="{'selected': selectedMonths.includes(month)}"
-       (click)="toggleMonthSelection(month)">
-    <strong>{{ month | date: 'MMMM yyyy' }}</strong>
-  </div>
-</div>
-
-
-<!-- Apply & Clear Buttons -->
-<div class="actions">
-  <button mat-button (click)="clearSelection()">Clear Dates</button>
+<div *ngIf="mode === 'flexible'">
+  <app-month-grid-view (monthSelectionChange)="onMonthsSelected($event)"></app-month-grid-view>
 </div>

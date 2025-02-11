@@ -45,7 +45,7 @@
   <div class="filter-item">
     <span class="filter-label">Date :</span>
     <app-custom-date-picker [(ngModel)]="selectedDates" (ngModelChange)="applyFilters()"
-      (monthSelectionChange)="selectedMonthsArray = $event; applyFilters()">
+      (monthSelectionChange)="selectedMonths = $event; applyFilters()">
     </app-custom-date-picker>
   </div>
 </div>
