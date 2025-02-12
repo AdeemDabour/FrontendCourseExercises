@@ -33,17 +33,10 @@
   text-align: center;
 }
 
-.table-container {
-  width: 100%;
-  margin: auto;
-  overflow-x: auto;
-}
-
-@media (max-width: 768px) {
-  .flight-details-table th, .flight-details-table td {
-    font-size: 12px;
-    padding: 5px;
-  }
+.error-text {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 button.mat-raised-button {
@@ -62,8 +55,9 @@ mat-hint {
   color: black;
 }
 
-.error-text {
-  color: red;
-  font-weight: bold;
-  margin-top: 10px;
+@media (max-width: 768px) {
+  .flight-details-table th, .flight-details-table td {
+    font-size: 12px;
+    padding: 5px;
+  }
 }

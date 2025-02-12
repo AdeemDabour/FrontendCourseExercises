@@ -1,29 +1,30 @@
+import { firstValueFrom } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+
+import { Destination,Status } from '../../model/destination';
+
+import { DestinationService } from '../../service/destinations.service';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { Destination,Status } from '../../model/destination';
-import { DestinationService } from '../../service/destinations.service';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-destination-form',
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatError],
   templateUrl: './destination-form.component.html',
-  styleUrl: './destination-form.component.css'
+  styleUrls: ['./destination-form.component.css']
 })
 export class DestinationFormComponent implements OnInit {
-
   newDestination: Destination = new Destination('', '', '', '', '', '', '', Status.Active);
   existingDestinations: Destination[] = [];
   nameExists: boolean = false;
   codeExists: boolean = false;
-
 
   constructor(
     private destinationService: DestinationService, 
@@ -52,8 +53,8 @@ export class DestinationFormComponent implements OnInit {
     }
     await this.destinationService.addDestination(this.newDestination);
     this.snackBar.open('Destination Added successfully!', 'OK', {
-      verticalPosition: 'top', // Show at the top
-      horizontalPosition: 'center', // Centered
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
     });
     this.router.navigate(['/manage-destinations']);
   }

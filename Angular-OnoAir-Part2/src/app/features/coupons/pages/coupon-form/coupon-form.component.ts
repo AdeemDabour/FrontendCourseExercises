@@ -1,29 +1,34 @@
+import { firstValueFrom } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../../flights/model/CustomDateAdapter';
+
+import { Coupon } from '../../model/coupon';
+
+import { CouponService } from '../../service/coupon.service';
+
+import { MatCardModule } from '@angular/material/card';
+import { Router, RouterModule } from '@angular/router';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { Coupon } from '../../model/coupon';
-import { CouponService } from '../../service/coupon.service';
-import { MatCardModule } from '@angular/material/card';
-import { Router, RouterModule } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../../flights/model/CustomDateAdapter';
+
 @Component({
   selector: 'app-coupon-form',
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './coupon-form.component.html',
-  styleUrl: './coupon-form.component.css',
+  styleUrls: ['./coupon-form.component.css'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
     { provide: DateAdapter, useClass: CustomDateAdapter }
   ]
 })
+
 export class CouponFormComponent implements OnInit {
   newCoupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
 
@@ -49,20 +54,19 @@ export class CouponFormComponent implements OnInit {
     this.exitingCoupons = await firstValueFrom(this.couponService.coupons$);
   }
 
-
   submitForm(): void {
     this.formSubmit.emit(this.coupon);
   }
 
   async onSubmitRegistration(): Promise<void> {
-    this.couponErrorMessage = null; // Reset previous error
+    this.couponErrorMessage = null;
 
     try {
       await this.couponService.addCoupon(this.coupon);
-      this.router.navigate(['/manage-coupons']); // Redirect after success
+      this.router.navigate(['/manage-coupons']);
     } catch (error) {
       if (error instanceof Error) {
-        this.couponErrorMessage = error.message; // Set the error message
+        this.couponErrorMessage = error.message;
       } else {
         this.couponErrorMessage = 'An unknown error occurred';
       }

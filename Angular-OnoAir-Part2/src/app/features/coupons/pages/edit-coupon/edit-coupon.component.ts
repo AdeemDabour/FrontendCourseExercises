@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Coupon } from '../../model/coupon';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CouponService } from '../../service/coupon.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Coupon } from '../../model/coupon';
+
+import { CouponService } from '../../service/coupon.service';
+
 import { CouponFormComponent } from '../coupon-form/coupon-form.component';
 
 @Component({
   selector: 'app-edit-coupon',
-  standalone: true,
   imports: [CouponFormComponent],
   templateUrl: './edit-coupon.component.html',
-  styleUrl: './edit-coupon.component.css',
+  styleUrls: ['./edit-coupon.component.css'],
 })
+
 export class EditCouponComponent implements OnInit {
   coupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
   isLoading: boolean = true;

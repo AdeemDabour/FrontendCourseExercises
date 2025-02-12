@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MonthGridViewComponent } from './month-grid-view.component';
 
 describe('MonthGridViewComponent', () => {

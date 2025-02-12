@@ -1,11 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+
+import { Destination } from '../../model/destination';
+
+import { DestinationService } from '../../service/destinations.service';
+
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DestinationService } from '../../service/destinations.service';
-import { Destination } from '../../model/destination';
 
 @Component({
   selector: 'app-destination-details',
@@ -28,10 +31,9 @@ export class DestinationDetailsComponent implements OnInit {
       this.code = params.get('code')!;
       this.destinationService.loadDestinations();
       this.destinationService.getDestinationByNameOrCode(this.code).subscribe(destination => {
-        this.destination = destination || undefined; // Handle undefined case
+        this.destination = destination || undefined;
         this.errorMessage = this.destination ? null : 'Destination with code "' + this.code + '" does not exist.';
       });
     });
-  }
-  
+  } 
 }

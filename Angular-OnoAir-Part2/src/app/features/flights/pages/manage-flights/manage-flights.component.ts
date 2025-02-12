@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightsTableComponent } from '../flights-table/flights-table.component';
-import { FlightsService } from '../../service/flights.service';
+import { Router } from '@angular/router';
+
 import { Flight } from '../../model/flight';
+
+import { FlightsService } from '../../service/flights.service';
+
+import { FlightsTableComponent } from '../flights-table/flights-table.component';
+
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({

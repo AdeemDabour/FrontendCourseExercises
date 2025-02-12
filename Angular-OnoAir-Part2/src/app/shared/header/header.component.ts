@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -8,7 +9,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-header',
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
 

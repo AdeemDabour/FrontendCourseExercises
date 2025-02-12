@@ -1,17 +1,7 @@
 .date-picker-container {
     display: flex;
     gap: 20px;
-    /* Space between boarding & landing */
     flex-wrap: wrap;
-    /* Adjusts for smaller screens */
-}
-
-mat-form-field {
-    margin-top: 10px;
-    flex: 1;
-    /* Makes sure both date pickers take equal space */
-    min-width: 200px;
-    /* Ensures they don't shrink too much */
 }
 
 .button-container {
@@ -20,5 +10,11 @@ mat-form-field {
     font-size: 14px;
     width: 100px;
     height: 55px;
+    margin-top: 10px;
+}
 
+mat-form-field {
+    margin-top: 10px;
+    flex: 1;
+    min-width: 200px;
 }

@@ -9,18 +9,10 @@ import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDa
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 
 @Component({
-  standalone: true,
   selector: 'app-calendar-view',
   templateUrl: './calendar-view.component.html',
   styleUrls: ['./calendar-view.component.css'],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatDatepickerModule
-  ],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatDatepickerModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -39,8 +31,8 @@ export class CalendarViewComponent implements ControlValueAccessor {
   landingDate: Date | null = null;
   today: Date = new Date();
 
-  private onChange: (value: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: any) => void = () => { };
+  private onTouched: () => void = () => { };
 
   /** ✅ Handle boarding date selection */
   onBoardingDateSelected(event: MatDatepickerInputEvent<Date>): void {

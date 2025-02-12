@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
-import { MatDivider } from '@angular/material/divider';
+
+import { Passenger } from '../../model/passenger';
+import { Flight } from '../../../flights/model/flight';
+import { Coupon } from '../../../coupons/model/coupon';
+
+import { BookingService } from '../../service/bookings.service';
+import { CouponService } from '../../../coupons/service/coupon.service';
+import { FlightsService } from '../../../flights/service/flights.service';
+
+import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
+
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { FlightsService } from '../../../flights/service/flights.service';
-import { Flight } from '../../../flights/model/flight';
-import { Passenger } from '../../model/passenger';
-import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
-import { BookingService } from '../../service/bookings.service';
+import { MatDivider } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Coupon } from '../../../coupons/model/coupon';
-import { CouponService } from '../../../coupons/service/coupon.service';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-book-flight',
@@ -41,7 +45,6 @@ export class BookFlightComponent implements OnInit {
   isLoading: boolean = false;
   coupons: Coupon[] = [];
   couponErrorMessage: string | null = null;
-
 
   constructor(
     private route: ActivatedRoute,
@@ -139,8 +142,6 @@ export class BookFlightComponent implements OnInit {
     this.updateTotalPrice();
   }
 
-
-
   async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
@@ -225,7 +226,6 @@ export class BookFlightComponent implements OnInit {
       this.hasDuplicatePassports();
     }
   }
-  
 
   updateLuggage(index: number, luggage: { cabin: number; checked: number; heavy: number }): void {
     if (index >= 0 && index < this.passengers.length) {

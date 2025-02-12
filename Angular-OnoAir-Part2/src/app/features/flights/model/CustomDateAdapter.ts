@@ -1,10 +1,8 @@
-import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { NativeDateAdapter, DateAdapter } from '@angular/material/core';
+import { NativeDateAdapter } from '@angular/material/core';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CustomDateAdapter extends NativeDateAdapter {
-
   override parse(value: string): Date | null {
 
     if (!value) return null;
@@ -50,14 +48,14 @@ export class CustomDateAdapter extends NativeDateAdapter {
 }
 
 export const CUSTOM_DATETIME_FORMATS = {
-  parse: { 
-    dateInput: 'DD/MM/YYYY', 
-    timeInput: 'HH:mm'  
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+    timeInput: 'HH:mm'
   },
   display: {
     dateInput: 'DD/MM/YYYY',
     timeInput: 'HH:mm',
-    timeOptionLabel: 'HH:mm', 
+    timeOptionLabel: 'HH:mm',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'DD/MM/YYYY',
     monthYearA11yLabel: 'MMMM YYYY',

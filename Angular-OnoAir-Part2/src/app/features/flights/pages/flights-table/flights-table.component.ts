@@ -1,17 +1,20 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Router } from '@angular/router';
+
+import { Flight, Status } from '../../model/flight';
+
+import { FlightsService } from '../../service/flights.service';
+import { BookingService } from '../../../bookings/service/bookings.service';
+import { DestinationService } from '../../../destinations/service/destinations.service';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
-import { Flight, Status } from '../../model/flight';
-import { FlightsService } from '../../service/flights.service';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { BookingService } from '../../../bookings/service/bookings.service';
-import { DestinationService } from '../../../destinations/service/destinations.service';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-flights-table',

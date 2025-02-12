@@ -1,19 +1,22 @@
+import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
+import { Booking, Status } from '../../model/booking';
+import { Flight } from '../../../flights/model/flight';
+
 import { BookingService } from '../../service/bookings.service';
+import { FlightsService } from '../../../flights/service/flights.service';
+
+import { BookingCardComponent } from '../booking-card/booking-card.component';
+
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
-import { Booking, Status } from '../../model/booking';
-import { BookingCardComponent } from '../booking-card/booking-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { FlightsService } from '../../../flights/service/flights.service';
-import { firstValueFrom } from 'rxjs';
-import { Flight } from '../../../flights/model/flight';
 
 @Component({
   selector: 'app-my-bookings',
-  standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, BookingCardComponent, MatProgressBarModule],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
@@ -89,7 +92,6 @@ export class MyBookingsComponent implements OnInit {
           console.error(`Flight details not found for flight number: ${booking.flightNo}`);
           return;
         }
-
         const passengers = booking.passengers;
         const bookingDetails = {
           bookingCode: booking.bookingCode,
@@ -105,7 +107,6 @@ export class MyBookingsComponent implements OnInit {
           discountPercentage: booking.discountPercentage,
           finalPrice: booking.finalPrice,
         };
-
         console.log('Navigating to booking details with:', bookingDetails);
         this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
       })

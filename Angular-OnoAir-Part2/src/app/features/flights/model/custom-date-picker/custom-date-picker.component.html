@@ -5,9 +5,9 @@
 </div>
 
 <!-- Specific Dates Selection -->
- <div *ngIf="mode === 'specific'">
-<app-calendar-view (dateSelectionChange)="onDatesSelected($event)"></app-calendar-view>
- </div>
+<div *ngIf="mode === 'specific'">
+  <app-calendar-view (dateSelectionChange)="onDatesSelected($event)"></app-calendar-view>
+</div>
 
 <!-- Flexible Dates Selection (Month Grid) -->
 <div *ngIf="mode === 'flexible'">

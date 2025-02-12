@@ -1,16 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { Flight } from '../../../flights/model/flight';
+
+import { FlightsService } from '../../../flights/service/flights.service';
+
+import { FlightCardComponent } from '../flight-card/flight-card.component';
+
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { Flight } from '../../../flights/model/flight';
-import { FlightsService } from '../../../flights/service/flights.service';
-import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-last-minute-flights',
   imports: [CommonModule, MatGridListModule, FlightCardComponent, MatProgressBarModule],
   templateUrl: './last-minute-flights.component.html',
-  styleUrl: './last-minute-flights.component.css'
+  styleUrls: ['./last-minute-flights.component.css']
 })
 export class LastMinuteFlightsComponent implements OnInit {
   lastMinuteFlights: Flight[] = [];
@@ -29,6 +33,5 @@ export class LastMinuteFlightsComponent implements OnInit {
     } finally {
       this.isLoading = false;
     }
-    
   }
 }

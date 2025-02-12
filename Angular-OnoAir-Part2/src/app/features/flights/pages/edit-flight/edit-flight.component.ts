@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Flight, Status } from '../../model/flight';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
+
+import { Flight, Status } from '../../model/flight';
+
 import { FlightsService } from '../../service/flights.service';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -9,17 +13,17 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
-import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTimepickerModule } from '@angular/material/timepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
+
+
 @Component({
   selector: 'app-edit-flight',
-  imports: [
-    MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatOptionModule, MatSelectModule, MatTimepickerModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatOptionModule, MatSelectModule, MatTimepickerModule],
   templateUrl: './edit-flight.component.html',
-  styleUrl: './edit-flight.component.css',
+  styleUrls: ['./edit-flight.component.css'],
   providers: [
       { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
       { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
@@ -104,8 +108,8 @@ export class EditFlightComponent implements OnInit {
     try {
       await this.flightService.updateFlight(this.flight.id, this.flight);
       this.snackBar.open('Flight Updated successfully!', 'OK', {
-        verticalPosition: 'top', // Show at the top
-        horizontalPosition: 'center', // Centered
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
       });
       this.router.navigate(['/manage-flights']);
     } catch (error) {
@@ -124,5 +128,4 @@ export class EditFlightComponent implements OnInit {
   checkValidation(): boolean {
     return this.invalidDate || this.invalidTime;
   }
-
 }

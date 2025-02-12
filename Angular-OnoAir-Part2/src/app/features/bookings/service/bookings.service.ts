@@ -44,7 +44,6 @@ export class BookingService {
     });
   }
   
-
   getFlightDetails(flightNo: string) {
     const flight = this.flightService.getFlightByNumber(flightNo);
     if (!flight) {

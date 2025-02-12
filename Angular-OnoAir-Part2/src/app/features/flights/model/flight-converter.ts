@@ -8,8 +8,8 @@ export const FlightConverter = {
       flightNo: flight.flightNo,
       origin: flight.origin,
       destination: flight.destination,
-      boarding: Timestamp.fromDate(flight.boarding), // Assumes it's already a Timestamp
-      landing: Timestamp.fromDate(flight.landing),   // Assumes it's already a Timestamp
+      boarding: Timestamp.fromDate(flight.boarding),
+      landing: Timestamp.fromDate(flight.landing),
       seats: flight.seats,
       status: flight.status,
       price: flight.price
@@ -18,12 +18,12 @@ export const FlightConverter = {
   fromFirestore(snapshot: QueryDocumentSnapshot): Flight {
     const data = snapshot.data();
     return new Flight(
-      snapshot.id, // Use the document ID as the flight ID
+      snapshot.id,
       data["flightNo"],
       data["origin"],
       data["destination"],
-      this.convertToValidDate(data["boarding"]), // Convert boarding to a valid Date
-      this.convertToValidDate(data["landing"]),  // Convert landing to a valid Date
+      this.convertToValidDate(data["boarding"]),
+      this.convertToValidDate(data["landing"]),
       data["seats"],
       data["status"],
       data["price"] || 0
@@ -31,14 +31,14 @@ export const FlightConverter = {
   },
   convertToValidDate(field: any): Date {
     if (field instanceof Date) {
-      return field; // Already a Date object
+      return field;
     } else if (field instanceof Timestamp) {
-      return field.toDate(); // Firestore Timestamp object
+      return field.toDate();
     } else if (typeof field === 'string') {
-      return new Date(field); // ISO string
+      return new Date(field);
     } else {
       console.warn('Invalid date field:', field);
-      return new Date(0); // Fallback to epoch
+      return new Date(0);
     }
   }
 };

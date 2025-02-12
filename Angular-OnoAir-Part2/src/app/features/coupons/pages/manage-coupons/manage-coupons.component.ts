@@ -1,24 +1,28 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { CouponService } from '../../service/coupon.service';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
+
 import { Coupon } from '../../model/coupon';
+
+import { CouponService } from '../../service/coupon.service';
+
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CommonModule } from '@angular/common';
-import { MatPaginator ,MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-manage-coupons',
   imports: [MatSortModule, MatTableModule, MatIconModule, MatButtonModule, MatProgressBarModule, CommonModule, MatPaginatorModule],
   templateUrl: './manage-coupons.component.html',
-  styleUrl: './manage-coupons.component.css'
+  styleUrls: ['./manage-coupons.component.css']
 })
+
 export class ManageCouponsComponent implements OnInit {
-[x: string]: any;
+  [x: string]: any;
   private_liveAnnouncer = inject(LiveAnnouncer);
   displayedColumns: string[] = ['id', 'code', 'startDate', 'endDate', 'discount', 'description', 'usageLimit', 'actions'];
   dataSource = new MatTableDataSource<Coupon>();
@@ -77,6 +81,6 @@ export class ManageCouponsComponent implements OnInit {
       this.router.navigate(['/coupon-form', uniqueId]);
     }).catch((error) => {
       console.error('Error creating unique ID:', error);
-    }); 
+    });
   }
 }

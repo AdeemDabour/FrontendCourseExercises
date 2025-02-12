@@ -32,7 +32,6 @@ export class FlightsService {
     }
   }
 
-
   async addFlight(newFlight: Flight): Promise<void> {
     try {
       const flightsCollection = collection(this.firestore, this.collectionName);
@@ -54,7 +53,6 @@ export class FlightsService {
       console.error('Error adding flight:', error);
     }
   }
-
 
   async updateFlight(flightId: string, updatedFlight: Flight): Promise<void> {
     try {
@@ -120,7 +118,6 @@ export class FlightsService {
     }
   }
 
-
   getFlightsThisWeek(): Observable<Flight[]> {
     const now = new Date();
 
@@ -168,6 +165,7 @@ export class FlightsService {
   listFlights(): Observable<Flight[]> {
     return this.flights$;
   }
+
   async getActiveFlightsByDestination(destinationName: string): Promise<Flight[]> {
     try {
         const collectionRef = this.getFlightsCollection();
@@ -186,7 +184,7 @@ export class FlightsService {
 
     } catch (error) {
         console.error('Error checking flights for destination:', error);
-        return []; // Return empty array in case of error
+        return [];
     }
 }
 

@@ -3,7 +3,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import moment from 'moment';
 
 @Component({
-  standalone: true,
   selector: 'app-month-grid-view',
   templateUrl: './month-grid-view.component.html',
   styleUrls: ['./month-grid-view.component.css'],
