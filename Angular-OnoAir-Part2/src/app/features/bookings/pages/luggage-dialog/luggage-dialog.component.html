@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Add Luggage - {{ data.passenger.name }}</h2>
+<br>
+<mat-dialog-content>
+    <mat-form-field appearance="outline">
+        <mat-label>Cabin Baggage (8kg)</mat-label>
+        <mat-icon matPrefix>work</mat-icon>
+        <input matInput type="number" [(ngModel)]="data.passenger.luggage.cabin" min="0" 
+               [max]="9 - (data.passenger.luggage.checked + data.passenger.luggage.heavy)">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Checked Baggage (23kg)</mat-label>
+        <mat-icon matPrefix>luggage</mat-icon>
+        <input matInput type="number" [(ngModel)]="data.passenger.luggage.checked" min="0" 
+               [max]="9 - (data.passenger.luggage.cabin + data.passenger.luggage.heavy)">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Heavy Baggage (32kg)</mat-label>
+        <mat-icon matPrefix>local_shipping</mat-icon>
+        <input matInput type="number" [(ngModel)]="data.passenger.luggage.heavy" min="0" 
+               [max]="9 - (data.passenger.luggage.cabin + data.passenger.luggage.checked)">
+      </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-button (click)="saveChanges()" [disabled]="getTotalLuggage() > 9">
+        Save Changes
+    </button>
+</mat-dialog-actions>

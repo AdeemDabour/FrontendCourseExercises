@@ -62,17 +62,22 @@
 
           <ng-container *ngFor="let passenger of passengers; let i = index">
             <app-passenger-card [passenger]="passenger" [index]="i"
-              (passengerChange)="updatePassenger(i, $event)"></app-passenger-card>
+              (passengerChange)="updatePassenger(i, $event)">
+            </app-passenger-card>    
           </ng-container>
 
+          <p *ngIf="passportErrorMessage" class="error-text">
+            {{ passportErrorMessage }}
+          </p>
+          
           <mat-form-field appearance="outline">
             <mat-label>Code Coupon</mat-label>
             <input matInput name="couponCode" [(ngModel)]="couponCode" />
           </mat-form-field>
           <button mat-raised-button color="accent" (click)="applyCoupon()">Apply</button>
-          
+
           <p *ngIf="couponErrorMessage" class="error-text">{{ couponErrorMessage }}</p>
-          
+
           <div class="button-container">
             <button mat-raised-button color="primary" (click)="submitBooking()" [disabled]="!isFormValid()">
               Submit Booking

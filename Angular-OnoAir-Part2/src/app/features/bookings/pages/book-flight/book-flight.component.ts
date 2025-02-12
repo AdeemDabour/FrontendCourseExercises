@@ -17,14 +17,16 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Coupon } from '../../../coupons/model/coupon';
 import { CouponService } from '../../../coupons/service/coupon.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-book-flight',
-  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule],
+  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule, MatDialogModule, PassengerCardComponent],
   templateUrl: './book-flight.component.html',
   styleUrls: ['./book-flight.component.css'],
 })
 export class BookFlightComponent implements OnInit {
+  [x: string]: any;
   flight: Flight | null = null;
   numPassengers: number = 1;
   passengers: Passenger[] = [];
@@ -47,7 +49,7 @@ export class BookFlightComponent implements OnInit {
     private router: Router,
     private bookingService: BookingService,
     private couponService: CouponService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -102,6 +104,7 @@ export class BookFlightComponent implements OnInit {
     this.passengers = Array.from({ length: this.numPassengers }, (_, i) => ({
       name: currentPassengers[i]?.name || '',
       passport: currentPassengers[i]?.passport || '',
+      luggage: currentPassengers[i]?.luggage || { cabin: 0, checked: 0, heavy: 0 }
     }));
   }
 
@@ -113,50 +116,54 @@ export class BookFlightComponent implements OnInit {
   }
   async applyCoupon(): Promise<void> {
     this.couponErrorMessage = null;
-  
+
     if (!this.couponCode.trim()) {
       this.couponErrorMessage = 'Please enter a coupon code';
       return;
     }
-  
+
     try {
       const discount = await this.couponService.applyCoupon(this.couponCode.trim());
-  
+
       if (discount > 0) {
         this.discountPercentage = discount;
-        this.couponErrorMessage = null; // Clear error if successful
+        this.couponErrorMessage = null;
       } else {
         this.couponErrorMessage = 'Invalid or expired coupon code';
         this.discountPercentage = 0;
       }
     } catch (error) {
       this.couponErrorMessage = String(error);
-    }  
-  
+    }
+
     this.updateTotalPrice();
   }
-  
-  
+
+
 
   async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
       return;
     }
-  
+
     this.isLoading = true;
-  
+
     try {
       const newBooking = {
-        flightNo: this.flight.flightNo,
-        passengers: this.passengers,
+        flightNo: this.flight!.flightNo,
+        passengers: this.passengers.map(passenger => ({
+          name: passenger.name,
+          passport: passenger.passport,
+          luggage: passenger.luggage
+        })),
         totalPrice: this.totalPrice,
         discountPercentage: this.discountPercentage,
-        finalPrice: this.totalPrice * (1 - this.discountPercentage / 100),
+        finalPrice: this.finalPrice,
         status: 'Active',
         canceled: false
       };
-  
+
       const bookingCode = await this.bookingService.saveBooking(
         newBooking.flightNo,
         newBooking.passengers,
@@ -164,25 +171,25 @@ export class BookFlightComponent implements OnInit {
         newBooking.discountPercentage,
         newBooking.finalPrice
       );
-  
+
       await this.flightsService.updateSeatsForFlight(this.flight.flightNo, -this.passengers.length);
-  
-      this.snackBar.open('Booking Booked successfully!', 'OK', { 
-        verticalPosition: 'top', // Show at the top
-        horizontalPosition: 'center', // Centered
+
+      this.snackBar.open('Booking Booked successfully!', 'OK', {
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
       });
-  
+
       this.router.navigate(['/booking-details', bookingCode], {
         state: { bookingDetails: newBooking }
       });
-  
+
     } catch (error) {
       this.errorMessage = 'Unable to complete booking. Please try again later.';
     } finally {
       this.isLoading = false;
     }
   }
-  
+
   goBack(): void {
     this.router.navigate(['/flight-search']);
   }
@@ -191,18 +198,12 @@ export class BookFlightComponent implements OnInit {
     const hasValidPassengers = this.passengers.every(passenger =>
       /^[A-Za-z ]+$/.test(passenger.name) && /^\d{9,10}$/.test(passenger.passport)
     );
-
-    const hasDuplicatePassports = this.hasDuplicatePassports();
-
-    return hasValidPassengers && !hasDuplicatePassports;
-  }
-  hasDuplicatePassports(): boolean {
-    if (this.passengers.some(p => !p.passport || p.passport.trim() === '')) {
-      this.passportErrorMessage = null;
-      return false;
-    }
   
-    const passportNumbers = this.passengers.map(p => p.passport);
+    return hasValidPassengers && !this.hasDuplicatePassports();
+  }
+  
+  hasDuplicatePassports(): boolean {
+    const passportNumbers = this.passengers.map(p => p.passport.trim()).filter(p => p !== '');
     const uniquePassports = new Set(passportNumbers);
   
     if (passportNumbers.length !== uniquePassports.size) {
@@ -213,10 +214,22 @@ export class BookFlightComponent implements OnInit {
     this.passportErrorMessage = null;
     return false;
   }
-  updatePassenger(index: number, passenger: Passenger): void {
+  
+  updatePassenger(index: number, passenger: { name: string; passport: string }): void {
     if (index >= 0 && index < this.passengers.length) {
-      this.passengers[index] = passenger;
-      this.hasDuplicatePassports();
+      this.passengers[index] = new Passenger(
+        passenger.name,
+        passenger.passport,
+        this.passengers[index]?.luggage || { cabin: 0, checked: 0, heavy: 0 }
+      );
+      this.hasDuplicatePassports(); // ✅ בדיקת כפילות דרכונים לאחר עדכון
+    }
+  }
+  
+
+  updateLuggage(index: number, luggage: { cabin: number; checked: number; heavy: number }): void {
+    if (index >= 0 && index < this.passengers.length) {
+      this.passengers[index].luggage = luggage;
     }
   }
 }

@@ -10,3 +10,17 @@
     display: block;
     margin-bottom: 16px;
   }
+
+  .luggage-summary {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.luggage-item {
+  background-color: #d1e7fd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #084298;
+}
