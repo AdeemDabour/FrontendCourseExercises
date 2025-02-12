@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   selector: 'app-find-flight',
   imports: [FlightsTableComponent, CommonModule, MatProgressBarModule],
   templateUrl: './find-flight.component.html',
-  styleUrl: './find-flight.component.css'
+  styleUrls: ['./find-flight.component.css']
 })
 export class FindFlightComponent implements OnInit {
   futureFlights$: Observable<Flight[]> = new Observable();

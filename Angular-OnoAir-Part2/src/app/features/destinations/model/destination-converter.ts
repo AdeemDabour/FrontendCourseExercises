@@ -16,7 +16,7 @@ export const destinationConverter = {
   fromFirestore(snapshot: QueryDocumentSnapshot): Destination {
     const data = snapshot.data();
     return new Destination(
-      snapshot.id, // Assign the Firestore document ID
+      snapshot.id,
       data['name'],
       data['airportName'],
       data['airportWebsite'],

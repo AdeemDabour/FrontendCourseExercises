@@ -13,8 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-edit-destination',
   imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule, MatError],
   templateUrl: './edit-destination.component.html',
-  styleUrl: './edit-destination.component.css',
+  styleUrls: ['./edit-destination.component.css']
 })
+
 export class EditDestinationComponent implements OnInit {
   destination: Destination = new Destination('', '', '', '', '', '', '', Status.Active);
   isLoading: boolean = true;
@@ -52,14 +53,13 @@ export class EditDestinationComponent implements OnInit {
       this.isLoading = false;
     }
   }
-  
 
   async saveDestination(): Promise<void> {
     try {
-      await this.destinationService.updateDestination(this.destination.id, this.destination); // עדכון ב-API
+      await this.destinationService.updateDestination(this.destination.id, this.destination);
       this.snackBar.open('Destination Updated successfully!', 'OK', {
-        verticalPosition: 'top', // Show at the top
-        horizontalPosition: 'center', // Centered
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
       });
       this.router.navigate(['/manage-destinations']);
     } catch (error) {

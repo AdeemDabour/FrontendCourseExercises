@@ -10,26 +10,26 @@ import { Flight } from '../../model/flight';
   selector: 'app-flight-details',
   imports: [CommonModule, MatCardModule, MatListModule, MatButtonModule, RouterLink],
   templateUrl: './flight-details.component.html',
-  styleUrl: './flight-details.component.css'
+  styleUrls: ['./flight-details.component.css']
 })
 export class FlightDetailsComponent implements OnInit {
-  flight: Flight | undefined = undefined; // Define the property and allow it to be undefined
-  errorMessage: string | null = null; // Variable for error message
+  flight: Flight | undefined = undefined;
+  errorMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private flightService: FlightsService
   ) { }
   ngOnInit(): void {
-    const flightNo = this.route.snapshot.paramMap.get('flightNo'); // Retrieve 'flightNo' from the route
+    const flightNo = this.route.snapshot.paramMap.get('flightNo');
     if (flightNo) {
       // Subscribe to the observable to get the flight details
       this.flightService.getFlightByNumber(flightNo).subscribe({
         next: (flight) => {
           if (flight) {
-            this.flight = flight; // Assign the flight if it exists
+            this.flight = flight;
           } else {
-            this.errorMessage = `Flight with number "${flightNo}" does not exist.`; // Error if flight not found
+            this.errorMessage = `Flight with number "${flightNo}" does not exist.`;
           }
         },
         error: (err) => {
@@ -37,7 +37,7 @@ export class FlightDetailsComponent implements OnInit {
         },
       });
     } else {
-      this.errorMessage = 'Invalid flight number in URL.'; // Error message if no flightNo in URL
+      this.errorMessage = 'Invalid flight number in URL.';
     }
   }
 }

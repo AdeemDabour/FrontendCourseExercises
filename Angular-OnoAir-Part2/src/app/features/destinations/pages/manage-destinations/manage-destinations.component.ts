@@ -18,6 +18,7 @@ import { FlightsService } from '../../../flights/service/flights.service';
   templateUrl: './manage-destinations.component.html',
   styleUrls: ['./manage-destinations.component.css'],
 })
+
 export class ManageDestinationsComponent implements OnInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
   displayedColumns: string[] = ['id', 'name', 'airportName', 'airportWebsite', 'email', 'code', 'imageUrl', 'actions'];

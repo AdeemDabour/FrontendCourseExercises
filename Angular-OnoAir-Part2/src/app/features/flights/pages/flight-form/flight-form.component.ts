@@ -22,7 +22,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
   selector: 'app-flight-form',
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatOptionModule, MatSelectModule, MatDatepickerModule, MatTimepickerModule],
   templateUrl: './flight-form.component.html',
-  styleUrl: './flight-form.component.css',
+  styleUrls: ['./flight-form.component.css'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
@@ -64,8 +64,8 @@ export class FlightFormComponent implements OnInit {
       await this.flightService.addFlight(this.newFlight);
       // ✅ Show success message
       this.snackBar.open('Flight Added successfully!', 'OK', {
-        verticalPosition: 'top', // Show at the top
-        horizontalPosition: 'center', // Centered
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
       });
 
       this.router.navigate(['/manage-flights']);
@@ -73,11 +73,11 @@ export class FlightFormComponent implements OnInit {
   }
   combineDateAndTime(): void {
     if (this.boardingDate && this.boardingTime) {
-      this.newFlight.boarding = new Date(this.boardingDate); // Copy date
+      this.newFlight.boarding = new Date(this.boardingDate);
       this.newFlight.boarding.setHours(this.boardingTime.getHours(), this.boardingTime.getMinutes(), 0, 0);
     }
     if (this.landingDate && this.landingTime) {
-      this.newFlight.landing = new Date(this.landingDate); // Copy date
+      this.newFlight.landing = new Date(this.landingDate);
       this.newFlight.landing.setHours(this.landingTime.getHours(), this.landingTime.getMinutes(), 0, 0);
     }
   }
@@ -86,7 +86,7 @@ export class FlightFormComponent implements OnInit {
       return false;
     }
     const now = new Date();
-    return  this.boardingDate.getDate() === now.getDate() && this.boardingTime < now; // Ensures boarding time is in the future
+    return  this.boardingDate.getDate() === now.getDate() && this.boardingTime < now;
   }
   isLandingTimeInvalid(): boolean {
     if (!this.boardingDate || !this.landingDate || !this.boardingTime || !this.landingTime) {

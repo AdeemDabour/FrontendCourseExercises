@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-footer',
   imports: [MatIconModule, MatButtonModule, RouterModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
 }

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FlightCardComponent } from './flight-card.component';
 
 describe('FlightCardComponent', () => {

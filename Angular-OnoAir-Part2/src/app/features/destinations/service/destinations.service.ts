@@ -16,8 +16,8 @@ export class DestinationService {
   }
 
   public async loadDestinations(): Promise<void> {
-    const destinations = await this.refreshDestinations(); // Fetch destinations directly
-    this.destinationsSubject.next(destinations); // Update the BehaviorSubject
+    const destinations = await this.refreshDestinations();
+    this.destinationsSubject.next(destinations);
   }
 
   async addDestination(newDestination: Destination): Promise<void> {
@@ -45,7 +45,6 @@ export class DestinationService {
     const docRef = doc(this.firestore, `${this.collectionName}/${id}`).withConverter(destinationConverter);
     await setDoc(docRef, updatedDestination);
     console.log(`Destination ${updatedDestination.name} updated successfully`);
-
     await this.loadDestinations();
   }
 
@@ -84,12 +83,12 @@ export class DestinationService {
   }
 
   getDestinationByName(name: string): Destination | undefined {
-    const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
+    const destinations = this.destinationsSubject.getValue();
     return destinations.find(destination => destination.name === name);
   }
 
   listDestinationNames(): string[] {
-    const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
+    const destinations = this.destinationsSubject.getValue();
     return destinations.map(destination => destination.name);
   }
 
@@ -99,13 +98,13 @@ export class DestinationService {
         if (destination) {
           return destination.imageUrl;
         } else {
-          return ''; // Return an empty string if no destination is found
+          return '';
         }
       }));
   }
 
   getDestinationStatus(code: string): Status {
-    const destinations = this.destinationsSubject.getValue(); // Get the current value of destinations
+    const destinations = this.destinationsSubject.getValue();
     const destination = destinations.find(d => d.code.toLowerCase() === code.toLowerCase());
     return destination ? destination.status : Status.Active;
   }

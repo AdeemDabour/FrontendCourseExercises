@@ -20,7 +20,7 @@ bootstrapApplication(AppComponent, {
         measurementId: "G-3WJG27X55P"
       })
     ), // Initialize Firebase with configuration
-    provideFirestore(() => getFirestore()), // Initialize Firestore
+    provideFirestore(() => getFirestore()),
     provideRouter(routes),
     provideAnimations(),
     provideNativeDateAdapter(),

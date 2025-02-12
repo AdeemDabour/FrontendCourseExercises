@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-header',
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
 

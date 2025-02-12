@@ -13,7 +13,6 @@ import { Flight } from '../../../flights/model/flight';
 
 @Component({
   selector: 'app-my-bookings',
-  standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, BookingCardComponent, MatProgressBarModule],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css']
@@ -89,7 +88,6 @@ export class MyBookingsComponent implements OnInit {
           console.error(`Flight details not found for flight number: ${booking.flightNo}`);
           return;
         }
-
         const passengers = booking.passengers;
         const bookingDetails = {
           bookingCode: booking.bookingCode,
@@ -105,7 +103,6 @@ export class MyBookingsComponent implements OnInit {
           discountPercentage: booking.discountPercentage,
           finalPrice: booking.finalPrice,
         };
-
         console.log('Navigating to booking details with:', bookingDetails);
         this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
       })

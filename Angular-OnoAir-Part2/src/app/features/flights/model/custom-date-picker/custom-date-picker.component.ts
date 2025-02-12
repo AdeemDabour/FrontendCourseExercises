@@ -6,7 +6,6 @@ import { MonthGridViewComponent } from '../month-grid-view/month-grid-view.compo
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  standalone: true,
   selector: 'app-custom-date-picker',
   templateUrl: './custom-date-picker.component.html',
   styleUrls: ['./custom-date-picker.component.css'],
@@ -19,8 +18,8 @@ import { MatInputModule } from '@angular/material/input';
     },
   ],
 })
+
 export class CustomDatePickerComponent implements ControlValueAccessor {
-  
   @Output() monthSelectionChange = new EventEmitter<Date[]>();
   @Output() dateSelectionChange = new EventEmitter<{ boarding: Date | null, landing: Date | null }>();
 
@@ -29,8 +28,8 @@ export class CustomDatePickerComponent implements ControlValueAccessor {
   selectedDates: { boarding: Date | null, landing: Date | null } = { boarding: null, landing: null };
   selectedMonths: Date[] = [];
 
-  private onChange: (value: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: any) => void = () => { };
+  private onTouched: () => void = () => { };
 
   writeValue(value: any): void {
     this.selectedDates = value || { boarding: null, landing: null };
@@ -58,12 +57,9 @@ export class CustomDatePickerComponent implements ControlValueAccessor {
   /** ✅ Capture Selected Months */
   onMonthsSelected(months: Date[]): void {
     this.selectedMonths = months.map(month => {
-        return new Date(month.getFullYear(), month.getMonth(), 1); // Only store month & year
+      return new Date(month.getFullYear(), month.getMonth(), 1);
     });
     this.monthSelectionChange.emit(this.selectedMonths);
     this.onChange(this.selectedMonths);
-}
-
-
-
+  }
 }

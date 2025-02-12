@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-destination-form',
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatError],
   templateUrl: './destination-form.component.html',
-  styleUrl: './destination-form.component.css'
+  styleUrls: ['./destination-form.component.css']
 })
 export class DestinationFormComponent implements OnInit {
 
@@ -23,7 +23,6 @@ export class DestinationFormComponent implements OnInit {
   existingDestinations: Destination[] = [];
   nameExists: boolean = false;
   codeExists: boolean = false;
-
 
   constructor(
     private destinationService: DestinationService, 
@@ -52,8 +51,8 @@ export class DestinationFormComponent implements OnInit {
     }
     await this.destinationService.addDestination(this.newDestination);
     this.snackBar.open('Destination Added successfully!', 'OK', {
-      verticalPosition: 'top', // Show at the top
-      horizontalPosition: 'center', // Centered
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
     });
     this.router.navigate(['/manage-destinations']);
   }

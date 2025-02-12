@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CustomDatePickerComponent } from './custom-date-picker.component';
 
 describe('CustomDatePickerComponent', () => {

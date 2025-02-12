@@ -11,7 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   selector: 'app-flight-card',
   imports: [CommonModule, MatCardModule, MatButtonModule, RouterLink, MatProgressBarModule],
   templateUrl: './flight-card.component.html',
-  styleUrl: './flight-card.component.css'
+  styleUrls: ['./flight-card.component.css']
 })
 export class FlightCardComponent {
   @Input() flight!: Flight;

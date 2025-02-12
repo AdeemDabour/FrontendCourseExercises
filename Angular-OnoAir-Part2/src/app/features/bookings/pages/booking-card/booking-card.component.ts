@@ -12,7 +12,7 @@ import { MatIconModule } from "@angular/material/icon";
   selector: 'app-booking-card',
   imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './booking-card.component.html',
-  styleUrl: './booking-card.component.css'
+  styleUrls: ['./booking-card.component.css']
 })
 export class BookingCardComponent implements OnInit {
   @Input() booking!: Booking;

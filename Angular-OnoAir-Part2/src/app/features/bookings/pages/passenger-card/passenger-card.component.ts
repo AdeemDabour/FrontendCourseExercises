@@ -10,7 +10,6 @@ import { LuggageDialogComponent } from '../luggage-dialog/luggage-dialog.compone
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-passenger-card',
   imports: [CommonModule, MatFormFieldModule, MatCardModule, MatError, MatInputModule, FormsModule, MatIconModule, MatButtonModule, CommonModule],
@@ -25,7 +24,7 @@ export class PassengerCardComponent {
 
   constructor(
     private dialog: MatDialog
-    ) { }
+  ) { }
   onPassengerChange(field: 'name' | 'passport', value: string): void {
     this.passenger = new Passenger(
       field === 'name' ? value : this.passenger.name,
@@ -35,26 +34,26 @@ export class PassengerCardComponent {
     this.passengerChange.emit(this.passenger);
   }
 
-getTotalLuggageItems(passenger: Passenger): number {
-  return (passenger.luggage?.cabin || 0) + (passenger.luggage?.checked || 0) + (passenger.luggage?.heavy || 0);
-}
+  getTotalLuggageItems(passenger: Passenger): number {
+    return (passenger.luggage?.cabin || 0) + (passenger.luggage?.checked || 0) + (passenger.luggage?.heavy || 0);
+  }
 
-getTotalLuggageWeight(passenger: Passenger): number {
-  return ((passenger.luggage?.cabin || 0) * 8) +
-         ((passenger.luggage?.checked || 0) * 23) +
-         ((passenger.luggage?.heavy || 0) * 32);
-}
+  getTotalLuggageWeight(passenger: Passenger): number {
+    return ((passenger.luggage?.cabin || 0) * 8) +
+      ((passenger.luggage?.checked || 0) * 23) +
+      ((passenger.luggage?.heavy || 0) * 32);
+  }
 
-openLuggageDialog(passenger: Passenger): void {
-  const dialogRef = this.dialog.open(LuggageDialogComponent, {
-    width: '400px',
-    data: { passenger }
-  });
+  openLuggageDialog(passenger: Passenger): void {
+    const dialogRef = this.dialog.open(LuggageDialogComponent, {
+      width: '400px',
+      data: { passenger }
+    });
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      passenger.luggage = result;
-    }
-  });
-}
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        passenger.luggage = result;
+      }
+    });
+  }
 }

@@ -12,7 +12,6 @@ export class CouponService {
   coupons$ = this.couponsSubject.asObservable();
   couponErrorMessage: string | null = null;
 
-
   constructor(private firestore: Firestore) {
     this.loadCoupons();
   }
@@ -29,7 +28,7 @@ export class CouponService {
     );
 
     if (existingCoupon) {
-      throw new Error("This coupon code already exists in the system"); // Ensure error is thrown
+      throw new Error("This coupon code already exists in the system");
     }
 
     const couponsCollection = collection(this.firestore, this.collectionName);
@@ -41,7 +40,6 @@ export class CouponService {
     await setDoc(couponDoc, { ...newCoupon, id: nextId.toString() });
     console.log(`Coupon: ${newCoupon.description} added with ID: ${nextId}`);
   }
-
 
   async removeCoupon(id: string): Promise<void> {
     const docRef = doc(this.firestore, `${this.collectionName}/${id}`);
@@ -87,11 +85,11 @@ export class CouponService {
     const coupon = await this.getValidCoupon(couponCode.trim());
 
     if (!coupon) {
-      return 0; // Coupon is invalid or expired
+      return 0;
     }
 
     if (coupon.usageLimit <= 0) {
-      throw new Error("The entered coupon has reached its usage limit"); // Coupon has reached usage limit
+      throw new Error("The entered coupon has reached its usage limit");
     }
 
     // Decrease Remaining Usages
@@ -100,7 +98,7 @@ export class CouponService {
     // Update Firestore with new Remaining Usages
     await this.updateCoupon(coupon.id, coupon);
 
-    return coupon.discountPercentage; // Return discount
+    return coupon.discountPercentage;
   }
 
   async getValidCoupon(code: string): Promise<Coupon | null> {

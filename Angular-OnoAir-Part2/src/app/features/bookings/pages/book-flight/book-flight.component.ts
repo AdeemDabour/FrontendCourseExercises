@@ -42,7 +42,6 @@ export class BookFlightComponent implements OnInit {
   coupons: Coupon[] = [];
   couponErrorMessage: string | null = null;
 
-
   constructor(
     private route: ActivatedRoute,
     private flightsService: FlightsService,
@@ -139,8 +138,6 @@ export class BookFlightComponent implements OnInit {
     this.updateTotalPrice();
   }
 
-
-
   async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
@@ -225,7 +222,6 @@ export class BookFlightComponent implements OnInit {
       this.hasDuplicatePassports();
     }
   }
-  
 
   updateLuggage(index: number, luggage: { cabin: number; checked: number; heavy: number }): void {
     if (index >= 0 && index < this.passengers.length) {

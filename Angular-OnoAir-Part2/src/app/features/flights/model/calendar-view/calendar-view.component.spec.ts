@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CalendarViewComponent } from './calendar-view.component';
 
 describe('CalendarViewComponent', () => {
@@ -10,7 +9,7 @@ describe('CalendarViewComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CalendarViewComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CalendarViewComponent);
     component = fixture.componentInstance;

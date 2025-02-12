@@ -9,7 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   selector: 'app-help-page',
   imports: [MatToolbarModule, MatAccordion, MatExpansionModule, MatCardModule, MatIconModule, MatButtonModule, MatDivider],
   templateUrl: './help-page.component.html',
-  styleUrl: './help-page.component.css'
+  styleUrls: ['./help-page.component.css']
 })
 export class HelpPageComponent {
   contactSupport() {

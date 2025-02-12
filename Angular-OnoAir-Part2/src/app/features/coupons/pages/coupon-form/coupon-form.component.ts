@@ -17,13 +17,14 @@ import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../../flights/mod
   selector: 'app-coupon-form',
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './coupon-form.component.html',
-  styleUrl: './coupon-form.component.css',
+  styleUrls: ['./coupon-form.component.css'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
     { provide: DateAdapter, useClass: CustomDateAdapter }
   ]
 })
+
 export class CouponFormComponent implements OnInit {
   newCoupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
 
@@ -49,20 +50,19 @@ export class CouponFormComponent implements OnInit {
     this.exitingCoupons = await firstValueFrom(this.couponService.coupons$);
   }
 
-
   submitForm(): void {
     this.formSubmit.emit(this.coupon);
   }
 
   async onSubmitRegistration(): Promise<void> {
-    this.couponErrorMessage = null; // Reset previous error
+    this.couponErrorMessage = null;
 
     try {
       await this.couponService.addCoupon(this.coupon);
-      this.router.navigate(['/manage-coupons']); // Redirect after success
+      this.router.navigate(['/manage-coupons']);
     } catch (error) {
       if (error instanceof Error) {
-        this.couponErrorMessage = error.message; // Set the error message
+        this.couponErrorMessage = error.message;
       } else {
         this.couponErrorMessage = 'An unknown error occurred';
       }

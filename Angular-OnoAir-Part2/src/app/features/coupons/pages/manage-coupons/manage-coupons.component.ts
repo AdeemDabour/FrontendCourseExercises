@@ -9,16 +9,17 @@ import { Coupon } from '../../model/coupon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
-import { MatPaginator ,MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-manage-coupons',
   imports: [MatSortModule, MatTableModule, MatIconModule, MatButtonModule, MatProgressBarModule, CommonModule, MatPaginatorModule],
   templateUrl: './manage-coupons.component.html',
-  styleUrl: './manage-coupons.component.css'
+  styleUrls: ['./manage-coupons.component.css']
 })
+
 export class ManageCouponsComponent implements OnInit {
-[x: string]: any;
+  [x: string]: any;
   private_liveAnnouncer = inject(LiveAnnouncer);
   displayedColumns: string[] = ['id', 'code', 'startDate', 'endDate', 'discount', 'description', 'usageLimit', 'actions'];
   dataSource = new MatTableDataSource<Coupon>();
@@ -77,6 +78,6 @@ export class ManageCouponsComponent implements OnInit {
       this.router.navigate(['/coupon-form', uniqueId]);
     }).catch((error) => {
       console.error('Error creating unique ID:', error);
-    }); 
+    });
   }
 }
