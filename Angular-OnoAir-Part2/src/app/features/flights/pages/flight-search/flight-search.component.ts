@@ -33,7 +33,7 @@ export class FlightSearchComponent implements OnInit {
   minSeatsFilter: number | null = null;
   selectedDates: { boarding: Date | null; landing: Date | null } = { boarding: null, landing: null };
   selectedMonths: Date[] = [];
-
+  hasOriginFlights: boolean = false;
   isLoading: boolean = true;
 
   constructor(private flightService: FlightsService, private destinationService: DestinationService) { }
@@ -59,20 +59,22 @@ export class FlightSearchComponent implements OnInit {
 
   applyFilters(): void {
     this.futureFlights$.subscribe(flights => {
+      // ✅ Check if there are flights with the selected origin
+      const originFlights = flights.filter(flight =>
+        this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true
+    );
         this.filteredFlights = flights.filter(flight => {
             const flightDateBoarding = new Date(flight.boarding);
             const flightDateLanding = new Date(flight.landing);
             const flightMonth = flightDateBoarding.getMonth();
             const flightYear = flightDateBoarding.getFullYear();
-            console.log('flightDateBoarding:', flightDateBoarding);
-            console.log('flightDateLanding:', flightDateLanding);
-            console.log('selectedDatesBoarding:', this.selectedDates.boarding);
-            console.log('selectedDatesLanding:', this.selectedDates.landing);
-            // ✅ Ensure both dates are selected before filtering
-      const isWithinRange = this.selectedDates.boarding && this.selectedDates.landing
-      ? flightDateBoarding.getDate() === this.selectedDates.boarding.getDate() && flightDateLanding.getDate() === this.selectedDates.landing.getDate()
-      : true; // If no range selected, keep all flights
 
+            // ✅ Ensure filtering even if only boarding is selected
+            const isWithinRange = this.selectedDates.boarding 
+                ? this.selectedDates.landing 
+                    ? (flightDateBoarding.getDate() === this.selectedDates.boarding.getDate() && flightDateLanding.getDate() === this.selectedDates.landing.getDate()) 
+                    : (flightDateBoarding.getDate() === this.selectedDates.boarding.getDate()) // Only filter by boarding if landing isn't selected
+                : true; // If neither date is selected, allow all flights
 
             // ✅ Ensure selectedMonths contains only months
             const matchesFlexibleMonths = this.selectedMonths.length > 0 
@@ -82,11 +84,9 @@ export class FlightSearchComponent implements OnInit {
 
             // ✅ Use either specific dates (boarding/landing) or flexible months, but not both at the same time
             let matchesDateFilter = true;
-            if (this.selectedDates.boarding && this.selectedDates.landing && this.selectedMonths.length === 0) {
+            if (this.selectedDates.boarding || this.selectedDates.landing) {
                 matchesDateFilter = isWithinRange;
-            } else if (this.selectedMonths.length > 0 && !this.selectedDates.boarding && !this.selectedDates.landing) {
-                matchesDateFilter = matchesFlexibleMonths;
-            } else if (this.selectedDates.boarding && this.selectedDates.landing && this.selectedMonths.length > 0) {
+            } else if (this.selectedMonths.length > 0) {
                 matchesDateFilter = matchesFlexibleMonths;
             }
 
@@ -97,13 +97,9 @@ export class FlightSearchComponent implements OnInit {
                 matchesDateFilter
             );
         });
-
+        this.hasOriginFlights = originFlights.length > 0;
     });
 }
-
-
-
-
 
   clearFilters(): void {
     this.originFilter = '';

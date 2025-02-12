@@ -59,9 +59,11 @@
 
   <ng-template #noFlightsTemplate>
     <div class="no-flights-message">
-      <p>No matching flights available.</p>
+      <p *ngIf="hasOriginFlights">No flights were found for your selected dates. Try expanding your search or changing your destination.</p>
+      <p *ngIf="!hasOriginFlights">No flights are available from the selected origin.</p>
     </div>
   </ng-template>
+  
 
   <ng-template #loadingTemplate>
     <div class="loading-container">
