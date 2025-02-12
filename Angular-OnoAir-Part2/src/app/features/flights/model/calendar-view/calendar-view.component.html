@@ -1,26 +1,23 @@
-<!-- Calendar Date Picker -->
-<mat-form-field appearance="fill">
-  <mat-label>Select Dates</mat-label>
-  <input matInput [matDatepicker]="picker" 
-         (dateChange)="onDateSelected($event)" 
-         placeholder="Pick a date"
-         [min]="today">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker [startAt]="today"></mat-datepicker>
-</mat-form-field>
+<div class="date-picker-container">
+  <!-- Boarding Date -->
+  <mat-form-field appearance="fill">
+    <mat-label>Boarding Date</mat-label>
+    <input matInput [matDatepicker]="boardingPicker" (dateChange)="onBoardingDateSelected($event)"
+      placeholder="Select boarding date" [min]="today">
+    <mat-datepicker-toggle matSuffix [for]="boardingPicker"></mat-datepicker-toggle>
+    <mat-datepicker #boardingPicker [startAt]="today"></mat-datepicker>
+  </mat-form-field>
 
-<!-- Display Selected Dates -->
-<div *ngIf="selectedDates.length > 0">
-  <p>Selected Dates:</p>
-  <ul>
-    <li *ngFor="let date of selectedDates">
-      {{ date | date: 'dd/MM/yyyy' }}
-      <button mat-icon-button color="warn" (click)="removeDate(date)">
-        <mat-icon>close</mat-icon>
-      </button>
-    </li>
-  </ul>
-  <div class="button-container">
-  <button mat-button color="warn" (click)="clearDates()" align="start">Clear Dates </button>
-  </div>
+  <!-- Landing Date -->
+  <mat-form-field appearance="fill">
+    <mat-label>Landing Date</mat-label>
+    <input matInput [matDatepicker]="landingPicker" (dateChange)="onLandingDateSelected($event)"
+      placeholder="Select landing date" [min]="boardingDate || today">
+    <mat-datepicker-toggle matSuffix [for]="landingPicker"></mat-datepicker-toggle>
+    <mat-datepicker #landingPicker></mat-datepicker>
+  </mat-form-field>
+  
+  <!--Clear Button-->
+  <button class="button-container" mat-button color="warn" (click)="clearDates()">Clear Dates </button>
+
 </div>

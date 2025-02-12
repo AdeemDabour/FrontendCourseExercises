@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+
 @Component({
   standalone: true,
   selector: 'app-calendar-view',
@@ -27,46 +28,44 @@ import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/materia
       multi: true,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-        { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
-        { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
+    { provide: DateAdapter, useClass: CustomDateAdapter },
   ],
 })
 export class CalendarViewComponent implements ControlValueAccessor {
-  @Output() dateSelectionChange = new EventEmitter<Date[]>();
-  
-  selectedDates: Date[] = []; // ✅ Array to store selected dates
+  @Output() dateSelectionChange = new EventEmitter<{ boarding: Date | null, landing: Date | null }>();
+
+  boardingDate: Date | null = null;
+  landingDate: Date | null = null;
   today: Date = new Date();
 
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
 
-  /** ✅ Handle single date selection */
-  onDateSelected(event: MatDatepickerInputEvent<Date>): void {
-    const selectedDate = event.value;
-    if (selectedDate && !this.selectedDates.some(date => date.getTime() === selectedDate.getTime())) {
-      this.selectedDates.push(selectedDate);
-      this.dateSelectionChange.emit(this.selectedDates); // ✅ Emit Date[] correctly
-      this.onChange(this.selectedDates);
-    }
+  /** ✅ Handle boarding date selection */
+  onBoardingDateSelected(event: MatDatepickerInputEvent<Date>): void {
+    this.boardingDate = event.value;
+    this.emitDateChange();
   }
 
-  /** ❌ Remove a specific date */
-  removeDate(date: Date): void {
-    this.selectedDates = this.selectedDates.filter(d => d.getTime() !== date.getTime());
-    this.dateSelectionChange.emit(this.selectedDates); // ✅ Emit updated Date[]
-    this.onChange(this.selectedDates);
+  /** ✅ Handle landing date selection */
+  onLandingDateSelected(event: MatDatepickerInputEvent<Date>): void {
+    this.landingDate = event.value;
+    this.emitDateChange();
   }
 
-  /** ❌ Clear all selected dates */
-  clearDates(): void {
-    this.selectedDates = [];
-    this.dateSelectionChange.emit([]);
-    this.onChange(this.selectedDates);
+  /** ✅ Emit the selected dates */
+  private emitDateChange(): void {
+    this.dateSelectionChange.emit({ boarding: this.boardingDate, landing: this.landingDate });
+    this.onChange({ boarding: this.boardingDate, landing: this.landingDate });
   }
 
   /** Angular ControlValueAccessor Methods */
   writeValue(value: any): void {
-    this.selectedDates = value || [];
+    if (value) {
+      this.boardingDate = value.boarding || null;
+      this.landingDate = value.landing || null;
+    }
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -75,5 +74,12 @@ export class CalendarViewComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
+  }
+  /** ❌ Clear all selected dates */
+  clearDates(): void {
+    this.boardingDate = null;
+    this.landingDate = null;
+    this.dateSelectionChange.emit({ boarding: null, landing: null });
+    this.onChange({ boarding: null, landing: null });
   }
 }

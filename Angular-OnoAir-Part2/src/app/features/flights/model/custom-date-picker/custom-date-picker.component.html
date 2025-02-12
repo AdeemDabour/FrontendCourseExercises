@@ -4,10 +4,10 @@
   <button mat-button [class.active]="mode === 'flexible'" (click)="setMode('flexible')">Flexible Dates</button>
 </div>
 
-<!-- Specific Dates Selection (Calendar) -->
-<div *ngIf="mode === 'specific'">
-  <app-calendar-view (dateSelectionChange)="onDatesSelected($event)"></app-calendar-view>
-</div>
+<!-- Specific Dates Selection -->
+ <div *ngIf="mode === 'specific'">
+<app-calendar-view (dateSelectionChange)="onDatesSelected($event)"></app-calendar-view>
+ </div>
 
 <!-- Flexible Dates Selection (Month Grid) -->
 <div *ngIf="mode === 'flexible'">

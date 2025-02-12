@@ -12,7 +12,6 @@ import { DestinationService } from '../../../destinations/service/destinations.s
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { CustomDatePickerComponent } from '../../model/custom-date-picker/custom-date-picker.component';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-flight-search',
@@ -32,7 +31,7 @@ export class FlightSearchComponent implements OnInit {
   originFilter: string = '';
   destinationFilter: string = '';
   minSeatsFilter: number | null = null;
-  selectedDates: Date[] = [];
+  selectedDates: { boarding: Date | null; landing: Date | null } = { boarding: null, landing: null };
   selectedMonths: Date[] = [];
 
   isLoading: boolean = true;
@@ -47,7 +46,8 @@ export class FlightSearchComponent implements OnInit {
       });
 
       this.destinationService.destinations$.subscribe(destinations => {
-        this.activeDestinations = destinations.map(destination => destination.name);
+        this.activeDestinations = destinations.map(destination => destination.name)
+        .sort((a, b) => a.localeCompare(b));
       });
 
     } catch (error) {
@@ -60,13 +60,19 @@ export class FlightSearchComponent implements OnInit {
   applyFilters(): void {
     this.futureFlights$.subscribe(flights => {
         this.filteredFlights = flights.filter(flight => {
-            const flightDate = new Date(flight.boarding);
-            const flightMonth = flightDate.getMonth();
-            const flightYear = flightDate.getFullYear();
-            // ✅ Ensure selectedDates contains only specific dates
-            const matchesSpecificDates = this.selectedDates.length > 0 
-                ? this.selectedDates.some(date => date.toDateString() === flightDate.toDateString())
-                : false;
+            const flightDateBoarding = new Date(flight.boarding);
+            const flightDateLanding = new Date(flight.landing);
+            const flightMonth = flightDateBoarding.getMonth();
+            const flightYear = flightDateBoarding.getFullYear();
+            console.log('flightDateBoarding:', flightDateBoarding);
+            console.log('flightDateLanding:', flightDateLanding);
+            console.log('selectedDatesBoarding:', this.selectedDates.boarding);
+            console.log('selectedDatesLanding:', this.selectedDates.landing);
+            // ✅ Ensure both dates are selected before filtering
+      const isWithinRange = this.selectedDates.boarding && this.selectedDates.landing
+      ? flightDateBoarding.getDate() === this.selectedDates.boarding.getDate() && flightDateLanding.getDate() === this.selectedDates.landing.getDate()
+      : true; // If no range selected, keep all flights
+
 
             // ✅ Ensure selectedMonths contains only months
             const matchesFlexibleMonths = this.selectedMonths.length > 0 
@@ -74,13 +80,13 @@ export class FlightSearchComponent implements OnInit {
                     month.getMonth() === flightMonth && month.getFullYear() === flightYear)
                 : false;
 
-            // ✅ Use either specific dates or flexible months, but not both at the same time
+            // ✅ Use either specific dates (boarding/landing) or flexible months, but not both at the same time
             let matchesDateFilter = true;
-            if (this.selectedDates.length > 0 && this.selectedMonths.length === 0) {
-                matchesDateFilter = matchesSpecificDates;
-            } else if (this.selectedMonths.length > 0 && this.selectedDates.length === 0) {
+            if (this.selectedDates.boarding && this.selectedDates.landing && this.selectedMonths.length === 0) {
+                matchesDateFilter = isWithinRange;
+            } else if (this.selectedMonths.length > 0 && !this.selectedDates.boarding && !this.selectedDates.landing) {
                 matchesDateFilter = matchesFlexibleMonths;
-            } else if (this.selectedDates.length > 0 && this.selectedMonths.length > 0) {
+            } else if (this.selectedDates.boarding && this.selectedDates.landing && this.selectedMonths.length > 0) {
                 matchesDateFilter = matchesFlexibleMonths;
             }
 

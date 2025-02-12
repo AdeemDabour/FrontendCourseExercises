@@ -1,9 +1,24 @@
-.button-container {
-    margin-top: 10px;
+.date-picker-container {
+    display: flex;
+    gap: 20px;
+    /* Space between boarding & landing */
+    flex-wrap: wrap;
+    /* Adjusts for smaller screens */
 }
-.button-container button {
+
+mat-form-field {
+    margin-top: 10px;
+    flex: 1;
+    /* Makes sure both date pickers take equal space */
+    min-width: 200px;
+    /* Ensures they don't shrink too much */
+}
+
+.button-container {
     background-color: #7e013f;
     color: white;
     font-size: 14px;
+    width: 100px;
+    height: 55px;
 
 }

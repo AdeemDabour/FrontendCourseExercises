@@ -22,20 +22,18 @@ import { MatInputModule } from '@angular/material/input';
 export class CustomDatePickerComponent implements ControlValueAccessor {
   
   @Output() monthSelectionChange = new EventEmitter<Date[]>();
-  @Output() dateSelectionChange = new EventEmitter<Date[]>();
+  @Output() dateSelectionChange = new EventEmitter<{ boarding: Date | null, landing: Date | null }>();
 
   mode: 'specific' | 'flexible' = 'specific';
 
-  selectedDates: Date[] = [];
+  selectedDates: { boarding: Date | null, landing: Date | null } = { boarding: null, landing: null };
   selectedMonths: Date[] = [];
 
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
 
   writeValue(value: any): void {
-    if (Array.isArray(value)) {
-      this.selectedDates = value;
-    }
+    this.selectedDates = value || { boarding: null, landing: null };
   }
 
   registerOnChange(fn: (value: any) => void): void {
@@ -50,8 +48,8 @@ export class CustomDatePickerComponent implements ControlValueAccessor {
     this.mode = mode;
   }
 
-  /** ✅ Capture Specific Dates */
-  onDatesSelected(selectedDates: Date[]): void {
+  /** ✅ Capture Date Selection */
+  onDatesSelected(selectedDates: { boarding: Date | null, landing: Date | null }): void {
     this.selectedDates = selectedDates;
     this.dateSelectionChange.emit(this.selectedDates);
     this.onChange(this.selectedDates);
