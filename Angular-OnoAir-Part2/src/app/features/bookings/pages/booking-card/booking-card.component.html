@@ -7,7 +7,6 @@
       <h3>{{ flight?.origin }} → {{ flight?.destination }}</h3>
       <p><strong>Booking Code:</strong> {{ booking.bookingCode }}</p>
       <p><strong>Boarding:</strong> {{ flight?.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
-      <br>
       <p><strong>Landing:</strong> {{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}</p>          
       <p><strong>Passengers:</strong> {{ booking.passengers.length }}</p>
 

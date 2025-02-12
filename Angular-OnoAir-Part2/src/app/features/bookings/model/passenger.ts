@@ -1,10 +1,7 @@
-import { Luggage } from "./luggage";
-
 export class Passenger {
-    constructor(
+  constructor(
       public name: string,
       public passport: string,
-      public luggage: { cabin: number; checked: number; heavy: number } = { cabin: 0, checked: 0, heavy: 0 }
-    ) {}
-  }
-  
+      public luggage: { cabin: number; checked: number; heavy: number } = { cabin: 0, checked: 0, heavy: 0 } // ✅ תיקון
+  ) {}
+}

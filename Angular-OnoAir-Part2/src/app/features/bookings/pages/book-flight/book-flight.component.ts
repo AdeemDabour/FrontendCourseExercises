@@ -222,7 +222,7 @@ export class BookFlightComponent implements OnInit {
         passenger.passport,
         this.passengers[index]?.luggage || { cabin: 0, checked: 0, heavy: 0 }
       );
-      this.hasDuplicatePassports(); // ✅ בדיקת כפילות דרכונים לאחר עדכון
+      this.hasDuplicatePassports();
     }
   }
   

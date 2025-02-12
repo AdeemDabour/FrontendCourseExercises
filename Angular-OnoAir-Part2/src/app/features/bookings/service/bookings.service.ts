@@ -3,8 +3,8 @@ import { Booking, Status } from '../model/booking';
 import { Passenger } from '../model/passenger';
 import { FlightsService } from '../../flights/service/flights.service';
 import { collection, doc, Firestore, getDoc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
-import { BookingConverter, PassengerConverter } from '../model/booking-converter';
-import { firstValueFrom } from 'rxjs';
+import { BookingConverter } from '../model/booking-converter';
+import { PassengerConverter } from '../model/passenger-converter';
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +31,19 @@ export class BookingService {
       this.firestore,
       `${this.bookingsCollection}/${bookingId}/passengers`
     ).withConverter(PassengerConverter);
+    
     const querySnapshot = await getDocs(passengersCollection);
-
-    return querySnapshot.docs.map((doc) => doc.data());
+    
+    return querySnapshot.docs.map((doc) => {
+      const passengerData = doc.data();
+      return new Passenger(
+        String(passengerData.name || ''),
+        String(passengerData.passport || ''),
+        passengerData.luggage || { cabin: 0, checked: 0, heavy: 0 }
+      );
+    });
   }
+  
 
   getFlightDetails(flightNo: string) {
     const flight = this.flightService.getFlightByNumber(flightNo);
@@ -116,8 +125,7 @@ export class BookingService {
     return Array.from({ length: 6 })
       .map(() => characters.charAt(Math.floor(Math.random() * characters.length)))
       .join('');
-  }
-  async getBookingByCode(bookingCode: string): Promise<Booking | null> {
+  }async getBookingByCode(bookingCode: string): Promise<Booking | null> {
     const collectionRef = collection(this.firestore, this.bookingsCollection).withConverter(BookingConverter);
     const querySnapshot = await getDocs(query(collectionRef, where('bookingCode', '==', bookingCode)));
   
@@ -129,7 +137,14 @@ export class BookingService {
       const passengersCollection = collection(this.firestore, `${this.bookingsCollection}/${booking.id}/passengers`).withConverter(PassengerConverter);
       const passengersSnapshot = await getDocs(passengersCollection);
   
-      booking.passengers = passengersSnapshot.docs.map(doc => doc.data());
+      booking.passengers = passengersSnapshot.docs.map(doc => {
+        const passengerData = doc.data();
+        return new Passenger(
+          String(passengerData.name || ''),
+          String(passengerData.passport || ''),
+          passengerData.luggage || { cabin: 0, checked: 0, heavy: 0 }
+        );
+      });
   
       return booking;
     } else {

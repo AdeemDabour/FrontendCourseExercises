@@ -39,6 +39,21 @@
           <p><strong>Passenger {{ i + 1 }}</strong></p>
           <p><strong>Name:</strong> {{ passenger?.name || 'N/A' }}</p>
           <p><strong>Passport no.:</strong> {{ passenger?.passport || 'N/A' }}</p>
+        
+          <p><strong>Luggage Details:</strong></p>
+          <p><strong>Total Items:</strong> {{ (passenger.luggage?.cabin || 0) + (passenger.luggage?.checked || 0) + (passenger.luggage?.heavy || 0) }}</p>
+          <p><strong>Total Weight:</strong> 
+            {{
+              ((passenger.luggage?.cabin || 0) * 8) + 
+              ((passenger.luggage?.checked || 0) * 23) + 
+              ((passenger.luggage?.heavy || 0) * 32)
+            }} kg
+          </p>
+          
+          <p *ngIf="passenger.luggage?.cabin"><strong>{{ passenger.luggage?.cabin }}x 8kg</strong></p>
+          <p *ngIf="passenger.luggage?.checked"><strong>{{ passenger.luggage?.checked }}x 23kg</strong></p>
+          <p *ngIf="passenger.luggage?.heavy"><strong>{{ passenger.luggage?.heavy }}x 32kg</strong></p>
+        
           <mat-divider></mat-divider>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { BookingService } from '../../service/bookings.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Flight } from '../../../flights/model/flight';
 import { FlightsService } from '../../../flights/service/flights.service';
+import { Passenger } from '../../model/passenger';
 @Component({
   selector: 'app-booking-details',
   imports: [MatCardModule, MatDivider, CommonModule, MatButtonModule, RouterLink, MatProgressBarModule],
@@ -46,30 +47,44 @@ export class BookingDetailsComponent implements OnInit {
       
       if (this.bookingDetails) {
         console.log('✅ Booking details loaded:', this.bookingDetails);
-
+  
         this.bookingDetails.totalPrice = this.bookingDetails.totalPrice || 0;
         this.bookingDetails.discountPercentage = this.bookingDetails.discountPercentage || 0;
         this.bookingDetails.finalPrice = this.bookingDetails.finalPrice || this.bookingDetails.totalPrice;
-        
-        console.log(`Total Price: ${this.bookingDetails.totalPrice}, Discount: ${this.bookingDetails.discountPercentage}%, Final Price: ${this.bookingDetails.finalPrice}`);
+  
+        this.bookingDetails.passengers = this.bookingDetails.passengers.map((passenger: Passenger) => ({
+          ...passenger,
+          luggage: passenger.luggage || { cabin: 0, checked: 0, heavy: 0 }
+        }));
+  
+        console.log('✅ Updated Passengers:', this.bookingDetails.passengers);
       } else {
         console.warn('⚠️ No booking details found');
       }
-
+  
       this.flightService.getFlightByNumber(this.bookingDetails.flightNo).subscribe({
         next: (flight) => {
           this.flight = flight || null;
         },
       });
-
+  
     } catch (error) {
       this.errorMessage = `Booking with code "${bookingCode}" does not exist.`;
     } finally {
       this.isLoading = false;
     }
   }
+  
 
   togglePassengerList(): void {
     this.showPassengers = !this.showPassengers;
   }
+
+  getTotalLuggage(luggage: { cabin: number; checked: number; heavy: number }): number {
+    return (luggage.cabin || 0) + (luggage.checked || 0) + (luggage.heavy || 0);
+  }
+  
+  getTotalWeight(luggage: { cabin: number; checked: number; heavy: number }): number {
+    return (luggage.cabin * 8 || 0) + (luggage.checked * 23 || 0) + (luggage.heavy * 32 || 0);
+  }  
 }
