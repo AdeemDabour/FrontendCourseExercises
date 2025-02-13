@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class CouponFormComponent implements OnInit {
-  newCoupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
+  newCoupon: Coupon = new Coupon('', '', new Date(), new Date(), 1, '', 1);
 
   today: Date = new Date();
   exitingCoupons: Coupon[] = [];
@@ -38,7 +38,7 @@ export class CouponFormComponent implements OnInit {
   endDate: Date | null = null;
   couponErrorMessage: string | null = null;
   @Input() id = 0;
-  @Input() coupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
+  @Input() coupon: Coupon = new Coupon('', '', new Date(), new Date(), 1, '', 1);
   @Input() isEditMode: boolean = false;
   @Output() formSubmit = new EventEmitter<Coupon>();
 
