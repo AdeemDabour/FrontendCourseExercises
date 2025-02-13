@@ -19,11 +19,17 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
   styleUrls: ['./luggage-dialog.component.css']
 })
 export class LuggageDialogComponent {
+  originalLuggage: { cabin: number; checked: number; heavy: number };
+
   constructor(
     public dialogRef: MatDialogRef<LuggageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { passenger: Passenger }
   ) {
-    this.data.passenger.luggage = this.data.passenger.luggage || { cabin: 0, checked: 0, heavy: 0 };
+    this.originalLuggage = {
+      cabin: this.data.passenger.luggage?.cabin || 0,
+      checked: this.data.passenger.luggage?.checked || 0,
+      heavy: this.data.passenger.luggage?.heavy || 0
+    };
   }
 
   saveChanges(): void {
@@ -35,6 +41,7 @@ export class LuggageDialogComponent {
   }
 
   cancel(): void {
+    this.data.passenger.luggage = { ...this.originalLuggage };
     this.dialogRef.close(null);
   }
 
@@ -42,9 +49,5 @@ export class LuggageDialogComponent {
     return this.data.passenger.luggage.cabin +
       this.data.passenger.luggage.checked +
       this.data.passenger.luggage.heavy;
-  }
-
-  canAddMoreLuggage(): boolean {
-    return this.getTotalLuggage() < 9;
   }
 }

@@ -52,11 +52,11 @@ export class PassengerCardComponent {
       width: '400px',
       data: { passenger }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        passenger.luggage = result;
+        passenger.updateLuggage(result);
       }
     });
-  }
-}
+  }  
+}  
