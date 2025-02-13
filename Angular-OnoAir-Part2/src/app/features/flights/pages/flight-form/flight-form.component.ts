@@ -1,22 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CustomDateAdapter, CUSTOM_DATETIME_FORMATS } from '../../model/CustomDateAdapter';
+
+import { Flight, Status } from '../../model/flight';
+import { Destination } from '../../../destinations/model/destination';
+
+import { FlightsService } from '../../service/flights.service';
+import { DestinationService } from '../../../destinations/service/destinations.service';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { Flight, Status } from '../../model/flight';
-import { FlightsService } from '../../service/flights.service';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterModule } from '@angular/router';
-import { DestinationService } from '../../../destinations/service/destinations.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
-import { CustomDateAdapter, CUSTOM_DATETIME_FORMATS } from '../../model/CustomDateAdapter';
-import { Destination } from '../../../destinations/model/destination';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
   selector: 'app-flight-form',
@@ -32,13 +35,13 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 export class FlightFormComponent implements OnInit {
   newFlight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active, 0);
 
-  destinations: string[] = []; // List of destination names
+  destinations: string[] = [];
   today: Date = new Date();
   boardingDate: Date | null = null;
   boardingTime: Date | null = null;
   landingDate: Date | null = null;
   landingTime: Date | null = null;
-  existingFlightNos: string[] = []; // Store existing flight numbers
+  existingFlightNos: string[] = [];
   flightNoExists: boolean = false;
   @Input() id = 0;
 

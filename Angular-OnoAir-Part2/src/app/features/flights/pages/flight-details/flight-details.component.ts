@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+
+import { Flight } from '../../model/flight';
+
+import { FlightsService } from '../../service/flights.service';
+
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
-import { FlightsService } from '../../service/flights.service';
-import { Flight } from '../../model/flight';
+
 @Component({
   selector: 'app-flight-details',
   imports: [CommonModule, MatCardModule, MatListModule, MatButtonModule, RouterLink],

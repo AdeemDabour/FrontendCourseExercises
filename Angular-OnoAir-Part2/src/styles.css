@@ -11,19 +11,17 @@ body {
 }
 
 @keyframes glitter {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
-
+  
 h2.glitter-text {
   font-size: 60px;
   font-weight: bold;
@@ -177,4 +175,18 @@ button.active-button:hover {
 
 button.inactive-button:hover {
   background-color: rgba(255, 0, 0, 0.3) !important;
+}
+
+@keyframes glitter {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }

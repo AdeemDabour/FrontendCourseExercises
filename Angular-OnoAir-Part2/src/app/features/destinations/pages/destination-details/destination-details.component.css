@@ -5,6 +5,14 @@
   overflow: hidden;
 }
 
+.destination-card img {
+  border-radius: 16px;
+  height: 500px;
+  width: 100%;
+  padding: 8px;
+  object-fit: cover;
+}
+
 mat-card-title {
   font-size: 28px;
   font-weight: bold;
@@ -14,14 +22,6 @@ mat-card-title {
 mat-card-subtitle {
   font-size: 18px;
   color: #607d8b;
-}
-
-.destination-card img {
-  border-radius: 16px;
-  height: 500px;
-  width: 100%;
-  padding: 8px;
-  object-fit: cover;
 }
 
 mat-list-item {

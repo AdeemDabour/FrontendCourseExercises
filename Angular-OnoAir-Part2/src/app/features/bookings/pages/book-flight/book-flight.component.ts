@@ -1,27 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
-import { MatDivider } from '@angular/material/divider';
+
+import { Passenger } from '../../model/passenger';
+import { Flight } from '../../../flights/model/flight';
+import { Coupon } from '../../../coupons/model/coupon';
+
+import { BookingService } from '../../service/bookings.service';
+import { CouponService } from '../../../coupons/service/coupon.service';
+import { FlightsService } from '../../../flights/service/flights.service';
+
+import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
+
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { FlightsService } from '../../../flights/service/flights.service';
-import { Flight } from '../../../flights/model/flight';
-import { Passenger } from '../../model/passenger';
-import { PassengerCardComponent } from '../passenger-card/passenger-card.component';
-import { BookingService } from '../../service/bookings.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Coupon } from '../../../coupons/model/coupon';
-import { CouponService } from '../../../coupons/service/coupon.service';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { LuggageDialogComponent } from '../luggage-dialog/luggage-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-book-flight',
-  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatDivider, MatHint, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule, MatDialogModule, PassengerCardComponent],
+  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatIconModule, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule, MatDialogModule, PassengerCardComponent, MatStepperModule],
   templateUrl: './book-flight.component.html',
   styleUrls: ['./book-flight.component.css'],
 })
@@ -49,6 +55,7 @@ export class BookFlightComponent implements OnInit {
     private bookingService: BookingService,
     private couponService: CouponService,
     private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -100,12 +107,15 @@ export class BookFlightComponent implements OnInit {
 
   createPassengerList(): void {
     const currentPassengers = this.passengers;
-    this.passengers = Array.from({ length: this.numPassengers }, (_, i) => ({
-      name: currentPassengers[i]?.name || '',
-      passport: currentPassengers[i]?.passport || '',
-      luggage: currentPassengers[i]?.luggage || { cabin: 0, checked: 0, heavy: 0 }
-    }));
+    this.passengers = Array.from({ length: this.numPassengers }, (_, i) =>
+      new Passenger(
+        currentPassengers[i]?.name || '',
+        currentPassengers[i]?.passport || '',
+        currentPassengers[i]?.luggage || { cabin: 0, checked: 0, heavy: 0 }
+      )
+    );
   }
+  
 
   updateTotalPrice(): void {
     if (this.flight) {
@@ -137,30 +147,27 @@ export class BookFlightComponent implements OnInit {
 
     this.updateTotalPrice();
   }
-
   async submitBooking(): Promise<void> {
     if (!this.flight) {
       this.errorMessage = 'No flight selected.';
       return;
     }
-
+  
     this.isLoading = true;
-
+  
     try {
       const newBooking = {
         flightNo: this.flight!.flightNo,
-        passengers: this.passengers.map(passenger => ({
-          name: passenger.name,
-          passport: passenger.passport,
-          luggage: passenger.luggage
-        })),
+        passengers: this.passengers.map(passenger => 
+          new Passenger(passenger.name, passenger.passport, passenger.luggage)
+        ),
         totalPrice: this.totalPrice,
         discountPercentage: this.discountPercentage,
         finalPrice: this.finalPrice,
         status: 'Active',
         canceled: false
       };
-
+  
       const bookingCode = await this.bookingService.saveBooking(
         newBooking.flightNo,
         newBooking.passengers,
@@ -168,24 +175,25 @@ export class BookFlightComponent implements OnInit {
         newBooking.discountPercentage,
         newBooking.finalPrice
       );
-
+  
       await this.flightsService.updateSeatsForFlight(this.flight.flightNo, -this.passengers.length);
-
+  
       this.snackBar.open('Booking Booked successfully!', 'OK', {
         verticalPosition: 'top',
         horizontalPosition: 'center'
       });
-
+  
       this.router.navigate(['/booking-details', bookingCode], {
         state: { bookingDetails: newBooking }
       });
-
+  
     } catch (error) {
       this.errorMessage = 'Unable to complete booking. Please try again later.';
     } finally {
       this.isLoading = false;
     }
   }
+  
 
   goBack(): void {
     this.router.navigate(['/flight-search']);
@@ -228,4 +236,17 @@ export class BookFlightComponent implements OnInit {
       this.passengers[index].luggage = luggage;
     }
   }
+
+  openLuggageDialog(passenger: Passenger): void {
+    const dialogRef = this.dialog.open(LuggageDialogComponent, {
+      width: '400px',
+      data: { passenger }
+    });
+  
+    dialogRef.afterClosed().subscribe((result: { cabin: number; checked: number; heavy: number } | null) => {
+      if (result) {
+        passenger.luggage = result;
+      }
+    });
+  }  
 }

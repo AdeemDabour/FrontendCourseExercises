@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Flight, Status } from '../../model/flight';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
+
+import { Flight, Status } from '../../model/flight';
+
 import { FlightsService } from '../../service/flights.service';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -9,11 +13,12 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
-import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTimepickerModule } from '@angular/material/timepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
+
+
 @Component({
   selector: 'app-edit-flight',
   imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatOptionModule, MatSelectModule, MatTimepickerModule],
@@ -35,6 +40,8 @@ export class EditFlightComponent implements OnInit {
   invalidDate: boolean = false;
   isLoading: boolean = true;
   today: Date = new Date();
+  @Input() id = 0;
+  
 
   constructor(
     private route: ActivatedRoute,

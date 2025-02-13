@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightsService } from '../../../flights/service/flights.service';
-import { FlightsTableComponent } from '../../../flights/pages/flights-table/flights-table.component';
+import { Observable } from 'rxjs';
+
 import { Flight } from '../../../flights/model/flight';
+
+import { FlightsService } from '../../../flights/service/flights.service';
+
+import { FlightsTableComponent } from '../../../flights/pages/flights-table/flights-table.component';
+
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-find-flight',

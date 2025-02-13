@@ -1,9 +1,12 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   imports: [HeaderComponent, FooterComponent, MatIconModule, MatButtonModule, RouterOutlet ],

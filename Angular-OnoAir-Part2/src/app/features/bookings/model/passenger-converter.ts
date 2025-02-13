@@ -16,5 +16,5 @@ export const PassengerConverter: FirestoreDataConverter<Passenger> = {
       String(data['passport'] || ''),
       data['luggage'] || { cabin: 0, checked: 0, heavy: 0 }
     );
-  },
+  }  
 };

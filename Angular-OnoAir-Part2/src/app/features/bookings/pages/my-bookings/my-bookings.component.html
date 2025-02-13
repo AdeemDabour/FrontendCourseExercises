@@ -19,7 +19,6 @@
 </div>
 
 <ng-template #bookingsList let-bookings="bookings">
-  <div class="form-container">
     <div class="bookings-container">
       <app-booking-card
         *ngFor="let booking of bookings"
@@ -28,7 +27,6 @@
         (cancelBookingEvent)="cancelBooking($event)">
       </app-booking-card>
     </div>
-  </div>
 </ng-template>
 
 <ng-template #loadingTemplate>

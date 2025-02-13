@@ -1,18 +1,22 @@
+import { firstValueFrom } from 'rxjs';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../../flights/model/CustomDateAdapter';
+
+import { Coupon } from '../../model/coupon';
+
+import { CouponService } from '../../service/coupon.service';
+
+import { MatCardModule } from '@angular/material/card';
+import { Router, RouterModule } from '@angular/router';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { Coupon } from '../../model/coupon';
-import { CouponService } from '../../service/coupon.service';
-import { MatCardModule } from '@angular/material/card';
-import { Router, RouterModule } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../../flights/model/CustomDateAdapter';
+
 @Component({
   selector: 'app-coupon-form',
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, MatCardModule, RouterModule, MatDatepickerModule, MatNativeDateModule],
@@ -26,7 +30,7 @@ import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../../flights/mod
 })
 
 export class CouponFormComponent implements OnInit {
-  newCoupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
+  newCoupon: Coupon = new Coupon('', '', new Date(), new Date(), 1, '', 1);
 
   today: Date = new Date();
   exitingCoupons: Coupon[] = [];
@@ -34,7 +38,7 @@ export class CouponFormComponent implements OnInit {
   endDate: Date | null = null;
   couponErrorMessage: string | null = null;
   @Input() id = 0;
-  @Input() coupon: Coupon = new Coupon('', '', new Date(), new Date(), 0, '', 0);
+  @Input() coupon: Coupon = new Coupon('', '', new Date(), new Date(), 1, '', 1);
   @Input() isEditMode: boolean = false;
   @Output() formSubmit = new EventEmitter<Coupon>();
 

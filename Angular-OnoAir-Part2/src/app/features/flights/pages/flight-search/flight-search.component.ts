@@ -1,24 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightsTableComponent } from '../flights-table/flights-table.component';
-import { FlightsService } from '../../service/flights.service';
-import { Flight } from '../../model/flight';
-import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+
+import { Flight } from '../../model/flight';
+import { FlightsService } from '../../service/flights.service';
+import { DestinationService } from '../../../destinations/service/destinations.service';
+
+import { FlightsTableComponent } from '../flights-table/flights-table.component';
+import { CustomDatePickerComponent } from '../../model/custom-date-picker/custom-date-picker.component';
+
+import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule } from '@angular/material/core';
-import { DestinationService } from '../../../destinations/service/destinations.service';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { CustomDatePickerComponent } from '../../model/custom-date-picker/custom-date-picker.component';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 
 @Component({
   selector: 'app-flight-search',
-  imports: [FlightsTableComponent, CommonModule, MatProgressBarModule, FormsModule, CustomDatePickerComponent, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule],
+  standalone: true,
+  imports: [
+    FlightsTableComponent, CommonModule, MatProgressBarModule, FormsModule, CustomDatePickerComponent,
+    MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule,
+    MatDatepickerModule, MatNativeDateModule],
   templateUrl: './flight-search.component.html',
-  styleUrls: ['./flight-search.component.css']
+  styleUrls: ['./flight-search.component.css'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATETIME_FORMATS },
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+  ]
 })
+
 export class FlightSearchComponent implements OnInit {
   futureFlights$: Observable<Flight[]> = new Observable();
   filteredFlights: Flight[] = [];
@@ -27,6 +43,10 @@ export class FlightSearchComponent implements OnInit {
   originFilter: string = '';
   destinationFilter: string = '';
   minSeatsFilter: number | null = null;
+
+  departureDate: Date | null = null;
+  returnDate: Date | null = null;
+
   selectedDates: { boarding: Date | null; landing: Date | null } = { boarding: null, landing: null };
   selectedMonths: Date[] = [];
   hasOriginFlights: boolean = false;
@@ -55,44 +75,47 @@ export class FlightSearchComponent implements OnInit {
 
   applyFilters(): void {
     this.futureFlights$.subscribe(flights => {
-      // ✅ Check if there are flights with the selected origin
       const originFlights = flights.filter(flight =>
         this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true
       );
+
       this.filteredFlights = flights.filter(flight => {
         const flightDateBoarding = new Date(flight.boarding);
         const flightDateLanding = new Date(flight.landing);
-        const flightMonth = flightDateBoarding.getMonth();
-        const flightYear = flightDateBoarding.getFullYear();
 
-        // ✅ Ensure filtering even if only boarding is selected
-        const isWithinRange = this.selectedDates.boarding
-          ? this.selectedDates.landing
-            ? (flightDateBoarding.getDate() === this.selectedDates.boarding.getDate() && flightDateLanding.getDate() === this.selectedDates.landing.getDate())
-            : (flightDateBoarding.getDate() === this.selectedDates.boarding.getDate())
-          : true; // If neither date is selected, allow all flights
+        let landingEndDate: Date | null = this.selectedDates.landing
+          ? new Date(this.selectedDates.landing)
+          : null;
 
-        // ✅ Ensure selectedMonths contains only months
-        const matchesFlexibleMonths = this.selectedMonths.length > 0
-          ? this.selectedMonths.some(month =>
-            month.getMonth() === flightMonth && month.getFullYear() === flightYear)
-          : false;
-
-        // ✅ Use either specific dates (boarding/landing) or flexible months, but not both at the same time
-        let matchesDateFilter = true;
-        if (this.selectedDates.boarding || this.selectedDates.landing) {
-          matchesDateFilter = isWithinRange;
-        } else if (this.selectedMonths.length > 0) {
-          matchesDateFilter = matchesFlexibleMonths;
+        if (landingEndDate) {
+          landingEndDate.setHours(23, 59, 59, 999);
         }
+
+        const matchesExactDates =
+          (!this.departureDate || flightDateBoarding.toDateString() === this.departureDate.toDateString()) &&
+          (!this.returnDate || flightDateLanding.toDateString() === this.returnDate.toDateString());
+
+        const matchesDateRange =
+          (this.selectedDates.boarding ? flightDateBoarding >= this.selectedDates.boarding : true) &&
+          (landingEndDate ? flightDateLanding <= landingEndDate : true);
+
+        let matchesDateFilter: boolean = !!(this.selectedDates.boarding || this.selectedDates.landing)
+          ? matchesDateRange
+          : this.selectedMonths.length > 0
+            ? this.selectedMonths.some(month =>
+              month.getMonth() === flightDateBoarding.getMonth() && month.getFullYear() === flightDateBoarding.getFullYear()
+            )
+            : true;
 
         return (
           (this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true) &&
           (this.destinationFilter ? flight.destination.toLowerCase().includes(this.destinationFilter.toLowerCase()) : true) &&
           (this.minSeatsFilter !== null ? parseInt(flight.seats, 10) >= this.minSeatsFilter : true) &&
-          matchesDateFilter
+          matchesDateFilter &&
+          matchesExactDates
         );
       });
+
       this.hasOriginFlights = originFlights.length > 0;
     });
   }
@@ -101,6 +124,8 @@ export class FlightSearchComponent implements OnInit {
     this.originFilter = '';
     this.destinationFilter = '';
     this.minSeatsFilter = null;
+    this.departureDate = null;
+    this.returnDate = null;
     this.applyFilters();
   }
 }

@@ -1,14 +1,17 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Passenger } from '../../model/passenger';
+
+import { LuggageDialogComponent } from '../luggage-dialog/luggage-dialog.component';
+
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Passenger } from '../../model/passenger';
 import { MatIconModule } from '@angular/material/icon';
-import { LuggageDialogComponent } from '../luggage-dialog/luggage-dialog.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-passenger-card',
@@ -49,11 +52,11 @@ export class PassengerCardComponent {
       width: '400px',
       data: { passenger }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        passenger.luggage = result;
+        passenger.updateLuggage(result);
       }
     });
-  }
-}
+  }  
+}  

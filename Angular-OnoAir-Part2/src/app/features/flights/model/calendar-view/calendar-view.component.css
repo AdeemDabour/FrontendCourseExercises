@@ -4,16 +4,17 @@
     flex-wrap: wrap;
 }
 
-mat-form-field {
-    margin-top: 10px;
-    flex: 1;
-    min-width: 200px;
-}
-
 .button-container {
     background-color: #7e013f;
     color: white;
     font-size: 14px;
     width: 100px;
     height: 55px;
+    margin-top: 10px;
+}
+
+mat-form-field {
+    margin-top: 10px;
+    flex: 1;
+    min-width: 200px;
 }

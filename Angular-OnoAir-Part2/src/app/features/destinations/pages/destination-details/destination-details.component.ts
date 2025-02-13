@@ -1,11 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+
+import { Destination } from '../../model/destination';
+
+import { DestinationService } from '../../service/destinations.service';
+
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DestinationService } from '../../service/destinations.service';
-import { Destination } from '../../model/destination';
 
 @Component({
   selector: 'app-destination-details',

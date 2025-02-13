@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Flight } from '../../../flights/model/flight';
+
+import { FlightsService } from '../../../flights/service/flights.service';
+
+import { FlightCardComponent } from '../flight-card/flight-card.component';
+
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { Flight } from '../../../flights/model/flight';
-import { FlightsService } from '../../../flights/service/flights.service';
-import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({

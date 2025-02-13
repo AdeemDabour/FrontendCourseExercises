@@ -1,14 +1,18 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+
+import { Passenger } from '../../model/passenger';
+import { Flight } from '../../../flights/model/flight';
+
+import { FlightsService } from '../../../flights/service/flights.service';
+import { BookingService } from '../../service/bookings.service';
+
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BookingService } from '../../service/bookings.service';
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Flight } from '../../../flights/model/flight';
-import { FlightsService } from '../../../flights/service/flights.service';
-import { Passenger } from '../../model/passenger';
+
 @Component({
   selector: 'app-booking-details',
   imports: [MatCardModule, MatDivider, CommonModule, MatButtonModule, RouterLink, MatProgressBarModule],
@@ -75,7 +79,6 @@ export class BookingDetailsComponent implements OnInit {
     }
   }
   
-
   togglePassengerList(): void {
     this.showPassengers = !this.showPassengers;
   }

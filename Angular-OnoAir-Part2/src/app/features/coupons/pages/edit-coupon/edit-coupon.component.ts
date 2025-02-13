@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Coupon } from '../../model/coupon';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CouponService } from '../../service/coupon.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Coupon } from '../../model/coupon';
+
+import { CouponService } from '../../service/coupon.service';
+
 import { CouponFormComponent } from '../coupon-form/coupon-form.component';
 
 @Component({

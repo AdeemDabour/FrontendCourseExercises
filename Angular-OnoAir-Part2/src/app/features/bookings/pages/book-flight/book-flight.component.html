@@ -1,92 +1,97 @@
 <div class="form-container">
   <ng-container *ngIf="!isLoading; else loadingTemplate">
     <ng-container *ngIf="!errorMessage; else errorTemplate">
-      <mat-card *ngIf="bookingCode" class="booking-card">
-        <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
-      </mat-card>
-
       <mat-card *ngIf="flight" class="flight-card">
-        <h2 class="glitter-text">Book a Flight</h2>
-        <mat-divider></mat-divider>
-        <table mat-table [dataSource]="[flight]" class="mat-elevation-z8 flight-details-table">
-          <ng-container matColumnDef="flightNo">
-            <th mat-header-cell *matHeaderCellDef> Flight No. </th>
-            <td mat-cell *matCellDef="let element"> {{ element.flightNo }} </td>
-          </ng-container>
-          <ng-container matColumnDef="origin">
-            <th mat-header-cell *matHeaderCellDef> Origin </th>
-            <td mat-cell *matCellDef="let element"> {{ element.origin }} </td>
-          </ng-container>
-          <ng-container matColumnDef="destination">
-            <th mat-header-cell *matHeaderCellDef> Destination </th>
-            <td mat-cell *matCellDef="let element"> {{ element.destination }} </td>
-          </ng-container>
-          <ng-container matColumnDef="boarding">
-            <th mat-header-cell *matHeaderCellDef> Boarding </th>
-            <td mat-cell *matCellDef="let element"> {{ element.boarding | date: 'dd/MM/yyyy HH:mm' }} </td>
-          </ng-container>
-          <ng-container matColumnDef="landing">
-            <th mat-header-cell *matHeaderCellDef> Landing </th>
-            <td mat-cell *matCellDef="let element"> {{ element.landing | date: 'dd/MM/yyyy HH:mm' }} </td>
-          </ng-container>
-          <ng-container matColumnDef="seats">
-            <th mat-header-cell *matHeaderCellDef> Seats </th>
-            <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
-          </ng-container>
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> ${{ element.price }} </td>
-          </ng-container>
 
-          <tr mat-header-row
-            *matHeaderRowDef="['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'price']"></tr>
-          <tr mat-row
-            *matRowDef="let row; columns: ['flightNo', 'origin', 'destination', 'boarding', 'landing', 'seats', 'price'];">
-          </tr>
-        </table>
-
-        <mat-card class="form-card">
-          <mat-form-field appearance="outline">
-            <mat-label>No. of Passengers</mat-label>
-            <input matInput type="number" [value]="numPassengers" min="1" [max]="flight.seats || 1"
-              (input)="updatePassengers($event)" />
-            <mat-hint>Enter between 1 and {{ flight.seats }}</mat-hint>
-          </mat-form-field>
-
-          <mat-card class="total-price-card">
-            <h3>Total Price: ${{ totalPrice.toFixed(2) }}</h3>
-            <h3 *ngIf="discountPercentage > 0" class="discount-text">
-              Discount: -{{ discountPercentage }}% (Final Price: ${{ finalPrice.toFixed(2) }})
-            </h3>
-          </mat-card>
-
-          <ng-container *ngFor="let passenger of passengers; let i = index">
-            <app-passenger-card [passenger]="passenger" [index]="i"
-              (passengerChange)="updatePassenger(i, $event)">
-            </app-passenger-card>    
-          </ng-container>
-
-          <p *ngIf="passportErrorMessage" class="error-text">
-            {{ passportErrorMessage }}
-          </p>
+        <mat-stepper linear #stepper>
+          <mat-step label="Passenger Details">
+            <div class="step-container">
+              <mat-form-field appearance="outline" class="full-width passenger-count">
+                <mat-label>No. of Passengers</mat-label>
+                <input matInput type="number" [(ngModel)]="numPassengers" min="1" [max]="flight.seats"
+                  (input)="updatePassengers($event)" />
+              </mat-form-field>
+              
+              <ng-container *ngFor="let passenger of passengers; let i = index">
+                <mat-card class="passenger-card">
+                  <h3>Passenger {{ i + 1 }}</h3>
+                  <app-passenger-card [passenger]="passenger" [index]="i"
+                    (passengerChange)="updatePassenger(i, $event)">
+                  </app-passenger-card>
+                </mat-card>
+              </ng-container>
           
-          <mat-form-field appearance="outline">
-            <mat-label>Code Coupon</mat-label>
-            <input matInput name="couponCode" [(ngModel)]="couponCode" />
-          </mat-form-field>
-          <button mat-raised-button color="accent" (click)="applyCoupon()">Apply</button>
+              <p *ngIf="passportErrorMessage" class="error-text">
+                {{ passportErrorMessage }}
+              </p>
+          
+              <div class="button-container">
+                <button mat-raised-button color="primary" (click)="stepper.next()" [disabled]="!isFormValid()">
+                  Next
+                </button>
+              </div>
+            </div>
+          </mat-step>
+          
+          <mat-step label="Luggage Management">
+            <div class="step-container">
+              <ng-container *ngFor="let passenger of passengers; let i = index">
+                <mat-card class="passenger-card">
+                  <h3>Passenger {{ i + 1 }} - {{ passenger.name }}</h3>
+                  <button mat-raised-button color="primary" class="add-luggage-btn" (click)="openLuggageDialog(passenger)">
+                    <mat-icon>luggage</mat-icon> Add Luggage
+                  </button>
+                  
 
-          <p *ngIf="couponErrorMessage" class="error-text">{{ couponErrorMessage }}</p>
+                  <ng-container *ngIf="passenger.luggage && passenger.totalItems > 0">
+                    <p><strong>Total items:</strong> {{ passenger.totalItems }}</p>
+                    <p><strong>Total weight:</strong> {{ passenger.totalWeight }}kg</p>
 
-          <div class="button-container">
-            <button mat-raised-button color="primary" (click)="submitBooking()" [disabled]="!isFormValid()">
-              Submit Booking
-            </button>
-          </div>
-        </mat-card>
-        <mat-card-actions align="end">
-          <button mat-raised-button color="primary" (click)="goBack()">Back</button>
-        </mat-card-actions>
+                    <div class="luggage-summary">
+                      <span *ngIf="passenger.luggage.cabin > 0" class="luggage-item"> {{ passenger.luggage.cabin }}x 8kg
+                      </span>
+                      <span *ngIf="passenger.luggage.checked > 0" class="luggage-item"> {{ passenger.luggage.checked }}x
+                        23kg </span>
+                      <span *ngIf="passenger.luggage.heavy > 0" class="luggage-item"> {{ passenger.luggage.heavy }}x
+                        32kg </span>
+                    </div>
+                  </ng-container>
+                </mat-card>
+              </ng-container>
+
+              <div class="button-container">
+                <button mat-raised-button color="primary" (click)="stepper.previous()">Back</button>
+                <button mat-raised-button color="primary" (click)="stepper.next()">Next</button>
+              </div>
+            </div>
+          </mat-step>
+
+          <mat-step label="Review & Payment">
+            <div class="step-container">
+              <mat-card class="total-price-card">
+                <h3>Total Price: ${{ totalPrice.toFixed(2) }}</h3>
+                <h3 *ngIf="discountPercentage > 0" class="discount-text">
+                  Discount: -{{ discountPercentage }}% (Final Price: ${{ finalPrice.toFixed(2) }})
+                </h3>
+              </mat-card>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Code Coupon</mat-label>
+                <input matInput name="couponCode" [(ngModel)]="couponCode" />
+              </mat-form-field>
+              <button mat-raised-button color="accent" (click)="applyCoupon()">Apply</button>
+
+              <p *ngIf="couponErrorMessage" class="error-text">{{ couponErrorMessage }}</p>
+
+              <div class="button-container">
+                <button mat-raised-button color="primary" (click)="stepper.previous()">Back</button>
+                <button mat-raised-button color="primary" (click)="submitBooking()" [disabled]="!isFormValid()">
+                  Confirm Booking
+                </button>
+              </div>
+            </div>
+          </mat-step>
+        </mat-stepper>
       </mat-card>
     </ng-container>
   </ng-container>

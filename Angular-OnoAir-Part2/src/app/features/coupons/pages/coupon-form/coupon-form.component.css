@@ -8,16 +8,12 @@
 }
 
 .form-field {
-    margin-bottom: 16px;
+    margin-bottom: 56px;
     width: 50%;
-}
-mat-form-field {
-  width: 100%;
-  max-width: 215px;
 }
 
 .mat-form-field-wrapper {
-  width: 100%;
+    width: 100%;
 }
 
 .full-width {
@@ -35,14 +31,19 @@ button {
     min-width: 120px;
 }
 
-mat-error {
-    font-size: 14px;
-    margin-top: -20px; 
-    line-height: 1.2;
-}
-
 .error-text {
     color: red;
     font-weight: bold;
     margin-top: 1px;
+}
+
+mat-error {
+    font-size: 14px;
+    margin-top: -20px;
+    line-height: 1.2;
+}
+
+mat-form-field {
+    width: 100%;
+    max-width: 215px;
 }
