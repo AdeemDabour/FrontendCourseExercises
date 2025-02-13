@@ -68,12 +68,14 @@ export class ManageCouponsComponent implements OnInit {
   openEditCoupon(coupon: Coupon): void {
     this.router.navigate(['edit-coupon', coupon.id]);
   }
-
   deleteCoupon(coupon: Coupon): void {
-    this.couponService.removeCoupon(coupon.id).then(() => {
-      console.log(`Coupon with ID ${coupon.id} deleted successfully`);
-      this.loadCoupons();
-    });
+    const confirmation = confirm('Are you sure you want to delete this coupon: ' + coupon.codeCoupon + '?');
+    if (confirmation) {
+      this.couponService.removeCoupon(coupon.id).then(() => {
+        console.log(`Coupon with ID ${coupon.id} deleted successfully`);
+        this.loadCoupons();
+      });
+    }
   }
 
   navigateToAddCoupon(): void {

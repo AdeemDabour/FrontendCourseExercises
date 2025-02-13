@@ -38,7 +38,7 @@ export class CouponService {
     const couponDoc = doc(this.firestore, this.collectionName, nextId.toString());
 
     await setDoc(couponDoc, { ...newCoupon, id: nextId.toString() });
-    console.log(`Coupon: ${newCoupon.description} added with ID: ${nextId}`);
+    console.log(`Coupon: ${newCoupon.codeCoupon} added with ID: ${nextId}`);
   }
 
   async removeCoupon(id: string): Promise<void> {

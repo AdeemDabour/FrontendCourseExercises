@@ -51,7 +51,7 @@ export class BookingService {
     return flight;
   }
 
-  async saveBooking(flightNo: string, passengers: Passenger[], totalPrice: number, discountPercentage: number, finalPrice: number): Promise<string> {
+  async saveBooking(flightNo: string, passengers: Passenger[], totalPrice: number, discountPercentage: number, finalPrice: number, usedCoupon: string): Promise<string> {
     const nextId = await this.getNextBookingId();
     const bookingCode = this.generateBookingCode(); 
   
@@ -64,7 +64,8 @@ export class BookingService {
       canceled: false,
       totalPrice,
       discountPercentage,
-      finalPrice
+      finalPrice,
+      usedCoupon,
     };
   
     try {

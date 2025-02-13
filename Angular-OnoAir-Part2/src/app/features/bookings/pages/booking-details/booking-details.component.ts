@@ -59,6 +59,7 @@ export class BookingDetailsComponent implements OnInit {
         this.bookingDetails.totalPrice = this.bookingDetails.totalPrice || 0;
         this.bookingDetails.discountPercentage = this.bookingDetails.discountPercentage || 0;
         this.bookingDetails.finalPrice = this.bookingDetails.finalPrice || this.bookingDetails.totalPrice;
+        this.bookingDetails.usedCoupon = this.bookingDetails.usedCoupon || null;
 
         // ✅ Fetch flight details
         this.flightService.getFlightByNumber(this.bookingDetails.flightNo).subscribe({

@@ -12,7 +12,8 @@ export const BookingConverter: FirestoreDataConverter<Booking> = {
       totalPrice: booking.totalPrice || 0, 
       discountPercentage: booking.discountPercentage || 0, 
       finalPrice: booking.finalPrice || (booking.totalPrice * (1 - (booking.discountPercentage || 0) / 100)), 
-      passengers: booking.passengers.map(passenger => PassengerConverter.toFirestore(passenger))
+      passengers: booking.passengers.map(passenger => PassengerConverter.toFirestore(passenger)),
+      usedCoupon: booking.usedCoupon || ''
     };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot): Booking {
@@ -26,7 +27,8 @@ export const BookingConverter: FirestoreDataConverter<Booking> = {
       data['canceled'] ?? false,
       data['totalPrice'] || 0, 
       data['discountPercentage'] || 0, 
-      data['finalPrice'] || (data['totalPrice'] * (1 - (data['discountPercentage'] || 0) / 100)) 
+      data['finalPrice'] || (data['totalPrice'] * (1 - (data['discountPercentage'] || 0) / 100)), 
+      data['usedCoupon'] || ''
     );
   },
 };

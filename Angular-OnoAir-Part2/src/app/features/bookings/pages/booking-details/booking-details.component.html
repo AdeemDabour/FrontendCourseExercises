@@ -25,8 +25,9 @@
       <p *ngIf="bookingDetails?.discountPercentage && bookingDetails?.discountPercentage > 0">
         <strong>Discount:</strong> -{{ bookingDetails?.discountPercentage }}%
       </p>
-      
-
+      <p *ngIf="bookingDetails?.usedCoupon">
+        <strong>Used Coupon:</strong> {{ bookingDetails?.usedCoupon }}
+      </p>
       <div class="button-container">
         <button mat-raised-button color="accent" (click)="togglePassengerList()">
           {{ showPassengers ? 'Hide Passengers' : 'Show Passengers' }}
