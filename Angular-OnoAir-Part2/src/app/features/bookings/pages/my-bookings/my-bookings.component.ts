@@ -107,7 +107,6 @@ export class MyBookingsComponent implements OnInit {
           discountPercentage: booking.discountPercentage,
           finalPrice: booking.finalPrice,
         };
-        console.log('Navigating to booking details with:', bookingDetails);
         this.router.navigate(['/booking-details', booking.bookingCode], { state: { bookingDetails } });
       })
       .catch((error) => {

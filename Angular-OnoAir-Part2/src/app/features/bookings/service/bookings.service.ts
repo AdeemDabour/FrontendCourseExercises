@@ -33,7 +33,6 @@ export class BookingService {
     ).withConverter(PassengerConverter);
     
     const querySnapshot = await getDocs(passengersCollection);
-    
     return querySnapshot.docs.map((doc) => {
       const passengerData = doc.data();
       return new Passenger(
@@ -155,7 +154,6 @@ export class BookingService {
     try {
       const bookingDoc = doc(this.firestore, `${this.bookingsCollection}/${bookingId}`).withConverter(BookingConverter);
       const bookingSnapshot = await getDoc(bookingDoc);
-
       if (bookingSnapshot.exists()) {
         // Merge the existing booking data with the updated fields
         const newBookingData = {
@@ -163,17 +161,24 @@ export class BookingService {
           ...updatedBooking,
         };
         newBookingData.canceled = newBookingData.canceled ?? false;
-
+  
+        // ✅ Update the main booking document
         await setDoc(bookingDoc, newBookingData);
-        console.log(`Booking ID: ${bookingId} updated successfully.`);
+        console.log(`✅ Booking ID: ${bookingId} updated successfully.`);
+  
+        // ✅ If passengers are provided, update the passengers sub-collection
+        if (updatedBooking.passengers && updatedBooking.passengers.length > 0) {
+          await this.updatePassengersForBooking(bookingId, updatedBooking.passengers);
+        }
       } else {
-        console.error(`Booking ID: ${bookingId} does not exist in Firestore.`);
+        console.error(`❌ Booking ID: ${bookingId} does not exist in Firestore.`);
       }
     } catch (error) {
-      console.error(`Error updating booking for ID: ${bookingId}`, error);
+      console.error(`❌ Error updating booking for ID: ${bookingId}`, error);
       throw new Error('Unable to update booking. Please try again later.');
     }
   }
+  
 
   async getActiveBookingsForFlight(flightNo: string): Promise<{ bookingCode: string }[]> {
     try {
@@ -187,4 +192,22 @@ export class BookingService {
       throw error;
     }
   }
+  private async updatePassengersForBooking(bookingId: string, passengers: Passenger[]): Promise<void> {
+    const passengersCollection = collection(this.firestore, `bookings/${bookingId}/passengers`).withConverter(PassengerConverter);
+    const batch = writeBatch(this.firestore);
+  
+    passengers.forEach((passenger) => {
+      if (!passenger.passport) {
+        console.error(`❌ Passenger is missing a passport ID:`, passenger);
+        throw new Error('All passengers must have a valid passport ID.');
+      }
+  
+      const passengerDoc = doc(passengersCollection, passenger.passport);
+      batch.set(passengerDoc, passenger);
+    });
+  
+    await batch.commit();
+    console.log(`✅ Updated passengers for booking ID: ${bookingId}`);
+  }
+  
 }
