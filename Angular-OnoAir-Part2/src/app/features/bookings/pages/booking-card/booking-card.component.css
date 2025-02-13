@@ -59,6 +59,16 @@
     padding: 16px;
 }
 
+@media (max-width: 768px) {
+    .bookings-container {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-card {
+        width: 100%;
+    }
+}
+
 .canceled-indicator {
     color: red;
     font-weight: bold;
@@ -69,14 +79,4 @@
 mat-icon {
     margin-right: 8px;
     overflow: visible;
-}
-
-@media (max-width: 768px) {
-    .bookings-container {
-        grid-template-columns: 1fr;
-    }
-
-    .booking-card {
-        width: 100%;
-    }
 }

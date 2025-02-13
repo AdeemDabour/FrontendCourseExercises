@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Passport</mat-label>
+      <mat-label>Passport Id</mat-label>
       <input
         matInput
         name="passport"
@@ -28,7 +28,7 @@
         pattern="^\d{9,10}$"
       />
       <mat-error *ngIf="passportInput.invalid && passportInput.touched">
-        Passport number must be 9 or 10 digits
+        Passport Id number must be 9 or 10 digits
       </mat-error>
     </mat-form-field>
 

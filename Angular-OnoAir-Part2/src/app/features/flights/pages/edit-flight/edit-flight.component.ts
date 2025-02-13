@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_DATETIME_FORMATS, CustomDateAdapter } from '../../model/CustomDateAdapter';
 
@@ -40,6 +40,8 @@ export class EditFlightComponent implements OnInit {
   invalidDate: boolean = false;
   isLoading: boolean = true;
   today: Date = new Date();
+  @Input() id = 0;
+  
 
   constructor(
     private route: ActivatedRoute,

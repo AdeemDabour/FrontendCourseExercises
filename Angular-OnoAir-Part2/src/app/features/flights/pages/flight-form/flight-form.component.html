@@ -1,13 +1,13 @@
 <div class="form-container">
   <mat-card class="form-card">
-    <h2 class="glitter-text">Add Flight</h2>
+    <h2 class="glitter-text">New Flight</h2>
     <form #submitForm="ngForm" (ngSubmit)="onSubmitRegistration()">
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Flight No.</mat-label>
           <input matInput name="flightNo" required [(ngModel)]="newFlight.flightNo" #flightNo="ngModel"
-            pattern="^[a-zA-Z0-9]+$" (input)="checkFlightNoExists()" 
-            (ngModelChange)="newFlight.flightNo = newFlight.flightNo.toUpperCase()"/>
+            pattern="^[a-zA-Z0-9]+$" (input)="checkFlightNoExists()"
+            (ngModelChange)="newFlight.flightNo = newFlight.flightNo.toUpperCase()" />
         </mat-form-field>
         <mat-error *ngIf="flightNo.invalid && flightNo.touched">
           <span *ngIf="flightNo.errors?.['required']">flightNo is required.</span>
@@ -65,23 +65,27 @@
           <span *ngIf="boardingDateInput.errors?.['required']">Boarding date is required.</span>
         </mat-error>
       </div>
+
       <!-- Boarding Time -->
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Boarding Time</mat-label>
-          <input matInput [matTimepicker]="boardingTimePicker" 
-          [(ngModel)]="boardingTime" required name="boardingTime" (change)="isBoardingTimeInvalid()">
+          <input matInput [matTimepicker]="boardingTimePicker" [(ngModel)]="boardingTime" required name="boardingTime"
+            #boardingTimeInput="ngModel" (change)="isBoardingTimeInvalid()">
           <mat-timepicker-toggle matSuffix [for]="boardingTimePicker"></mat-timepicker-toggle>
           <mat-timepicker #boardingTimePicker></mat-timepicker>
         </mat-form-field>
-        <mat-error *ngIf="!boardingTime">
+
+        <mat-error *ngIf="boardingTimeInput.touched && !boardingTime">
           Boarding time is required.
-        </mat-error>        
-        <mat-error *ngIf="boardingTime && isBoardingTimeInvalid()">
+        </mat-error>
+
+        <mat-error *ngIf="boardingTimeInput.touched && boardingTime && isBoardingTimeInvalid()">
           Boarding time cannot be in the past.
         </mat-error>
       </div>
       <div>
+
         <mat-form-field appearance="fill">
           <mat-label>Landing Date</mat-label>
           <input matInput [matDatepicker]="landingPicker" name="landingDate" required [(ngModel)]="landingDate"
@@ -93,22 +97,26 @@
           <span *ngIf="landingDateInput.errors?.['required']">Landing date is required.</span>
         </mat-error>
       </div>
+
       <!-- Landing Time -->
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Landing Time</mat-label>
-          <input matInput [matTimepicker]="landingTimePicker" 
-          [(ngModel)]="landingTime" required name="landingTime" (change)="isLandingTimeInvalid()">
+          <input matInput [matTimepicker]="landingTimePicker" [(ngModel)]="landingTime" required name="landingTime"
+            #landingTimeInput="ngModel" (change)="isLandingTimeInvalid()">
           <mat-timepicker-toggle matSuffix [for]="landingTimePicker"></mat-timepicker-toggle>
           <mat-timepicker #landingTimePicker></mat-timepicker>
         </mat-form-field>
-        <mat-error *ngIf="!landingTime">
+
+        <mat-error *ngIf="landingTimeInput.touched && !landingTime">
           Landing time is required.
         </mat-error>
-        <mat-error *ngIf="landingTime && isLandingTimeInvalid()">
+
+        <mat-error *ngIf="landingTimeInput.touched && landingTime && isLandingTimeInvalid()">
           Landing time cannot be in the past or before boarding time if both dates are the same.
         </mat-error>
       </div>
+
       <div>
         <mat-form-field appearance="fill">
           <mat-label>No. of Seats</mat-label>
@@ -130,7 +138,7 @@
           <span *ngIf="price.errors?.['min']">Price must be at least 1.</span>
         </mat-error>
       </div>
-      
+
       <mat-card-actions align="start">
         <button mat-raised-button color="primary" type="submit"
           [disabled]="submitForm.invalid || submitForm.pristine || checkValidation() || isBoardingTimeInvalid() || isLandingTimeInvalid() || price.invalid">

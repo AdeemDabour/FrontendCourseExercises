@@ -35,13 +35,13 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/materia
 export class FlightFormComponent implements OnInit {
   newFlight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active, 0);
 
-  destinations: string[] = []; // List of destination names
+  destinations: string[] = [];
   today: Date = new Date();
   boardingDate: Date | null = null;
   boardingTime: Date | null = null;
   landingDate: Date | null = null;
   landingTime: Date | null = null;
-  existingFlightNos: string[] = []; // Store existing flight numbers
+  existingFlightNos: string[] = [];
   flightNoExists: boolean = false;
   @Input() id = 0;
 
