@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-passenger-card',
+  standalone: true,
   imports: [CommonModule, MatFormFieldModule, MatCardModule, MatError, MatInputModule, FormsModule, MatIconModule, MatButtonModule, CommonModule],
   templateUrl: './passenger-card.component.html',
   styleUrls: ['./passenger-card.component.css']

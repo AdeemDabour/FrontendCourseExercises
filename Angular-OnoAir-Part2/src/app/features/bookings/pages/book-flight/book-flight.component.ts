@@ -13,21 +13,22 @@ import { PassengerCardComponent } from '../passenger-card/passenger-card.compone
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatInput } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { LuggageDialogComponent } from '../luggage-dialog/luggage-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-book-flight',
-  imports: [MatTableModule, MatCardModule, MatFormField, MatInput, MatLabel, MatIconModule, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule, MatDialogModule, PassengerCardComponent, MatStepperModule],
+  imports: [MatTableModule, MatCardModule, MatFormFieldModule, MatInputModule, MatLabel, MatIconModule, MatButtonModule, FormsModule, CommonModule, PassengerCardComponent, MatProgressBarModule, MatDialogModule, PassengerCardComponent, MatStepperModule, MatDividerModule],
   templateUrl: './book-flight.component.html',
   styleUrls: ['./book-flight.component.css'],
 })
@@ -87,9 +88,21 @@ export class BookFlightComponent implements OnInit {
   }
 
   updatePassengers(event: Event): void {
-    const value = parseInt((event.target as HTMLInputElement).value, 10) || 1;
+    const inputElement = event.target as HTMLInputElement;
+    let value = parseInt(inputElement.value, 10) || 1;
     const maxSeats = Number(this.flight?.seats) || 1;
-    this.numPassengers = Math.min(value, maxSeats);
+  
+    // ✅ Ensure passengers are between 1 and available seats
+    if (value < 1) {
+      value = 1;
+    } else if (value > maxSeats) {
+      value = maxSeats;
+    }
+  
+    // ✅ Update input field to reflect the correct value
+    this.numPassengers = value;
+    inputElement.value = value.toString();
+  
     this.createPassengerList();
     this.calculateTotalPrice();
   }
@@ -248,5 +261,10 @@ export class BookFlightComponent implements OnInit {
         passenger.luggage = result;
       }
     });
-  }  
+  }
+  clampPassengers(): number {
+    const flightSeats = Number(this.flight?.seats);
+    return Math.max(1, Math.min(flightSeats || 1, this.numPassengers));
+  }
+    
 }
