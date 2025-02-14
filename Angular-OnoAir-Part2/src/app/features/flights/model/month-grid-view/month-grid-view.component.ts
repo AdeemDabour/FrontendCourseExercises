@@ -27,17 +27,25 @@ export class MonthGridViewComponent {
   }
 
   /** ✅ Toggle selection of months */
-  toggleMonthSelection(month: Date): void {
-    const index = this.selectedMonths.findIndex(m =>
-      m.getMonth() === month.getMonth() && m.getFullYear() === month.getFullYear());
+  /** ✅ Toggle selection of months */
+toggleMonthSelection(month: Date): void {
+  const index = this.selectedMonths.findIndex(m =>
+    m.getMonth() === month.getMonth() && m.getFullYear() === month.getFullYear());
 
-    if (index > -1) {
-      this.selectedMonths.splice(index, 1);
-    } else {
-      this.selectedMonths.push(month);
+  if (index > -1) {
+    // Remove if already selected
+    this.selectedMonths.splice(index, 1);
+  } else {
+    if (this.selectedMonths.length >= 2) {
+      return; // Prevent selecting more than 2 months
     }
-    this.monthSelectionChange.emit(this.selectedMonths);
+    this.selectedMonths.push(month);
   }
+
+  this.selectedMonths.sort((a, b) => a.getTime() - b.getTime()); // Ensure chronological order
+  this.monthSelectionChange.emit(this.selectedMonths);
+}
+
 
   /** ❌ Clear selected months */
   clearMonths(): void {

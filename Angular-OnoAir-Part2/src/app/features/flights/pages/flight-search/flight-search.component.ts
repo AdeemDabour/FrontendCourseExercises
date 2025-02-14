@@ -74,51 +74,62 @@ export class FlightSearchComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.futureFlights$.subscribe(flights => {
-      const originFlights = flights.filter(flight =>
-        this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true
-      );
+    this.isLoading = true;
+  
+    this.flightService.getFlightsByDateRange(this.selectedDates.boarding, this.selectedDates.landing)
+      .subscribe(flights => {
+        this.filteredFlights = flights.filter(flight => {
+          const flightDateBoarding = new Date(flight.boarding);
+          const flightDateLanding = new Date(flight.landing);
+  
+          let landingEndDate: Date | null = this.selectedDates.landing
+            ? new Date(this.selectedDates.landing)
+            : null;
+  
+          if (landingEndDate) {
+            landingEndDate.setHours(23, 59, 59, 999);
+          }
+  
+          const matchesExactDates =
+            (!this.departureDate || flightDateBoarding.toDateString() === this.departureDate.toDateString()) &&
+            (!this.returnDate || flightDateLanding.toDateString() === this.returnDate.toDateString());
+  
+            let matchesDateFilter = true;
 
-      this.filteredFlights = flights.filter(flight => {
-        const flightDateBoarding = new Date(flight.boarding);
-        const flightDateLanding = new Date(flight.landing);
-
-        let landingEndDate: Date | null = this.selectedDates.landing
-          ? new Date(this.selectedDates.landing)
-          : null;
-
-        if (landingEndDate) {
-          landingEndDate.setHours(23, 59, 59, 999);
-        }
-
-        const matchesExactDates =
-          (!this.departureDate || flightDateBoarding.toDateString() === this.departureDate.toDateString()) &&
-          (!this.returnDate || flightDateLanding.toDateString() === this.returnDate.toDateString());
-
-        const matchesDateRange =
-          (this.selectedDates.boarding ? flightDateBoarding >= this.selectedDates.boarding : true) &&
-          (landingEndDate ? flightDateLanding <= landingEndDate : true);
-
-        let matchesDateFilter: boolean = !!(this.selectedDates.boarding || this.selectedDates.landing)
-          ? matchesDateRange
-          : this.selectedMonths.length > 0
-            ? this.selectedMonths.some(month =>
-              month.getMonth() === flightDateBoarding.getMonth() && month.getFullYear() === flightDateBoarding.getFullYear()
-            )
-            : true;
-
-        return (
-          (this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true) &&
-          (this.destinationFilter ? flight.destination.toLowerCase().includes(this.destinationFilter.toLowerCase()) : true) &&
-          (this.minSeatsFilter !== null ? parseInt(flight.seats, 10) >= this.minSeatsFilter : true) &&
-          matchesDateFilter &&
-          matchesExactDates
+            if (this.selectedMonths.length === 1) {
+              // ✅ Show flights that board & land in the same month
+              const selectedMonth = this.selectedMonths[0];
+              matchesDateFilter =
+                flightDateBoarding.getMonth() === selectedMonth.getMonth() &&
+                flightDateBoarding.getFullYear() === selectedMonth.getFullYear() &&
+                flightDateLanding.getMonth() === selectedMonth.getMonth() &&
+                flightDateLanding.getFullYear() === selectedMonth.getFullYear();
+            } else if (this.selectedMonths.length === 2) {
+              // ✅ Show flights where boarding is in month 1 & landing is in month 2
+              const [firstMonth, secondMonth] = this.selectedMonths;
+              matchesDateFilter =
+                flightDateBoarding.getMonth() === firstMonth.getMonth() &&
+                flightDateBoarding.getFullYear() === firstMonth.getFullYear() &&
+                flightDateLanding.getMonth() === secondMonth.getMonth() &&
+                flightDateLanding.getFullYear() === secondMonth.getFullYear();
+            }
+          return (
+            (this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true) &&
+            (this.destinationFilter ? flight.destination.toLowerCase().includes(this.destinationFilter.toLowerCase()) : true) &&
+            (this.minSeatsFilter !== null ? parseInt(flight.seats, 10) >= this.minSeatsFilter : true) &&
+            matchesDateFilter &&
+            matchesExactDates
+          );
+        });
+  
+        this.hasOriginFlights = this.filteredFlights.some(flight =>
+          this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true
         );
+  
+        this.isLoading = false;
       });
-
-      this.hasOriginFlights = originFlights.length > 0;
-    });
   }
+  
 
   clearFilters(): void {
     this.originFilter = '';

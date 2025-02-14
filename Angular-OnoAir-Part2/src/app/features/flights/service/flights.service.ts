@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, setDoc, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, doc, setDoc, getDocs, query, where } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, from, Observable } from 'rxjs';
 import { Flight, Status } from '../model/flight';
 import { FlightConverter } from '../model/flight-converter';
 
@@ -217,5 +217,27 @@ export class FlightsService {
     } catch (error) {
       console.error(`🚨 Error updating seats for flight ${flightNo}:`, error);
     }
+  }
+  getFlightsByDateRange(startDate: Date | null, endDate: Date | null): Observable<Flight[]> {
+    const flightsRef = collection(this.firestore, this.collectionName).withConverter(FlightConverter);
+    let flightsQuery;
+
+    if (startDate && endDate) {
+      flightsQuery = query(
+        flightsRef,
+        where('boarding', '>=', startDate),
+        where('landing', '<=', endDate)
+      );
+    } else if (startDate) {
+      flightsQuery = query(flightsRef, where('boarding', '>=', startDate));
+    } else if (endDate) {
+      flightsQuery = query(flightsRef, where('landing', '<=', endDate));
+    } else {
+      return this.getFutureFlights();
+    }
+
+    return from(getDocs(flightsQuery)).pipe(
+      map(snapshot => snapshot.docs.map(doc => doc.data()))
+    );
   }
 }
