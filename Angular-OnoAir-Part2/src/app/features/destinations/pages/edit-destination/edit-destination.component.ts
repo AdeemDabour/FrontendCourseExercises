@@ -1,25 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Destination, Status } from '../../model/destination';
-
 import { DestinationService } from '../../service/destinations.service';
-
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { DestinationFormComponent } from '../destination-form/destination-form.component';
 
 @Component({
   selector: 'app-edit-destination',
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule, MatButtonModule, MatCardModule, MatError],
+  standalone: true,
+  imports: [DestinationFormComponent],
   templateUrl: './edit-destination.component.html',
   styleUrls: ['./edit-destination.component.css']
 })
-
 export class EditDestinationComponent implements OnInit {
   destination: Destination = new Destination('', '', '', '', '', '', '', Status.Active);
   isLoading: boolean = true;
@@ -31,15 +24,15 @@ export class EditDestinationComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const destinationId = this.route.snapshot.paramMap.get('id');
     if (destinationId) {
-      this.loadDestination(destinationId);
+      await this.loadDestination(destinationId);
     } else {
       console.error('No destination ID provided.');
       this.router.navigate(['/manage-destinations']);
     }
-  }  
+  }
 
   async loadDestination(id: string): Promise<void> {
     try {
@@ -48,7 +41,7 @@ export class EditDestinationComponent implements OnInit {
       if (destination) {
         this.destination = destination;
       } else {
-        console.error('Destination not found');
+        console.error('Destination not found.');
         this.router.navigate(['/manage-destinations']);
       }
     } catch (error) {
@@ -58,20 +51,16 @@ export class EditDestinationComponent implements OnInit {
     }
   }
 
-  async saveDestination(): Promise<void> {
+  async saveDestination(updatedDestination: Destination): Promise<void> {
     try {
-      await this.destinationService.updateDestination(this.destination.id, this.destination);
-      this.snackBar.open('Destination Updated successfully!', 'OK', {
+      await this.destinationService.updateDestination(updatedDestination.id, updatedDestination);
+      this.snackBar.open('Destination updated successfully!', 'OK', {
         verticalPosition: 'top',
-        horizontalPosition: 'center',
+        horizontalPosition: 'center'
       });
       this.router.navigate(['/manage-destinations']);
     } catch (error) {
       console.error('Error updating destination:', error);
     }
-  }
-
-  cancelEdit(): void {
-    this.router.navigate(['/manage-destinations']);
   }
 }
