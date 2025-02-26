@@ -1,7 +1,7 @@
 <div class="form-container">
   <mat-card class="form-card">
     <h2 class="glitter-text">{{ isEditMode ? 'Edit Destination' : 'New Destination' }}</h2>
-    <form #destinationForm="ngForm" (ngSubmit)="onSubmitRegistration()">
+    <form #destinationForm="ngForm" (ngSubmit)="isEditMode? submitForm() : onSubmitRegistration()">
 
         <div>
       <!-- Name -->
@@ -82,7 +82,7 @@
     </div>
       <!-- Buttons -->
       <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit" [disabled]="destinationForm.invalid || codeExists || nameExists">
+        <button mat-raised-button color="primary" type="submit" [disabled]="destinationForm.invalid || destinationForm.pristine || codeExists || nameExists">
           {{ isEditMode ? 'Save Changes' : 'Save' }}
         </button>
     </mat-card-actions>

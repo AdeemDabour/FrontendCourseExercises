@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomDateAdapter, CUSTOM_DATETIME_FORMATS } from '../../model/CustomDateAdapter';
 
 import { Flight, Status } from '../../model/flight';
@@ -32,8 +32,10 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, DateAdapter } from '@angular/materia
     { provide: DateAdapter, useClass: CustomDateAdapter },
   ]  
 })
-export class FlightFormComponent implements OnInit {
-  newFlight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active, 0);
+export class FlightFormComponent implements OnInit, OnChanges {
+  @Input() flight: Flight = new Flight('', '', '', '', new Date(), new Date(), '', Status.Active, 0);
+  @Input() isEditMode: boolean = false;
+  @Output() formSubmit = new EventEmitter<Flight>();
 
   destinations: string[] = [];
   today: Date = new Date();
@@ -43,7 +45,6 @@ export class FlightFormComponent implements OnInit {
   landingTime: Date | null = null;
   existingFlightNos: string[] = [];
   flightNoExists: boolean = false;
-  @Input() id = 0;
 
   constructor(
     private flightService: FlightsService,
@@ -59,12 +60,46 @@ export class FlightFormComponent implements OnInit {
         .map((destination: Destination) => destination.name)
         .sort((a, b) => a.localeCompare(b));
     });
+
+    // Remove the flight being edited from existing flights to avoid conflict
     this.existingFlightNos = this.flightService.listFlightNames();
+    if (this.isEditMode && this.flight?.flightNo) {
+      this.existingFlightNos = this.existingFlightNos.filter(flightNo => flightNo !== this.flight.flightNo);
+    }
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['flight'] && this.isEditMode && this.flight.boarding && this.flight.landing) {
+      console.log("✈️ Flight updated:", this.flight);
+
+      // Extract only date for the date fields
+      this.boardingDate = new Date(this.flight.boarding);
+      this.landingDate = new Date(this.flight.landing);
+
+      // Extract only time for the time fields
+      this.boardingTime = new Date();
+      this.boardingTime.setHours(this.flight.boarding.getHours(), this.flight.boarding.getMinutes(), 0, 0);
+
+      this.landingTime = new Date();
+      this.landingTime.setHours(this.flight.landing.getHours(), this.flight.landing.getMinutes(), 0, 0);
+
+      console.log("🕒 Corrected Boarding Date:", this.boardingDate);
+      console.log("🕒 Corrected Boarding Time:", this.boardingTime);
+      console.log("🕒 Corrected Landing Date:", this.landingDate);
+      console.log("🕒 Corrected Landing Time:", this.landingTime);
+    }
+  }
+
+
+  async submitForm(): Promise<void> {
+    if (!this.checkValidation()) {
+      this.combineDateAndTime();
+      this.formSubmit.emit(this.flight);
+    }
   }
   async onSubmitRegistration(): Promise<void> {
     if (!this.checkValidation()) {
       this.combineDateAndTime();
-      await this.flightService.addFlight(this.newFlight);
+      await this.flightService.addFlight(this.flight);
       // ✅ Show success message
       this.snackBar.open('Flight Added successfully!', 'OK', {
         verticalPosition: 'top',
@@ -76,12 +111,12 @@ export class FlightFormComponent implements OnInit {
   }
   combineDateAndTime(): void {
     if (this.boardingDate && this.boardingTime) {
-      this.newFlight.boarding = new Date(this.boardingDate);
-      this.newFlight.boarding.setHours(this.boardingTime.getHours(), this.boardingTime.getMinutes(), 0, 0);
+      this.flight.boarding = new Date(this.boardingDate);
+      this.flight.boarding.setHours(this.boardingTime.getHours(), this.boardingTime.getMinutes(), 0, 0);
     }
     if (this.landingDate && this.landingTime) {
-      this.newFlight.landing = new Date(this.landingDate);
-      this.newFlight.landing.setHours(this.landingTime.getHours(), this.landingTime.getMinutes(), 0, 0);
+      this.flight.landing = new Date(this.landingDate);
+      this.flight.landing.setHours(this.landingTime.getHours(), this.landingTime.getMinutes(), 0, 0);
     }
   }
   isBoardingTimeInvalid(): boolean {
@@ -98,9 +133,9 @@ export class FlightFormComponent implements OnInit {
     return this.landingDate.getDate() === this.boardingDate.getDate() && this.landingTime <= this.boardingTime;
   }
   checkFlightNoExists(): void {
-    this.flightNoExists = this.existingFlightNos.includes(this.newFlight.flightNo.trim());
+    this.flightNoExists = this.existingFlightNos.includes(this.flight.flightNo.trim());
   }
   checkValidation(): boolean {
-    return this.flightNoExists || this.newFlight.origin === this.newFlight.destination;
+    return this.flightNoExists || this.flight.origin === this.flight.destination;
   }
 } 
