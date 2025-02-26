@@ -103,12 +103,15 @@
         <mat-form-field appearance="fill">
           <mat-label>Landing Date</mat-label>
           <input matInput [matDatepicker]="landingPicker" name="landingDate" required 
-          [(ngModel)]="landingDate" #landingDateInput="ngModel" [min]="boardingDateInput" />
+          [(ngModel)]="landingDate" #landingDateInput="ngModel" [min]="boardingDate || today" />
           <mat-datepicker-toggle matSuffix [for]="landingPicker"></mat-datepicker-toggle>
           <mat-datepicker #landingPicker></mat-datepicker>
         </mat-form-field>
         <mat-error *ngIf="landingDateInput.invalid && landingDateInput.touched">
           <span *ngIf="landingDateInput.errors?.['required']">Landing date is required.</span>
+        </mat-error>
+        <mat-error *ngIf="isLandingDateInvalid()">
+          Landing date cannot be before boarding date.
         </mat-error>
       </div>
 
@@ -117,7 +120,8 @@
         <mat-form-field appearance="fill">
           <mat-label>Landing Time</mat-label>
           <input matInput [matTimepicker]="landingTimePicker" name="landingTime" required 
-          [(ngModel)]="landingTime" #landingTimeInput="ngModel" (change)="isLandingTimeInvalid()">
+          [(ngModel)]="landingTime" #landingTimeInput="ngModel" (change)="isLandingTimeInvalid()"
+          >
           <mat-timepicker-toggle matSuffix [for]="landingTimePicker"></mat-timepicker-toggle>
           <mat-timepicker #landingTimePicker></mat-timepicker>
         </mat-form-field>

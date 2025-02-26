@@ -119,6 +119,12 @@ export class FlightFormComponent implements OnInit, OnChanges {
       this.flight.landing.setHours(this.landingTime.getHours(), this.landingTime.getMinutes(), 0, 0);
     }
   }
+  isLandingDateInvalid(): boolean {
+    if (!this.boardingDate || !this.landingDate) {
+      return false;
+    }
+    return this.landingDate < this.boardingDate;
+  }
   isBoardingTimeInvalid(): boolean {
     if (!this.boardingDate || !this.boardingTime) {
       return false;
