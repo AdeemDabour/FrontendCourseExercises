@@ -146,7 +146,6 @@ export class BookFlightComponent implements OnInit {
 
     try {
       const discount = await this.couponService.applyCoupon(this.couponCode.trim());
-      console.log('usedCoupon in applyCoupon.', this.couponCode);
       if (discount > 0) {
         this.discountPercentage = discount;
         this.couponErrorMessage = null;
@@ -191,7 +190,6 @@ export class BookFlightComponent implements OnInit {
         newBooking.finalPrice,
         newBooking.usedCoupon
       );
-      console.log('usedCoupon pre upload.', newBooking.usedCoupon);
   
       await this.flightsService.updateSeatsForFlight(this.flight.flightNo, -this.passengers.length);
   

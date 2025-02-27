@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-coupon-form',
@@ -45,7 +46,8 @@ export class CouponFormComponent implements OnInit {
   constructor(
     private couponService: CouponService,
     private router: Router,
-    private dateAdapter: DateAdapter<Date>
+    private dateAdapter: DateAdapter<Date>,
+    private snackBar: MatSnackBar,
   ) {
     this.dateAdapter.setLocale('en-GB');
   }
@@ -63,6 +65,10 @@ export class CouponFormComponent implements OnInit {
 
     try {
       await this.couponService.addCoupon(this.coupon);
+      this.snackBar.open('Coupon Added successfully!', 'OK', {
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+      });
       this.router.navigate(['/manage-coupons']);
     } catch (error) {
       if (error instanceof Error) {
