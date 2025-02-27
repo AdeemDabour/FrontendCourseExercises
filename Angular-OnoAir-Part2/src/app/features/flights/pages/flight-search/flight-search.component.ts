@@ -75,24 +75,15 @@ export class FlightSearchComponent implements OnInit {
 
   applyFilters(): void {
     this.isLoading = true;
-  
+    if(this.selectedDates.landing)
+    {
+      this.selectedDates.landing.setHours(23, 59, 59, 999);
+    }
     this.flightService.getFlightsByDateRange(this.selectedDates.boarding, this.selectedDates.landing)
       .subscribe(flights => {
         this.filteredFlights = flights.filter(flight => {
           const flightDateBoarding = new Date(flight.boarding);
           const flightDateLanding = new Date(flight.landing);
-  
-          let landingEndDate: Date | null = this.selectedDates.landing
-            ? new Date(this.selectedDates.landing)
-            : null;
-  
-          if (landingEndDate) {
-            landingEndDate.setHours(23, 59, 59, 999);
-          }
-  
-          const matchesExactDates =
-            (!this.departureDate || flightDateBoarding.toDateString() === this.departureDate.toDateString()) &&
-            (!this.returnDate || flightDateLanding.toDateString() === this.returnDate.toDateString());
   
             let matchesDateFilter = true;
 
@@ -117,8 +108,7 @@ export class FlightSearchComponent implements OnInit {
             (this.originFilter ? flight.origin.toLowerCase().includes(this.originFilter.toLowerCase()) : true) &&
             (this.destinationFilter ? flight.destination.toLowerCase().includes(this.destinationFilter.toLowerCase()) : true) &&
             (this.minSeatsFilter !== null ? parseInt(flight.seats, 10) >= this.minSeatsFilter : true) &&
-            matchesDateFilter &&
-            matchesExactDates
+            matchesDateFilter
           );
         });
   

@@ -69,7 +69,6 @@ export class FlightFormComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['flight'] && this.isEditMode && this.flight.boarding && this.flight.landing) {
-      console.log("✈️ Flight updated:", this.flight);
 
       // Extract only date for the date fields
       this.boardingDate = new Date(this.flight.boarding);
@@ -81,11 +80,6 @@ export class FlightFormComponent implements OnInit, OnChanges {
 
       this.landingTime = new Date();
       this.landingTime.setHours(this.flight.landing.getHours(), this.flight.landing.getMinutes(), 0, 0);
-
-      console.log("🕒 Corrected Boarding Date:", this.boardingDate);
-      console.log("🕒 Corrected Boarding Time:", this.boardingTime);
-      console.log("🕒 Corrected Landing Date:", this.landingDate);
-      console.log("🕒 Corrected Landing Time:", this.landingTime);
     }
   }
 
