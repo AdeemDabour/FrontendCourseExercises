@@ -1,0 +1,40 @@
+import { Routes } from '@angular/router';
+import { HomePageComponent } from './features/home/pages/home-page/home-page.component';
+import { ManageDestinationsComponent } from './features/destinations/pages/manage-destinations/manage-destinations.component';
+import { ManageFlightsComponent } from './features/flights/pages/manage-flights/manage-flights.component';
+import { FlightSearchComponent } from './features/flights/pages/flight-search/flight-search.component';
+import { MyBookingsComponent } from './features/bookings/pages/my-bookings/my-bookings.component';
+import { HelpPageComponent } from './features/help/pages/help-page/help-page.component';
+import { FlightDetailsComponent } from './features/flights/pages/flight-details/flight-details.component';
+import { DestinationDetailsComponent } from './features/destinations/pages/destination-details/destination-details.component';
+import { BookingDetailsComponent } from './features/bookings/pages/booking-details/booking-details.component';
+import { BookFlightComponent } from './features/bookings/pages/book-flight/book-flight.component';
+import { DestinationFormComponent } from './features/destinations/pages/destination-form/destination-form.component';
+import { FlightFormComponent } from './features/flights/pages/flight-form/flight-form.component';
+import { EditDestinationComponent } from './features/destinations/pages/edit-destination/edit-destination.component';
+import { EditFlightComponent } from './features/flights/pages/edit-flight/edit-flight.component';
+import { ManageCouponsComponent } from './features/coupons/pages/manage-coupons/manage-coupons.component';
+import { CouponFormComponent } from './features/coupons/pages/coupon-form/coupon-form.component';
+import { EditCouponComponent } from './features/coupons/pages/edit-coupon/edit-coupon.component';
+
+export const routes: Routes = [
+  { path: '', component: HomePageComponent },
+  { path: 'manage-destinations', component: ManageDestinationsComponent },
+  { path: 'manage-flights', component: ManageFlightsComponent },
+  { path: 'flight-search', component: FlightSearchComponent },
+  { path: 'my-bookings', component: MyBookingsComponent },
+  { path: 'help-page', component: HelpPageComponent },
+  { path: 'flight-form/:id', component: FlightFormComponent },
+  { path: 'destination-form/:id', component: DestinationFormComponent },
+  { path: 'flight-details/:flightNo', component: FlightDetailsComponent },
+  { path: 'destination-details/:code', component: DestinationDetailsComponent },
+  { path: 'booking-details/:bookingCode', component: BookingDetailsComponent },
+  { path: 'book-flight/:flightNo', component: BookFlightComponent },
+  { path: 'edit-destination/:id', component: EditDestinationComponent },
+  { path: 'manage-destinations', component: ManageDestinationsComponent },
+  { path: 'edit-flight/:id', component: EditFlightComponent },
+  { path: 'manage-coupons', component: ManageCouponsComponent },
+  { path: 'coupon-form/:id', component: CouponFormComponent },
+  { path: 'edit-coupon/:id', component: EditCouponComponent },
+  { path: '**', redirectTo: '' }
+];

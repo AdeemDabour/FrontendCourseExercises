@@ -1,0 +1,123 @@
+import { Injectable } from '@angular/core';
+import { Firestore, collection, deleteDoc, doc, setDoc, getDocs } from '@angular/fire/firestore';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Destination, Status } from '../model/destination';
+import { destinationConverter } from '../model/destination-converter';
+@Injectable({
+  providedIn: 'root',
+})
+export class DestinationService {
+  private collectionName = 'destinations';
+  private destinationsSubject = new BehaviorSubject<Destination[]>([]);
+  destinations$ = this.destinationsSubject.asObservable();
+
+  constructor(private firestore: Firestore) {
+    this.loadDestinations();
+  }
+
+  public async loadDestinations(): Promise<void> {
+    const destinations = await this.refreshDestinations();
+    this.destinationsSubject.next(destinations);
+  }
+
+  async addDestination(newDestination: Destination): Promise<void> {
+    const destinationsCollection = collection(this.firestore, this.collectionName);
+
+    const querySnapshot = await getDocs(destinationsCollection);
+    const ids = querySnapshot.docs.map(doc => parseInt(doc.id)).filter(id => !isNaN(id));
+
+    const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+
+    const destinationDoc = doc(this.firestore, this.collectionName, nextId.toString());
+    await setDoc(destinationDoc, { ...newDestination, id: nextId.toString() });
+
+    console.log(`Destination ${newDestination.name} added with ID: ${nextId}`);
+  }
+
+  async removeDestination(id: string): Promise<void> {
+    const docRef = doc(this.firestore, `${this.collectionName}/${id}`);
+    await deleteDoc(docRef);
+
+    await this.loadDestinations();
+  }
+
+  async updateDestination(id: string, updatedDestination: Destination): Promise<void> {
+    const docRef = doc(this.firestore, `${this.collectionName}/${id}`).withConverter(destinationConverter);
+    await setDoc(docRef, updatedDestination);
+    console.log(`Destination ${updatedDestination.name} updated successfully`);
+    await this.loadDestinations();
+  }
+
+  async createUniqueId(): Promise<string> {
+    const collectionRef = collection(this.firestore, this.collectionName);
+    const snapshot = await getDocs(collectionRef);
+    const ids = snapshot.docs.map((doc) => parseInt(doc.id, 10));
+    const maxId = Math.max(...ids, 0);
+    return (maxId + 1).toString();
+  }
+
+  async getDestinationById(id: string): Promise<Destination | undefined> {
+    const collectionRef = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
+    const querySnapshot = await getDocs(collectionRef);
+
+    const destinationDoc = querySnapshot.docs.find((doc) => doc.id === id);
+    if (destinationDoc) {
+      return destinationDoc.data();
+    } else {
+      console.error(`Destination with ID ${id} not found.`);
+      return undefined;
+    }
+  }
+
+  getDestinationByNameOrCode(nameOrCode: string): Observable<Destination | undefined> {
+    const normalizedInput = nameOrCode.trim().toLowerCase();
+
+    return this.destinations$.pipe(
+      map(destinations =>
+        destinations.find(destination =>
+          destination.name.trim().toLowerCase() === normalizedInput ||
+          destination.code.trim().toLowerCase() === normalizedInput
+        )
+      )
+    );
+  }
+
+  getDestinationByName(name: string): Destination | undefined {
+    const destinations = this.destinationsSubject.getValue();
+    return destinations.find(destination => destination.name === name);
+  }
+
+  listDestinationNames(): string[] {
+    const destinations = this.destinationsSubject.getValue();
+    return destinations.map(destination => destination.name);
+  }
+
+  getDestinationImage(nameOrCode: string): Observable<string> {
+    return this.getDestinationByNameOrCode(nameOrCode).pipe(
+      map(destination => {
+        if (destination) {
+          return destination.imageUrl;
+        } else {
+          return '';
+        }
+      }));
+  }
+
+  getDestinationStatus(code: string): Status {
+    const destinations = this.destinationsSubject.getValue();
+    const destination = destinations.find(d => d.code.toLowerCase() === code.toLowerCase());
+    return destination ? destination.status : Status.Active;
+  }
+  async refreshDestinations(): Promise<Destination[]> {
+    const collectionRef = collection(this.firestore, this.collectionName).withConverter(destinationConverter);
+    const querySnapshot = await getDocs(collectionRef);
+
+    const destinations = querySnapshot.docs
+      .map((doc) => doc.data())
+      .sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+    this.destinationsSubject.next(destinations);
+
+    return destinations;
+  }
+}

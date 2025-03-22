@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta information about the document -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Destination</title>
+
+    <!-- Linking CSS files for styling -->
+    <link rel="stylesheet" href="../css/Styles.css">
+    <link rel="stylesheet" href="../css/Headers.css">
+    <link rel="stylesheet" href="../css/Buttons.css">
+
+    <!-- Font Awesome for adding icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header section of the page -->
+    <div class="header-container">
+        <h1><a href="../Index.html" class="h1">OnoAir <i class="fas fa-plane"></i> </a></h1>
+    </div>
+
+    <!-- Container for the form to add a new destination -->
+    <div class="form-container">
+        <!-- Form title -->
+        <div class="h2">
+            <div class="h2 glitter-text"><h2>New Destination <i class="fas fa-plus-circle"></i></h2></div>
+
+        </div>
+
+        <!-- Form for adding destination details -->
+        <form id="addDestinationForm" method="post" action="ManageDestinations.html">
+            <!-- Input field for destination code -->
+            <div class="input-container">
+                <label for="destinationCode">Destination code:</label>
+                <input type="text" id="destinationCode" name="destinationCode" placeholder="Enter Destination code" required>
+                <span class="error-message" id="error-destinationCode"></span>
+            </div>
+        
+            <!-- Input field for destination name -->
+            <div class="input-container">
+                <label for="destinationName">Destination name:</label>
+                <input type="text" id="destinationName" name="destinationName" placeholder="Enter Destination name" required>
+                <span class="error-message" id="error-destinationName"></span>
+            </div>
+        
+            <!-- Input field for airport name -->
+            <div class="input-container">
+                <label for="airportName">Airport name:</label>
+                <input type="text" id="airportName" name="airportName" placeholder="Enter Airport name" required>
+                <span class="error-message" id="error-airportName"></span>
+            </div>
+
+            <!-- Input field for email -->
+            <div class="input-container">
+                <label for="destinationEmail">Email:</label>
+                <input type="email" id="destinationEmail" name="destinationEmail" placeholder="Enter Email" required>
+                <span class="error-message" id="error-destinationEmail"></span>
+            </div>
+        
+            <!-- Input field for airport URL -->
+            <div class="input-container">
+                <label for="airportUrl">Airport URL:</label>
+                <input type="url" id="airportUrl" name="airportUrl" placeholder="Enter Airport URL" required>
+                <span class="error-message" id="error-airportUrl"></span>
+            </div>
+        
+            <!-- Input field for image URL -->
+            <div class="input-container">
+                <label for="imageUrl">Image URL:</label>
+                <input type="url" id="imageUrl" name="imageUrl" placeholder="Enter Image URL" required>
+                <span class="error-message" id="error-imageUrl"></span>
+            </div>
+        
+            <!-- Save button -->
+            <div class="links-container">
+                <button type="submit" class="link-button">Save</button>
+            </div>
+        
+            <!-- Container for displaying global error messages -->
+            <div id="global-errors" class="global-errors"></div>
+        </form>        
+    </div>
+
+    <!-- Footer section -->
+    <footer class="footer">
+        <p>&copy; 2024 OnoAir. All rights reserved.</p>
+        <!-- Help button to navigate to the Help page -->
+        <a id="helpButton" href="../Help/Help.html">?</a>
+    </footer>
+
+    <!-- JavaScript file for handling form logic -->
+    <script type="module" src="AddDestination.js"></script>
+</body>
+</html>

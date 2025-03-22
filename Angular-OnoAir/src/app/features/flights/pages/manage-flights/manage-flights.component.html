@@ -1,0 +1,9 @@
+<h2 class="glitter-text">Manage Flights</h2>
+
+<div *ngIf="flights.length > 0; else noFlights">
+  <app-flights-table [flights]="flights"></app-flights-table>
+</div>
+
+<ng-template #noFlights>
+  <p class="no-flights-message">No flights available at the moment.</p>
+</ng-template>

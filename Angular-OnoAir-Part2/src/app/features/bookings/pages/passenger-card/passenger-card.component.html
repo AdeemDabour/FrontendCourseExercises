@@ -1,0 +1,35 @@
+<div>
+  <mat-card class="passenger-card">
+    <h2>Passenger {{ index + 1 }}</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        name="name"
+        required
+        [(ngModel)]="passenger.name"
+        #nameInput="ngModel"
+        pattern="^[A-Za-z ]+$"
+      />
+      <mat-error *ngIf="nameInput.invalid && nameInput.touched">
+        Name must contain only English letters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Passport Id</mat-label>
+      <input
+        matInput
+        name="passport"
+        required
+        [(ngModel)]="passenger.passport"
+        #passportInput="ngModel"
+        pattern="^\d{9,10}$"
+      />
+      <mat-error *ngIf="passportInput.invalid && passportInput.touched">
+        Passport Id number must be 9 or 10 digits
+      </mat-error>
+    </mat-form-field> 
+  </mat-card>
+</div>

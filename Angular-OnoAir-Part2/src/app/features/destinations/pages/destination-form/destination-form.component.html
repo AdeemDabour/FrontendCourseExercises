@@ -1,0 +1,94 @@
+<div class="form-container">
+  <mat-card class="form-card">
+    <h2 class="glitter-text">{{ isEditMode ? 'Edit Destination' : 'New Destination' }}</h2>
+    <form #destinationForm="ngForm" (ngSubmit)="isEditMode? submitForm() : onSubmitRegistration()">
+
+        <div>
+      <!-- Name -->
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput name="name" required [(ngModel)]="destination.name" #name="ngModel"
+          pattern="^[a-zA-Z ]+$" (input)="checkNameExists()" />
+      </mat-form-field>
+      <mat-error *ngIf="name.invalid && name.touched">
+        <span *ngIf="name.errors?.['required']">Name is required.</span>
+        <span *ngIf="name.errors?.['pattern']">Name must be letters only.</span>
+      </mat-error>
+      <mat-error *ngIf="nameExists">Destination name already exists.</mat-error>
+    </div>
+    <div>
+      <!-- Airport Name -->
+      <mat-form-field>
+        <mat-label>Airport Name</mat-label>
+        <input matInput name="airportName" required [(ngModel)]="destination.airportName"
+          #airportName="ngModel" pattern="^[a-zA-Z ]+$" />
+      </mat-form-field>
+      <mat-error *ngIf="airportName?.errors && airportName.touched">
+        <span *ngIf="airportName.errors?.['required']">Airport Name is required.</span>
+        <span *ngIf="airportName.errors?.['pattern']">Airport Name must be letters only.</span>
+    </mat-error>
+    </div> 
+    <div>
+      <!-- Website -->
+      <mat-form-field>
+        <mat-label>Airport Website</mat-label>
+        <input matInput name="airportWebsite" required [(ngModel)]="destination.airportWebsite"
+          #airportWebsite="ngModel" pattern="https?:/.+" />
+      </mat-form-field>
+      <mat-error *ngIf="airportWebsite?.errors && airportWebsite.touched">
+        <span *ngIf="airportWebsite.errors?.['required']">Airport Website is required.</span>
+        <span *ngIf="airportWebsite.errors?.['pattern']">Airport Website format issue. URL must start with
+            http:// or https://</span>
+    </mat-error>
+    </div>
+    <div>
+      <!-- Email -->
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput name="email" required email [(ngModel)]="destination.email" 
+          #email="ngModel" />
+      </mat-form-field>
+      <mat-error *ngIf="email?.errors && email.touched">
+        <span *ngIf="email.errors?.['required']">Email is required.</span>
+        <span *ngIf="email.errors?.['email']">Invalid email format.</span>
+    </mat-error>
+    </div>
+    <div>
+      <!-- Code -->
+      <mat-form-field>
+        <mat-label>Destination Code</mat-label>
+        <input matInput name="code" required [(ngModel)]="destination.code" #code="ngModel"
+          pattern="^[A-Z]{3}$" maxlength="3" minlength="3" (input)="checkCodeExists()"
+          (keyup)="destination.code = destination.code.toUpperCase()" [disabled]="isEditMode"/>
+      </mat-form-field>
+      <mat-error *ngIf="code.invalid && code.touched">
+        <span *ngIf="code.errors?.['required']">Code is required.</span>
+        <span *ngIf="code.errors?.['pattern']">Code must be exactly 3 uppercase letters (A-Z).</span>
+    </mat-error>
+      <mat-error *ngIf="codeExists">Destination code already exists.</mat-error>
+    </div>
+
+    <div>
+      <!-- Image URL -->
+      <mat-form-field>
+        <mat-label>Image URL</mat-label>
+        <input matInput name="imageUrl" required [(ngModel)]="destination.imageUrl" 
+        pattern="https?:/.+" #imageUrl="ngModel"/>
+      </mat-form-field>
+      <mat-error *ngIf="imageUrl?.errors && imageUrl.touched">
+        <span *ngIf="imageUrl.errors?.['required']">Image URL is required.</span>
+        <span *ngIf="imageUrl.errors?.['pattern']">Image URL must start with http:/ or https:/</span>
+    </mat-error>
+    </div>
+      <!-- Buttons -->
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="destinationForm.invalid || destinationForm.pristine || codeExists || nameExists">
+          {{ isEditMode ? 'Save Changes' : 'Save' }}
+        </button>
+    </mat-card-actions>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="accent" routerLink="/manage-destinations">Back</button>
+    </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

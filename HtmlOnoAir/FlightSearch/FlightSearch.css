@@ -1,0 +1,47 @@
+/* Container for the filter section with a glowing animation and centered layout */
+.filter-container {
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 20px auto;
+    border: 2px solid #970dc9;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s, transform 0.3s;
+    max-width: 500px;
+    position: relative;
+    animation: glow 3s infinite;
+    margin: 10px auto;
+}
+
+
+
+/* Label styling for the filter section */
+.filter-label {
+    font-size: 32px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 15px;
+}
+
+/* Styling for the book button in the filter section */
+.book-button {
+    padding: 5px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Hover effect for the book button */
+.book-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}

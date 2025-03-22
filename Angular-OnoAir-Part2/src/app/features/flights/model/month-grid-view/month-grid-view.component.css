@@ -1,0 +1,35 @@
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .month-item {
+    text-align: center;
+    color: black;
+    background-color: #f5cece;
+    padding: 20px;
+    border: 1px solid #f5cece;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .month-item:hover {
+    background-color: #7e013f;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .month-item.selected {
+    background-color: #7e013f !important;
+    color: white;
+    font-weight: bold;
+  }
+.button-container {
+    margin-top: 10px;
+}
+.button-container button {
+    background-color: #7e013f;
+    color: white;
+    font-size: 14px;
+}

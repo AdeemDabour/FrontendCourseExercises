@@ -1,0 +1,44 @@
+<div class="form-container">
+  <mat-card class="booking-card" *ngIf="!errorMessage && bookingDetails; else errorTemplate">
+    <h2 class="glitter-text">Booking Details</h2>
+    <mat-divider></mat-divider>
+    <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
+    <p><strong>Origin:</strong> {{ bookingDetails.flight.origin }}</p>
+    <p><strong>Boarding:</strong> {{ bookingDetails.flight.boarding | date: 'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>Destination:</strong> {{ bookingDetails.flight.destination }}</p>
+    <p><strong>Landing:</strong> {{ bookingDetails.flight.landing | date: 'dd/MM/yyyy HH:mm' }}</p>
+
+    <p>
+      <strong>No. of Passengers:</strong> {{ bookingDetails?.flight?.passengerCount || bookingDetails?.passengerCount }}
+    </p>
+
+    <div class="button-container">
+      <button mat-raised-button color="accent" (click)="togglePassengerList()">
+        {{ showPassengers ? 'Hide Passengers' : 'Show Passengers' }}
+      </button>
+    </div>
+    <div *ngIf="showPassengers">
+      <h3>Passenger List:</h3>
+      <div *ngFor="let passenger of bookingDetails.passengers; let i = index" class="passenger-details">
+        <p><strong>Passenger {{ i + 1 }}</strong></p>
+        <p><strong>Name:</strong> {{ passenger.name }}</p>
+        <p><strong>Passport no.:</strong> {{ passenger.passport }}</p>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" routerLink="/my-bookings">Back</button>
+    </mat-card-actions>
+  </mat-card>
+  <ng-template #errorTemplate>
+    <mat-card>
+      <h2 class="error-title">Error</h2>
+      <p>{{ errorMessage }}</p>
+      <mat-card-actions align="end">
+        <div [routerLink]="['/my-bookings']" class="button-container">
+          <button mat-raised-button color="primary">Back</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+</div>

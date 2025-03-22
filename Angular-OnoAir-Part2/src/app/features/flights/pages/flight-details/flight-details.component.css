@@ -1,0 +1,10 @@
+.flight-card {
+  width: 600px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  background-color: #f9f9f9;
+  color: #3919c9;
+  overflow: hidden;
+  padding: 30px 40px;
+  transition: all 0.3s ease-in-out;
+}

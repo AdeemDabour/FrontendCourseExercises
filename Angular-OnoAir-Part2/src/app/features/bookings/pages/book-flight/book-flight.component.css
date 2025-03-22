@@ -1,0 +1,132 @@
+.flight-card {
+  color: black;
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.form-card {
+  max-width: 80%;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flight-details-table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.flight-details-table th {
+  background-color: #3f51b5;
+  color: white;
+  text-align: center;
+  padding: 5px;
+}
+
+.flight-details-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.error-text {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+button.mat-raised-button {
+  width: auto;
+  display: inline-block;
+}
+
+mat-form-field {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+}
+
+mat-hint {
+  font-size: 14px;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .flight-details-table th, .flight-details-table td {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
+
+.luggage-summary {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.luggage-item {
+  background-color: #d1e7fd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #084298;
+}
+
+mat-form-field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.step-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.passenger-card {
+  background: #f5f5f5;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.luggage-item {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.luggage-summary {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.passenger-count {
+  margin-top: 20px;
+}
+
+.add-luggage-btn {
+  width: 180px;
+  padding: 5px 10px;
+  font-size: 14px;
+}

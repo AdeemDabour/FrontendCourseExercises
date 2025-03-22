@@ -1,0 +1,96 @@
+<h2 class="glitter-text">Flight Search</h2>
+
+<div class="filter-container">
+  <div class="row">
+    <div class="filter-column">
+      <span class="filter-label">From:</span>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Origin</mat-label>
+        <mat-select [(ngModel)]="originFilter" (selectionChange)="applyFilters()" placeholder="Select origin">
+          <mat-option *ngFor="let destination of activeDestinations" [value]="destination">
+            {{ destination }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="filter-column">
+      <span class="filter-label">To:</span>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Destination</mat-label>
+        <mat-select [(ngModel)]="destinationFilter" (selectionChange)="applyFilters()" placeholder="Select destination">
+          <mat-option *ngFor="let destination of activeDestinations" [value]="destination">
+            {{ destination }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+ 
+    <div class="filter-column">
+      <span class="filter-label">Departure:</span>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Departure Date</mat-label>
+        <input matInput [matDatepicker]="departurePicker" [(ngModel)]="departureDate"
+          (ngModelChange)="applyFilters()" placeholder="Select departure date">
+        <mat-datepicker-toggle matSuffix [for]="departurePicker"></mat-datepicker-toggle>
+        <mat-datepicker #departurePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="filter-column">
+      <span class="filter-label">Return:</span>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Return Date</mat-label>
+        <input matInput [matDatepicker]="returnPicker" [(ngModel)]="returnDate"
+          (ngModelChange)="applyFilters()" placeholder="Select return date">
+        <mat-datepicker-toggle matSuffix [for]="returnPicker"></mat-datepicker-toggle>
+        <mat-datepicker #returnPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="filter-column">
+      <span class="filter-label">Passengers:</span>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Min Available Seats</mat-label>
+        <input matInput type="number" [(ngModel)]="minSeatsFilter" (input)="applyFilters()" placeholder="Enter seats">
+      </mat-form-field>
+    </div>
+
+    <div class="filter-column button-container">
+      <span class="filter-label"></span>
+      <button mat-raised-button color="warn" (click)="clearFilters()">Clear All Filters</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="filter-column">
+      <span class="filter-label">Date:</span>
+      <app-custom-date-picker [(ngModel)]="selectedDates" (ngModelChange)="applyFilters()"
+        (monthSelectionChange)="selectedMonths = $event; applyFilters()">
+      </app-custom-date-picker>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngIf="!isLoading; else loadingTemplate">
+  <div *ngIf="filteredFlights.length > 0; else noFlightsTemplate">
+    <app-flights-table [flights]="filteredFlights" [showActionsColumn]="false"></app-flights-table>
+  </div>
+</ng-container>
+
+<ng-template #noFlightsTemplate>
+  <div class="no-flights-message">
+    <p *ngIf="hasOriginFlights">No flights were found for your selected dates. Try expanding your search or changing your destination.</p>
+    <p *ngIf="!hasOriginFlights">No flights are available for the selected filters. Try expanding your search or changing your filters.</p>
+  </div>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Loading flights...</p>
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  </div>
+</ng-template>

@@ -1,0 +1,75 @@
+/* Styles for a link-styled button */
+.link-button {
+    text-decoration: none;
+    background: linear-gradient(135deg, #0309a6, #0d0657, #0d4351, #04672b);
+    color: white;
+    padding: 25px 50px;
+    border-radius: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    background-size: 400% 400%;
+    animation: gradientShift 5s infinite;
+}
+
+/* Hover effect for the link button */
+.link-button:hover {
+    background: linear-gradient(135deg, #aa0e92, #404266, #0ca314, #b3700c);
+    transform: translateY(-5px);
+}
+
+/* Animation for gradient background shift */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+/* Styles for a popup confirmation/close button */
+.popup-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Hover effect for the popup button */
+.popup-button:hover {
+    background-color: darkgreen;
+}
+
+/* Styles for a floating help button */
+#helpButton {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #87CEEB, #4682B4);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for the help button */
+#helpButton:hover {
+    background: linear-gradient(135deg, #07205e, #1e04e2);
+    transform: scale(1.2);
+}

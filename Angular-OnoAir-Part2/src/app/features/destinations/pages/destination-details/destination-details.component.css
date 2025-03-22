@@ -1,0 +1,32 @@
+.destination-card {
+  width: 800px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.destination-card img {
+  border-radius: 16px;
+  height: 500px;
+  width: 100%;
+  padding: 8px;
+  object-fit: cover;
+}
+
+mat-card-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #3f51b5;
+}
+
+mat-card-subtitle {
+  font-size: 18px;
+  color: #607d8b;
+}
+
+mat-list-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  padding: 10px 0;
+}

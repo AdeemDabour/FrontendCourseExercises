@@ -1,0 +1,77 @@
+<div class="form-container">
+  <ng-container *ngIf="!isLoading; else loadingTemplate">
+    <mat-card class="booking-card" *ngIf="!errorMessage && bookingDetails; else errorTemplate">
+      <h2 class="glitter-text">Booking Details</h2>
+      <mat-divider></mat-divider>
+      <p><strong>Booking Code:</strong> {{ bookingCode }}</p>
+      <p><strong>Origin:</strong> {{ flight?.origin || 'N/A' }}</p>
+      <p><strong>Boarding:</strong> {{ flight?.boarding ? (flight?.boarding | date: 'dd/MM/yyyy HH:mm') : 'N/A' }}</p>
+      <p><strong>Destination:</strong> {{ flight?.destination || 'N/A' }}</p>
+      <p><strong>Landing:</strong> {{ flight?.landing ? (flight?.landing | date: 'dd/MM/yyyy HH:mm') : 'N/A' }}</p>
+
+      <p><strong>No. of Passengers:</strong> {{ bookingDetails?.passengers?.length || 'N/A' }}</p>
+
+      <p *ngIf="bookingDetails?.totalPrice">
+        <strong>Total Price (Before Discount):</strong> ${{ bookingDetails?.totalPrice?.toFixed(2) }}
+      </p>
+
+      <p>
+        <strong>
+          Final Price {{ bookingDetails?.discountPercentage && bookingDetails?.discountPercentage > 0 ? '(After Discount)' : '' }}:
+        </strong> 
+        ${{ bookingDetails?.finalPrice?.toFixed(2) }}
+      </p>
+      
+      <p *ngIf="bookingDetails?.discountPercentage && bookingDetails?.discountPercentage > 0">
+        <strong>Discount:</strong> -{{ bookingDetails?.discountPercentage }}%
+      </p>
+      <p *ngIf="bookingDetails?.usedCoupon">
+        <strong>Used Coupon:</strong> {{ bookingDetails?.usedCoupon }}
+      </p>
+      <div class="button-container">
+        <button mat-raised-button color="accent" (click)="togglePassengerList()">
+          {{ showPassengers ? 'Hide Passengers' : 'Show Passengers' }}
+        </button>
+      </div>
+
+      <div *ngIf="showPassengers">
+        <h3>Passenger List:</h3>
+        <div *ngFor="let passenger of bookingDetails?.passengers; let i = index" class="passenger-details">
+          <p><strong>Passenger {{ i + 1 }}</strong></p>
+          <p><strong>Name:</strong> {{ passenger?.name || 'N/A' }}</p>
+          <p><strong>Passport no.:</strong> {{ passenger?.passport || 'N/A' }}</p>
+
+          <p><strong>Luggage Details:</strong></p>
+          <p><strong>Total Items:</strong> {{ getTotalLuggage(passenger.luggage) }}</p>
+          <p><strong>Total Weight:</strong> {{ getTotalWeight(passenger.luggage) }} kg</p>
+
+          <!-- ✅ Edit Luggage Button (Only for Upcoming Bookings) -->
+          <button *ngIf="isUpcoming" mat-raised-button color="primary" (click)="openLuggageDialog(passenger)">
+            <mat-icon>luggage</mat-icon> Edit Luggage
+          </button>
+
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" routerLink="/my-bookings">Back</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>
+
+
+<ng-template #errorTemplate>
+  <mat-card>
+    <h2 class="error-title">Error</h2>
+    <p>{{ errorMessage }}</p>
+  </mat-card>
+</ng-template>
+
+<ng-template #loadingTemplate>
+  <mat-card>
+    <p class="loading-text">Loading the booking details...</p>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card>
+</ng-template>

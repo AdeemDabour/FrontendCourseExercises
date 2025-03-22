@@ -1,0 +1,58 @@
+<div class="form-container">
+  <!-- Flight Details -->
+  <ng-container *ngIf="!errorMessage; else errorTemplate">
+    <mat-card class="flight-card">
+      <h2 class="glitter-text">Flight Details</h2>
+      <mat-divider></mat-divider>
+      <mat-card-header>
+        <mat-card-title>
+          Flight No.: {{ flight?.flightNo }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          Origin: {{ flight?.origin }}
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+          Destination: {{ flight?.destination }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <strong>Boarding: </strong>
+            <span>{{ flight?.boarding | date: 'dd/MM/yyyy HH:mm' }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <strong>Landing: </strong>
+            <span>{{ flight?.landing | date: 'dd/MM/yyyy HH:mm' }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <strong>No. of Seats: </strong>
+            <span>{{ flight?.seats }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <div [routerLink]="['/manage-flights']" class="button-container">
+          <button mat-raised-button color="primary">Back</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+
+  <!-- Error Template -->
+  <ng-template #errorTemplate>
+    <mat-card class="error-card">
+      <h2 class="error-title">Error</h2>
+      <p>{{ errorMessage }}</p>
+      <mat-card-actions align="end">
+        <div [routerLink]="['/manage-flights']" class="button-container">
+          <button mat-raised-button color="primary">Back</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+</div>

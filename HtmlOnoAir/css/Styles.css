@@ -1,0 +1,144 @@
+/* Global page styles */
+html, body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(#0000FF, #4682B4, #5F9EA0, #87CEEB, #ADD8E6);
+    color: #333;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Styles for the form container */
+.form-container {
+    padding: 20px;
+    margin: 40px auto;
+    border: 2px solid #094f09;
+    border-radius: 10px;
+    width: 90%;
+    background: linear-gradient(145deg, #e0f7fa, #b2ebf2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    animation: glow 3s infinite;
+    overflow-x: auto;
+    color: #333;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+/* Animation for glowing effect */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+    }
+}
+
+/* Styles for a container holding links */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+/* Styles for input fields and labels in forms */
+.input-container {
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.input-container label {
+    width: 150px;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.input-container input {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for select elements to match input fields */
+.input-container select {
+    width: 225px;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for error messages */
+.error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 5px;
+    margin-left: 10px;
+    display: block;
+}
+.global-errors {
+    color: red;
+    font-size: 20px;
+    display: block;
+    text-align: left;
+}
+
+.links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+/* Styles for a popup container */
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 2px solid green;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    width: 25%;
+}
+
+/* Styles for the title inside the popup */
+.popup-title {
+    color: green;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Styles for a list inside the popup */
+.popup-details {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.popup-details li {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.5;
+}

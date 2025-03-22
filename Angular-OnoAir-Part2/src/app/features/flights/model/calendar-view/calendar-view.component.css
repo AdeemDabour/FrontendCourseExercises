@@ -1,0 +1,20 @@
+.date-picker-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.button-container {
+    background-color: #7e013f;
+    color: white;
+    font-size: 14px;
+    width: 100px;
+    height: 55px;
+    margin-top: 10px;
+}
+
+mat-form-field {
+    margin-top: 10px;
+    flex: 1;
+    min-width: 200px;
+}

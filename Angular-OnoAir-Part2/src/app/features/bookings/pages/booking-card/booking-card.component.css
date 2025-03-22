@@ -1,0 +1,82 @@
+.booking-card {
+    display: flex;
+    width: 1000px;
+    padding: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.image-container {
+    aspect-ratio: 1 / 1;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    margin: 15px;
+    border-radius: 8px;
+}
+
+.image-container img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.details-container {
+    flex-grow: 1;
+    padding: 16px;
+    margin: 0 0 8px;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.details-container p {
+    margin: 4px 0;
+    color: #555;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+    padding: 16px;
+}
+
+.bookings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    justify-content: center;
+    align-items: stretch;
+    padding: 16px;
+}
+
+@media (max-width: 768px) {
+    .bookings-container {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-card {
+        width: 100%;
+    }
+}
+
+.canceled-indicator {
+    color: red;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+mat-icon {
+    margin-right: 8px;
+    overflow: visible;
+}

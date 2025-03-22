@@ -1,0 +1,22 @@
+<div class="date-picker-container">
+  <!-- Boarding Date -->
+  <mat-form-field appearance="fill">
+    <mat-label>Boarding Date</mat-label>
+    <input matInput [matDatepicker]="boardingPicker" (dateChange)="onBoardingDateSelected($event)"
+      placeholder="Select boarding date" [min]="today">
+    <mat-datepicker-toggle matSuffix [for]="boardingPicker"></mat-datepicker-toggle>
+    <mat-datepicker #boardingPicker [startAt]="today"></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Landing Date -->
+  <mat-form-field appearance="fill">
+    <mat-label>Landing Date</mat-label>
+    <input matInput [matDatepicker]="landingPicker" (dateChange)="onLandingDateSelected($event)"
+      placeholder="Select landing date" [min]="boardingDate || today">
+    <mat-datepicker-toggle matSuffix [for]="landingPicker"></mat-datepicker-toggle>
+    <mat-datepicker #landingPicker></mat-datepicker>
+  </mat-form-field>
+  
+  <!--Clear Button-->
+  <button class="button-container" mat-button color="warn" (click)="clearDates()">Clear Dates </button>
+</div>

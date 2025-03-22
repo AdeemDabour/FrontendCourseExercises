@@ -1,0 +1,15 @@
+<!-- Toggle Between Specific & Flexible Dates -->
+<div class="date-toggle">
+  <button mat-button [class.active]="mode === 'specific'" (click)="setMode('specific')">Specific Dates</button>
+  <button mat-button [class.active]="mode === 'flexible'" (click)="setMode('flexible')">Flexible Dates</button>
+</div>
+
+<!-- Specific Dates Selection -->
+<div *ngIf="mode === 'specific'">
+  <app-calendar-view (dateSelectionChange)="onDatesSelected($event)"></app-calendar-view>
+</div>
+
+<!-- Flexible Dates Selection (Month Grid) -->
+<div *ngIf="mode === 'flexible'">
+  <app-month-grid-view (monthSelectionChange)="onMonthsSelected($event)"></app-month-grid-view>
+</div>
