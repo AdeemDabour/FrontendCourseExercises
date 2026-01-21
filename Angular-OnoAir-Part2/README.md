@@ -7,13 +7,7 @@ Modern flight browsing and information system built with Angular and Firebase. T
 **🚀 Try it now:** https://onoair-3a09d.web.app
 
 Experience the live application deployed on Firebase Hosting with real-time flight data.
-READ-ONLY-ATM , everything works , it fetch from database , but doesn't upload to it since it require authentication.
----
-
-## 📸 Screenshots
-
-*Interactive flight browsing interface with calendar views and real-time updates*
-
+READ-ONLY-ATM , everything works , it fetch from database , but doesn't upload to it since it requires authentication.
 ---
 
 ## ✨ Features
